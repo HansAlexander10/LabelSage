@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Icon</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<style>
+@import url("https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&display=swap");
+body{margin:0;font-family:"Outfit","SF Pro Rounded",ui-rounded,-apple-system,system-ui,sans-serif}
+@keyframes ic-shimmer{0%{background-position:-120px 0}100%{background-position:120px 0}}
+.ic-load{background:linear-gradient(90deg,#f3ead8 0%,#fbf5e8 45%,#f3ead8 90%);background-size:240px 100%;animation:ic-shimmer 1.6s linear infinite}
+@media (prefers-reduced-motion:reduce){.ic-load{animation:none}}
+</style>
+</helmet>
+<!-- One icon from the LabelSage library (icons.json). Loaded: the 3D image. No icon for this ingredient, or the image does not load: a letter tile, never an error. -->
+<span style="{{box}}">
+  <sc-if value="{{showImg}}" hint-placeholder-val="{{ true }}"><img src="{{src}}" alt="{{alt}}" width="{{size}}" height="{{size}}" onLoad="{{loaded}}" onError="{{failed}}" style="{{imgStyle}}"></sc-if>
+  <sc-if value="{{showLoading}}" hint-placeholder-val="{{ false }}"><span aria-hidden="true" class="ic-load" style="{{tile}}"></span></sc-if>
+  <sc-if value="{{showLetter}}" hint-placeholder-val="{{ false }}"><span role="img" aria-label="{{alt}}" style="{{tile}}"><span style="{{letter}}">{{initial}}</span></span></sc-if>
+</span>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"k":{"editor":"text","default":"peanut"},"label":{"editor":"text","default":""},"size":{"editor":"number","default":48},"state":{"editor":"enum","options":["auto","loading","missing","failed"],"default":"auto"},"$preview":{"width":48,"height":48}}'>
+class Component extends DCLogic {
+  constructor(props) { super(props); this.state = { st: 'loading' }; }
+  componentDidUpdate(prev) { if (prev.k !== this.props.k && this.state.st !== 'loading') this.setState({ st: 'loading' }); }
+  renderVals() {
+    const REG = window.__lwIcons || (window.__lwIcons = (() => { try { const x = new XMLHttpRequest(); x.open('GET', 'icons.json', false); x.send(); if (x.status === 200) return JSON.parse(x.responseText); } catch (e) {} return { icons: {}, aliases: {} }; })()); /* the library lives in icons.json */
+    const p = this.props, size = Number(p.size) || 48;
+    const raw = String(p.k || '').toLowerCase().trim();
+    const key = REG.icons[raw] ? raw : (REG.aliases && REG.aliases[raw]) || '';
+    const entry = REG.icons[key];
+    const label = p.label || (entry && entry.label) || raw || '?';
+    // preview override for the states board; otherwise real behaviour
+    const forced = p.state && p.state !== 'auto' ? p.state : '';
+    let st = forced || (entry ? this.state.st : 'missing');
+    const showImg = !!entry && (st === 'loading' || st === 'ok') && forced !== 'loading';
+    const r = Math.round(size * 0.28);
+    return {
+      size, src: entry ? entry.file : '', alt: label, initial: label.charAt(0).toUpperCase(),
+      box: 'position: relative; display: inline-grid; place-items: center; width: ' + size + 'px; height: ' + size + 'px; flex: none; vertical-align: middle;',
+      imgStyle: 'width: ' + size + 'px; height: ' + size + 'px; object-fit: contain;' + (st === 'loading' && !forced ? ' opacity: 0;' : ''),
+      showImg, showLoading: st === 'loading', showLetter: st === 'missing' || st === 'failed',
+      tile: 'position: absolute; inset: ' + Math.round(size * 0.06) + 'px; border-radius: ' + r + 'px; display: grid; place-items: center; background: #f3ead8; box-shadow: inset 0 -' + Math.max(2, Math.round(size * 0.06)) + 'px 0 rgba(122,90,40,0.12), inset 0 ' + Math.max(1, Math.round(size * 0.04)) + 'px 0 rgba(255,255,255,0.7);',
+      letter: 'font-size: ' + Math.round(size * 0.46) + 'px; font-weight: 700; line-height: 1; color: #8a6a3a;',
+      loaded: () => { if (this.state.st !== 'ok') this.setState({ st: 'ok' }); },
+      failed: () => { if (this.state.st !== 'failed') this.setState({ st: 'failed' }); }
+    };
+  }
+}
+</script>
+</body>
+</html>

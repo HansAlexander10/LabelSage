@@ -1,0 +1,961 @@
+{
+ "version": 1,
+ "updated": "2026-10-23",
+ "size": 96,
+ "sources": {
+  "fluent": "Microsoft Fluent Emoji 3D, MIT License, github.com/microsoft/fluentui-emoji"
+ },
+ "fallback": {
+  "missing": "Letter tile: first letter of the label on a sand tile. Used when no icon exists for the ingredient.",
+  "failed": "Same letter tile when the image does not load (server down, offline, broken file). Never an error message.",
+  "loading": "Soft sand tile with a slow shimmer, at most 600 ms before the letter tile shows."
+ },
+ "categories": [
+  {
+   "id": "allergens",
+   "title": "Main allergens",
+   "note": "The 9 US major allergens plus the extra EU ones"
+  },
+  {
+   "id": "treenuts",
+   "title": "Tree nuts",
+   "note": "Each nut can be picked on its own"
+  },
+  {
+   "id": "seafood",
+   "title": "Fish and shellfish",
+   "note": "Fish, crustaceans and molluscs"
+  },
+  {
+   "id": "more",
+   "title": "Other allergens and sensitivities",
+   "note": "Less common allergens and food sensitivities"
+  },
+  {
+   "id": "ingredients",
+   "title": "Ingredients people avoid",
+   "note": "From the “Anything else?” step and the ingredient catalog"
+  },
+  {
+   "id": "diets",
+   "title": "Diets",
+   "note": "Each diet adds its own ingredient list"
+  },
+  {
+   "id": "religion",
+   "title": "Religion and culture",
+   "note": "Hidden ingredients like gelatin and animal fats"
+  },
+  {
+   "id": "medical",
+   "title": "Medical and health",
+   "note": "Medical diets and health goals"
+  },
+  {
+   "id": "goals",
+   "title": "Macros and calories",
+   "note": "Numbers people track"
+  },
+  {
+   "id": "people",
+   "title": "People",
+   "note": "Who you shop for"
+  },
+  {
+   "id": "app",
+   "title": "App and verdicts",
+   "note": "Actions, verdict helpers and trust"
+  }
+ ],
+ "icons": {
+  "peanut": {
+   "file": "emoji3d/peanuts.png",
+   "label": "Peanut",
+   "category": "allergens",
+   "source": "fluent"
+  },
+  "treenuts": {
+   "file": "emoji3d/chestnut.png",
+   "label": "Tree nuts",
+   "category": "allergens",
+   "source": "fluent"
+  },
+  "milk": {
+   "file": "emoji3d/glass_of_milk.png",
+   "label": "Milk",
+   "category": "allergens",
+   "source": "fluent"
+  },
+  "egg": {
+   "file": "emoji3d/egg.png",
+   "label": "Egg",
+   "category": "allergens",
+   "source": "fluent"
+  },
+  "soy": {
+   "file": "emoji3d/beans.png",
+   "label": "Soy",
+   "category": "allergens",
+   "source": "fluent"
+  },
+  "wheat": {
+   "file": "emoji3d/sheaf_of_rice.png",
+   "label": "Wheat",
+   "category": "allergens",
+   "source": "fluent",
+   "standIn": true
+  },
+  "fish": {
+   "file": "emoji3d/fish.png",
+   "label": "Fish",
+   "category": "allergens",
+   "source": "fluent"
+  },
+  "shellfish": {
+   "file": "emoji3d/shrimp.png",
+   "label": "Shellfish",
+   "category": "allergens",
+   "source": "fluent"
+  },
+  "sesame": {
+   "file": "emoji3d/bagel.png",
+   "label": "Sesame",
+   "category": "allergens",
+   "source": "fluent",
+   "standIn": true
+  },
+  "gluten": {
+   "file": "emoji3d/bread.png",
+   "label": "Gluten",
+   "category": "allergens",
+   "source": "fluent"
+  },
+  "mustard": {
+   "file": "emoji3d/hot_dog.png",
+   "label": "Mustard",
+   "category": "allergens",
+   "source": "fluent",
+   "standIn": true
+  },
+  "celery": {
+   "file": "emoji3d/leafy_green.png",
+   "label": "Celery",
+   "category": "allergens",
+   "source": "fluent",
+   "standIn": true
+  },
+  "lupin": {
+   "file": "emoji3d/beans.png",
+   "label": "Lupin",
+   "category": "allergens",
+   "source": "fluent",
+   "standIn": true
+  },
+  "sulfites": {
+   "file": "emoji3d/wine_glass.png",
+   "label": "Sulfites",
+   "category": "allergens",
+   "source": "fluent"
+  },
+  "molluscs": {
+   "file": "emoji3d/squid.png",
+   "label": "Molluscs",
+   "category": "allergens",
+   "source": "fluent"
+  },
+  "almond": {
+   "file": "emoji3d/chestnut.png",
+   "label": "Almond",
+   "category": "treenuts",
+   "source": "fluent",
+   "standIn": true
+  },
+  "cashew": {
+   "file": "emoji3d/chestnut.png",
+   "label": "Cashew",
+   "category": "treenuts",
+   "source": "fluent",
+   "standIn": true
+  },
+  "walnut": {
+   "file": "emoji3d/chestnut.png",
+   "label": "Walnut",
+   "category": "treenuts",
+   "source": "fluent",
+   "standIn": true
+  },
+  "pecan": {
+   "file": "emoji3d/chestnut.png",
+   "label": "Pecan",
+   "category": "treenuts",
+   "source": "fluent",
+   "standIn": true
+  },
+  "pistachio": {
+   "file": "emoji3d/chestnut.png",
+   "label": "Pistachio",
+   "category": "treenuts",
+   "source": "fluent",
+   "standIn": true
+  },
+  "hazelnut": {
+   "file": "emoji3d/chestnut.png",
+   "label": "Hazelnut",
+   "category": "treenuts",
+   "source": "fluent",
+   "standIn": true
+  },
+  "macadamia": {
+   "file": "emoji3d/chestnut.png",
+   "label": "Macadamia",
+   "category": "treenuts",
+   "source": "fluent",
+   "standIn": true
+  },
+  "brazilnut": {
+   "file": "emoji3d/chestnut.png",
+   "label": "Brazil nut",
+   "category": "treenuts",
+   "source": "fluent",
+   "standIn": true
+  },
+  "pinenut": {
+   "file": "emoji3d/chestnut.png",
+   "label": "Pine nut",
+   "category": "treenuts",
+   "source": "fluent",
+   "standIn": true
+  },
+  "chestnut": {
+   "file": "emoji3d/chestnut.png",
+   "label": "Chestnut",
+   "category": "treenuts",
+   "source": "fluent"
+  },
+  "coconut": {
+   "file": "emoji3d/coconut.png",
+   "label": "Coconut",
+   "category": "treenuts",
+   "source": "fluent"
+  },
+  "fish2": {
+   "file": "emoji3d/fish.png",
+   "label": "Fish",
+   "category": "seafood",
+   "source": "fluent"
+  },
+  "tropicalfish": {
+   "file": "emoji3d/tropical_fish.png",
+   "label": "White fish",
+   "category": "seafood",
+   "source": "fluent"
+  },
+  "shrimp": {
+   "file": "emoji3d/shrimp.png",
+   "label": "Shrimp",
+   "category": "seafood",
+   "source": "fluent"
+  },
+  "crab": {
+   "file": "emoji3d/crab.png",
+   "label": "Crab",
+   "category": "seafood",
+   "source": "fluent"
+  },
+  "lobster": {
+   "file": "emoji3d/lobster.png",
+   "label": "Lobster",
+   "category": "seafood",
+   "source": "fluent"
+  },
+  "oyster": {
+   "file": "emoji3d/oyster.png",
+   "label": "Oysters",
+   "category": "seafood",
+   "source": "fluent"
+  },
+  "mussel": {
+   "file": "emoji3d/oyster.png",
+   "label": "Mussels",
+   "category": "seafood",
+   "source": "fluent",
+   "standIn": true
+  },
+  "squid": {
+   "file": "emoji3d/squid.png",
+   "label": "Squid",
+   "category": "seafood",
+   "source": "fluent"
+  },
+  "octopus": {
+   "file": "emoji3d/octopus.png",
+   "label": "Octopus",
+   "category": "seafood",
+   "source": "fluent"
+  },
+  "sushi": {
+   "file": "emoji3d/sushi.png",
+   "label": "Sushi and raw fish",
+   "category": "seafood",
+   "source": "fluent"
+  },
+  "corn": {
+   "file": "emoji3d/ear_of_corn.png",
+   "label": "Corn",
+   "category": "more",
+   "source": "fluent"
+  },
+  "kiwi": {
+   "file": "emoji3d/kiwi_fruit.png",
+   "label": "Kiwi",
+   "category": "more",
+   "source": "fluent"
+  },
+  "banana": {
+   "file": "emoji3d/banana.png",
+   "label": "Banana",
+   "category": "more",
+   "source": "fluent"
+  },
+  "strawberry": {
+   "file": "emoji3d/strawberry.png",
+   "label": "Strawberry",
+   "category": "more",
+   "source": "fluent"
+  },
+  "peach": {
+   "file": "emoji3d/peach.png",
+   "label": "Peach and stone fruit",
+   "category": "more",
+   "source": "fluent"
+  },
+  "tomato": {
+   "file": "emoji3d/tomato.png",
+   "label": "Tomato",
+   "category": "more",
+   "source": "fluent"
+  },
+  "nightshades": {
+   "file": "emoji3d/eggplant.png",
+   "label": "Nightshades",
+   "category": "more",
+   "source": "fluent"
+  },
+  "potato": {
+   "file": "emoji3d/potato.png",
+   "label": "Potato",
+   "category": "more",
+   "source": "fluent"
+  },
+  "bellpepper": {
+   "file": "emoji3d/bell_pepper.png",
+   "label": "Bell pepper",
+   "category": "more",
+   "source": "fluent"
+  },
+  "chili": {
+   "file": "emoji3d/hot_pepper.png",
+   "label": "Chili",
+   "category": "more",
+   "source": "fluent"
+  },
+  "garlic": {
+   "file": "emoji3d/garlic.png",
+   "label": "Garlic",
+   "category": "more",
+   "source": "fluent"
+  },
+  "onion": {
+   "file": "emoji3d/onion.png",
+   "label": "Onion",
+   "category": "more",
+   "source": "fluent"
+  },
+  "mushroom": {
+   "file": "emoji3d/mushroom.png",
+   "label": "Mushrooms",
+   "category": "more",
+   "source": "fluent"
+  },
+  "peas": {
+   "file": "emoji3d/pea_pod.png",
+   "label": "Peas and legumes",
+   "category": "more",
+   "source": "fluent"
+  },
+  "redmeat": {
+   "file": "emoji3d/cut_of_meat.png",
+   "label": "Red meat (alpha-gal)",
+   "category": "more",
+   "source": "fluent"
+  },
+  "lactose": {
+   "file": "emoji3d/cheese_wedge.png",
+   "label": "Lactose",
+   "category": "more",
+   "source": "fluent"
+  },
+  "histamine": {
+   "file": "emoji3d/cheese_wedge.png",
+   "label": "High-histamine foods",
+   "category": "more",
+   "source": "fluent"
+  },
+  "sugar": {
+   "file": "emoji3d/candy.png",
+   "label": "Added sugars",
+   "category": "ingredients",
+   "source": "fluent"
+  },
+  "syrup": {
+   "file": "emoji3d/honey_pot.png",
+   "label": "Corn syrup and syrups",
+   "category": "ingredients",
+   "source": "fluent"
+  },
+  "sweet": {
+   "file": "emoji3d/lollipop.png",
+   "label": "Artificial sweeteners",
+   "category": "ingredients",
+   "source": "fluent"
+  },
+  "flavors": {
+   "file": "emoji3d/test_tube.png",
+   "label": "Natural flavors",
+   "category": "ingredients",
+   "source": "fluent"
+  },
+  "seed": {
+   "file": "emoji3d/sunflower.png",
+   "label": "Seed oils",
+   "category": "ingredients",
+   "source": "fluent"
+  },
+  "palm": {
+   "file": "emoji3d/palm_tree.png",
+   "label": "Palm oil",
+   "category": "ingredients",
+   "source": "fluent"
+  },
+  "olive": {
+   "file": "emoji3d/olive.png",
+   "label": "Olive oil",
+   "category": "ingredients",
+   "source": "fluent"
+  },
+  "gums": {
+   "file": "emoji3d/jar.png",
+   "label": "Gums and thickeners",
+   "category": "ingredients",
+   "source": "fluent"
+  },
+  "preserv": {
+   "file": "emoji3d/canned_food.png",
+   "label": "Preservatives",
+   "category": "ingredients",
+   "source": "fluent"
+  },
+  "nitrite": {
+   "file": "emoji3d/bacon.png",
+   "label": "Nitrites",
+   "category": "ingredients",
+   "source": "fluent"
+  },
+  "msg": {
+   "file": "emoji3d/salt.png",
+   "label": "MSG and yeast extract",
+   "category": "ingredients",
+   "source": "fluent"
+  },
+  "colors": {
+   "file": "emoji3d/artist_palette.png",
+   "label": "Artificial colors",
+   "category": "ingredients",
+   "source": "fluent"
+  },
+  "gelatin": {
+   "file": "emoji3d/custard.png",
+   "label": "Gelatin",
+   "category": "ingredients",
+   "source": "fluent"
+  },
+  "pork": {
+   "file": "emoji3d/pig_face.png",
+   "label": "Pork and lard",
+   "category": "ingredients",
+   "source": "fluent"
+  },
+  "caffeine": {
+   "file": "emoji3d/hot_beverage.png",
+   "label": "Caffeine",
+   "category": "ingredients",
+   "source": "fluent"
+  },
+  "alcohol": {
+   "file": "emoji3d/beer_mug.png",
+   "label": "Alcohol",
+   "category": "ingredients",
+   "source": "fluent"
+  },
+  "cilantro": {
+   "file": "emoji3d/herb.png",
+   "label": "Herbs like cilantro",
+   "category": "ingredients",
+   "source": "fluent"
+  },
+  "butter": {
+   "file": "emoji3d/butter.png",
+   "label": "Butter and dairy fat",
+   "category": "ingredients",
+   "source": "fluent"
+  },
+  "bioengineered": {
+   "file": "emoji3d/dna.png",
+   "label": "Bioengineered",
+   "category": "ingredients",
+   "source": "fluent"
+  },
+  "ultraprocessed": {
+   "file": "emoji3d/factory.png",
+   "label": "Ultra-processed",
+   "category": "ingredients",
+   "source": "fluent"
+  },
+  "sodium": {
+   "file": "emoji3d/salt.png",
+   "label": "Sodium",
+   "category": "ingredients",
+   "source": "fluent"
+  },
+  "vegan": {
+   "file": "emoji3d/leafy_green.png",
+   "label": "Vegan",
+   "category": "diets",
+   "source": "fluent"
+  },
+  "vegetarian": {
+   "file": "emoji3d/carrot.png",
+   "label": "Vegetarian",
+   "category": "diets",
+   "source": "fluent"
+  },
+  "pescatarian": {
+   "file": "emoji3d/fish.png",
+   "label": "Pescatarian",
+   "category": "diets",
+   "source": "fluent"
+  },
+  "keto": {
+   "file": "emoji3d/avocado.png",
+   "label": "Keto",
+   "category": "diets",
+   "source": "fluent"
+  },
+  "paleo": {
+   "file": "emoji3d/cut_of_meat.png",
+   "label": "Paleo or whole food",
+   "category": "diets",
+   "source": "fluent"
+  },
+  "lowfodmap": {
+   "file": "emoji3d/onion.png",
+   "label": "Low FODMAP",
+   "category": "diets",
+   "source": "fluent"
+  },
+  "dairyfree": {
+   "file": "emoji3d/glass_of_milk.png",
+   "label": "Dairy-free",
+   "category": "diets",
+   "source": "fluent"
+  },
+  "glutenfree": {
+   "file": "emoji3d/sheaf_of_rice.png",
+   "label": "Gluten-free",
+   "category": "diets",
+   "source": "fluent"
+  },
+  "organic": {
+   "file": "emoji3d/seedling.png",
+   "label": "Organic",
+   "category": "diets",
+   "source": "fluent"
+  },
+  "local": {
+   "file": "emoji3d/round_pushpin.png",
+   "label": "Local",
+   "category": "diets",
+   "source": "fluent"
+  },
+  "halal": {
+   "file": "emoji3d/star_and_crescent.png",
+   "label": "Halal",
+   "category": "religion",
+   "source": "fluent"
+  },
+  "kosher": {
+   "file": "emoji3d/star_of_david.png",
+   "label": "Kosher",
+   "category": "religion",
+   "source": "fluent"
+  },
+  "nobeef": {
+   "file": "emoji3d/cow_face.png",
+   "label": "No beef",
+   "category": "religion",
+   "source": "fluent"
+  },
+  "hindu": {
+   "file": "emoji3d/om.png",
+   "label": "Hindu vegetarian",
+   "category": "religion",
+   "source": "fluent"
+  },
+  "buddhist": {
+   "file": "emoji3d/wheel_of_dharma.png",
+   "label": "Buddhist vegetarian",
+   "category": "religion",
+   "source": "fluent"
+  },
+  "fasting": {
+   "file": "emoji3d/latin_cross.png",
+   "label": "Lent and fasting",
+   "category": "religion",
+   "source": "fluent"
+  },
+  "religion": {
+   "file": "emoji3d/place_of_worship.png",
+   "label": "Other",
+   "category": "religion",
+   "source": "fluent"
+  },
+  "medical": {
+   "file": "emoji3d/stethoscope.png",
+   "label": "Medical diet",
+   "category": "medical",
+   "source": "fluent"
+  },
+  "celiac": {
+   "file": "emoji3d/sheaf_of_rice.png",
+   "label": "Celiac",
+   "category": "medical",
+   "source": "fluent"
+  },
+  "heart": {
+   "file": "emoji3d/anatomical_heart.png",
+   "label": "Heart health",
+   "category": "medical",
+   "source": "fluent"
+  },
+  "bloodsugar": {
+   "file": "emoji3d/drop_of_blood.png",
+   "label": "Blood sugar",
+   "category": "medical",
+   "source": "fluent"
+  },
+  "pregnancy": {
+   "file": "emoji3d/pregnant_woman.png",
+   "label": "Pregnancy",
+   "category": "medical",
+   "source": "fluent"
+  },
+  "medication": {
+   "file": "emoji3d/pill.png",
+   "label": "Medication",
+   "category": "medical",
+   "source": "fluent"
+  },
+  "allergy": {
+   "file": "emoji3d/warning.png",
+   "label": "Allergy or intolerance",
+   "category": "medical",
+   "source": "fluent"
+  },
+  "dislike": {
+   "file": "emoji3d/neutral_face.png",
+   "label": "Just don’t like it",
+   "category": "medical",
+   "source": "fluent"
+  },
+  "protein": {
+   "file": "emoji3d/flexed_biceps.png",
+   "label": "Protein",
+   "category": "goals",
+   "source": "fluent"
+  },
+  "calories": {
+   "file": "emoji3d/fire.png",
+   "label": "Calories",
+   "category": "goals",
+   "source": "fluent"
+  },
+  "macros": {
+   "file": "emoji3d/bar_chart.png",
+   "label": "Macros",
+   "category": "goals",
+   "source": "fluent"
+  },
+  "weight": {
+   "file": "emoji3d/balance_scale.png",
+   "label": "Weight",
+   "category": "goals",
+   "source": "fluent"
+  },
+  "health": {
+   "file": "emoji3d/red_heart.png",
+   "label": "Apple Health",
+   "category": "goals",
+   "source": "fluent"
+  },
+  "me": {
+   "file": "emoji3d/bust_in_silhouette.png",
+   "label": "Me",
+   "category": "people",
+   "source": "fluent"
+  },
+  "family": {
+   "file": "emoji3d/busts_in_silhouette.png",
+   "label": "My family",
+   "category": "people",
+   "source": "fluent"
+  },
+  "woman": {
+   "file": "emoji3d/woman.png",
+   "label": "Woman",
+   "category": "people",
+   "source": "fluent"
+  },
+  "man": {
+   "file": "emoji3d/man.png",
+   "label": "Man",
+   "category": "people",
+   "source": "fluent"
+  },
+  "girl": {
+   "file": "emoji3d/girl.png",
+   "label": "Girl",
+   "category": "people",
+   "source": "fluent"
+  },
+  "boy": {
+   "file": "emoji3d/boy.png",
+   "label": "Boy",
+   "category": "people",
+   "source": "fluent"
+  },
+  "baby": {
+   "file": "emoji3d/baby.png",
+   "label": "Baby",
+   "category": "people",
+   "source": "fluent"
+  },
+  "older": {
+   "file": "emoji3d/older_person.png",
+   "label": "Older person",
+   "category": "people",
+   "source": "fluent"
+  },
+  "check": {
+   "file": "emoji3d/magnifying_glass_tilted_left.png",
+   "label": "Check a product",
+   "category": "app",
+   "source": "fluent"
+  },
+  "ask": {
+   "file": "emoji3d/label.png",
+   "label": "Ask about a product",
+   "category": "app",
+   "source": "fluent"
+  },
+  "options": {
+   "file": "emoji3d/sparkles.png",
+   "label": "Other options",
+   "category": "app",
+   "source": "fluent"
+  },
+  "camera": {
+   "file": "emoji3d/camera_with_flash.png",
+   "label": "Photo the ingredients",
+   "category": "app",
+   "source": "fluent"
+  },
+  "ok": {
+   "file": "emoji3d/check_mark_button.png",
+   "label": "OK for",
+   "category": "app",
+   "source": "fluent"
+  },
+  "notfor": {
+   "file": "emoji3d/prohibited.png",
+   "label": "Not for",
+   "category": "app",
+   "source": "fluent"
+  },
+  "checkfirst": {
+   "file": "emoji3d/warning.png",
+   "label": "Check first",
+   "category": "app",
+   "source": "fluent"
+  },
+  "cantconfirm": {
+   "file": "emoji3d/red_question_mark.png",
+   "label": "Can’t confirm",
+   "category": "app",
+   "source": "fluent"
+  },
+  "gotos": {
+   "file": "emoji3d/red_heart.png",
+   "label": "Go-tos",
+   "category": "app",
+   "source": "fluent"
+  },
+  "private": {
+   "file": "emoji3d/locked.png",
+   "label": "Stays on your iPhone",
+   "category": "app",
+   "source": "fluent"
+  },
+  "phone": {
+   "file": "emoji3d/mobile_phone.png",
+   "label": "iPhone",
+   "category": "app",
+   "source": "fluent"
+  },
+  "hello": {
+   "file": "emoji3d/waving_hand.png",
+   "label": "Hello",
+   "category": "app",
+   "source": "fluent"
+  },
+  "add": {
+   "file": "emoji3d/plus.png",
+   "label": "Add",
+   "category": "app",
+   "source": "fluent"
+  }
+ },
+ "aliases": {
+  "peanuts": "peanut",
+  "groundnut": "peanut",
+  "tree nut": "treenuts",
+  "nuts": "treenuts",
+  "dairy": "milk",
+  "lactose": "lactose",
+  "cheese": "lactose",
+  "whey": "milk",
+  "casein": "milk",
+  "eggs": "egg",
+  "albumin": "egg",
+  "soya": "soy",
+  "soybean": "soy",
+  "edamame": "soy",
+  "lecithin": "soy",
+  "gluten": "gluten",
+  "flour": "wheat",
+  "barley": "gluten",
+  "rye": "gluten",
+  "malt": "gluten",
+  "spelt": "gluten",
+  "semolina": "gluten",
+  "prawn": "shrimp",
+  "prawns": "shrimp",
+  "scampi": "shrimp",
+  "crayfish": "lobster",
+  "clam": "mussel",
+  "clams": "mussel",
+  "scallop": "oyster",
+  "scallops": "oyster",
+  "calamari": "squid",
+  "salmon": "fish2",
+  "tuna": "fish2",
+  "cod": "tropicalfish",
+  "anchovy": "fish2",
+  "tahini": "sesame",
+  "halva": "sesame",
+  "dijon": "mustard",
+  "celeriac": "celery",
+  "lupine": "lupin",
+  "sulphites": "sulfites",
+  "wine": "sulfites",
+  "cornstarch": "corn",
+  "maize": "corn",
+  "corn syrup": "syrup",
+  "dextrose": "sugar",
+  "maltodextrin": "sugar",
+  "cane sugar": "sugar",
+  "sucralose": "sweet",
+  "aspartame": "sweet",
+  "stevia": "sweet",
+  "canola": "seed",
+  "sunflower oil": "seed",
+  "soybean oil": "seed",
+  "vegetable oil": "seed",
+  "palm kernel": "palm",
+  "xanthan": "gums",
+  "guar": "gums",
+  "carrageenan": "gums",
+  "sorbate": "preserv",
+  "benzoate": "preserv",
+  "nitrite": "nitrite",
+  "glutamate": "msg",
+  "yeast extract": "msg",
+  "red 40": "colors",
+  "titanium dioxide": "colors",
+  "caramel color": "colors",
+  "lard": "pork",
+  "bacon": "pork",
+  "beef": "nobeef",
+  "coffee": "caffeine",
+  "beer": "alcohol",
+  "cilantro": "cilantro",
+  "mushrooms": "mushroom",
+  "eggplant": "nightshades",
+  "paprika": "nightshades",
+  "gmo": "bioengineered",
+  "nova 4": "ultraprocessed",
+  "salt": "sodium",
+  "brazil nut": "brazilnut",
+  "pine nut": "pinenut",
+  "oysters": "oyster",
+  "mussels": "mussel",
+  "tree nuts": "treenuts",
+  "fish or shellfish": "shellfish",
+  "fish and shellfish": "shellfish",
+  "added sugars": "sugar",
+  "natural flavors": "flavors",
+  "seed oils": "seed",
+  "gums and thickeners": "gums",
+  "preservatives": "preserv",
+  "palm oil": "palm",
+  "msg and yeast extract": "msg",
+  "artificial sweeteners": "sweet",
+  "artificial colors": "colors",
+  "sodium nitrite": "nitrite",
+  "pork and lard": "pork",
+  "soy lecithin": "soy",
+  "canola oil": "seed",
+  "sunflower lecithin": "seed",
+  "almonds": "almond",
+  "walnuts": "walnut",
+  "cashews": "cashew",
+  "pecans": "pecan",
+  "pistachios": "pistachio",
+  "hazelnuts": "hazelnut",
+  "added sugar": "sugar",
+  "nightshade vegetables": "nightshades",
+  "gelatin (animal-derived)": "gelatin",
+  "flavor enhancers": "msg",
+  "artificial red colors": "colors",
+  "corn and corn derivatives": "corn",
+  "high-histamine foods": "histamine",
+  "histamine releasers": "histamine",
+  "bioengineered": "bioengineered",
+  "apple health": "health",
+  "protein goal": "protein",
+  "all tree nuts": "treenuts",
+  "all fish and shellfish": "shellfish",
+  "all fish": "fish",
+  "all shellfish": "shellfish"
+ },
+ "note": "Every icon is from Microsoft Fluent Emoji 3D. standIn: Fluent has no exact icon (individual tree nuts, sesame, mustard, celery, lupin, mussels, wheat), so the nearest one is used. Swap in exact art later by replacing the file; keys stay the same."
+}

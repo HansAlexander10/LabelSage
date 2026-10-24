@@ -1,0 +1,71 @@
+# XcodeGen spec for the LabelSage iPhone app: `cd app/frontend/ios && xcodegen generate` -> LabelSage.xcodeproj
+# iOS 27 (register D-29), Swift 6 language mode, main actor by default, approachable concurrency.
+# Bundle ID is a placeholder until the team picks one.
+name: LabelSage
+options:
+  bundleIdPrefix: app.labelsage
+  deploymentTarget:
+    iOS: "27.0"
+packages:
+  LabelSageCore:
+    path: ../../shared/LabelSageCore
+settings:
+  base:
+    SWIFT_VERSION: "6.0"
+    SWIFT_APPROACHABLE_CONCURRENCY: YES
+    CODE_SIGN_IDENTITY: "-"
+    CODE_SIGNING_REQUIRED: NO
+    DEVELOPMENT_TEAM: ""
+targets:
+  LabelSage:
+    type: application
+    platform: iOS
+    sources:
+      - path: LabelSage
+        excludes: ["Resources/Mascot/**"]
+      - path: LabelSage/Resources/Mascot
+        type: folder
+        buildPhase: resources
+    dependencies:
+      - package: LabelSageCore
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: app.labelsage.ios
+        SWIFT_DEFAULT_ACTOR_ISOLATION: MainActor
+        ASSETCATALOG_COMPILER_APPICON_NAME: AppIcon
+        TARGETED_DEVICE_FAMILY: "1"
+    info:
+      path: LabelSage/Info.plist
+      properties:
+        CFBundleDisplayName: LabelSage
+        UILaunchScreen: {}
+        UIAppFonts: [Outfit-VariableFont_wght.ttf]
+        UISupportedInterfaceOrientations: [UIInterfaceOrientationPortrait]
+        NSCameraUsageDescription: "LabelSage uses the camera to read barcodes and ingredient lists."
+  LabelSageTests:
+    type: bundle.unit-test
+    platform: iOS
+    sources: [LabelSageTests]
+    settings:
+      base:
+        GENERATE_INFOPLIST_FILE: YES
+    dependencies:
+      - target: LabelSage
+  LabelSageUITests:
+    type: bundle.ui-testing
+    platform: iOS
+    sources: [LabelSageUITests]
+    settings:
+      base:
+        GENERATE_INFOPLIST_FILE: YES
+    dependencies:
+      - target: LabelSage
+schemes:
+  LabelSage:
+    build:
+      targets:
+        LabelSage: all
+        LabelSageTests: [test]
+        LabelSageUITests: [test]
+    test:
+      targets: [LabelSageTests, LabelSageUITests]

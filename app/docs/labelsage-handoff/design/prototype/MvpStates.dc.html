@@ -1,0 +1,104 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>MVP states: not found, no label, camera, offline</title>
+<script src="./support.js"></script>
+<link rel="stylesheet" href="ds/aishoppingagent/tokens.css">
+</head>
+<body>
+<x-dc>
+<helmet>
+<style>
+@import url("https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&display=swap");body{margin:0;font-family:"Outfit","SF Pro Rounded",ui-rounded,-apple-system,system-ui,sans-serif;-webkit-font-smoothing:antialiased}
+a{color:#26834e}
+button{font-family:inherit;color:inherit}
+button:focus-visible,a:focus-visible{outline:2px solid #1b6b3e;outline-offset:2px}
+:root{--ease-out:cubic-bezier(0.23,1,0.32,1);--ease-drawer:cubic-bezier(0.32,0.72,0,1)}button,a{-webkit-tap-highlight-color:transparent;transition:transform 160ms var(--ease-out),background-color 160ms var(--ease-out)}button:active,a:active{transform:scale(0.97)}[role=radio]:active,[role=checkbox]:active,[role=option]:active,[role=menuitem]:active,[role=switch]:active{transform:none;background-color:rgba(118,118,128,0.12) !important}::selection{background:rgba(38,131,78,0.22)}@keyframes rc-sheet{from{transform:translateY(100%)}to{transform:none}}@keyframes rc-scrim{from{opacity:0}to{opacity:1}}@keyframes rc-pop{from{opacity:0;transform:scale(0.95)}to{opacity:1;transform:none}}.rc-sheet{animation:rc-sheet 420ms var(--ease-drawer) both}.rc-scrim{animation:rc-scrim 220ms var(--ease-out) both}.rc-pop{animation:rc-pop 180ms var(--ease-out) both}@media (prefers-reduced-motion:reduce){button:active,a:active{transform:none}.rc-sheet,.rc-pop{animation:rc-scrim 200ms ease both}}@media (prefers-reduced-transparency:reduce){[style*=backdrop-filter]{backdrop-filter:none !important;-webkit-backdrop-filter:none !important}}</style>
+<style>/* Liquid Glass (navigation layer only, per HIG). Frosted base everywhere; refraction where backdrop SVG filters work (Chromium). */:root{--lg-bg:rgba(255,255,255,0.52);--lg-bg-thick:rgba(255,255,255,0.8);--lg-bg-dark:rgba(255,255,255,0.14);--lg-edge:rgba(255,255,255,0.7);--lg-edge-dark:rgba(255,255,255,0.3);--lg-fx:blur(14px) saturate(180%);--lg-shadow:inset 0 0 2px 1px rgba(255,255,255,0.6),inset 0 0 10px 4px rgba(255,255,255,0.22),inset 0 4px 16px rgba(17,17,26,0.05),inset 0 8px 24px rgba(17,17,26,0.05),0 6px 20px rgba(0,0,0,0.10);--lg-shadow-float:inset 0 0 2px 1px rgba(255,255,255,0.6),inset 0 0 10px 4px rgba(255,255,255,0.22),0 12px 36px rgba(0,0,0,0.16);--lg-shadow-dark:inset 0 0 2px 1px rgba(255,255,255,0.35),inset 0 0 10px 4px rgba(255,255,255,0.12),0 6px 20px rgba(0,0,0,0.25)}@supports (not (font:-apple-system-body)) and (not (-moz-appearance:none)){:root{--lg-fx:url(#lg-filter) blur(2px) saturate(1.7)}}@media (prefers-reduced-transparency:reduce){:root{--lg-bg:rgba(255,255,255,0.97);--lg-bg-thick:#ffffff;--lg-bg-dark:rgba(44,44,46,0.94);--lg-fx:none}}@media (prefers-contrast:more){:root{--lg-edge:rgba(0,0,0,0.35);--lg-edge-dark:rgba(255,255,255,0.7)}}</style>
+</helmet>
+<div style="width: 1760px; box-sizing: border-box; padding: 40px; background: #ffffff; display: flex; gap: 40px; align-items: flex-start; font-family: 'Outfit', 'SF Pro Rounded', ui-rounded, -apple-system, system-ui, sans-serif"><svg aria-hidden="true" focusable="false" width="0" height="0" style="position: absolute; width: 0; height: 0; overflow: hidden"><defs><filter id="lg-filter" color-interpolation-filters="sRGB" x="0%" y="0%" width="100%" height="100%"><feImage x="0" y="0" width="100%" height="100%" preserveAspectRatio="none" result="map" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAIAAAACACAIAAABMXPacAAABRElEQVR42u3ZQQqDMBRF0RcNMbrqLr0DEdoN9ENzLo4cviMisbX2asmW9GQkI5nJTM6P63ruHMmRjKQne7JFSbIl+zPgPdGZzOT6nvEedjwDbklLepoBK+se42qAboRagGEEAEsDTCMAWBrgNAIAAAKwLMBlBF9BXkGqAziMAGBpAGdBxQCOo4sBdiPUAvgjVpr5AQAQAAACAEAAAAgAAAEAIAAABACAAAAQAAACAEAAAAgAAAEAIAAABACAAAAQAAACAEAAAAgAAAEAIAAABACAAAAQAAACAEAAAAgAAAEAIAAABAAAABMAACAAAAQAgAAAEAAAAgBAAAAIAAABACAAAATgL+sIqgF2I9QCdCPUAgwj1AIcRgCwNMBphFqAaYRagMsIXkEABACAfAUB0O8BnAUBWBvAcXQxgD9ixQDNCJW9Aa7lA8768ue5AAAAAElFTkSuQmCC"></feImage><feDisplacementMap in="SourceGraphic" in2="map" result="dispRed" scale="-14" xChannelSelector="R" yChannelSelector="G"></feDisplacementMap><feColorMatrix in="dispRed" type="matrix" values="1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0" result="red"></feColorMatrix><feDisplacementMap in="SourceGraphic" in2="map" result="dispGreen" scale="-17" xChannelSelector="R" yChannelSelector="G"></feDisplacementMap><feColorMatrix in="dispGreen" type="matrix" values="0 0 0 0 0 0 1 0 0 0 0 0 0 0 0 0 0 0 1 0" result="green"></feColorMatrix><feDisplacementMap in="SourceGraphic" in2="map" result="dispBlue" scale="-20" xChannelSelector="R" yChannelSelector="G"></feDisplacementMap><feColorMatrix in="dispBlue" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 1 0 0 0 0 0 1 0" result="blue"></feColorMatrix><feBlend in="red" in2="green" mode="screen" result="rg"></feBlend><feBlend in="rg" in2="blue" mode="screen" result="output"></feBlend><feGaussianBlur in="output" stdDeviation="2"></feGaussianBlur></filter></defs></svg>
+
+<!-- 1 NOT FOUND: the Scan screen itself, phase notfound -->
+<div style="display: flex; flex-direction: column; gap: 12px">
+  <div style="font-size: 15px; font-weight: 600; color: #26834e">1 · Barcode not found</div>
+  <div style="width: 390px; height: 844px; border-radius: 44px; overflow: hidden"><dc-import name="Scan" phase="notfound" hold="{{yes}}" hint-size="390px,844px"></dc-import></div>
+</div>
+
+<!-- 2 NO LABEL DATA: the Scan screen itself, phase nolabel -->
+<div style="display: flex; flex-direction: column; gap: 12px">
+  <div style="font-size: 15px; font-weight: 600; color: #26834e">2 · Found, but no ingredients yet</div>
+  <div style="width: 390px; height: 844px; border-radius: 44px; overflow: hidden"><dc-import name="Scan" phase="nolabel" hold="{{yes}}" hint-size="390px,844px"></dc-import></div>
+</div>
+
+<!-- 3 CAMERA DENIED -->
+<div style="display: flex; flex-direction: column; gap: 12px">
+  <div style="font-size: 15px; font-weight: 600; color: #26834e">3 · Camera access off</div>
+  <div style="width: 390px; height: 844px; border-radius: 44px; overflow: hidden; position: relative; background: #f2f2f7">
+    <div style="position: absolute; left: 16px; top: 54px"><a href="Chat.dc.html" aria-label="Close" style="{{lightBtn}}"><dc-import name="Sym" sym="xmark" size="{{s18}}" hint-size="18px,18px"></dc-import></a></div>
+    <div style="position: absolute; left: 32px; right: 32px; top: 230px; text-align: center">
+      <div style="display: flex; justify-content: center; align-items: flex-end; gap: 4px; margin-left: -60px"><span aria-hidden="true" style="flex: none"><dc-import name="Mascot" tight="{{yes}}" state="point" size="64" hint-size="64px,99px"></dc-import></span><div style="width: 88px; height: 88px; margin-bottom: 6px; border-radius: 26px; background: #ffffff; display: grid; place-items: center"><dc-import name="Sym" sym="camera" size="{{s40}}" color="#26834e" hint-size="40px,40px"></dc-import></div></div>
+      <h1 style="margin: 22px 0 0; font-size: 26px; line-height: 1.2; font-weight: 700; color: #1c1c1e">Allow the camera to check products</h1>
+      <p style="margin: 10px 0 0; font-size: 17px; line-height: 1.4; color: #4a4740">The barcode is read on your iPhone. No photos are saved or sent.</p>
+    </div>
+    <div style="position: absolute; left: 16px; right: 16px; bottom: 40px; display: flex; flex-direction: column; gap: 10px">
+      <button style="{{primaryFull}}">Open Settings</button>
+      <a href="Chat.dc.html" style="min-height: 48px; display: flex; align-items: center; justify-content: center; font-size: 17px; text-decoration: none">Type a name instead</a>
+    </div>
+  </div>
+</div>
+
+<!-- 4 OFFLINE -->
+<div style="display: flex; flex-direction: column; gap: 12px">
+  <div style="font-size: 15px; font-weight: 600; color: #26834e">4 · No network</div>
+  <div style="width: 390px; height: 844px; border-radius: 44px; overflow: hidden; position: relative; background: #f2f2f7">
+    <div style="position: absolute; left: 16px; top: 54px"><a href="Chat.dc.html" aria-label="Back" style="{{lightBtn}}"><dc-import name="Sym" sym="chevron.left" size="{{s20}}" hint-size="20px,20px"></dc-import></a></div>
+    <div style="margin: 120px 16px 0; padding: 18px 16px; border-radius: 24px; background: #ffffff; display: flex; gap: 14px; align-items: flex-start">
+      <div aria-hidden="true" style="flex: none; width: 44px; display: grid; place-items: center"><dc-import name="Mascot" tight="{{yes}}" state="thinking" size="32" hint-size="32px,49px"></dc-import></div>
+      <div style="flex: 1"><div style="font-size: 17px; font-weight: 600">You’re offline</div><div style="font-size: 15px; line-height: 1.35; color: #4a4740; margin-top: 2px">Products you checked before still work. A new product needs a connection.</div>
+        <button onClick="{{retry}}" style="margin-top: 10px; min-height: 36px; padding: 0 14px; border-radius: 9999px; border: 0; background: #26834e; color: #ffffff; font-size: 15px; font-weight: 600; display: inline-flex; align-items: center; gap: 6px; cursor: pointer"><dc-import name="Sym" sym="arrow.clockwise" size="{{s14}}" color="#ffffff" hint-size="14px,14px"></dc-import>{{retryLabel}}</button></div>
+    </div>
+    <h2 style="margin: 22px 20px 8px; font-size: 20px; font-weight: 600; color: #1c1c1e">Checked before</h2>
+    <div style="margin: 0 16px; background: #ffffff; border-radius: 24px; overflow: hidden">
+      <sc-for list="{{cached}}" as="c" hint-placeholder-count="3"><dc-import name="ProductRow" title="{{c.name}}" meta="{{c.reason}}" price="{{c.price}}" img="{{c.img}}" lv="{{c.lv}}" control="chevron" href="Main.dc.html" size="line" framed="{{no}}" divider="{{c.divider}}" hint-size="358px,64px"></dc-import></sc-for>
+    </div>
+    <div style="margin: 10px 20px 0; font-size: 12px; color: #6b6656">Saved checks use what you avoid today. Check the package. Not medical advice.</div>
+  </div>
+</div>
+
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1760,"height":964}}'>
+class Component extends DCLogic {
+  constructor(props) { super(props); this.state = { reported: false, retrying: false }; }
+  renderVals() {
+    const s = this.state;
+    const SYM = { good: 'checkmark.circle', careful: 'exclamationmark.triangle', bad: 'nosign' };
+    const WORD = { good: 'OK', careful: 'Check first', bad: 'Not for you' };
+    const glass = 'border: 0.5px solid var(--lg-edge); background: var(--lg-bg); box-shadow: var(--lg-shadow); backdrop-filter: var(--lg-fx); -webkit-backdrop-filter: var(--lg-fx);';
+    const btn = 'min-height: 50px; border-radius: 9999px; font-size: 17px; font-weight: 600; display: flex; align-items: center; justify-content: center; gap: 6px; cursor: pointer; text-decoration: none;';
+    const cached = [
+      ['good', 'Hillside Greek Yogurt, Plain 2%', '17 g protein toward your goal', '$5.49', ''],
+      ['bad', 'PopCorners Popped Corn Chips, Kettle', 'Sunflower oil is a seed oil', '$4.29', '/_blob/58077391b4e19dddae5d17a63751ab9c'],
+      ['good', 'Boulder Canyon Kettle Chips, Olive Oil', 'Nothing you avoid', '$4.49', '/_blob/009819ab8d0ecae0eba8e43b443ffd2b']
+    ].map((c, i) => ({ lv: c[0], price: c[3], img: c[4], divider: i > 0, sym: SYM[c[0]], word: WORD[c[0]], name: c[1], reason: c[2], wrap: 'display: flex; align-items: center; gap: 12px; min-height: 64px; padding: 8px 14px 8px 16px; text-decoration: none; color: #232323;' + (i ? ' border-top: 1px solid #e5e5ea;' : '') }));
+    return { yes: true,
+      yes: true, no: false, s14: 14, s18: 18, s20: 20, s22: 22, s28: 28, s40: 40,
+      sheet: 'position: absolute; left: 0; right: 0; bottom: 0; padding: 8px 20px 34px; border-radius: 32px 32px 0 0; background: #ffffff;',
+      grabber: 'width: 36px; height: 5px; margin: 0 auto 14px; border-radius: 3px; background: #c9c4a8;',
+      darkBtn: 'width: 44px; height: 44px; border-radius: 50%; display: grid; place-items: center; background: rgba(0,0,0,0.4); border: 0.5px solid rgba(255,255,255,0.3);',
+      lightBtn: 'width: 44px; height: 44px; border-radius: 50%; display: grid; place-items: center; color: #232323; ' + glass,
+      primary: 'margin-top: 12px; width: 100%; border: 0; background: #26834e; color: #ffffff; ' + btn,
+      primaryFull: 'width: 100%; border: 0; background: #eb9d15; color: #232323; ' + btn,
+      secondary: 'flex: 1; background: rgba(118,118,128,0.12); color: #26834e; font-size: 15px; ' + btn,
+      secondaryBtn: 'flex: 1; border: 0; background: rgba(118,118,128,0.12); color: #26834e; font-size: 15px; ' + btn,
+      notReported: !s.reported, reported: s.reported, report: () => this.setState({ reported: true }),
+      reportLabel: s.reported ? 'Reported' : 'Report it',
+      retry: () => this.setState({ retrying: true }), retryLabel: s.retrying ? 'Trying…' : 'Try again',
+      cached
+    };
+  }
+}
+</script>
+</body>
+</html>

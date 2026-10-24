@@ -1,0 +1,56 @@
+{
+ "note": "Demo household from the design (fictional). The owner is shown as “you”.",
+ "people": [
+  {
+   "id": "you",
+   "name": "Alex",
+   "isOwner": true,
+   "profile": {
+    "avoid": [
+     {
+      "id": "seed",
+      "strength": "avoid"
+     },
+     {
+      "id": "gluten",
+      "strength": "avoid"
+     },
+     {
+      "id": "sugar",
+      "strength": "preferNot"
+     }
+    ],
+    "goals": {
+     "proteinG": 25
+    }
+   }
+  },
+  {
+   "id": "mia",
+   "name": "Mia",
+   "isOwner": false,
+   "profile": {
+    "allergens": [
+     {
+      "id": "peanut",
+      "severity": "allergy"
+     },
+     {
+      "id": "treenuts",
+      "severity": "allergy"
+     }
+    ],
+    "mayContain": true
+   }
+  }
+ ],
+ "region": {
+  "zip": "78701",
+  "city": "Austin, TX"
+ },
+ "store": {
+  "id": "wfm",
+  "name": "Whole Foods Market",
+  "distanceMiles": 1.2
+ }
+}

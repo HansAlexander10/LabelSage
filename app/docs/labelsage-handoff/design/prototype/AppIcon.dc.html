@@ -1,0 +1,30 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>App icon</title>
+<script src="./support.js"></script>
+<link rel="stylesheet" href="ds/aishoppingagent/tokens.css">
+</head>
+<body>
+<x-dc>
+<helmet>
+<style>@import url("https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&display=swap");body{margin:0;font-family:"Outfit","SF Pro Rounded",ui-rounded,-apple-system,system-ui,sans-serif;-webkit-font-smoothing:antialiased}</style>
+</helmet>
+<div style="width: 1240px; box-sizing: border-box; padding: 40px; background: #e9e9ee; color: #1c1c1e">
+  <h1 style="margin: 0; font-size: 34px; font-weight: 700">{{app}} · App Store icon</h1>
+  <p style="margin: 8px 0 28px; max-width: 920px; font-size: 17px; line-height: 1.45; color: #4a4740">1024 × 1024, full bleed and opaque; iOS applies the rounded mask. The background (gradient, warm glow, ground shadow) is editable SVG; the mascot is your original art as a PNG layer, not vectorized.</p>
+  <div style="display: flex; gap: 32px; align-items: flex-end">
+    <img src="appicon/app-icon.svg" alt="{{app}} app icon" style="width: 512px; height: 512px; border-radius: 22.37%; box-shadow: 0 12px 40px rgba(0,0,0,0.22)">
+    <div style="display: flex; flex-direction: column; gap: 8px; align-items: center"><img src="appicon/app-icon.svg" alt="" style="width: 180px; height: 180px; border-radius: 22.37%"><span style="font-size: 13px; color: #6b6656">180 · iPhone</span></div>
+    <div style="display: flex; flex-direction: column; gap: 8px; align-items: center"><img src="appicon/app-icon.svg" alt="" style="width: 120px; height: 120px; border-radius: 22.37%"><span style="font-size: 13px; color: #6b6656">120</span></div>
+    <div style="display: flex; flex-direction: column; gap: 8px; align-items: center"><img src="appicon/app-icon.svg" alt="" style="width: 60px; height: 60px; border-radius: 22.37%"><span style="font-size: 13px; color: #6b6656">60</span></div>
+    <div style="display: flex; flex-direction: column; gap: 8px; align-items: center"><img src="appicon/app-icon.svg" alt="" style="width: 40px; height: 40px; border-radius: 22.37%"><span style="font-size: 13px; color: #6b6656">40 · Spotlight</span></div>
+  </div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1240,"height":680}}'>
+class Component extends DCLogic { renderVals() { const B = window.__lwBrand || (window.__lwBrand = (() => { try { const x = new XMLHttpRequest(); x.open('GET', 'brand.json', false); x.send(); if (x.status === 200) return JSON.parse(x.responseText); } catch (e) {} return { mascot: 'LabelSage', app: 'LabelSage' }; })()); const NAME = B.mascot; /* names live in brand.json */ return { app: B.app }; } }
+</script>
+</body>
+</html>

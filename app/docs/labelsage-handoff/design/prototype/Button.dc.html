@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Button</title>
+<script src="./support.js"></script>
+<link rel="stylesheet" href="ds/aishoppingagent/tokens.css">
+</head>
+<body>
+<x-dc>
+<helmet>
+<style>
+@import url("https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&display=swap");body{margin:0;font-family:"Outfit","SF Pro Rounded",ui-rounded,-apple-system,system-ui,sans-serif}
+a:focus-visible,button:focus-visible{outline:2px solid #1b6b3e;outline-offset:2px}
+:root{--ease-out:cubic-bezier(0.23,1,0.32,1);--ease-drawer:cubic-bezier(0.32,0.72,0,1)}button,a{-webkit-tap-highlight-color:transparent;transition:transform 160ms var(--ease-out),background-color 160ms var(--ease-out)}button:active,a:active{transform:scale(0.97)}[role=radio]:active,[role=checkbox]:active,[role=option]:active,[role=menuitem]:active,[role=switch]:active{transform:none;background-color:rgba(118,118,128,0.12) !important}::selection{background:rgba(38,131,78,0.22)}@keyframes rc-sheet{from{transform:translateY(100%)}to{transform:none}}@keyframes rc-scrim{from{opacity:0}to{opacity:1}}@keyframes rc-pop{from{opacity:0;transform:scale(0.95)}to{opacity:1;transform:none}}.rc-sheet{animation:rc-sheet 420ms var(--ease-drawer) both}.rc-scrim{animation:rc-scrim 220ms var(--ease-out) both}.rc-pop{animation:rc-pop 180ms var(--ease-out) both}@media (prefers-reduced-motion:reduce){button:active,a:active{transform:none}.rc-sheet,.rc-pop{animation:rc-scrim 200ms ease both}}@media (prefers-reduced-transparency:reduce){[style*=backdrop-filter]{backdrop-filter:none !important;-webkit-backdrop-filter:none !important}}</style>
+<style>/* Liquid Glass (navigation layer only, per HIG). Frosted base everywhere; refraction where backdrop SVG filters work (Chromium). */:root{--lg-bg:rgba(255,255,255,0.52);--lg-bg-thick:rgba(255,255,255,0.8);--lg-bg-dark:rgba(255,255,255,0.14);--lg-edge:rgba(255,255,255,0.7);--lg-edge-dark:rgba(255,255,255,0.3);--lg-fx:blur(14px) saturate(180%);--lg-shadow:inset 0 0 2px 1px rgba(255,255,255,0.6),inset 0 0 10px 4px rgba(255,255,255,0.22),inset 0 4px 16px rgba(17,17,26,0.05),inset 0 8px 24px rgba(17,17,26,0.05),0 6px 20px rgba(0,0,0,0.10);--lg-shadow-float:inset 0 0 2px 1px rgba(255,255,255,0.6),inset 0 0 10px 4px rgba(255,255,255,0.22),0 12px 36px rgba(0,0,0,0.16);--lg-shadow-dark:inset 0 0 2px 1px rgba(255,255,255,0.35),inset 0 0 10px 4px rgba(255,255,255,0.12),0 6px 20px rgba(0,0,0,0.25)}@supports (not (font:-apple-system-body)) and (not (-moz-appearance:none)){:root{--lg-fx:url(#lg-filter) blur(2px) saturate(1.7)}}@media (prefers-reduced-transparency:reduce){:root{--lg-bg:rgba(255,255,255,0.97);--lg-bg-thick:#ffffff;--lg-bg-dark:rgba(44,44,46,0.94);--lg-fx:none}}@media (prefers-contrast:more){:root{--lg-edge:rgba(0,0,0,0.35);--lg-edge-dark:rgba(255,255,255,0.7)}}</style>
+</helmet>
+<sc-if value="{{isLink}}" hint-placeholder-val="{{ false }}"><a href="{{href}}" style="{{style}}"><sc-if value="{{hasSym}}" hint-placeholder-val="{{ false }}"><dc-import name="Sym" sym="{{sym}}" size="{{iconSize}}" color="{{ink}}" hint-size="18px,18px"></dc-import></sc-if>{{label}}</a></sc-if>
+<sc-if value="{{isButton}}" hint-placeholder-val="{{ true }}"><button onClick="{{tap}}" aria-disabled="{{ariaDisabled}}" style="{{style}}"><sc-if value="{{hasSym}}" hint-placeholder-val="{{ false }}"><dc-import name="Sym" sym="{{sym}}" size="{{iconSize}}" color="{{ink}}" hint-size="18px,18px"></dc-import></sc-if>{{label}}</button></sc-if>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"label":{"editor":"text","default":"Check another"},"variant":{"editor":"enum","options":["primary","secondary","ghost"],"default":"primary"},"size":{"editor":"enum","options":["lg","sm"],"default":"lg"},"$preview":{"width":320,"height":56}}'>
+class Component extends DCLogic {
+  renderVals() {
+    const p = this.props;
+    const v = p.variant || 'primary', sm = p.size === 'sm', off = !!p.disabled;
+    const bg = off ? 'rgba(118,118,128,0.14)' : ({ primary: '#eb9d15', secondary: 'rgba(118,118,128,0.12)', ghost: 'transparent' })[v];
+    const ink = off ? '#8c8775' : ({ primary: '#232323', secondary: '#26834e', ghost: '#232323' })[v];
+    return {
+      label: p.label || '', sym: p.sym || '', hasSym: !!p.sym, iconSize: sm ? 16 : 18, ink,
+      isLink: !!p.href, isButton: !p.href, href: p.href, ariaDisabled: off ? 'true' : 'false',
+      tap: () => { if (!off && p.onTap) p.onTap(); },
+      style: 'box-sizing: border-box; display: flex; align-items: center; justify-content: center; gap: 6px; width: 100%; min-height: ' + (sm ? 36 : 50) + 'px; padding: 0 ' + (sm ? 14 : 18) + 'px; border-radius: 9999px; border: 0; text-decoration: none; cursor: ' + (off ? 'default' : 'pointer') + '; font-family: inherit; font-size: ' + (sm ? 15 : 17) + 'px; font-weight: ' + (v === 'primary' ? 600 : 500) + '; background: ' + bg + '; color: ' + ink + ';'
+    };
+  }
+}
+</script>
+</body>
+</html>

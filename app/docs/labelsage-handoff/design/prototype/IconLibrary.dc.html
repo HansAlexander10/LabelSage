@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Icon library</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<style>
+@import url("https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&display=swap");
+body{margin:0;font-family:"Outfit","SF Pro Rounded",ui-rounded,-apple-system,system-ui,sans-serif;-webkit-font-smoothing:antialiased}
+</style>
+</helmet>
+<div style="width: 1800px; box-sizing: border-box; padding: 48px; background: #ffffff; color: #1d2b22">
+  <h1 style="margin: 0; font-size: 40px; font-weight: 700">Icon library</h1>
+  <p style="margin: 10px 0 0; max-width: 1300px; font-size: 18px; line-height: 1.45; color: #3d4a42">{{count}} icons from one free library, Microsoft Fluent Emoji 3D (MIT), so every icon has the same 3D style and point of view. Where Fluent has no exact icon, the nearest one stands in (marked “nearest”, {{drawn}} icons): all tree nuts use the chestnut, sesame the bagel, mustard the hot dog, mussels the oyster. Every allergen, ingredient, diet and person in onboarding, preferences and the chat has one. The list lives in icons.json; the app ships them in the bundle, so they never wait for a server.</p>
+
+  <!-- states: what shows when an image is not there -->
+  <h2 style="margin: 36px 0 14px; font-size: 26px; font-weight: 700">When the image is not there</h2>
+  <div style="display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 16px">
+    <sc-for list="{{states}}" as="s" hint-placeholder-count="4">
+      <div style="display: flex; gap: 16px; align-items: center; padding: 18px; border-radius: 26px; background: {{s.bg}}">
+        <dc-import name="Icon" k="{{s.k}}" label="{{s.label}}" size="72" state="{{s.state}}" hint-size="72px,72px"></dc-import>
+        <div style="flex: 1; min-width: 0"><div style="font-size: 18px; font-weight: 700">{{s.title}}</div><div style="margin-top: 4px; font-size: 14px; line-height: 1.4; color: #3d4a42">{{s.text}}</div></div>
+      </div>
+    </sc-for>
+  </div>
+  <p style="margin: 12px 0 0; max-width: 1300px; font-size: 15px; line-height: 1.45; color: #5d6a60">The letter tile is the same whether the icon is missing or failed: the shopper never sees an error, and the verdict never depends on an image. Product pack photos follow the same rule: a pack-shaped placeholder with the brand initial, and the check still runs.</p>
+
+  <sc-for list="{{cats}}" as="c" hint-placeholder-count="11">
+    <h2 style="margin: 40px 0 4px; font-size: 26px; font-weight: 700">{{c.title}} <span style="font-size: 16px; font-weight: 500; color: #5d6a60">{{c.n}}</span></h2>
+    <div style="margin-bottom: 14px; font-size: 15px; color: #5d6a60">{{c.note}}</div>
+    <div style="display: grid; grid-template-columns: repeat(10, minmax(0, 1fr)); gap: 12px">
+      <sc-for list="{{c.items}}" as="i" hint-placeholder-count="10">
+        <div style="position: relative; display: flex; flex-direction: column; align-items: center; gap: 6px; padding: 14px 8px 12px; border-radius: 22px; background: {{c.bg}}">
+          <sc-if value="{{i.drawn}}" hint-placeholder-val="{{ false }}"><span style="position: absolute; top: 8px; right: 8px; font-size: 11px; font-weight: 700; padding: 2px 6px; border-radius: 9999px; background: #fcebc4; color: #7a4a00">nearest</span></sc-if>
+          <dc-import name="Icon" k="{{i.k}}" size="64" hint-size="64px,64px"></dc-import>
+          <div style="font-size: 14px; font-weight: 600; text-align: center; line-height: 1.2">{{i.label}}</div>
+          <div style="font-size: 12px; color: #5d6a60; font-family: ui-monospace, Menlo, monospace">{{i.k}}</div>
+        </div>
+      </sc-for>
+    </div>
+  </sc-for>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1800,"height":3400}}'>
+class Component extends DCLogic {
+  renderVals() {
+    const REG = window.__lwIcons || (window.__lwIcons = (() => { try { const x = new XMLHttpRequest(); x.open('GET', 'icons.json', false); x.send(); if (x.status === 200) return JSON.parse(x.responseText); } catch (e) {} return { icons: {}, aliases: {}, categories: [] }; })());
+    const B = window.__lwBrand || (window.__lwBrand = (() => { try { const x = new XMLHttpRequest(); x.open('GET', 'brand.json', false); x.send(); if (x.status === 200) return JSON.parse(x.responseText); } catch (e) {} return { mascot: 'LabelSage', app: 'LabelSage' }; })());
+    const BG = { allergens: '#fbf1ef', treenuts: '#fdf6ea', seafood: '#eaf3f8', more: '#fbf1ef', ingredients: '#fdf6ea', diets: '#eef8f1', religion: '#f3f1fb', medical: '#fbf1ef', goals: '#f3f1fb', people: '#eef8f1', app: '#f3f1fb' };
+    const keys = Object.keys(REG.icons);
+    const cats = (REG.categories || []).map((c) => {
+      const items = keys.filter((k) => REG.icons[k].category === c.id).map((k) => ({ k, label: REG.icons[k].label, drawn: !!REG.icons[k].standIn }));
+      return { title: c.title, note: c.note, n: items.length, items, bg: BG[c.id] || '#f6f6f2' };
+    });
+    const states = [
+      { k: 'peanut', label: '', state: 'auto', title: 'Loaded', text: 'The 3D icon from the app bundle.', bg: '#eef8f1' },
+      { k: 'peanut', label: '', state: 'loading', title: 'Loading', text: 'A sand tile with a slow shimmer; at most 600 ms.', bg: '#fdf6ea' },
+      { k: 'quinoa', label: 'Quinoa', state: 'auto', title: 'No icon for this ingredient', text: 'Typed or rare items (“quinoa”) get the letter tile.', bg: '#f3f1fb' },
+      { k: 'mustard', label: 'Mustard', state: 'failed', title: 'Image did not load', text: 'Server down, offline or a broken file: the same letter tile, no error.', bg: '#fbf1ef' }
+    ];
+    return { cats, states, count: keys.length, drawn: keys.filter((k) => REG.icons[k].standIn).length, app: B.app };
+  }
+}
+</script>
+</body>
+</html>

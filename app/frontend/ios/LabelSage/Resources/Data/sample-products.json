@@ -1,0 +1,207 @@
+{
+ "note": "Made-up demo products for the FixtureProductSource (decision D4 is open). Barcodes are fake. The design canvas shows real brands as placeholders; do not ship those.",
+ "products": [
+  {
+   "barcode": "0000000000017",
+   "name": "Popped Corn Chips, Kettle",
+   "brand": "Crunchwell",
+   "size": "3 oz",
+   "servingSize": "28 g (about 15 chips)",
+   "category": "Chips & snacks",
+   "ingredientsText": "Yellow corn, sunflower oil, cane sugar, sea salt.",
+   "nutrition": {
+    "kcal": 120,
+    "fatG": 4.5,
+    "satFatG": 0.5,
+    "sodiumMg": 105,
+    "carbsG": 20,
+    "fiberG": 1,
+    "addedSugarsG": 4,
+    "proteinG": 1
+   },
+   "nova": 3,
+   "price": 4.29
+  },
+  {
+   "barcode": "0000000000024",
+   "name": "Kettle Chips, Olive Oil & Sea Salt",
+   "brand": "Canyon Kettle",
+   "size": "5.25 oz",
+   "servingSize": "28 g",
+   "category": "Chips & snacks",
+   "ingredientsText": "Potatoes, olive oil, sea salt.",
+   "nutrition": {
+    "kcal": 160,
+    "fatG": 10,
+    "satFatG": 1.5,
+    "sodiumMg": 140,
+    "carbsG": 15,
+    "fiberG": 1,
+    "addedSugarsG": 0,
+    "proteinG": 2
+   },
+   "nova": 3,
+   "price": 4.49
+  },
+  {
+   "barcode": "0000000000031",
+   "name": "Kettle Chips, Avocado Oil",
+   "brand": "Riverside Market",
+   "size": "8 oz",
+   "servingSize": "28 g",
+   "category": "Chips & snacks",
+   "ingredientsText": "Potatoes, avocado oil, sea salt.",
+   "nutrition": {
+    "kcal": 150,
+    "fatG": 9,
+    "satFatG": 1,
+    "sodiumMg": 120,
+    "carbsG": 16,
+    "fiberG": 1,
+    "addedSugarsG": 0,
+    "proteinG": 2
+   },
+   "nova": 3,
+   "price": 3.99
+  },
+  {
+   "barcode": "0000000000048",
+   "name": "Kettle Chips, Beef Tallow",
+   "brand": "Ranch House",
+   "size": "5 oz",
+   "servingSize": "28 g",
+   "category": "Chips & snacks",
+   "ingredientsText": "Potatoes, beef tallow, sea salt.",
+   "nutrition": {
+    "kcal": 160,
+    "fatG": 10,
+    "satFatG": 4,
+    "sodiumMg": 150,
+    "carbsG": 15,
+    "fiberG": 1,
+    "addedSugarsG": 0,
+    "proteinG": 2
+   },
+   "nova": 3,
+   "price": 6.99
+  },
+  {
+   "barcode": "0000000000055",
+   "name": "Popped Chips, Sea Salt",
+   "brand": "Harvest Pop",
+   "size": "4 oz",
+   "servingSize": "28 g",
+   "category": "Chips & snacks",
+   "ingredientsText": "Potato flakes, rice flour, olive oil, cane sugar, sea salt.",
+   "nutrition": {
+    "kcal": 120,
+    "fatG": 4,
+    "satFatG": 0.5,
+    "sodiumMg": 200,
+    "carbsG": 19,
+    "fiberG": 1,
+    "addedSugarsG": 2,
+    "proteinG": 1
+   },
+   "nova": 4,
+   "price": 3.79
+  },
+  {
+   "barcode": "0000000000062",
+   "name": "Creamy Peanut Butter",
+   "brand": "Northfield",
+   "size": "16 oz",
+   "servingSize": "32 g",
+   "category": "Spreads",
+   "ingredientsText": "Roasted peanuts, salt.",
+   "nutrition": {
+    "kcal": 190,
+    "fatG": 16,
+    "satFatG": 2.5,
+    "sodiumMg": 115,
+    "carbsG": 7,
+    "fiberG": 3,
+    "addedSugarsG": 0,
+    "proteinG": 8
+   },
+   "nova": 1,
+   "price": 3.29
+  },
+  {
+   "barcode": "0000000000079",
+   "name": "Greek Yogurt, Plain 2%",
+   "brand": "Hillside",
+   "size": "32 oz",
+   "servingSize": "170 g",
+   "category": "Dairy",
+   "ingredientsText": "Cultured pasteurized reduced fat milk, live active cultures.",
+   "nutrition": {
+    "kcal": 130,
+    "fatG": 3.5,
+    "satFatG": 2,
+    "sodiumMg": 65,
+    "carbsG": 6,
+    "fiberG": 0,
+    "addedSugarsG": 0,
+    "proteinG": 17
+   },
+   "nova": 1,
+   "price": 5.49
+  },
+  {
+   "barcode": "0000000000086",
+   "name": "Trail Mix, Classic",
+   "brand": "Northfield",
+   "size": "10 oz",
+   "servingSize": "30 g",
+   "category": "Snacks",
+   "ingredientsText": null,
+   "nutrition": null,
+   "price": 6.49
+  },
+  {
+   "barcode": "0000000000093",
+   "name": "Classic Hummus",
+   "brand": "Mesa Kitchen",
+   "size": "10 oz",
+   "servingSize": "28 g",
+   "category": "Dips",
+   "ingredientsText": "Chickpeas, water, tahini, canola oil, garlic, salt, citric acid.",
+   "nutrition": {
+    "kcal": 70,
+    "fatG": 5,
+    "satFatG": 0.5,
+    "sodiumMg": 130,
+    "carbsG": 4,
+    "fiberG": 1,
+    "addedSugarsG": 0,
+    "proteinG": 2
+   },
+   "nova": 3,
+   "price": 4.99,
+   "containsStatement": "Contains: sesame."
+  },
+  {
+   "barcode": "0000000000109",
+   "name": "Dark Chocolate Bar, 70%",
+   "brand": "Ridgeline",
+   "size": "3.5 oz",
+   "servingSize": "40 g",
+   "category": "Sweets",
+   "ingredientsText": "Cocoa mass, cane sugar, cocoa butter, vanilla.",
+   "nutrition": {
+    "kcal": 230,
+    "fatG": 17,
+    "satFatG": 10,
+    "sodiumMg": 0,
+    "carbsG": 17,
+    "fiberG": 4,
+    "addedSugarsG": 12,
+    "proteinG": 3
+   },
+   "nova": 3,
+   "price": 3.99,
+   "mayContainStatement": "May contain tree nuts and milk."
+  }
+ ]
+}

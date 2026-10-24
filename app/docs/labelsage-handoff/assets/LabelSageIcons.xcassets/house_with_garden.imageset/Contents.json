@@ -1,0 +1,12 @@
+{
+  "images": [
+    {
+      "filename": "house_with_garden.png",
+      "idiom": "universal"
+    }
+  ],
+  "info": {
+    "author": "xcode",
+    "version": 1
+  }
+}

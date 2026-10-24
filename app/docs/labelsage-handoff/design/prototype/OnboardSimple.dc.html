@@ -1,0 +1,898 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Onboarding, simple</title>
+<script src="./support.js"></script>
+<link rel="stylesheet" href="ds/aishoppingagent/tokens.css">
+</head>
+<body>
+<x-dc>
+<helmet>
+<style>
+@import url("https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&display=swap");
+body{margin:0;font-family:"Outfit","SF Pro Rounded",ui-rounded,-apple-system,system-ui,sans-serif;-webkit-font-smoothing:antialiased}
+.ob-scroll{scrollbar-width:none}.ob-scroll::-webkit-scrollbar{display:none}
+@keyframes ob-open{from{opacity:0;transform:translateY(-6px)}to{opacity:1;transform:none}}.ob-open{animation:ob-open 240ms cubic-bezier(0.23,1,0.32,1) both}
+@media (prefers-reduced-motion:reduce){.ob-open{animation:none}}
+button{font-family:inherit;color:inherit}
+button:focus-visible,a:focus-visible,input:focus-visible{outline:2px solid #1d2b22;outline-offset:2px}
+input::placeholder{color:#8c8775}
+@keyframes ob-in{from{opacity:0;transform:translateX(12px)}to{opacity:1;transform:none}}
+.ob-step{animation:ob-in .28s ease-out both}
+@keyframes ai-shimmer{0%{background-position:-240px 0}100%{background-position:240px 0}}
+@keyframes ai-pulse{0%,100%{transform:scale(1);opacity:1}50%{transform:scale(1.18);opacity:.65}}
+.ai-gbar{height:12px;border-radius:6px;background:linear-gradient(90deg,#ececf0 0%,#dedee3 40%,#ececf0 80%);background-size:480px 12px;animation:ai-shimmer 1.4s linear infinite}
+.ai-spark{display:inline-flex;animation:ai-pulse 1.2s ease-in-out infinite}
+@media (prefers-reduced-motion:reduce){.ob-step,.ai-gbar,.ai-spark{animation:none}}
+:root{--ease-out:cubic-bezier(0.23,1,0.32,1);--ease-drawer:cubic-bezier(0.32,0.72,0,1)}button,a{-webkit-tap-highlight-color:transparent;transition:transform 160ms var(--ease-out),background-color 160ms var(--ease-out)}button:active,a:active{transform:scale(0.97)}[role=radio]:active,[role=checkbox]:active,[role=option]:active,[role=menuitem]:active,[role=switch]:active{transform:none;background-color:rgba(118,118,128,0.12) !important}::selection{background:rgba(38,131,78,0.22)}@keyframes rc-sheet{from{transform:translateY(100%)}to{transform:none}}@keyframes rc-scrim{from{opacity:0}to{opacity:1}}@keyframes rc-pop{from{opacity:0;transform:scale(0.95)}to{opacity:1;transform:none}}.rc-sheet{animation:rc-sheet 420ms var(--ease-drawer) both}.rc-scrim{animation:rc-scrim 220ms var(--ease-out) both}.rc-pop{animation:rc-pop 180ms var(--ease-out) both}@media (prefers-reduced-motion:reduce){button:active,a:active{transform:none}.rc-sheet,.rc-pop{animation:rc-scrim 200ms ease both}}@media (prefers-reduced-transparency:reduce){[style*=backdrop-filter]{backdrop-filter:none !important;-webkit-backdrop-filter:none !important}}</style>
+<style>/* Liquid Glass (navigation layer only, per HIG). Frosted base everywhere; refraction where backdrop SVG filters work (Chromium). */:root{--lg-bg:rgba(255,255,255,0.52);--lg-bg-thick:rgba(255,255,255,0.8);--lg-bg-dark:rgba(255,255,255,0.14);--lg-edge:rgba(255,255,255,0.7);--lg-edge-dark:rgba(255,255,255,0.3);--lg-fx:blur(14px) saturate(180%);--lg-shadow:inset 0 0 2px 1px rgba(255,255,255,0.6),inset 0 0 10px 4px rgba(255,255,255,0.22),inset 0 4px 16px rgba(17,17,26,0.05),inset 0 8px 24px rgba(17,17,26,0.05),0 6px 20px rgba(0,0,0,0.10);--lg-shadow-float:inset 0 0 2px 1px rgba(255,255,255,0.6),inset 0 0 10px 4px rgba(255,255,255,0.22),0 12px 36px rgba(0,0,0,0.16);--lg-shadow-dark:inset 0 0 2px 1px rgba(255,255,255,0.35),inset 0 0 10px 4px rgba(255,255,255,0.12),0 6px 20px rgba(0,0,0,0.25)}@supports (not (font:-apple-system-body)) and (not (-moz-appearance:none)){:root{--lg-fx:url(#lg-filter) blur(2px) saturate(1.7)}}@media (prefers-reduced-transparency:reduce){:root{--lg-bg:rgba(255,255,255,0.97);--lg-bg-thick:#ffffff;--lg-bg-dark:rgba(44,44,46,0.94);--lg-fx:none}}@media (prefers-contrast:more){:root{--lg-edge:rgba(0,0,0,0.35);--lg-edge-dark:rgba(255,255,255,0.7)}}</style>
+</helmet>
+<div style="width: 390px; height: 844px; position: relative; overflow: hidden; background: {{bg}}; color: #1d2b22; font-family: 'Outfit', 'SF Pro Rounded', ui-rounded, -apple-system, system-ui, sans-serif; transition: background-color 320ms cubic-bezier(0.23,1,0.32,1)"><svg aria-hidden="true" focusable="false" width="0" height="0" style="position: absolute; width: 0; height: 0; overflow: hidden"><defs><filter id="lg-filter" color-interpolation-filters="sRGB" x="0%" y="0%" width="100%" height="100%"><feImage x="0" y="0" width="100%" height="100%" preserveAspectRatio="none" result="map" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAIAAAACACAIAAABMXPacAAABRElEQVR42u3ZQQqDMBRF0RcNMbrqLr0DEdoN9ENzLo4cviMisbX2asmW9GQkI5nJTM6P63ruHMmRjKQne7JFSbIl+zPgPdGZzOT6nvEedjwDbklLepoBK+se42qAboRagGEEAEsDTCMAWBrgNAIAAAKwLMBlBF9BXkGqAziMAGBpAGdBxQCOo4sBdiPUAvgjVpr5AQAQAAACAEAAAAgAAAEAIAAABACAAAAQAAACAEAAAAgAAAEAIAAABACAAAAQAAACAEAAAAgAAAEAIAAABACAAAAQAAACAEAAAAgAAAEAIAAABAAAABMAACAAAAQAgAAAEAAAAgBAAAAIAAABACAAAATgL+sIqgF2I9QCdCPUAgwj1AIcRgCwNMBphFqAaYRagMsIXkEABACAfAUB0O8BnAUBWBvAcXQxgD9ixQDNCJW9Aa7lA8768ue5AAAAAElFTkSuQmCC"></feImage><feDisplacementMap in="SourceGraphic" in2="map" result="dispRed" scale="-14" xChannelSelector="R" yChannelSelector="G"></feDisplacementMap><feColorMatrix in="dispRed" type="matrix" values="1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0" result="red"></feColorMatrix><feDisplacementMap in="SourceGraphic" in2="map" result="dispGreen" scale="-17" xChannelSelector="R" yChannelSelector="G"></feDisplacementMap><feColorMatrix in="dispGreen" type="matrix" values="0 0 0 0 0 0 1 0 0 0 0 0 0 0 0 0 0 0 1 0" result="green"></feColorMatrix><feDisplacementMap in="SourceGraphic" in2="map" result="dispBlue" scale="-20" xChannelSelector="R" yChannelSelector="G"></feDisplacementMap><feColorMatrix in="dispBlue" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 1 0 0 0 0 0 1 0" result="blue"></feColorMatrix><feBlend in="red" in2="green" mode="screen" result="rg"></feBlend><feBlend in="rg" in2="blue" mode="screen" result="output"></feBlend><feGaussianBlur in="output" stdDeviation="2"></feGaussianBlur></filter></defs></svg>
+
+<!-- top: round back button, one dot per section, Skip -->
+<sc-if value="{{showChrome}}" hint-placeholder-val="{{ true }}">
+  <div style="position: absolute; left: 16px; right: 16px; top: 52px; z-index: 3; display: flex; align-items: center; justify-content: space-between">
+    <button aria-label="Back" onClick="{{back}}" style="flex: none; width: 50px; height: 50px; border-radius: 50%; border: 1px solid rgba(29,43,34,0.10); background: rgba(255,255,255,0.78); box-shadow: 0 4px 14px rgba(29,43,34,0.06); display: grid; place-items: center; cursor: pointer"><dc-import name="Sym" sym="chevron.left" size="{{s22}}" color="#1d2b22" hint-size="22px,22px"></dc-import></button>
+    <div role="img" aria-label="{{dotsAria}}" style="display: flex; gap: 9px"><sc-for list="{{dots}}" as="d" hint-placeholder-count="3"><span style="{{d.style}}"></span></sc-for></div>
+    <sc-if value="{{canJump}}" hint-placeholder-val="{{ true }}"><button onClick="{{jump}}" aria-label="{{jumpAria}}" style="flex: none; min-height: 50px; padding: 0 20px; border-radius: 9999px; border: 1px solid rgba(29,43,34,0.10); background: rgba(255,255,255,0.78); box-shadow: 0 4px 14px rgba(29,43,34,0.06); font-family: inherit; font-size: 18px; color: #1d2b22; cursor: pointer">{{jumpLabel}}</button></sc-if>
+    <sc-if value="{{noJump}}" hint-placeholder-val="{{ false }}"><span style="flex: none; width: 50px"></span></sc-if>
+  </div>
+</sc-if>
+
+<!-- WELCOME: trust on top, the mascot in a tilted collage, the name, one promise, legal line -->
+<sc-if value="{{isWelcome}}" hint-placeholder-val="{{ false }}">
+  <div class="ob-step" style="position: absolute; inset: 0; padding: 62px 20px 0; box-sizing: border-box; display: flex; flex-direction: column; align-items: center">
+    <div style="display: flex; gap: 8px">
+      <span style="display: inline-flex; align-items: center; gap: 6px; height: 34px; padding: 0 6px; font-size: 14px; font-weight: 500; color: #3d4a42"><img src="emoji3d/locked.png" alt="" style="width: 22px; height: 22px">Stays on your iPhone</span>
+      <span style="display: inline-flex; align-items: center; gap: 6px; height: 34px; padding: 0 6px; font-size: 14px; font-weight: 500; color: #3d4a42"><img src="emoji3d/busts_in_silhouette.png" alt="" style="width: 22px; height: 22px">Whole family</span>
+    </div>
+    <div style="position: relative; width: 350px; height: 392px; margin-top: 14px">
+      <div aria-hidden="true" style="position: absolute; left: 70px; top: 30px; width: 230px; height: 230px; border-radius: 64px; background: #cfe9d8; transform: rotate(-8deg)"></div>
+      <div aria-hidden="true" style="position: absolute; left: 150px; top: 196px; width: 170px; height: 170px; border-radius: 52px; background: #ffd98a; transform: rotate(10deg)"></div>
+      <div style="position: absolute; left: 92px; top: 46px"><dc-import name="Mascot" state="{{lwState}}" size="200" hint-size="200px,252px"></dc-import></div>
+      <div aria-hidden="true" style="position: absolute; left: 0; top: 70px; display: flex; align-items: center; gap: 10px; padding: 12px 18px 12px 12px; border-radius: 26px; background: rgba(255,255,255,0.55); transform: rotate(-12deg); font-size: 18px; font-weight: 600; line-height: 1.1"><img src="emoji3d/magnifying_glass_tilted_left.png" alt="" style="width: 40px; height: 40px">Checks every<br>ingredient</div>
+      <div aria-hidden="true" style="position: absolute; right: 0; top: 268px; display: flex; align-items: center; gap: 10px; padding: 12px 18px 12px 12px; border-radius: 26px; background: rgba(255,255,255,0.55); transform: rotate(9deg); font-size: 18px; font-weight: 600; line-height: 1.1"><img src="emoji3d/sparkles.png" alt="" style="width: 40px; height: 40px">For everyone you<br>shop for</div>
+    </div>
+    <div style="margin-top: 6px; font-size: 52px; line-height: 1; font-weight: 800; letter-spacing: -0.03em">{{appName}}</div>
+    <div role="text" style="margin-top: 14px; max-width: 330px; text-align: center; font-size: 20px; line-height: 1.35">{{lwLine}}</div>
+    <div style="margin-top: 16px; text-align: center; font-size: 14px; line-height: 1.5; color: #4b5650">By continuing you agree to the<br><a href="#" style="color: inherit">Terms of Use</a> and <a href="#" style="color: inherit">Privacy Policy</a></div>
+  </div>
+</sc-if>
+
+<!-- QUESTION (single or multi choice) -->
+<sc-if value="{{isQuestion}}" hint-placeholder-val="{{ true }}">
+  <div class="ob-step ob-scroll" style="position: absolute; left: 0; right: 0; top: 112px; bottom: 0; padding: 0 20px 150px; overflow-x: hidden; overflow-y: auto">
+    <div style="display: flex; flex-direction: column; align-items: center; text-align: center; margin: 0 0 22px"><div style="flex: none"><dc-import name="Mascot" state="{{lwState}}" size="74" hint-size="74px,93px"></dc-import></div><h1 role="text" style="{{titleStyle}}">{{lwLine}}</h1></div>
+    <sc-if value="{{qList}}" hint-placeholder-val="{{ true }}">
+      <div role="{{q.role}}" aria-label="{{q.title}}" style="display: flex; flex-direction: column; gap: 12px">
+        <sc-for list="{{q.options}}" as="o" hint-placeholder-count="4">
+          <button role="{{o.role}}" aria-checked="{{o.checked}}" onClick="{{o.pick}}" style="{{o.card}}">
+            <img src="emoji3d/{{o.icon}}.png" alt="" style="flex: none; width: 46px; height: 46px">
+            <span style="flex: 1; min-width: 0; text-align: left"><span style="display: block; font-size: 19px; font-weight: 600; line-height: 1.2">{{o.label}}</span><sc-if value="{{o.detail}}" hint-placeholder-val="{{ false }}"><span style="display: block; font-size: 14px; line-height: 1.3; color: #6f7a73; margin-top: 3px">{{o.detail}}</span></sc-if></span>
+            <span style="{{o.box}}"><sc-if value="{{o.on}}" hint-placeholder-val="{{ false }}"><dc-import name="Sym" sym="checkmark" size="{{s15}}" color="#ffffff" hint-size="15px,15px"></dc-import></sc-if></span>
+          </button>
+        </sc-for>
+      </div>
+    </sc-if>
+    <sc-if value="{{qGrid}}" hint-placeholder-val="{{ false }}">
+      <div role="{{q.role}}" aria-label="{{q.title}}" style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px">
+        <sc-for list="{{q.options}}" as="o" hint-placeholder-count="4">
+          <button role="{{o.role}}" aria-checked="{{o.checked}}" onClick="{{o.pick}}" style="{{o.tile}}">
+            <span style="{{o.boxTile}}"><sc-if value="{{o.on}}" hint-placeholder-val="{{ false }}"><dc-import name="Sym" sym="checkmark" size="{{s15}}" color="#ffffff" hint-size="15px,15px"></dc-import></sc-if></span>
+            <img src="emoji3d/{{o.icon}}.png" alt="" style="width: 58px; height: 58px">
+            <span style="display: block; font-size: 18px; font-weight: 700; line-height: 1.2">{{o.label}}</span>
+            <sc-if value="{{o.detail}}" hint-placeholder-val="{{ false }}"><span style="display: block; font-size: 13px; line-height: 1.3; color: #6f7a73">{{o.detail}}</span></sc-if>
+          </button>
+        </sc-for>
+      </div>
+    </sc-if>
+    <sc-if value="{{isAllergens}}" hint-placeholder-val="{{ false }}">
+      <div style="margin-bottom: 12px; display: flex; align-items: center; gap: 10px; min-height: 54px; padding: 0 16px; box-sizing: border-box; border-radius: 9999px; background: #ffffff; box-shadow: 0 1px 2px rgba(29,43,34,0.04), 0 10px 26px rgba(29,43,34,0.05)"><dc-import name="Sym" sym="magnifyingglass" size="{{s16}}" color="#5d6a60" hint-size="16px,16px"></dc-import><label for="aq" style="position: absolute; left: -9999px">Search allergens</label><input id="aq" value="{{aq}}" onChange="{{onAq}}" placeholder="Search, like prawns or mustard" style="flex: 1; min-width: 0; border: 0; outline: none; background: transparent; font-family: inherit; font-size: 17px; color: #1d2b22"></div>
+      <sc-if value="{{aqNone}}" hint-placeholder-val="{{ false }}"><div style="margin-bottom: 12px; padding: 14px 16px; border-radius: 22px; background: #ffffff; font-size: 15px; line-height: 1.4">Not in this list. Add “{{aqText}}” on the next step, and I’ll look for it under other names too.</div></sc-if>
+      <div role="group" aria-label="Allergens" style="display: flex; flex-direction: column; gap: 12px">
+        <sc-for list="{{agroups}}" as="g" hint-placeholder-count="5">
+          <div>
+            <button role="{{g.role}}" aria-checked="{{g.checked}}" aria-expanded="{{g.expanded}}" onClick="{{g.tap}}" style="{{g.card}}">
+              <img src="emoji3d/{{g.icon}}.png" alt="" style="flex: none; width: 46px; height: 46px">
+              <span style="flex: 1; min-width: 0; text-align: left; font-size: 19px; font-weight: 600">{{g.label}}</span>
+              <sc-if value="{{g.leafy}}" hint-placeholder-val="{{ false }}"><span style="{{g.countStyle}}">{{g.count}}</span><dc-import name="Sym" sym="{{g.chev}}" size="{{s16}}" color="#1d2b22" hint-size="16px,16px"></dc-import></sc-if>
+              <sc-if value="{{g.single}}" hint-placeholder-val="{{ true }}"><span style="{{g.box}}"><sc-if value="{{g.on}}" hint-placeholder-val="{{ false }}"><dc-import name="Sym" sym="checkmark" size="{{s15}}" color="#ffffff" hint-size="15px,15px"></dc-import></sc-if></span></sc-if>
+            </button>
+            <sc-if value="{{g.open}}" hint-placeholder-val="{{ false }}">
+              <div class="ob-open" role="group" aria-label="{{g.label}}" style="margin-top: 12px; display: grid; grid-template-columns: 1fr 1fr; gap: 10px">
+                <sc-for list="{{g.leaves}}" as="l" hint-placeholder-count="4">
+                  <button role="checkbox" aria-checked="{{l.checked}}" onClick="{{l.tap}}" style="{{l.tile}}"><dc-import name="Icon" k="{{l.label}}" size="34" hint-size="34px,34px"></dc-import><span style="flex: 1; min-width: 0; text-align: left; font-size: 17px; font-weight: 600">{{l.label}}</span><span style="{{l.box}}"><sc-if value="{{l.on}}" hint-placeholder-val="{{ false }}"><dc-import name="Sym" sym="checkmark" size="{{s13}}" color="#ffffff" hint-size="13px,13px"></dc-import></sc-if></span></button>
+                </sc-for>
+              </div>
+            </sc-if>
+          </div>
+        </sc-for>
+      </div>
+    </sc-if>
+    <sc-if value="{{qOtherOn}}" hint-placeholder-val="{{ false }}"><div style="margin-top: 10px; display: flex; align-items: center; gap: 10px; min-height: 54px; padding: 4px 14px; box-sizing: border-box; border-radius: 18px; background: #ffffff; box-shadow: inset 0 0 0 2px #1d2b22"><dc-import name="Sym" sym="plus" size="{{s16}}" color="#1d2b22" hint-size="16px,16px"></dc-import><input value="{{qOtherText}}" onInput="{{qOnOther}}" maxlength="60" placeholder="{{qOtherPh}}" aria-label="Describe it" style="flex: 1; min-width: 0; border: 0; outline: none; font-size: 17px; font-family: inherit; background: transparent"></div></sc-if>
+    <sc-if value="{{q.foot}}" hint-placeholder-val="{{ false }}"><div style="margin: 10px 4px 0; display: flex; gap: 6px; font-size: 13px; line-height: 1.35; color: #6b6656"><dc-import name="Sym" sym="info.circle" size="{{s14}}" color="#6b6656" hint-size="14px,14px"></dc-import><span>{{q.foot}}</span></div></sc-if>
+  </div>
+</sc-if>
+
+<!-- SEVERITY: asked per allergen, each with two full rows to pick from -->
+<sc-if value="{{isSeverity}}" hint-placeholder-val="{{ false }}">
+  <div class="ob-step ob-scroll" style="position: absolute; left: 0; right: 0; top: 112px; bottom: 0; padding: 0 20px 150px; overflow-x: hidden; overflow-y: auto">
+    <div style="display: flex; flex-direction: column; align-items: center; text-align: center; margin: 0 0 22px"><div style="flex: none"><dc-import name="Mascot" state="{{lwState}}" size="74" hint-size="74px,93px"></dc-import></div><h1 role="text" style="{{titleStyle}}">{{lwLine}}</h1></div>
+    <sc-for list="{{sevRows}}" as="r" hint-placeholder-count="2">
+      <div style="margin: 20px 4px 8px; display: flex; align-items: center; gap: 10px; font-size: 17px; font-weight: 600; color: #1d2b22"><dc-import name="Icon" k="{{r.name}}" size="32" hint-size="32px,32px"></dc-import>{{r.name}}</div>
+      <div role="radiogroup" aria-label="{{r.name}}" style="background: #ffffff; border-radius: 22px; overflow: hidden">
+        <sc-for list="{{r.opts}}" as="o" hint-placeholder-count="2">
+          <button role="radio" aria-checked="{{o.sel}}" onClick="{{o.pick}}" style="{{o.style}}">
+            <span style="flex: 1; min-width: 0; text-align: left"><span style="display: block; font-size: 17px; font-weight: 600">{{o.label}}</span><span style="display: block; font-size: 14px; color: #6b6656; margin-top: 2px">{{o.detail}}</span></span>
+            <span style="flex: none; width: 24px; display: grid; place-items: center"><sc-if value="{{o.on}}" hint-placeholder-val="{{ false }}"><dc-import name="Sym" sym="checkmark" size="{{s20}}" color="#1d2b22" hint-size="20px,20px"></dc-import></sc-if></span>
+          </button>
+        </sc-for>
+      </div>
+    </sc-for>
+  </div>
+</sc-if>
+
+<!-- FIRST PROFILE: family path names one person first, the rest are added later in Profile -->
+<sc-if value="{{isFirstProfile}}" hint-placeholder-val="{{ false }}">
+  <div class="ob-step ob-scroll" style="position: absolute; left: 0; right: 0; top: 112px; bottom: 0; padding: 0 20px 150px; overflow-x: hidden; overflow-y: auto">
+    <div style="display: flex; flex-direction: column; align-items: center; text-align: center; margin: 0 0 22px"><div style="flex: none"><dc-import name="Mascot" state="{{lwState}}" size="74" hint-size="74px,93px"></dc-import></div><h1 role="text" style="{{titleStyle}}">{{lwLine}}</h1></div>
+    <label style="display: block">
+      <span style="display: block; margin: 0 4px 10px; font-size: 18px; font-weight: 700">Name or nickname</span>
+      <input value="{{pname}}" onInput="{{onName}}" maxlength="24" placeholder="e.g. Mia" style="width: 100%; box-sizing: border-box; height: 66px; padding: 0 20px; border-radius: 18px; border: 1.5px solid #1d2b22; outline: none; background: #ffffff; font-size: 20px; font-family: inherit; color: #1d2b22">
+    </label>
+    <div style="margin-top: 12px; display: flex; gap: 8px; flex-wrap: wrap">
+      <sc-for list="{{nameChips}}" as="c" hint-placeholder-count="2"><button onClick="{{c.pick}}" style="min-height: 44px; padding: 0 14px; border-radius: 9999px; border: 0; background: rgba(118,118,128,0.12); color: #1d2b22; font-size: 15px; font-weight: 600; cursor: pointer">{{c.label}}</button></sc-for>
+    </div>
+    <div style="margin: 26px 4px 10px; font-size: 18px; font-weight: 700">Anyone else at home?</div>
+    <div style="background: #ffffff; border-radius: 22px; overflow: hidden">
+      <sc-if value="{{hasTeam}}" hint-placeholder-val="{{ false }}">
+        <div style="display: flex; flex-wrap: wrap; gap: 8px; padding: 12px 14px 4px">
+          <sc-for list="{{team}}" as="o" hint-placeholder-count="1"><span style="display: inline-flex; align-items: center; gap: 6px; height: 34px; padding: 0 6px 0 12px; border-radius: 9999px; background: #eef0ee; color: #1d2b22; font-size: 15px; font-weight: 600">{{o.name}}<button aria-label="{{o.removeAria}}" onClick="{{o.remove}}" style="width: 24px; height: 24px; border-radius: 50%; border: 0; background: rgba(27,107,62,0.14); display: grid; place-items: center; cursor: pointer"><dc-import name="Sym" sym="xmark" size="{{s12}}" color="#1d2b22" hint-size="12px,12px"></dc-import></button></span></sc-for>
+        </div>
+      </sc-if>
+      <div style="display: flex; align-items: center; gap: 10px; min-height: 56px; padding: 6px 8px 6px 14px; box-sizing: border-box">
+        <dc-import name="Sym" sym="plus" size="{{s18}}" color="#1d2b22" hint-size="18px,18px"></dc-import>
+        <input value="{{teamDraft}}" onInput="{{onTeam}}" maxlength="24" placeholder="Add a name" aria-label="Add someone else at home" style="flex: 1; min-width: 0; border: 0; outline: none; font-size: 17px; font-family: inherit; background: transparent">
+        <button onClick="{{addTeam}}" aria-disabled="{{teamOff}}" style="{{teamBtn}}">Add</button>
+      </div>
+    </div>
+    <div style="margin: 14px 4px 0; display: flex; gap: 8px; font-size: 13px; color: #6b6656; line-height: 1.35"><dc-import name="Sym" sym="person.2" size="{{s14}}" color="#6b6656" hint-size="14px,14px"></dc-import><span>Every product is checked for everyone you add.</span></div>
+  </div>
+</sc-if>
+
+<!-- REGION: required, sets products and stores. Location first, ZIP as the fallback -->
+<sc-if value="{{isRegion}}" hint-placeholder-val="{{ false }}">
+  <div class="ob-step ob-scroll" style="position: absolute; left: 0; right: 0; top: 112px; bottom: 0; padding: 0 20px 150px; overflow-x: hidden; overflow-y: auto">
+    <div style="display: flex; flex-direction: column; align-items: center; text-align: center; margin: 0 0 22px"><div style="flex: none"><dc-import name="Mascot" state="{{lwState}}" size="74" hint-size="74px,93px"></dc-import></div><h1 role="text" style="{{titleStyle}}">{{lwLine}}</h1></div>
+    <button onClick="{{useLocation}}" style="{{locBtn}}"><span style="flex: none; width: 40px; height: 40px; border-radius: 12px; background: #1d2b22; display: grid; place-items: center"><dc-import name="Sym" sym="location" size="{{s20}}" color="#ffffff" hint-size="20px,20px"></dc-import></span><span style="flex: 1; min-width: 0; text-align: left"><span style="display: block; font-size: 17px; font-weight: 600">{{locTitle}}</span><span style="display: block; font-size: 13px; color: #6b6656">{{locSub}}</span></span><sc-if value="{{locUsed}}" hint-placeholder-val="{{ false }}"><dc-import name="Sym" sym="checkmark.circle" size="{{s22}}" label="Location found" hint-size="22px,22px"></dc-import></sc-if></button>
+    <div style="margin: 16px 4px 8px; font-size: 13px; font-weight: 600; color: #6b6656">Or search a city or ZIP code</div>
+    <div style="background: #ffffff; border-radius: 22px; overflow: hidden">
+      <label style="display: flex; align-items: center; gap: 10px; min-height: 52px; margin: 8px; padding: 0 12px; border-radius: 12px; background: rgba(118,118,128,0.12)">
+        <dc-import name="Sym" sym="magnifyingglass" size="{{s18}}" color="#6b6656" hint-size="18px,18px"></dc-import>
+        <input value="{{placeQ}}" onInput="{{onPlace}}" placeholder="City or ZIP code" aria-label="City or ZIP code" autocomplete="off" style="flex: 1; min-width: 0; border: 0; outline: none; font-size: 17px; font-family: inherit; background: transparent">
+        <sc-if value="{{hasPlaceQ}}" hint-placeholder-val="{{ false }}"><button aria-label="Clear" onClick="{{clearPlace}}" style="flex: none; width: 22px; height: 22px; border-radius: 50%; border: 0; background: #b6b6bb; display: grid; place-items: center; cursor: pointer"><dc-import name="Sym" sym="xmark" size="{{s12}}" color="#ffffff" hint-size="12px,12px"></dc-import></button></sc-if>
+      </label>
+      <sc-if value="{{showSuggest}}" hint-placeholder-val="{{ false }}">
+        <div role="listbox" aria-label="Matching places">
+          <sc-for list="{{suggest}}" as="g" hint-placeholder-count="4">
+            <button role="option" onClick="{{g.pick}}" style="{{g.style}}"><dc-import name="Sym" sym="location" size="{{s18}}" color="#1d2b22" hint-size="18px,18px"></dc-import><span style="flex: 1; min-width: 0; text-align: left"><span style="display: block; font-size: 17px; font-weight: 600">{{g.city}}</span><span style="display: block; font-size: 14px; color: #6b6656">{{g.detail}}</span></span><span style="flex: none; font-size: 15px; color: #6b6656; font-variant-numeric: tabular-nums">{{g.zip}}</span></button>
+          </sc-for>
+          <sc-if value="{{noSuggest}}" hint-placeholder-val="{{ false }}"><div style="padding: 12px 16px 16px; font-size: 15px; color: #6b6656">No US city or ZIP code matches “{{placeQ}}”.</div></sc-if>
+        </div>
+      </sc-if>
+    </div>
+    <sc-if value="{{zipCard}}" hint-placeholder-val="{{ false }}"><div style="margin-top: 12px; display: flex; gap: 12px; align-items: center; padding: 12px 14px; border-radius: 18px; background: #eef0ee"><dc-import name="Sym" sym="storefront" size="{{s20}}" color="#1d2b22" hint-size="20px,20px"></dc-import><div style="flex: 1; font-size: 14px; line-height: 1.35; color: #1d2b22"><b>{{regionName}}</b><br>{{nearby}}</div></div></sc-if>
+    <div style="margin: 12px 4px 0; display: flex; gap: 6px; font-size: 13px; line-height: 1.35; color: #6b6656"><dc-import name="Sym" sym="lock.shield" size="{{s14}}" color="#6b6656" hint-size="14px,14px"></dc-import><span>Only your ZIP code is kept, on this iPhone.</span></div>
+  </div>
+</sc-if>
+
+<!-- AVOID ANYTHING: families + search any ingredient -->
+<sc-if value="{{isAvoid}}" hint-placeholder-val="{{ false }}">
+  <div class="ob-step ob-scroll" style="position: absolute; left: 0; right: 0; top: 112px; bottom: 0; padding: 0 20px 150px; overflow-x: hidden; overflow-y: auto">
+    <div style="display: flex; flex-direction: column; align-items: center; text-align: center; margin: 0 0 22px"><div style="flex: none"><dc-import name="Mascot" state="{{lwState}}" size="74" hint-size="74px,93px"></dc-import></div><h1 role="text" style="{{titleStyle}}">{{lwLine}}</h1></div>
+    <div style="margin-top: 12px; height: 44px; display: flex; align-items: center; gap: 8px; padding: 0 12px; border-radius: 12px; background: #ffffff">
+      <dc-import name="Sym" sym="magnifyingglass" size="{{s16}}" color="#6b6656" hint-size="16px,16px"></dc-import>
+      <label for="ing" style="position: absolute; left: -9999px">Search any ingredient</label>
+      <input id="ing" value="{{query}}" onChange="{{onQuery}}" placeholder="Anything, e.g. nightshades or red dye" style="flex: 1; min-width: 0; border: 0; outline: none; background: transparent; font-size: 17px; font-family: inherit; color: #232323">
+    </div>
+    <sc-if value="{{resolverOn}}" hint-placeholder-val="{{ false }}">
+      <div style="margin-top: 10px; padding: 14px; background: #ffffff; border-radius: 22px">
+        <div style="display: flex; align-items: center; gap: 6px; font-size: 13px; font-weight: 600; color: #4a4740"><span class="{{resSpark}}"><dc-import name="Sym" sym="wand.and.stars" size="{{s16}}" color="#1d2b22" hint-size="16px,16px"></dc-import></span>{{resTitle}}</div>
+        <sc-if value="{{resMatching}}" hint-placeholder-val="{{ false }}">
+          <div style="margin-top: 12px; display: flex; flex-direction: column; gap: 8px"><div class="ai-gbar" style="width: 90%"></div><div class="ai-gbar" style="width: 70%"></div><div class="ai-gbar" style="width: 80%"></div></div>
+          <div style="margin-top: 10px; font-size: 13px; color: #4a4740">{{resStep}}</div>
+        </sc-if>
+        <sc-if value="{{resAmbiguous}}" hint-placeholder-val="{{ false }}">
+          <div style="margin-top: 6px; font-size: 15px; color: #4a4740">“{{resTerm}}” could mean a few things. Which one?</div>
+          <div style="margin-top: 8px; display: flex; flex-direction: column; gap: 6px">
+            <sc-for list="{{resChoices}}" as="c" hint-placeholder-count="3"><button onClick="{{c.pick}}" style="min-height: 48px; padding: 8px 12px; border-radius: 14px; border: 1px solid #e5e5ea; background: #f2f2f7; text-align: left; font-size: 15px; cursor: pointer"><b>{{c.label}}</b><span style="display: block; font-size: 13px; color: #6b6656">{{c.text}}</span></button></sc-for>
+          </div>
+        </sc-if>
+        <sc-if value="{{resMatched}}" hint-placeholder-val="{{ false }}">
+          <div style="margin-top: 6px; display: flex; align-items: center; gap: 8px; flex-wrap: wrap"><span style="font-size: 17px; font-weight: 600">“{{resTerm}}”</span><dc-import name="Sym" sym="arrow.right" size="{{s14}}" color="#6b6656" hint-size="14px,14px"></dc-import><span style="font-size: 17px; font-weight: 600; color: #1d2b22">{{resCat}}</span><span style="{{resConfStyle}}">{{resConf}}</span></div>
+          <div style="margin-top: 4px; font-size: 13px; color: #6b6656">{{resNote}}</div>
+          <div style="margin-top: 10px; font-size: 12px; font-weight: 600; color: #6b6656">I’ll match these on labels. Tap one to exclude it.</div>
+          <div style="margin-top: 6px; display: flex; flex-wrap: wrap; gap: 6px">
+            <sc-for list="{{resKeywords}}" as="k" hint-placeholder-count="5"><button aria-pressed="{{k.on}}" onClick="{{k.toggle}}" style="{{k.style}}">{{k.label}}</button></sc-for>
+          </div>
+          <div style="margin-top: 12px; display: flex; gap: 8px">
+            <button onClick="{{resCancel}}" style="flex: 1; min-height: 44px; border-radius: 9999px; border: 0; background: rgba(118,118,128,0.12); font-size: 15px; font-weight: 500; cursor: pointer">Not right</button>
+            <button onClick="{{resConfirm}}" style="flex: 1.4; min-height: 44px; border-radius: 9999px; border: 0; background: #1d2b22; color: #ffffff; font-size: 15px; font-weight: 600; cursor: pointer">Add it · {{resCount}} keywords</button>
+          </div>
+        </sc-if>
+      </div>
+    </sc-if>
+    <sc-if value="{{showResults}}" hint-placeholder-val="{{ false }}">
+      <div style="margin-top: 8px; background: #ffffff; border-radius: 18px; overflow: hidden">
+        <sc-for list="{{results}}" as="r" hint-placeholder-count="3">
+          <button onClick="{{r.add}}" style="{{r.style}}"><dc-import name="Icon" k="{{r.name}}" size="32" hint-size="32px,32px"></dc-import><span style="flex: 1; text-align: left"><span style="display: block; font-size: 16px">{{r.name}}</span><span style="display: block; font-size: 13px; color: #6b6656">{{r.meta}}</span></span><dc-import name="Sym" sym="{{r.sym}}" size="{{s18}}" color="#1d2b22" hint-size="18px,18px"></dc-import></button>
+        </sc-for>
+      </div>
+    </sc-if>
+    <sc-if value="{{showCustoms}}" hint-placeholder-val="{{ false }}">
+      <div style="margin-top: 10px; display: flex; flex-wrap: wrap; gap: 6px">
+        <sc-for list="{{customChips}}" as="cc" hint-placeholder-count="2"><button aria-label="{{cc.aria}}" onClick="{{cc.remove}}" style="min-height: 32px; display: inline-flex; align-items: center; gap: 6px; padding: 0 10px; border-radius: 9999px; border: 0; background: #1d2b22; color: #ffffff; font-size: 14px; cursor: pointer">{{cc.label}}<dc-import name="Sym" sym="xmark" size="{{s12}}" color="#ffffff" hint-size="12px,12px"></dc-import></button></sc-for>
+      </div>
+    </sc-if>
+    <sc-if value="{{showFamilies}}" hint-placeholder-val="{{ true }}">
+      <div style="margin: 12px 4px 6px; display: flex; justify-content: space-between; font-size: 13px; color: #6b6656"><span>Common groups</span><span>in products</span></div>
+      <div style="background: #ffffff; border-radius: 22px; overflow: hidden">
+        <sc-for list="{{families}}" as="f" hint-placeholder-count="5">
+          <div style="{{f.wrap}}">
+            <button role="checkbox" aria-checked="{{f.checked}}" onClick="{{f.toggle}}" style="width: 100%; min-height: 50px; display: flex; align-items: center; gap: 12px; padding: 6px 14px; border: 0; background: transparent; cursor: pointer; text-align: left">
+              <span style="{{f.mark}}"><sc-if value="{{f.on}}" hint-placeholder-val="{{ false }}"><dc-import name="Sym" sym="checkmark" size="{{s12}}" color="#ffffff" hint-size="12px,12px"></dc-import></sc-if></span>
+              <dc-import name="Icon" k="{{f.label}}" size="32" hint-size="32px,32px"></dc-import><span style="flex: 1; min-width: 0"><span style="display: block; font-size: 16px">{{f.label}}</span><sc-if value="{{f.on}}" hint-placeholder-val="{{ false }}"><span style="display: block; font-size: 12px; color: #6b6656; white-space: nowrap; overflow: hidden; text-overflow: ellipsis">Also catches {{f.aliases}}</span></sc-if></span>
+              <span style="font-size: 13px; color: #6b6656; font-variant-numeric: tabular-nums">{{f.share}}</span>
+            </button>
+          </div>
+        </sc-for>
+      </div>
+    </sc-if>
+  </div>
+</sc-if>
+
+<!-- STRICTNESS + WHO -->
+<sc-if value="{{isStrict}}" hint-placeholder-val="{{ false }}">
+  <div class="ob-step ob-scroll" style="position: absolute; left: 0; right: 0; top: 112px; bottom: 0; padding: 0 20px 150px; overflow-x: hidden; overflow-y: auto">
+    <div style="display: flex; flex-direction: column; align-items: center; text-align: center; margin: 0 0 22px"><div style="flex: none"><dc-import name="Mascot" state="{{lwState}}" size="74" hint-size="74px,93px"></dc-import></div><h1 role="text" style="{{titleStyle}}">{{lwLine}}</h1></div>
+    <div style="margin-top: 16px; background: #ffffff; border-radius: 22px; overflow: hidden">
+      <div style="display: flex; align-items: center; gap: 16px; min-height: 76px; padding: 14px 18px; box-sizing: border-box">
+        <div style="flex: 1"><div style="font-size: 17px; line-height: 1.3">Also avoid “may contain”</div><div style="margin-top: 4px; font-size: 13px; line-height: 1.4; color: #6b6656">Shared lines and cross-contamination warnings. {{mayHint}}</div></div>
+        <button role="switch" aria-checked="{{mayChecked}}" aria-label="Also avoid may contain" onClick="{{toggleMay}}" style="{{mayTrack}}"><span style="{{mayKnob}}"></span></button>
+      </div>
+    <div style="margin: 22px 4px 8px; font-size: 13px; font-weight: 600; color: #6b6656">Same allergies for anyone else?</div>
+    <div style="background: #ffffff; border-radius: 22px; overflow: hidden">
+      <sc-if value="{{hasOthers}}" hint-placeholder-val="{{ true }}">
+        <div style="display: flex; flex-wrap: wrap; gap: 8px; padding: 12px 14px 4px">
+          <sc-for list="{{others}}" as="o" hint-placeholder-count="1"><span style="display: inline-flex; align-items: center; gap: 6px; height: 34px; padding: 0 6px 0 12px; border-radius: 9999px; background: #eef0ee; color: #1d2b22; font-size: 15px; font-weight: 600">{{o.name}}<button aria-label="{{o.removeAria}}" onClick="{{o.remove}}" style="width: 24px; height: 24px; border-radius: 50%; border: 0; background: rgba(27,107,62,0.14); display: grid; place-items: center; cursor: pointer"><dc-import name="Sym" sym="xmark" size="{{s12}}" color="#1d2b22" hint-size="12px,12px"></dc-import></button></span></sc-for>
+        </div>
+      </sc-if>
+      <div style="display: flex; align-items: center; gap: 10px; min-height: 56px; padding: 6px 8px 6px 14px; box-sizing: border-box">
+        <dc-import name="Sym" sym="person.2" size="{{s18}}" color="#1d2b22" hint-size="18px,18px"></dc-import>
+        <input value="{{otherDraft}}" onInput="{{onOther}}" maxlength="24" placeholder="Add a name" aria-label="Add a name" style="flex: 1; min-width: 0; border: 0; outline: none; font-size: 17px; font-family: inherit; background: transparent">
+        <button onClick="{{addOther}}" aria-disabled="{{otherOff}}" style="{{otherBtn}}">Add</button>
+      </div>
+    </div>
+    <div style="margin: 8px 4px 0; font-size: 13px; color: #6b6656; line-height: 1.35">Each name gets these allergies. No need to answer again.</div>
+    </div>
+  </div>
+</sc-if>
+
+<!-- TARGETS -->
+<sc-if value="{{isTargets}}" hint-placeholder-val="{{ false }}">
+  <div class="ob-step ob-scroll" style="position: absolute; left: 0; right: 0; top: 112px; bottom: 0; padding: 0 20px 150px; overflow-x: hidden; overflow-y: auto">
+    <div style="display: inline-flex; align-items: center; gap: 5px; height: 26px; margin-left: 4px; padding: 0 10px; border-radius: 9999px; background: rgba(38,131,78,0.08); color: #1d2b22; font-size: 13px; font-weight: 600"><dc-import name="Sym" sym="arrow.triangle.2.circlepath" size="{{s13}}" color="#1d2b22" hint-size="13px,13px"></dc-import>{{targetsBecause}}</div>
+    <div style="display: flex; flex-direction: column; align-items: center; text-align: center; margin: 0 0 22px"><div style="flex: none"><dc-import name="Mascot" state="{{lwState}}" size="74" hint-size="74px,93px"></dc-import></div><h1 role="text" style="{{titleStyle}}">{{lwLine}}</h1></div>
+    <div style="margin-top: 16px; background: #ffffff; border-radius: 22px; overflow: hidden">
+      <sc-for list="{{targets}}" as="t" hint-placeholder-count="2">
+        <div style="{{t.wrap}}">
+          <div style="flex: 1"><div style="font-size: 17px">{{t.label}}</div><div style="font-size: 13px; color: #6b6656">{{t.hint}}</div></div>
+          <dc-import name="Stepper" value="{{t.value}}" show="left" label="{{t.label}}" valueWidth="78" decAria="{{t.decLabel}}" incAria="{{t.incLabel}}" onInc="{{t.inc}}" onDec="{{t.dec}}" hint-size="182px,32px"></dc-import>
+        </div>
+      </sc-for>
+    </div>
+    <div style="margin: 10px 4px 0; font-size: 13px; color: #6b6656; line-height: 1.35">Products show grams and % of your own target, not a generic score.</div>
+  </div>
+</sc-if>
+
+<!-- NEXT PERSON: one person's questions are done, he moves on to the next -->
+<sc-if value="{{isNextPerson}}" hint-placeholder-val="{{ false }}">
+  <div class="ob-step ob-scroll" style="position: absolute; left: 0; right: 0; top: 112px; bottom: 0; padding: 0 20px 150px; overflow-x: hidden; overflow-y: auto">
+    <div style="display: flex; flex-direction: column; align-items: center; text-align: center; margin: 0 0 22px"><div style="flex: none"><dc-import name="Mascot" state="{{lwState}}" size="74" hint-size="74px,93px"></dc-import></div><h1 role="text" style="{{titleStyle}}">{{lwLine}}</h1></div>
+    <div style="margin-top: 16px; background: #ffffff; border-radius: 24px; overflow: hidden">
+      <sc-for list="{{people}}" as="pp" hint-placeholder-count="3">
+        <div style="{{pp.row}}">
+          <span style="{{pp.dot}}"><sc-if value="{{pp.done}}" hint-placeholder-val="{{ true }}"><dc-import name="Sym" sym="checkmark" size="{{s12}}" color="#ffffff" hint-size="12px,12px"></dc-import></sc-if></span>
+          <span style="flex: 1; min-width: 0"><span style="display: block; font-size: 17px; font-weight: 600">{{pp.name}}</span><span style="display: block; font-size: 13px; color: #6b6656">{{pp.note}}</span></span>
+        </div>
+      </sc-for>
+    </div>
+    <button onClick="{{sameAsPrev}}" style="margin-top: 12px; width: 100%; min-height: 52px; display: flex; align-items: center; gap: 10px; padding: 0 16px; border: 0; border-radius: 18px; background: #ffffff; font-size: 16px; color: #1d2b22; cursor: pointer; text-align: left"><dc-import name="Sym" sym="person.2" size="{{s18}}" color="#1d2b22" hint-size="18px,18px"></dc-import>{{sameLabel}}</button>
+  </div>
+</sc-if>
+
+<!-- SUMMARY -->
+<sc-if value="{{isSummary}}" hint-placeholder-val="{{ false }}">
+  <div class="ob-step ob-scroll" style="position: absolute; left: 0; right: 0; top: 112px; bottom: 0; padding: 0 20px 150px; overflow-x: hidden; overflow-y: auto">
+    <div style="display: flex; flex-direction: column; align-items: center; text-align: center; margin: 0 0 22px"><div style="flex: none"><dc-import name="Mascot" state="{{lwState}}" size="74" hint-size="74px,93px"></dc-import></div><h1 role="text" style="{{titleStyle}}">{{lwLine}}</h1></div>
+    <sc-for list="{{pcards}}" as="pc" hint-placeholder-count="2">
+      <div style="{{pc.cardStyle}}">
+        <div style="display: flex; align-items: center; gap: 14px">
+          <span aria-hidden="true" style="{{pc.avatar}}">{{pc.initial}}</span>
+          <div style="flex: 1; min-width: 0; text-align: left"><div style="font-size: 22px; font-weight: 700; line-height: 1.15">{{pc.name}}</div><div style="margin-top: 2px; font-size: 14px; color: #6f7a73">{{pc.sub}}</div></div>
+          <a href="Profile.dc.html" style="flex: none; min-height: 40px; display: flex; align-items: center; padding: 0 14px; border-radius: 9999px; background: #f1f3f1; font-size: 15px; font-weight: 600; color: #1d2b22; text-decoration: none">Edit</a>
+        </div>
+        <sc-if value="{{pc.compact}}" hint-placeholder-val="{{ false }}">
+          <div style="margin-top: 12px; display: flex; flex-wrap: wrap; gap: 6px">
+            <sc-for list="{{pc.items}}" as="it" hint-placeholder-count="3"><span style="{{it.chip}}"><img src="emoji3d/{{it.icon}}.png" alt="" style="width: 22px; height: 22px">{{it.short}}</span></sc-for>
+          </div>
+        </sc-if>
+        <sc-if value="{{pc.full}}" hint-placeholder-val="{{ true }}">
+        <div style="margin-top: 14px; display: flex; flex-direction: column; gap: 8px">
+          <sc-for list="{{pc.items}}" as="it" hint-placeholder-count="3">
+            <div style="display: flex; align-items: center; gap: 12px; min-height: 56px; padding: 8px 10px 8px 10px; box-sizing: border-box; border-radius: 18px; background: #f6f7f5">
+              <img src="emoji3d/{{it.icon}}.png" alt="" style="flex: none; width: 36px; height: 36px">
+              <div style="flex: 1; min-width: 0; text-align: left"><div style="font-size: 17px; font-weight: 600">{{it.label}}</div><sc-if value="{{it.detail}}" hint-placeholder-val="{{ true }}"><div style="font-size: 13px; color: #6f7a73; white-space: nowrap; overflow: hidden; text-overflow: ellipsis">{{it.detail}}</div></sc-if></div>
+              <sc-if value="{{it.fixed}}" hint-placeholder-val="{{ true }}"><span style="{{it.badge}}">{{it.kind}}</span></sc-if>
+              <sc-if value="{{it.flex}}" hint-placeholder-val="{{ false }}"><button aria-label="{{it.flipAria}}" onClick="{{it.flip}}" style="{{it.flipStyle}}">{{it.kind}}<dc-import name="Sym" sym="chevron.down" size="{{s12}}" color="#1d2b22" hint-size="12px,12px"></dc-import></button></sc-if>
+            </div>
+          </sc-for>
+          <sc-if value="{{pc.empty}}" hint-placeholder-val="{{ false }}"><div style="padding: 10px; font-size: 15px; color: #6f7a73">Nothing to avoid yet. Add allergies any time.</div></sc-if>
+        </div>
+        </sc-if>
+        <sc-if value="{{pc.hasAlso}}" hint-placeholder-val="{{ false }}"><div style="margin-top: 12px; display: flex; align-items: center; gap: 8px; font-size: 14px; color: #6f7a73"><img src="emoji3d/busts_in_silhouette.png" alt="" style="width: 22px; height: 22px">Same for {{pc.also}}</div></sc-if>
+      </div>
+    </sc-for>
+    <div style="margin-top: 10px; display: flex; gap: 10px; align-items: center; min-height: 48px; padding: 6px 14px; box-sizing: border-box; border-radius: 18px; background: #ffffff">
+      <dc-import name="Sym" sym="storefront" size="{{s18}}" color="#1d2b22" hint-size="18px,18px"></dc-import>
+      <div style="flex: 1; min-width: 0; font-size: 14px; line-height: 1.3"><div>{{regionName}}</div><div style="color: #6b6656">{{storeLine}}</div></div>
+    </div>
+    <div style="margin-top: 10px; display: flex; gap: 10px; align-items: center; padding: 12px 14px; border-radius: 18px; background: #ffffff">
+      <div style="position: relative; flex: none; width: 48px; height: 48px; border-radius: 12px; border: 1px solid #e5e5ea; background: #ffffff"><img src="/_blob/58077391b4e19dddae5d17a63751ab9c" alt="" style="width: 100%; height: 100%; object-fit: contain; border-radius: 12px"><span style="position: absolute; right: -5px; bottom: -5px; width: 22px; height: 22px; border-radius: 50%; background: #ffffff; display: grid; place-items: center"><dc-import name="Sym" sym="{{previewSym}}" size="{{s16}}" hint-size="16px,16px"></dc-import></span></div>
+      <div style="flex: 1; font-size: 14px; line-height: 1.35"><span style="color: #6b6656">Try it:</span> PopCorners Kettle would be <b>{{previewWord}}</b>{{previewWhy}}</div>
+    </div>
+    <ul style="margin: 12px 4px 0; padding-left: 18px; font-size: 14px; line-height: 1.5; color: #6b6656"><sc-if value="{{impact}}" hint-placeholder-val="{{ true }}"><li>{{impact}}</li></sc-if><li>Avoid hides it. Prefer not only shows it lower. Tap to switch.</li><li>Check the package. Not medical advice.</li></ul>
+  </div>
+</sc-if>
+
+<!-- LINKED: after peanut, suggest related allergens; nothing pre-ticked -->
+<sc-if value="{{linkOpen}}" hint-placeholder-val="{{ false }}">
+  <div class="rc-scrim" aria-hidden="true" style="position: absolute; inset: 0; z-index: 5; background: rgba(29,43,34,0.32)"></div>
+  <div class="rc-sheet" role="dialog" aria-label="Related allergens" style="position: absolute; left: 8px; right: 8px; bottom: 8px; z-index: 6; padding: 12px 22px 22px; border-radius: 40px; background: #ffffff">
+    <div aria-hidden="true" style="width: 40px; height: 5px; margin: 0 auto 16px; border-radius: 3px; background: #d9dcd9"></div>
+    <div style="text-align: center; font-size: 18px; line-height: 1.45">{{linkText}}</div>
+    <div style="margin-top: 14px">
+      <sc-for list="{{linkRows}}" as="lr" hint-placeholder-count="2">
+        <button role="checkbox" aria-checked="{{lr.checked}}" onClick="{{lr.tap}}" style="width: 100%; min-height: 72px; display: flex; align-items: center; gap: 16px; padding: 0 4px; border: 0; background: transparent; font-family: inherit; cursor: pointer"><span style="{{lr.box}}"><sc-if value="{{lr.on}}" hint-placeholder-val="{{ false }}"><dc-import name="Sym" sym="checkmark" size="{{s15}}" color="#ffffff" hint-size="15px,15px"></dc-import></sc-if></span><span style="flex: none; width: 52px; height: 52px; border-radius: 50%; background: #f3f4f2; display: grid; place-items: center"><img src="emoji3d/{{lr.icon}}.png" alt="" style="width: 32px; height: 32px"></span><span style="flex: 1; text-align: left; font-size: 19px">{{lr.label}}</span></button>
+      </sc-for>
+    </div>
+    <button onClick="{{linkSave}}" style="margin-top: 12px; width: 100%; min-height: 62px; border-radius: 9999px; border: 0; background: #eb9d15; color: #1d2b22; font-family: inherit; font-size: 19px; font-weight: 600; cursor: pointer">{{linkSaveLabel}}</button>
+    <button onClick="{{linkKeep}}" style="margin-top: 10px; width: 100%; min-height: 62px; border-radius: 9999px; border: 1.5px solid #1d2b22; background: #ffffff; font-family: inherit; font-size: 19px; font-weight: 500; color: #1d2b22; cursor: pointer">Just {{linkFrom}}</button>
+  </div>
+</sc-if>
+
+<!-- footer: one dark pill (and the mic on choice steps), on a fade so lists scroll under it -->
+<div aria-hidden="true" style="position: absolute; left: 0; right: 0; bottom: 0; height: 150px; z-index: 2; pointer-events: none; background: linear-gradient(to bottom, {{bgClear}}, {{bg}} 46%)"></div>
+<div style="position: absolute; left: 20px; right: 20px; bottom: 34px; z-index: 3; display: flex; align-items: center; gap: 12px">
+  <sc-if value="{{showMic}}" hint-placeholder-val="{{ false }}"><button aria-label="Say it instead" style="flex: none; width: 66px; height: 66px; border-radius: 50%; border: 0; background: #1d2b22; display: grid; place-items: center; cursor: pointer"><dc-import name="Sym" sym="mic" size="{{s24}}" color="#ffffff" hint-size="24px,24px"></dc-import></button></sc-if>
+  <sc-if value="{{isFinal}}" hint-placeholder-val="{{ false }}"><a href="Chat.dc.html" style="flex: 1; min-height: 66px; border-radius: 9999px; background: #eb9d15; display: flex; align-items: center; justify-content: center; gap: 8px; font-size: 20px; font-weight: 600; text-decoration: none; color: #1d2b22; box-shadow: 0 6px 18px rgba(235,157,21,0.28)">Check my first product<dc-import name="Sym" sym="chevron.right" size="{{s16}}" color="#1d2b22" hint-size="16px,16px"></dc-import></a></sc-if>
+  <sc-if value="{{notFinal}}" hint-placeholder-val="{{ true }}"><button onClick="{{next}}" aria-disabled="{{nextDisabled}}" style="{{nextStyle}}">{{nextLabel}}<sc-if value="{{nextChev}}" hint-placeholder-val="{{ true }}"><dc-import name="Sym" sym="chevron.right" size="{{s16}}" color="{{nextInk}}" hint-size="16px,16px"></dc-import></sc-if></button></sc-if>
+</div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"start":{"editor":"enum","options":["welcome","household","firstprofile","nextperson","goal","why","allergens","severity","religion","medical","diet","avoid","strict","phase","targets","region","store","depth","summary"],"default":"welcome"},"preset":{"editor":"enum","options":["none","family","family3","allergy","celiac","athlete"],"default":"none"},"open":{"editor":"enum","options":["","treenuts","fish","other"],"default":""},"sheet":{"editor":"boolean","default":false},"search":{"editor":"text","default":""},"$preview":{"width":390,"height":844}}'>
+class Component extends DCLogic {
+  constructor(props) {
+    super(props);
+    const base = { household: '', pname: '', team: [], teamDraft: '', pi: 0, doneP: [], others: [], otherDraft: '', softs: [], res: null, depth: '', budget: '', cooking: '', stores: [], prefs: [], zip: '', store: '', prog: 0, placeQ: '', city: '', phases: [], medOther: '', relOther: '', locUsed: false, goals: [], why: [], allergens: [], sev: {}, medical: [], diet: [], avoid: [], custom: [], may: false, mayTouched: false, who: 'me', source: '', phase: '', protein: 140, kcal: 2100, query: '' };
+    const presets = {
+      allergy: { household: 'family', pname: 'Mia', goals: ['avoid'], why: ['allergy'], allergens: ['peanut', 'treenuts'], sev: { peanut: 'severe', treenuts: 'severe' }, avoid: ['seed'], zip: '78701', store: 'wfm', prog: 100 },
+      family: { household: 'family', pname: 'Mia', team: ['Leo', 'Sam'], goals: ['avoid'], why: ['allergy'], allergens: ['peanut', 'treenuts'], sev: { peanut: 'severe', treenuts: 'severe' }, avoid: ['seed'], prog: 60 },
+      family3: { household: 'family', pname: 'Mia', team: ['Leo', 'Sam'], pi: 2, others: ['Dad'], goals: ['avoid'], why: ['allergy', 'religion'], allergens: ['sesame'], sev: { sesame: 'severe' }, diet: ['halal'], avoid: ['sugar'], zip: '78701', store: 'wfm', prog: 100,
+        doneP: [{ name: 'Mia', rules: { allergens: ['peanut', 'treenuts'], sev: { peanut: 'severe', treenuts: 'severe' }, avoid: ['seed'] } }, { name: 'Leo', rules: { allergens: ['milk', 'egg'], sev: { milk: 'intolerance', egg: 'severe' }, diet: ['vegetarian'] } }] },
+      celiac: { others: ['Leo'], goals: ['avoid'], why: ['medical'], medical: ['celiac'], avoid: ['gluten'], zip: '78701', store: 'heb', prog: 72 },
+      athlete: { goals: ['avoid', 'numbers'], why: ['diet'], diet: ['keto'], phases: ['cut', 'energy'], source: 'know', avoid: ['sugar', 'seed'], zip: '78701', store: 'safeway', prog: 100 }
+    };
+    this.base0 = Object.assign({}, base);
+    this.state = Object.assign(base, presets[props.preset] || {}, { step: props.start || 'welcome', open: props.open || '', link: props.sheet ? 'peanut' : '', linkSel: [], aq: props.search || '' });
+    if (props.sheet && this.state.allergens.indexOf('peanut') < 0) this.state.allergens = this.state.allergens.concat(['peanut']);
+  }
+  componentWillUnmount() { clearTimeout(this.rt); clearInterval(this.ri); }
+  renderVals() {
+    const B = window.__lwBrand || (window.__lwBrand = (() => { try { const x = new XMLHttpRequest(); x.open('GET', 'brand.json', false); x.send(); if (x.status === 200) return JSON.parse(x.responseText); } catch (e) {} return { mascot: 'LabelSage', app: 'LabelSage' }; })()); const MASCOT = B.mascot; /* names live in brand.json */
+    const s = this.state;
+    const has = (arr, v) => arr.indexOf(v) >= 0;
+    const tog = (key, v) => () => this.setState({ [key]: has(s[key], v) ? s[key].filter((x) => x !== v) : s[key].concat([v]) });
+    const one = (key, v) => () => this.setState({ [key]: v });
+    // goals is a checklist: Foods I avoid, My numbers, or both ticked
+    const wantsAvoid = has(s.goals, 'avoid');
+    const wantsNumbers = has(s.goals, 'numbers');
+    const goalSet = wantsAvoid || wantsNumbers;
+
+    // allergens a chosen diet already excludes: vegan has no milk, egg or fish; vegetarian has no fish
+    const COVER = { vegan: ['milk', 'egg', 'fish'], vegetarian: ['fish'] };
+    const coveredBy = {};
+    s.diet.forEach((d) => (COVER[d] || []).forEach((a) => { coveredBy[a] = coveredBy[a] || d; }));
+    const allergens = s.allergens.filter((a) => !coveredBy[a]);
+    // decision tree: the path depends on the answers so far
+    const family = s.household === 'family';
+    const path = ['welcome', 'household'];
+    if (family) path.push('firstprofile');
+    path.push('goal');
+    if (wantsAvoid) {
+      path.push('why');
+      // what you eat first: a diet or food rule already rules out some allergens, so allergies come after
+      if (has(s.why, 'diet')) path.push('diet');
+      if (has(s.why, 'religion')) path.push('religion');
+      if (has(s.why, 'medical')) path.push('medical');
+      if (has(s.why, 'allergy')) path.push('allergens', 'severity');
+      path.push('avoid');
+      const onlySoft = s.why.length === 1 && s.why[0] === 'dislike';
+      if (!onlySoft) path.push('strict');
+    }
+    if (wantsNumbers) path.push('source', 'phase', 'targets');
+    if (family && s.pi < s.team.length) path.push('nextperson');
+    // where you shop: asked once for the household, after everyone's allergies. Region is required (products and stores differ by area); the store sets where other options come from
+    else path.push('region', 'store');
+    if (goalSet) path.push('depth');
+    if (s.depth === 'more') path.push('prefs');
+    path.push('summary');
+    let idx = path.indexOf(s.step); if (idx < 0) idx = 0;
+    const go = (d) => {
+      const ni = Math.max(0, Math.min(path.length - 1, idx + d)); const p = path[ni];
+      // progress never moves backwards: a forward step takes its share of what is left
+      const left = Math.max(path.length - 1 - idx, 9 - idx); // assume a typical 9-step path until answers show it is shorter
+      const prog = d > 0 && left > 0 ? (p === 'summary' ? 100 : s.prog + (100 - s.prog) / left) : s.prog;
+      this.setState({ step: p, query: '', prog });
+    };
+
+    const COLOR = { careful: '#ffd449', bad: '#ef4b3f', good: '#1dbf73' };
+    // native iOS list rows: inset separators, single choice = trailing checkmark, multiple = filled circle check
+    const row = (on, multi, i) => ({
+      style: 'width: 100%; min-height: 64px; display: flex; align-items: center; gap: 14px; padding: 10px 16px; border: 0; cursor: pointer; background: transparent' + (i ? ' linear-gradient(#e5e5ea, #e5e5ea) 64px 0 / calc(100% - 64px) 1px no-repeat;' : ';'),
+      mark: multi ? 'flex: none; width: 24px; height: 24px; border-radius: 50%; display: grid; place-items: center; box-sizing: border-box; ' + (on ? 'background: #1d2b22;' : 'border: 1.5px solid #c7c7cc;') : 'flex: none; width: 24px; height: 24px; display: grid; place-items: center;',
+      checkSize: multi ? 13 : 20, checkColor: multi ? '#ffffff' : '#1d2b22',
+      role: multi ? 'checkbox' : 'radio', checked: on ? 'true' : 'false', on
+    });
+    // simple style: separate white cards or 2-column tiles, a 3D icon each, square checkbox (multi) or round (single)
+    const INK = '#1d2b22', SHADOW = '0 1px 2px rgba(29,43,34,0.04), 0 10px 26px rgba(29,43,34,0.05)';
+    const ICON = { me: 'bust_in_silhouette', family: 'busts_in_silhouette', avoid: 'prohibited', numbers: 'bar_chart', medical: 'stethoscope', allergy: 'warning', diet: 'leafy_green', religion: 'place_of_worship', dislike: 'neutral_face',
+      celiac: 'sheaf_of_rice', heart: 'anatomical_heart', sugar: 'candy', other: 'plus', vegan: 'leafy_green', vegetarian: 'carrot', keto: 'avocado', paleo: 'cut_of_meat', halal: 'star_and_crescent', kosher: 'star_of_david', nobeef: 'cow_face', relother: 'plus',
+      know: 'memo', help: 'mobile_phone', quick: 'rocket', more: 'control_knobs', low: 'coin', mid: 'dollar_banknote', high: 'money_bag', none: 'infinity', some: 'shallow_pan_of_food', love: 'red_heart',
+      wf: 'convenience_store', costco: 'convenience_store', safeway: 'convenience_store', aldi: 'convenience_store', wfm: 'convenience_store', heb: 'convenience_store', target: 'convenience_store', near: 'round_pushpin',
+      organic: 'seedling', nova4: 'factory', store: 'label', local: 'house_with_garden', cut: 'chart_decreasing', bulk: 'meat_on_bone', maintain: 'balance_scale', whole: 'green_apple', energy: 'high_voltage' };
+    const boxS = (on, multi) => 'flex: none; width: 30px; height: 30px; border-radius: ' + (multi ? '9px' : '50%') + '; display: grid; place-items: center; box-sizing: border-box; ' + (on ? 'background: ' + INK + ';' : 'border: 2px solid #e3e1df; background: #ffffff;');
+    const cardS = (on) => 'width: 100%; min-height: 80px; display: flex; align-items: center; gap: 16px; padding: 14px 18px; box-sizing: border-box; border-radius: 26px; border: 0; background: #ffffff; font-family: inherit; color: ' + INK + '; cursor: pointer; text-align: left; box-shadow: ' + (on ? '0 0 0 2px ' + INK : SHADOW) + ';';
+    const tileS = (on) => 'position: relative; min-height: 158px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 6px; padding: 22px 12px 16px; box-sizing: border-box; border-radius: 26px; border: 0; background: #ffffff; font-family: inherit; color: ' + INK + '; cursor: pointer; text-align: center; box-shadow: ' + (on ? '0 0 0 2px ' + INK : SHADOW) + ';';
+    const opts = (list, key, multi) => list.map((o, i) => { const on = multi ? has(s[key], o[4]) : s[key] === o[4]; return Object.assign({ sym: o[0], label: o[1], detail: o[2] || '', tint: o[3] || '#eef7f2', pick: multi ? tog(key, o[4]) : one(key, o[4]),
+      icon: ICON[o[4]] || 'sparkles', card: cardS(on), tile: tileS(on), box: boxS(on, multi), boxTile: 'position: absolute; top: 12px; right: 12px; ' + boxS(on, multi) }, row(on, multi, i)); });
+
+    const Q = {
+      household: { title: 'Who do you shop for?', sub: 'Each person gets their own allergies.', role: 'radiogroup', options: opts([
+        ['person.crop.circle', 'Just me', 'Just my allergies and diets', '#eef0ee', 'me'],
+        ['person.2', 'My family', 'Everyone at home, one at a time', '#fcebc4', 'family']], 'household', false) },
+      goal: { title: 'What should I check for you?', sub: 'Tick one or both. You can change it any time.', role: 'group', options: opts([
+        ['nosign', 'Allergies and ingredients', 'Allergies, diets and anything you avoid', '#ffe9e6', 'avoid'],
+        ['scalemass', 'Macros and calories', 'Protein and calories for a goal', '#f4f0d8', 'numbers']], 'goals', true) },
+      why: { title: 'Why do you avoid foods?', sub: 'Select all that apply. I only ask follow-ups for what you pick.', role: 'group', options: opts([
+        ['heart.text.square', 'Medical diet', 'Celiac, heart health, blood sugar and more', '#ffe9e6', 'medical'],
+        ['exclamationmark.triangle', 'Allergy or intolerance', 'I’ll ask which ones', '#fff5cc', 'allergy'],
+        ['leaf', 'Diet choice', 'Vegan, vegetarian, keto…', '#eef0ee', 'diet'],
+        ['globe', 'Religion or culture', 'Halal, kosher, no beef', '#fcebc4', 'religion'],
+        ['heart', 'I just don’t like some foods', 'Shown lower, never hidden', '#f4f0d8', 'dislike']], 'why', true),
+        foot: 'Allergies and medical diets are always avoided. Dislikes only move products down.' },
+      allergens: { title: 'Which allergens?', sub: 'The 9 major allergens, by how often they appear in products.', role: 'group', options: opts([
+        ['exclamationmark.triangle', 'Milk', 'whey, casein, butter, lactose · 31%', '#fff5cc', 'milk'],
+        ['exclamationmark.triangle', 'Soy', 'soy lecithin, tofu, edamame · 17%', '#fff5cc', 'soy'],
+        ['exclamationmark.triangle', 'Wheat', 'flour, semolina, spelt · 14%', '#fff5cc', 'wheat'],
+        ['exclamationmark.triangle', 'Tree nuts', 'almond, cashew, walnut · 7%', '#fff5cc', 'treenuts'],
+        ['exclamationmark.triangle', 'Egg', 'albumin, mayonnaise · 5%', '#fff5cc', 'egg'],
+        ['exclamationmark.triangle', 'Peanut', 'peanut oil, groundnut · 4%', '#fff5cc', 'peanut'],
+        ['exclamationmark.triangle', 'Fish or shellfish', 'anchovy, shrimp, crab · 3%', '#fff5cc', 'fish'],
+        ['exclamationmark.triangle', 'Sesame', 'tahini, sesame oil · 2%', '#fff5cc', 'sesame']].filter((o) => !coveredBy[o[4]]), 'allergens', true),
+        foot: (Object.keys(coveredBy).length ? 'Already covered by your ' + s.diet.filter((d) => COVER[d]).join(' and ') + ' diet: ' + Object.keys(coveredBy).map((a) => ({ milk: 'milk', egg: 'egg', fish: 'fish and shellfish' })[a]).join(', ') + '. ' : '') + 'Something else? Search any ingredient in the next step.' },
+      medical: { title: 'Which medical diet?', sub: 'I set sensible defaults. You can fine-tune them later.', role: 'group', options: opts([
+        ['nosign', 'Celiac or gluten-free', 'Adds gluten with all its hidden names', '#ffe9e6', 'celiac'],
+        ['heart.text.square', 'Heart health', 'Sodium under 1,500 mg a day', '#ffe9e6', 'heart'],
+        ['scalemass', 'Blood sugar', 'Added sugar under 25 g a day', '#fff5cc', 'sugar'],
+        ['plus', 'Something else', 'Type it below', '#f4f0d8', 'other']], 'medical', true), otherKey: 'medOther', otherOn: has(s.medical, 'other'), otherPh: 'e.g. low FODMAP, kidney diet' },
+      diet: { title: 'Which diet?', sub: 'Each one adds its own ingredient list.', role: 'group', options: opts([
+        ['leaf', 'Vegan', 'No meat, fish, dairy, eggs, honey', '#eef0ee', 'vegan'],
+        ['leaf', 'Vegetarian', 'No meat or fish', '#eef0ee', 'vegetarian'],
+        ['scalemass', 'Keto', 'Net carbs under 20 g a day', '#f4f0d8', 'keto'],
+        ['fork.knife', 'Paleo or whole food', 'No grains, legumes, refined sugar', '#f2f2f7', 'paleo']], 'diet', true) },
+      religion: { title: 'Halal, kosher or other?', sub: 'I flag hidden ingredients like gelatin and animal fats.', role: 'group', options: opts([
+        ['globe', 'Halal', 'No pork, alcohol; gelatin checked', '#fcebc4', 'halal'],
+        ['globe', 'Kosher', 'Certified, meat and dairy kept apart', '#fcebc4', 'kosher'],
+        ['globe', 'No beef', 'Beef, beef tallow, beef gelatin', '#fcebc4', 'nobeef'],
+        ['plus', 'Other', 'Type it below', '#f4f0d8', 'relother']], 'diet', true), otherKey: 'relOther', otherOn: has(s.diet, 'relother'), otherPh: 'e.g. Jain, no pork gelatin, vegetarian on Fridays' },
+      source: { title: 'Where do your targets come from?', sub: 'I’ll prefill the next step.', role: 'radiogroup', options: opts([
+        ['checkmark.circle', 'I know my numbers', 'From me or my coach', '#eef0ee', 'know'],
+        ['heart.text.square', 'Help me set them', 'Uses height, weight and age from Apple Health', '#ffe9e6', 'help']], 'source', false),
+        foot: 'Apple Health is only requested if you choose “Help me set them”.' },
+      depth: { title: 'Fine-tune now, or start?', sub: 'Allergies are set. Extra details only sharpen other options.', role: 'radiogroup', options: opts([
+        ['forward.end', 'Start now', 'Show my summary; I’ll learn as you shop', '#eef0ee', 'quick'],
+        ['slider.horizontal.3', 'Fine-tune more', 'Budget and preferences · about 1 min', '#f2f2f7', 'more']], 'depth', false) },
+      budget: { title: 'Weekly grocery budget?', sub: 'Used to rank swaps and build your cart.', role: 'radiogroup', options: opts([
+        ['tag', 'Under $60', '', '#f4f0d8', 'low'], ['tag', '$60 to $120', '', '#f4f0d8', 'mid'], ['tag', 'Over $120', '', '#f4f0d8', 'high'], ['checkmark.circle', 'No limit', '', '#eef0ee', 'none']], 'budget', false) },
+      cooking: { title: 'How much do you cook?', sub: 'Shapes which recipes I suggest.', role: 'radiogroup', options: opts([
+        ['clock', 'Quick, 15 minutes', 'Few ingredients, little prep', '#f4f0d8', 'quick'], ['fork.knife', 'Some cooking', 'Up to 45 minutes on weeknights', '#f2f2f7', 'some'], ['heart', 'I love cooking', 'Longer recipes are fine', '#fcebc4', 'love']], 'cooking', false) },
+      stores: { title: 'Where do you shop?', sub: 'In-store aisles and Instacart prices come from these.', role: 'group', options: opts([
+        ['storefront', 'Whole Foods', '', '#f4f0d8', 'wf'], ['storefront', 'Costco', '', '#f4f0d8', 'costco'], ['storefront', 'Safeway', '', '#f4f0d8', 'safeway'], ['storefront', 'ALDI', '', '#f4f0d8', 'aldi'], ['location', 'Use my location', 'Nearest stores on Instacart', '#eef0ee', 'near']], 'stores', true) },
+      prefs: { title: 'Any preferences?', sub: 'They move products down, never hide them.', role: 'group', options: opts([
+        ['leaf', 'Prefer organic', '', '#eef0ee', 'organic'], ['nosign', 'Avoid ultra-processed', 'NOVA 4 shown lower', '#ffe9e6', 'nova4'], ['tag', 'Prefer store brands', 'Cheaper equivalents first', '#f4f0d8', 'store'], ['location', 'Prefer local', '', '#f4f0d8', 'local']], 'prefs', true) },
+      store: { title: 'Where do you shop?', sub: 'Other options come from this store. Change it in Profile.', role: 'radiogroup', options: opts([
+        ['storefront', 'Whole Foods Market', '1.2 mi · Downtown', '#f4f0d8', 'wfm'],
+        ['storefront', 'Safeway', '2.0 mi · East Austin', '#f4f0d8', 'safeway'],
+        ['storefront', 'H-E-B', '2.4 mi · Mueller', '#f4f0d8', 'heb'],
+        ['storefront', 'Target', '3.1 mi · North Loop', '#f4f0d8', 'target']], 'store', false),
+        foot: 'Stores near your ZIP code. You can set this up later.' },
+      phase: { title: 'What are your goals right now?', sub: 'Tick all that apply. Changing them later only re-asks this.', role: 'group', options: opts([
+        ['arrow.triangle.2.circlepath', 'Lose fat', 'Eat a little less, keep muscle', '#f4f0d8', 'cut'],
+        ['plus', 'Build muscle', 'More protein and calories', '#fefbdc', 'bulk'],
+        ['scalemass', 'Maintain weight', 'Hold where I am', '#eef0ee', 'maintain'],
+        ['leaf', 'Eat more whole foods', 'Less ultra-processed', '#eef0ee', 'whole'],
+        ['heart.text.square', 'Steadier energy', 'Less added sugar between meals', '#ffe9e6', 'energy']], 'phases', true) }
+    };
+    const becauseMap = {
+      allergens: 'Because you picked allergy', severity: 'Because you picked allergy', medical: 'Because you picked medical diet',
+      diet: 'Because you picked diet choice', religion: 'Because you picked religion', source: 'Because you track numbers', phase: 'Because you track numbers', store: 'Required to shop'
+    };
+    // several people at home: each gets their own questions, one after another (pi = whose turn it is)
+    const cur = s.pi > 0 ? (s.team[s.pi - 1] || '') : s.pname.trim();
+    const who = family && cur ? cur : '';
+    if (who) {
+      const T = { goal: 'What should I check for ' + who + '?', why: 'Why does ' + who + ' avoid foods?', allergens: 'Which allergens for ' + who + '?', 
+        medical: 'Which medical diet for ' + who + '?', diet: 'Which diet for ' + who + '?', religion: 'Halal, kosher or other for ' + who + '?', source: 'Where do ' + who + '’s targets come from?', phase: 'What are ' + who + '’s goals right now?' };
+      Object.keys(T).forEach((k) => { if (Q[k]) Q[k] = Object.assign({}, Q[k], { title: T[k] }); });
+    }
+    // city or ZIP search: matches the start of a city, a state name, a state code or a ZIP code
+    const PLACES = [['New York', 'NY', 'New York', '10001', 'Manhattan'], ['Newark', 'NJ', 'New Jersey', '07102', 'Essex County'], ['Jersey City', 'NJ', 'New Jersey', '07302', 'Hudson County'],
+      ['New Orleans', 'LA', 'Louisiana', '70112', 'Orleans Parish'], ['New Haven', 'CT', 'Connecticut', '06510', 'New Haven County'], ['Newport Beach', 'CA', 'California', '92660', 'Orange County'],
+      ['Austin', 'TX', 'Texas', '78701', 'Travis County'], ['Nashville', 'TN', 'Tennessee', '37201', 'Davidson County'], ['Denver', 'CO', 'Colorado', '80202', 'Denver County'],
+      ['Seattle', 'WA', 'Washington', '98101', 'King County'], ['San Francisco', 'CA', 'California', '94103', 'San Francisco County'], ['Chicago', 'IL', 'Illinois', '60601', 'Cook County']];
+    const pq = (s.placeQ || '').trim().toLowerCase();
+    const suggest = pq.length < 2 ? [] : PLACES.filter((x) => x[0].toLowerCase().startsWith(pq) || x[2].toLowerCase().startsWith(pq) || x[1].toLowerCase() === pq || x[3].startsWith(pq)).slice(0, 4).map((x, i) => ({
+      city: x[0] + ', ' + x[1], detail: x[2] + ' · ' + x[4], zip: x[3],
+      pick: () => this.setState({ zip: x[3], city: x[0] + ', ' + x[1], placeQ: x[0] + ', ' + x[1] + ' ' + x[3], picked: true, locUsed: false }),
+      style: 'width: 100%; min-height: 60px; display: flex; align-items: center; gap: 12px; padding: 8px 16px; border: 0; cursor: pointer; background: transparent' + (i ? ' linear-gradient(#e5e5ea, #e5e5ea) 46px 0 / calc(100% - 46px) 1px no-repeat;' : ';') }));
+    const NAME = { milk: 'Milk', soy: 'Soy', wheat: 'Wheat', treenuts: 'Tree nuts', egg: 'Egg', peanut: 'Peanut', fish: 'Fish or shellfish', sesame: 'Sesame' };
+    const isQ = !!Q[s.step] && s.step !== 'allergens';
+    const q = Q[s.step] ? Q[s.step] : { title: '', sub: '', options: [], role: 'group' };
+
+    // ingredient families and the catalog for "avoid anything"
+    const FAM = [
+      ['sugar', 'Added sugars', 43, 'cane sugar, corn syrup, dextrose, maltodextrin, glucose syrup'],
+      ['flavors', 'Natural flavors', 25, 'natural flavor, natural and artificial flavors'],
+      ['seed', 'Seed oils', 20, 'sunflower, soybean, canola, vegetable, cottonseed, safflower oil'],
+      ['gluten', 'Gluten', 14, 'wheat, barley, rye, malt, spelt, semolina'],
+      ['gums', 'Gums and thickeners', 12, 'carrageenan, xanthan, guar, modified starch'],
+      ['preserv', 'Preservatives', 8, 'potassium sorbate, sodium benzoate, nitrites'],
+      ['palm', 'Palm oil', 5, 'palm oil, palm kernel oil'],
+      ['msg', 'MSG and yeast extract', 5, 'monosodium glutamate, yeast extract'],
+      ['sweet', 'Artificial sweeteners', 4, 'sucralose, acesulfame K, aspartame'],
+      ['colors', 'Artificial colors', 3, 'Red 40, Yellow 5, caramel color']
+    ];
+    const families = FAM.map((f, i) => {
+      const on = has(s.avoid, f[0]);
+      return { label: f[1], share: f[2] + '%', aliases: f[3], on, checked: on ? 'true' : 'false', toggle: tog('avoid', f[0]),
+        wrap: i ? 'border-top: 1px solid #e5e5ea;' : '',
+        mark: 'flex: none; width: 24px; height: 24px; border-radius: 7px; display: grid; place-items: center; ' + (on ? 'background: #1d2b22;' : 'border: 1.5px solid #8c8775; box-sizing: border-box;') };
+    });
+    const CATALOG = [
+      ['Carrageenan', 'Gums and thickeners', 2], ['Sucralose', 'Artificial sweeteners', 3], ['Maltodextrin', 'Added sugars', 4],
+      ['Titanium dioxide', 'Artificial colors', 1], ['Sodium nitrite', 'Preservatives', 1], ['Gelatin', 'Animal-derived', 2],
+      ['Pork and lard', 'Animal-derived', 1], ['Caffeine', 'Stimulants', 2], ['Coconut', 'Tree nut for some', 3],
+      ['Mushrooms', 'Whole food', 1], ['Cilantro', 'Herb', 1], ['Soy lecithin', 'Soy', 6], ['Canola oil', 'Seed oils', 4],
+      ['Sunflower lecithin', 'Seed oils', 2], ['Corn syrup', 'Added sugars', 4], ['Alcohol', 'Religion or recovery', 1]
+    ];
+    const DICT = [
+      { keys: ['nightshade'], cat: 'Nightshade vegetables', conf: 'High match', note: 'A food family, not one ingredient. Spices count too.', kws: ['tomato', 'potato', 'eggplant', 'bell pepper', 'paprika', 'cayenne', 'chili', 'goji', 'tomatillo'] },
+      { keys: ['red dye', 'red 40', 'dye'], cat: 'Artificial red colors', conf: 'High match', note: 'Includes E-numbers and older names.', kws: ['Red 40', 'Allura Red', 'E129', 'Red 3', 'Erythrosine', 'E127', 'Carmine', 'E120'] },
+      { keys: ['e621', 'msg', 'glutamate'], cat: 'Flavor enhancers', conf: 'High match', note: 'MSG hides under several names.', kws: ['monosodium glutamate', 'MSG', 'E621', 'yeast extract', 'hydrolyzed protein', 'autolyzed yeast'] },
+      { keys: ['gelatine', 'gelatin', 'gellatin'], cat: 'Gelatin (animal-derived)', conf: 'High match', note: 'Spelling corrected from your text.', kws: ['gelatin', 'gelatine', 'E441', 'collagen peptides', 'hydrolyzed collagen'] },
+      { keys: ['corn'], cat: 'Corn and corn derivatives', conf: 'Medium match', note: 'Corn appears in many forms. Untick the ones you are fine with.', kws: ['corn', 'cornstarch', 'corn syrup', 'maltodextrin', 'dextrose', 'corn oil', 'polenta', 'masa'] }
+    ];
+    const AMBIG = {
+      histamine: [{ label: 'High-histamine foods', text: 'Aged cheese, cured meats, fermented foods, vinegar', res: { cat: 'High-histamine foods', conf: 'Medium match', note: 'Based on common low-histamine diet lists.', kws: ['aged cheese', 'salami', 'sauerkraut', 'vinegar', 'soy sauce', 'smoked fish', 'wine'] } },
+                  { label: 'Histamine releasers', text: 'Citrus, tomato, chocolate, strawberries', res: { cat: 'Histamine releasers', conf: 'Medium match', note: 'Lists vary; check with your doctor.', kws: ['citrus', 'tomato', 'cocoa', 'strawberry', 'pineapple', 'banana'] } }],
+      oil: [{ label: 'Seed oils', text: 'Sunflower, soybean, canola and more', res: { cat: 'Seed oils', conf: 'High match', note: 'Same as the Seed oils group.', kws: ['sunflower oil', 'soybean oil', 'canola oil', 'vegetable oil', 'cottonseed oil', 'safflower oil'] } },
+            { label: 'Palm oil', text: 'Palm and palm kernel oil', res: { cat: 'Palm oil', conf: 'High match', note: '', kws: ['palm oil', 'palm kernel oil', 'palmitate'] } },
+            { label: 'All added oils', text: 'Any oil listed as an ingredient', res: { cat: 'All added oils', conf: 'High match', note: 'Olive and avocado oil included.', kws: ['oil', 'olive oil', 'avocado oil', 'sunflower oil', 'canola oil', 'palm oil'] } }]
+    };
+    const startRes = (term) => {
+      const t = term.toLowerCase();
+      clearTimeout(this.rt); clearInterval(this.ri);
+      this.setState({ res: { term, phase: 'matching', i: 0 }, query: '' });
+      this.ri = setInterval(() => { const r = this.state.res; if (r && r.phase === 'matching') this.setState({ res: Object.assign({}, r, { i: Math.min(2, r.i + 1) }) }); }, 550);
+      this.rt = setTimeout(() => {
+        clearInterval(this.ri);
+        const amb = Object.keys(AMBIG).find((k) => t.indexOf(k) >= 0);
+        if (amb) { this.setState({ res: { term, phase: 'ambiguous', choices: AMBIG[amb] } }); return; }
+        const d = DICT.find((x) => x.keys.some((k) => t.indexOf(k) >= 0));
+        const r = d || { cat: 'Exact text', conf: 'Low match', note: 'New ingredient. I’ll match it on labels and ask when unsure.', kws: [term, term + 's'] };
+        this.setState({ res: { term, phase: 'matched', cat: r.cat, conf: r.conf, note: r.note, kws: r.kws, off: [] } });
+      }, 1700);
+    };
+    const res = s.res;
+    const resKeywords = res && res.phase === 'matched' ? res.kws.map((k) => { const on = res.off.indexOf(k) < 0; return { label: k, on: on ? 'true' : 'false',
+      toggle: () => this.setState({ res: Object.assign({}, res, { off: on ? res.off.concat([k]) : res.off.filter((x) => x !== k) }) }),
+      style: 'min-height: 32px; padding: 0 10px; border-radius: 9999px; font-size: 14px; cursor: pointer; ' + (on ? 'border: 0; background: #1d2b22; color: #ffffff;' : 'border: 1px solid #c9c4a8; background: #ffffff; color: #6b6656; text-decoration: line-through;') }; }) : [];
+    const confColor = res && res.conf ? (res.conf.indexOf('High') === 0 ? 'background: #eef0ee; color: #1d2b22;' : res.conf.indexOf('Medium') === 0 ? 'background: #fff5cc; color: #232323;' : 'background: #f4f0d8; color: #4a4740;') : '';
+    const customChips = s.custom.map((c) => { const name = typeof c === 'string' ? c : c.label; return { label: name, aria: 'Remove ' + name, remove: () => this.setState({ custom: s.custom.filter((x) => x !== c) }) }; });
+    const qy = s.query.trim().toLowerCase();
+    let results = [];
+    if (qy) {
+      results = CATALOG.filter((c) => c[0].toLowerCase().indexOf(qy) >= 0 || c[1].toLowerCase().indexOf(qy) >= 0).slice(0, 4).map((c, i) => {
+        const added = s.custom.some((x) => (typeof x === 'string' ? x : x.label) === c[0]);
+        return { name: c[0], meta: (added ? 'Added · ' : '') + c[1] + ' · in ' + c[2] + '% of products', sym: added ? 'checkmark' : 'plus',
+          add: () => this.setState({ custom: added ? s.custom.filter((x) => (typeof x === 'string' ? x : x.label) !== c[0]) : s.custom.concat([c[0]]) }),
+          style: 'width: 100%; min-height: 54px; display: flex; align-items: center; gap: 10px; padding: 6px 14px; border: 0; background: transparent; cursor: pointer;' + (i ? ' border-top: 1px solid #e5e5ea;' : '') };
+      });
+      const exact = CATALOG.some((c) => c[0].toLowerCase() === qy);
+      if (!exact) results.push({ name: 'Make “' + s.query.trim() + '” a custom filter', meta: 'The agent finds the matching ingredients, category and hidden names', sym: 'wand.and.stars',
+        add: () => startRes(s.query.trim()),
+        style: 'width: 100%; min-height: 54px; display: flex; align-items: center; gap: 10px; padding: 6px 14px; border: 0; background: transparent; cursor: pointer;' + (results.length ? ' border-top: 1px solid #e5e5ea;' : '') });
+    }
+
+    // strictness defaults: on for allergy (severe) and celiac
+    const mayDefault = allergens.some((a) => s.sev[a] !== 'intolerance') || has(s.medical, 'celiac');
+    const may = s.mayTouched ? s.may : mayDefault;
+    const sw = (on) => ({ track: 'flex: none; position: relative; width: 51px; height: 31px; border-radius: 9999px; border: 0; padding: 0; cursor: pointer; background: ' + (on ? '#1d2b22' : 'rgba(107,102,86,0.24)') + ';',
+      knob: 'position: absolute; top: 2px; left: ' + (on ? '22px' : '2px') + '; width: 27px; height: 27px; border-radius: 50%; background: #ffffff; box-shadow: 0 3px 8px rgba(0,0,0,0.15);' });
+    const mayS = sw(may);
+    const whoOptions = [['person.crop.circle', 'Me', 'me'], ['heart', 'My child', 'child'], ['person.2', 'Someone I live with', 'partner'], ['person.3', 'Several people', 'several']].map((o, i) =>
+      Object.assign({ sym: o[0], label: o[1], pick: one('who', o[2]) }, row(s.who === o[2], false, i)));
+
+    // targets prefilled by phase
+    const ph = s.phases || [];
+    const phase = has(ph, 'cut') && has(ph, 'bulk') ? 'recomp' : has(ph, 'cut') ? 'cut' : has(ph, 'bulk') ? 'bulk' : has(ph, 'maintain') ? 'maintain' : '';
+    const pBase = { cut: 160, maintain: 140, bulk: 170, recomp: 170 }[phase] || 140;
+    const kBase = { cut: 1900, maintain: 2300, bulk: 2800, recomp: 2200 }[phase] || 2100;
+    const protein = s.proteinTouched ? s.protein : pBase, kcal = s.kcalTouched ? s.kcal : kBase;
+    const targets = [
+      { label: 'Protein', hint: 'About ' + Math.round(protein / 4) + ' g per meal', value: protein + ' g', decLabel: 'Less protein', incLabel: 'More protein',
+        dec: () => this.setState({ protein: protein - 5, proteinTouched: true }), inc: () => this.setState({ protein: protein + 5, proteinTouched: true }) },
+      { label: 'Calories', hint: phase ? 'For your ' + ({ cut: 'fat-loss', bulk: 'muscle', maintain: 'maintenance', recomp: 'recomposition' })[phase] + ' goal' : 'Daily total', value: kcal.toLocaleString('en-US'), decLabel: 'Fewer calories', incLabel: 'More calories',
+        dec: () => this.setState({ kcal: kcal - 100, kcalTouched: true }), inc: () => this.setState({ kcal: kcal + 100, kcalTouched: true }) }
+    ].map((t, i) => Object.assign(t, { wrap: 'display: flex; align-items: center; gap: 12px; min-height: 68px; padding: 8px 16px; box-sizing: border-box;' + (i ? ' border-top: 1px solid #e5e5ea;' : '') }));
+
+    // summary: every rule with hard or soft, plus a live preview on a real product
+    const R = [];
+    const soft = s.why.length === 1 && s.why[0] === 'dislike';
+    allergens.forEach((a) => R.push({ label: 'No ' + NAME[a].toLowerCase(), detail: s.sev[a] === 'intolerance' ? 'Intolerance · in the ingredients only' : 'Allergy' + (may ? ' · “may contain” too' : ''), hard: true }));
+    if (has(s.medical, 'celiac')) R.push({ label: 'No gluten', detail: 'Celiac · wheat, barley, rye, malt' + (may ? ', may contain' : ''), hard: true });
+    if (has(s.medical, 'other') && (s.medOther || '').trim()) R.push({ label: s.medOther.trim(), detail: 'Medical diet · you described it', hard: true });
+    if (has(s.diet, 'relother') && (s.relOther || '').trim()) R.push({ label: s.relOther.trim(), detail: 'You described it', hard: true });
+    if (has(s.medical, 'heart')) R.push({ label: 'Sodium under 1,500 mg a day', detail: 'Heart health', hard: true });
+    if (has(s.medical, 'sugar')) R.push({ label: 'Added sugar under 25 g a day', detail: 'Blood sugar', hard: true });
+    s.diet.filter((d) => d !== 'relother').forEach((d) => R.push({ label: { vegan: 'Vegan', vegetarian: 'Vegetarian', keto: 'Keto, net carbs under 20 g', paleo: 'Paleo', halal: 'Halal', kosher: 'Kosher', nobeef: 'No beef' }[d], detail: 'Diet or belief', hard: true, diet: true }));
+    s.avoid.forEach((a) => { const f = FAM.find((x) => x[0] === a); if (f && !(a === 'gluten' && has(s.medical, 'celiac'))) { const l = 'No ' + f[1].toLowerCase(); R.push({ label: l, detail: 'Also catches ' + f[3], hard: soft ? has(s.softs, '!' + l) : !has(s.softs, l), flex: true }); } });
+    s.custom.forEach((c) => { const name = typeof c === 'string' ? c : c.label; const l = 'No ' + name.toLowerCase(); R.push({ label: l, detail: typeof c === 'string' ? 'You added' : 'Also catches ' + c.kws.slice(0, 4).join(', ') + (c.kws.length > 4 ? '…' : ''), hard: soft ? has(s.softs, '!' + l) : !has(s.softs, l), flex: true }); });
+    if (s.depth === 'more' && (s.prefs.length || s.budget)) R.push({ label: [s.budget ? { low: 'Budget under $60', mid: 'Budget $60 to $120', high: 'Budget over $120', none: 'No budget limit' }[s.budget] : '', s.prefs.length ? s.prefs.length + ' preferences' : ''].filter(Boolean).join(' · '), detail: 'Ranks picks and your cart', hard: false, target: true });
+    if (wantsNumbers) R.push({ label: protein + ' g protein in ' + kcal.toLocaleString('en-US') + ' kcal', detail: (ph.length ? ph.length + ' goals' : 'goal') + ' · shown as % of your goal', hard: false, target: true });
+    const AIC = { peanut: 'peanuts', treenuts: 'chestnut', milk: 'glass_of_milk', egg: 'egg', soy: 'beans', wheat: 'sheaf_of_rice', fish: 'fish', sesame: 'bagel' };
+    const FIC = { sugar: 'candy', seed: 'sunflower', gluten: 'bread', palm: 'palm_tree', sweet: 'lollipop', colors: 'artist_palette', flavors: 'test_tube', gums: 'jar', preserv: 'canned_food', msg: 'salt' };
+    const iconFor = (label) => { const l = label.toLowerCase(); const a = Object.keys(AIC).find((k) => l.indexOf(NAME[k].toLowerCase()) >= 0 || (k === 'treenuts' && l.indexOf('tree nut') >= 0) || (k === 'fish' && l.indexOf('fish') >= 0));
+      if (a) return AIC[a]; if (l.indexOf('gluten') >= 0) return 'sheaf_of_rice'; if (l.indexOf('sugar') >= 0) return 'candy'; if (l.indexOf('vegan') >= 0) return 'leafy_green'; if (l.indexOf('vegetarian') >= 0) return 'carrot'; if (l.indexOf('keto') >= 0) return 'avocado';
+      if (l.indexOf('halal') >= 0) return 'star_and_crescent'; if (l.indexOf('kosher') >= 0) return 'star_of_david'; if (l.indexOf('protein') >= 0) return 'flexed_biceps'; if (l.indexOf('seed oil') >= 0) return 'sunflower'; if (l.indexOf('calorie') >= 0) return 'fire'; if (l.indexOf('palm') >= 0) return 'palm_tree'; if (l.indexOf('color') >= 0) return 'artist_palette'; if (l.indexOf('flavor') >= 0) return 'test_tube'; if (l.indexOf('budget') >= 0) return 'money_bag'; if (l.indexOf('sodium') >= 0) return 'anatomical_heart'; return 'prohibited'; };
+    const TINTS = ['#ffe3b3', '#d8ecdf', '#e6e0fb', '#fbdcd6'];
+    const summaryRules = R.slice(0, 6).map((r, i) => ({ icon: iconFor(r.label),
+      label: r.label, detail: r.detail, kind: r.target ? 'Goal' : r.diet ? 'Diet' : (r.hard ? 'Avoid' : 'Prefer not'), flex: !!r.flex, fixed: !r.flex,
+      flip: () => { const key = soft ? '!' + r.label : r.label; this.setState({ softs: has(s.softs, key) ? s.softs.filter((x) => x !== key) : s.softs.concat([key]) }); },
+      flipAria: r.label + ': ' + (r.hard ? 'always avoided, tap to only show it lower' : 'shown lower, tap to always avoid it'),
+      sym: r.target ? 'scalemass' : (r.hard ? 'nosign' : 'exclamationmark.triangle'), color: r.target ? '#1d2b22' : (r.hard ? COLOR.bad : COLOR.careful),
+      badge: 'flex: none; font-size: 12px; font-weight: 600; padding: 3px 8px; border-radius: 9999px; ' + (r.target ? 'background: #f4f0d8; color: #1d2b22;' : r.hard ? 'background: #ffe9e6; color: #232323;' : 'background: #fff5cc; color: #232323;'),
+      flipStyle: 'flex: none; min-height: 32px; display: flex; align-items: center; gap: 3px; font-size: 12px; font-weight: 600; padding: 0 8px 0 10px; border-radius: 9999px; border: 0; cursor: pointer; ' + (r.hard ? 'background: #ffe9e6;' : 'background: #fff5cc;'),
+      wrap: 'display: flex; align-items: center; gap: 12px; min-height: 54px; padding: 6px 14px; box-sizing: border-box;' + (i ? ' border-top: 1px solid #e5e5ea;' : '')
+    }));
+    const badgeS = (kind) => 'flex: none; min-height: 32px; display: inline-flex; align-items: center; gap: 3px; padding: 0 12px; border-radius: 9999px; border: 0; font-family: inherit; font-size: 14px; font-weight: 600; color: #1d2b22; cursor: pointer; background: ' + (kind === 'Avoid' ? '#fbe1dc' : kind === 'Goal' || kind === 'Diet' ? '#e6f2ea' : '#fdf0cf') + ';';
+    const fromSnap = (r) => { const out = []; (r.allergens || []).forEach((a) => out.push({ label: 'No ' + NAME[a].toLowerCase(), detail: (r.sev || {})[a] === 'intolerance' ? 'Intolerance · in the ingredients only' : 'Allergy', kind: 'Avoid' }));
+      (r.diet || []).filter((d) => d !== 'relother').forEach((d) => out.push({ label: ({ vegan: 'Vegan', vegetarian: 'Vegetarian', keto: 'Keto', paleo: 'Paleo', halal: 'Halal', kosher: 'Kosher', nobeef: 'No beef' })[d] || d, detail: '', kind: 'Diet' }));
+      (r.avoid || []).forEach((a) => { const f = FAM.find((x) => x[0] === a); if (f) out.push({ label: 'No ' + f[1].toLowerCase(), detail: '', kind: 'Avoid' }); });
+      return out.slice(0, 5).map((it) => Object.assign(it, { icon: iconFor(it.label), fixed: true, flex: false, badge: badgeS(it.kind) })); };
+    const names = (list) => list.length ? list.map((x) => x.label.replace(/^No /, '')).join(', ') : '';
+    const card = (name, items, i, also) => { const allergy = items.filter((x) => x.kind === 'Avoid').length;
+      return { name, initial: (name || '?').charAt(0).toUpperCase(), items, empty: items.length === 0, hasAlso: !!also, also: also || '',
+        sub: items.length ? (allergy ? allergy + ' to avoid' : '') + (items.length > allergy ? (allergy ? ' · ' : '') + (items.length - allergy) + ' other' : '') : 'Nothing set yet',
+        avatar: 'flex: none; width: 58px; height: 58px; border-radius: 50%; background: ' + TINTS[i % TINTS.length] + '; display: grid; place-items: center; font-size: 25px; font-weight: 700; color: #1d2b22;' }; };
+    const curItems = summaryRules.map((r) => ({ label: r.label, detail: r.detail, icon: r.icon, kind: r.kind, fixed: r.fixed, flex: r.flex, flip: r.flip, flipAria: r.flipAria, badge: badgeS(r.kind), flipStyle: badgeS(r.kind) }));
+    const pcards = s.doneP.map((d, i) => card(d.name || 'Person ' + (i + 1), fromSnap(d.rules), i, ''))
+      .concat([card(who || (family ? 'Your family' : 'You'), curItems, s.doneP.length, s.others.join(' and '))]);
+    // 3+ people: compact cards (chips) so everyone fits on one screen
+    const compact = pcards.length >= 3;
+    pcards.forEach((pc) => { pc.compact = compact; pc.full = !compact;
+      pc.cardStyle = 'margin-bottom: ' + (compact ? 10 : 14) + 'px; padding: ' + (compact ? '14px 14px 14px' : '18px 16px 16px') + '; border-radius: 26px; background: #ffffff; box-shadow: 0 1px 2px rgba(29,43,34,0.04), 0 10px 26px rgba(29,43,34,0.05);';
+      if (compact) pc.avatar = pc.avatar.replace('width: 58px; height: 58px', 'width: 48px; height: 48px').replace('font-size: 25px', 'font-size: 21px');
+      pc.items.forEach((it) => { it.short = it.label.replace(/^No /, ''); it.short = it.short.charAt(0).toUpperCase() + it.short.slice(1);
+        it.chip = 'display: inline-flex; align-items: center; gap: 6px; height: 36px; padding: 0 12px 0 8px; border-radius: 9999px; font-size: 15px; font-weight: 600; color: #1d2b22; background: ' + (it.kind === 'Avoid' ? '#fbe9e5' : it.kind === 'Diet' || it.kind === 'Goal' ? '#e9f4ec' : '#fdf3da') + ';'; }); });
+    const seedOn = has(s.avoid, 'seed'), sugarOn = has(s.avoid, 'sugar') || has(s.medical, 'sugar');
+    const previewLv = seedOn ? 'bad' : (sugarOn || has(s.diet, 'keto') ? 'careful' : 'good');
+    const shares = s.avoid.map((a) => (FAM.find((x) => x[0] === a) || [0, 0, 0])[2] / 100).concat(allergens.map((a) => ({ milk: 0.31, soy: 0.17, wheat: 0.14, treenuts: 0.07, egg: 0.05, peanut: 0.04, fish: 0.03, sesame: 0.02 })[a] || 0));
+    const hidden = Math.round(100 * (1 - shares.reduce((m, p) => m * (1 - p), 1)));
+
+    // footer button
+    const valid = {
+      household: !!s.household, firstprofile: !!s.pname.trim(), goal: goalSet, why: s.why.length > 0, allergens: allergens.length > 0, severity: true, medical: s.medical.length > 0, diet: true, religion: true,
+      source: !!s.source, phase: (s.phases || []).length > 0, region: /^\d{5}$/.test(s.zip), store: !!s.store, depth: !!s.depth, budget: !!s.budget, cooking: !!s.cooking
+    };
+    const ok = valid[s.step] === undefined ? true : valid[s.step];
+    const skippable = { avoid: true, religion: true, diet: true, prefs: true };
+    const total = path.length - 1;
+        const LWS = {
+      welcome: ['wave', 'Hi, I’m ' + MASCOT + '. I check the ingredients for everyone you shop for.'],
+      household: ['listen', 'Who do you shop for?'],
+      goal: ['point', s.pi > 0 && who ? 'What should I check for ' + who + '?' : 'What should I check for?'],
+      why: ['listen', who ? 'Why does ' + who + ' avoid some foods? Pick all that fit.' : 'Why do you avoid some foods? Pick all that fit.'],
+      allergens: ['point', who ? 'What does ' + who + ' avoid?' : 'What do you avoid?'],
+      medical: ['listen', who ? 'Which medical diet for ' + who + '?' : 'Which medical diet?'],
+      diet: ['listen', who ? 'Any diet for ' + who + '?' : 'Any diet I should check for?'],
+      religion: ['listen', 'Halal, kosher or other? I’ll catch hidden gelatin too.'],
+      source: ['thinking', 'Where do your targets come from?'],
+      depth: ['talk', 'Allergies are set. Fine-tune now, or start?'],
+      budget: ['listen', 'What’s your weekly grocery budget?'],
+      cooking: ['listen', 'How much do you cook?'],
+      stores: ['point', 'Where do you shop? I’ll check their shelves.'],
+      store: ['point', 'Where do you shop? I’ll find other options there.'],
+      prefs: ['listen', 'Anything you’d rather skip? I’ll show it lower, never hide it.'],
+      phase: ['listen', 'What are you working toward right now?'],
+      severity: ['thinking', who ? 'For ' + who + ': allergy or intolerance? Pick one for each.' : 'Allergy or intolerance? Pick one for each.'],
+      firstprofile: s.team.length ? ['talk', 'Heads up: I’ll ask a few questions for each person, one at a time.'] : ['listen', 'What should I call them? Add everyone at home.'],
+      nextperson: ['talk', (who || 'Their') + '’s allergies are set. Now ' + (s.team[s.pi] || '') + ': same questions, ' + (s.team[s.pi] || '') + '’s answers.'],
+      region: ['point', 'Where are you? Products differ by area.'],
+      avoid: ['point', who ? 'Anything else ' + who + ' avoids? I’ll catch it under other names too.' : 'Anything else you avoid? I’ll catch it under other names too.'],
+      strict: ['thinking', who ? '‘May contain’ labels for ' + who + '?' : '‘May contain’ labels?'],
+      targets: ['talk', 'Here are your daily targets. Change them if your coach set others.'],
+      summary: ['done', s.doneP.length ? 'Here’s what I’ll watch for your family.' : who ? 'Here’s what I’ll watch for ' + who + '.' : 'Here’s what I’ll watch for.']
+    };
+    const lw = LWS[s.step] || ['listen', q.title];
+    // allergens as groups: a card per allergen; groups with kinds open into a 2-column grid of leaves
+    const GROUPS = [['peanut', 'Peanuts', 'peanuts'], ['treenuts', 'Tree nuts', 'chestnut', ['Almond', 'Cashew', 'Walnut', 'Pecan', 'Pistachio', 'Hazelnut', 'Macadamia', 'Brazil nut', 'Pine nut']],
+      ['milk', 'Milk', 'glass_of_milk'], ['egg', 'Eggs', 'egg'], ['soy', 'Soy', 'beans'], ['wheat', 'Wheat', 'sheaf_of_rice'],
+      ['fish', 'Fish and shellfish', 'fish', ['Fish', 'Shrimp', 'Crab', 'Lobster', 'Oysters', 'Mussels', 'Squid']], ['sesame', 'Sesame', 'bagel'],
+      ['other', 'Other', 'plus', ['Mustard', 'Celery', 'Lupin', 'Sulfites', 'Corn', 'Coconut']]].filter((g) => !coveredBy[g[0]]);
+    const subOf = (k) => (s.sub && s.sub[k]) || [];
+    const setGroup = (k, list) => { const sub = Object.assign({}, s.sub || {}, { [k]: list }); const inA = has(s.allergens, k); const want = list.length > 0;
+      this.setState({ sub, allergens: want && !inA ? s.allergens.concat([k]) : (!want && inA ? s.allergens.filter((x) => x !== k) : s.allergens) }); };
+    const AQ = (s.aq || '').trim().toLowerCase();
+    const SYN = { prawn: 'fish', prawns: 'fish', shrimp: 'fish', shellfish: 'fish', crab: 'fish', lobster: 'fish', scallop: 'fish', dairy: 'milk', lactose: 'milk', cheese: 'milk', whey: 'milk', casein: 'milk', gluten: 'wheat', flour: 'wheat', nut: 'treenuts', nuts: 'treenuts', tahini: 'sesame', albumin: 'egg', soya: 'soy' };
+    const matchG = (g) => !AQ || g[1].toLowerCase().indexOf(AQ) >= 0 || (g[3] || []).some((l) => l.toLowerCase().indexOf(AQ) >= 0) || Object.keys(SYN).some((w) => w.indexOf(AQ) === 0 && SYN[w] === g[0]);
+    const agroups = GROUPS.filter(matchG).map((g) => {
+      const k = g[0], leaves = g[3];
+      if (k === 'other') {
+        const picked = leaves.filter((l) => s.custom.indexOf(l) >= 0), open = s.open === k || (!!AQ && !!leaves);
+        return { label: g[1], icon: g[2], leafy: true, single: false, open, expanded: open ? 'true' : 'false', role: 'button', checked: 'false', chev: open ? 'chevron.up' : 'chevron.right', count: picked.length + '/' + leaves.length,
+          countStyle: 'flex: none; min-width: 52px; height: 32px; padding: 0 10px; box-sizing: border-box; border-radius: 9999px; display: grid; place-items: center; font-size: 15px; ' + (picked.length ? 'background: ' + INK + '; color: #ffffff;' : 'background: #eceeec; color: ' + INK + ';'),
+          card: cardS(picked.length > 0), tap: () => this.setState({ open: open ? '' : k }),
+          leaves: leaves.map((l) => { const on = s.custom.indexOf(l) >= 0; return { label: l, on, checked: on ? 'true' : 'false', box: boxS(on, true).replace('width: 30px; height: 30px', 'width: 26px; height: 26px'),
+            tile: 'min-height: 64px; display: flex; align-items: center; gap: 10px; padding: 0 14px 0 18px; box-sizing: border-box; border-radius: 22px; border: 0; background: #ffffff; font-family: inherit; color: ' + INK + '; cursor: pointer; box-shadow: ' + (on ? '0 0 0 2px ' + INK : SHADOW) + ';',
+            tap: () => this.setState({ custom: on ? s.custom.filter((x) => x !== l) : s.custom.concat([l]) }) }; }) };
+      }
+      if (!leaves) {
+        const on = has(s.allergens, k);
+        return { label: g[1], icon: g[2], leafy: false, single: true, open: false, expanded: 'false', role: 'checkbox', checked: on ? 'true' : 'false', on, box: boxS(on, true), card: cardS(on), leaves: [],
+          tap: () => { this.setState({ allergens: on ? s.allergens.filter((x) => x !== k) : s.allergens.concat([k]) }); if (!on && k === 'peanut' && !has(s.allergens, 'treenuts')) this.setState({ link: 'peanut', linkSel: [] }); } };
+      }
+      const sub = subOf(k), whole = has(s.allergens, k) && sub.length === 0, open = s.open === k || (!!AQ && !!leaves);
+      const n = whole ? leaves.length : sub.length;
+      return { label: g[1], icon: g[2], leafy: true, single: false, open, expanded: open ? 'true' : 'false', role: 'button', checked: 'false', chev: open ? 'chevron.up' : 'chevron.right', count: n + '/' + leaves.length,
+        countStyle: 'flex: none; min-width: 52px; height: 32px; padding: 0 10px; box-sizing: border-box; border-radius: 9999px; display: grid; place-items: center; font-size: 15px; ' + (n ? 'background: ' + INK + '; color: #ffffff;' : 'background: #eceeec; color: ' + INK + ';'),
+        card: cardS(n > 0), tap: () => this.setState({ open: open ? '' : k }),
+        leaves: ['All ' + g[1].toLowerCase()].concat(leaves).map((l, i) => { const on = i === 0 ? whole || sub.length === leaves.length : whole || sub.indexOf(l) >= 0; return { label: l, on, checked: on ? 'true' : 'false',
+          box: boxS(on, true).replace('width: 30px; height: 30px', 'width: 26px; height: 26px'),
+          tile: 'min-height: 64px; display: flex; align-items: center; gap: 10px; padding: 0 14px 0 18px; box-sizing: border-box; border-radius: 22px; border: 0; background: #ffffff; font-family: inherit; color: ' + INK + '; cursor: pointer; box-shadow: ' + (on ? '0 0 0 2px ' + INK : SHADOW) + ';' + (i === 0 ? ' grid-column: 1 / -1;' : ''),
+          tap: () => { if (i === 0) setGroup(k, on ? [] : leaves.slice()); else { const base = whole ? leaves.slice() : sub; setGroup(k, on ? base.filter((x) => x !== l) : base.concat([l])); } } }; }) };
+    });
+    const LINK = { peanut: [['treenuts', 'Tree nuts', 'chestnut'], ['Lupin', 'Lupin', 'beans']] };
+    const linkList = s.link ? LINK[s.link] || [] : [];
+    const linkSel = s.linkSel || [];
+    // background per step, like a tinted room for each kind of question
+    const BG = { welcome: '#eaf3f8', household: '#ffffff', firstprofile: '#ffffff', nextperson: '#ffffff', goal: '#f3f1fb', why: '#fdf6ea', allergens: '#fbf1ef', severity: '#fbf1ef', medical: '#fbf1ef', strict: '#fbf1ef',
+      diet: '#eef8f1', religion: '#eef8f1', avoid: '#fdf6ea', source: '#f3f1fb', phase: '#f3f1fb', targets: '#f3f1fb', region: '#eaf3f8', store: '#eaf3f8', stores: '#eaf3f8', depth: '#fdf6ea', budget: '#fdf6ea', prefs: '#fdf6ea', cooking: '#fdf6ea', summary: '#eef8f1' };
+    const bg = BG[s.step] || '#ffffff';
+    const SECTION = { household: 0, firstprofile: 0, nextperson: 0, region: 2, store: 2, stores: 2, depth: 2, budget: 2, prefs: 2, cooking: 2, summary: 2 };
+    const sec = SECTION[s.step] === undefined ? 1 : SECTION[s.step];
+    const GRID = { diet: 1, religion: 1, medical: 1, prefs: 1, budget: 1, stores: 1 };
+    return {
+      s12: 12, s13: 13, s14: 14, s16: 16, s18: 18, s20: 20, s22: 22, s32: 32,
+      showChrome: s.step !== 'welcome', isWelcome: s.step === 'welcome', isQuestion: isQ || s.step === 'allergens', isAvoid: s.step === 'avoid', isStrict: s.step === 'strict',
+      isTargets: s.step === 'targets', isSummary: s.step === 'summary',
+      q, because: becauseMap[s.step] || '', subLine: (becauseMap[s.step] ? becauseMap[s.step] + '. ' : '') + q.sub,
+      pct: s.step === 'summary' ? 100 : Math.round(idx / Math.max(1, path.length - 1) * 100), stepOf: '',
+      barStyle: 'height: 100%; border-radius: 2px; background: #1d2b22; transition: width .3s; width: ' + Math.max(4, s.step === 'summary' ? 100 : Math.round(idx / Math.max(1, path.length - 1) * 100)) + '%;',
+      isRegion: s.step === 'region', zip: s.zip, zipOk: /^\d{5}$/.test(s.zip),
+      isSeverity: s.step === 'severity',
+      sevTitle: who ? 'How does each one affect ' + who + '?' : 'How does each one affect you?',
+      sevRows: allergens.map((a) => ({ name: NAME[a], upper: NAME[a].toUpperCase(),
+        opts: [['severe', 'Allergy', 'Avoid it, and “may contain” too'], ['intolerance', 'Intolerance', 'Only when it’s in the ingredients']].map((o, i) => ({ label: o[1], detail: o[2], on: (s.sev[a] || 'severe') === o[0], sel: (s.sev[a] || 'severe') === o[0] ? 'true' : 'false',
+          pick: () => this.setState({ sev: Object.assign({}, s.sev, { [a]: o[0] }) }),
+          style: 'width: 100%; min-height: 64px; display: flex; align-items: center; gap: 12px; padding: 10px 16px; border: 0; cursor: pointer; background: transparent' + (i ? ' linear-gradient(#e5e5ea, #e5e5ea) 16px 0 / calc(100% - 16px) 1px no-repeat;' : ';') })) })),
+      qOtherOn: !!(q.otherKey && q.otherOn), qOtherPh: q.otherPh || '', qOtherText: q.otherKey ? (s[q.otherKey] || '') : '',
+      qOnOther: (e) => { if (q.otherKey) this.setState({ [q.otherKey]: (e.target.value || '').slice(0, 60) }); },
+      isFirstProfile: s.step === 'firstprofile', pname: s.pname, onName: (e) => this.setState({ pname: (e.target.value || '').slice(0, 24) }),
+      nameChips: ['Me', 'My child', 'My partner'].map((l) => ({ label: l, pick: () => this.setState({ pname: l }) })),
+      isFamily: family, pnameShown: who || 'one person',
+      others: s.others.map((n) => ({ name: n, removeAria: 'Remove ' + n, remove: () => this.setState({ others: s.others.filter((x) => x !== n) }) })), hasOthers: s.others.length > 0,
+      team: s.team.map((n) => ({ name: n, removeAria: 'Remove ' + n, remove: () => this.setState({ team: s.team.filter((x) => x !== n) }) })), hasTeam: s.team.length > 0,
+      teamDraft: s.teamDraft, onTeam: (e) => this.setState({ teamDraft: (e.target.value || '').slice(0, 24) }),
+      addTeam: () => { const n = s.teamDraft.trim(); if (n && s.team.indexOf(n) < 0 && n !== s.pname.trim()) this.setState({ team: s.team.concat([n]), teamDraft: '' }); },
+      teamOff: s.teamDraft.trim() ? 'false' : 'true',
+      teamBtn: 'flex: none; min-height: 36px; padding: 0 14px; border-radius: 9999px; border: 0; font-size: 15px; font-weight: 600; cursor: pointer; ' + (s.teamDraft.trim() ? 'background: #1d2b22; color: #ffffff;' : 'background: rgba(118,118,128,0.12); color: #8e8e93; pointer-events: none;'),
+      isNextPerson: s.step === 'nextperson',
+      people: [s.pname.trim() || 'First person'].concat(s.team).map((n, i) => { const done = i <= s.pi, now = i === s.pi + 1; return { name: n, done, note: done ? 'Allergies set' : (now ? 'Next: a few questions' : 'After that'),
+        row: 'display: flex; align-items: center; gap: 12px; min-height: 60px; padding: 8px 16px; box-sizing: border-box;' + (i ? ' border-top: 1px solid #e5e5ea;' : '') + (now ? ' background: #f4faf1;' : ''),
+        dot: 'flex: none; width: 24px; height: 24px; border-radius: 50%; display: grid; place-items: center; box-sizing: border-box; ' + (done ? 'background: #1d2b22;' : 'border: 1.5px solid ' + (now ? '#1d2b22' : '#c7c7cc') + ';') }; }),
+      sameLabel: (s.team[s.pi] || 'They') + ' has the same allergies as ' + (who || 'them'),
+      sameAsPrev: () => { const n = s.team[s.pi]; if (!n) return; this.setState({ team: s.team.filter((x) => x !== n), others: s.others.concat([n]), step: s.pi < s.team.length - 1 ? 'nextperson' : 'region' }); },
+      otherDraft: s.otherDraft, onOther: (e) => this.setState({ otherDraft: (e.target.value || '').slice(0, 24) }),
+      addOther: () => { const n = s.otherDraft.trim(); if (n && s.others.indexOf(n) < 0) this.setState({ others: s.others.concat([n]), otherDraft: '' }); },
+      otherOff: s.otherDraft.trim() ? 'false' : 'true',
+      otherBtn: 'flex: none; min-height: 36px; padding: 0 14px; border-radius: 9999px; border: 0; font-size: 15px; font-weight: 600; cursor: pointer; ' + (s.otherDraft.trim() ? 'background: #1d2b22; color: #ffffff;' : 'background: rgba(118,118,128,0.12); color: #8e8e93; pointer-events: none;'),
+      showProfiles: family || s.others.length > 0,
+      profileNames: s.doneP.map((d) => d.name).concat([who || (family ? 'one person' : 'You')]).concat(s.others).join(', '),
+      profilesNote: s.others.length ? (s.others.length === 1 ? s.others[0] + ' has' : s.others.join(' and ') + ' have') + ' the same allergies. Add anyone else in Profile.' : 'Add the rest of the family in Profile.', strictTitle: who ? 'How strict for ' + who + '?' : 'How strict?',
+      lwState: lw[0], lwLine: s.step === 'welcome' ? 'I check the ingredients for everyone you shop for. Hidden names too.' : lw[1],
+      appName: (window.__lwBrand || {}).app || 'LabelSage',
+      titleStyle: 'margin: 10px 4px 0; font-size: ' + (lw[1].length > 58 ? 24 : lw[1].length > 34 ? 27 : 30) + 'px; line-height: 1.16; font-weight: 800; letter-spacing: -0.02em;',
+      bg, bgClear: bg === '#ffffff' ? 'rgba(255,255,255,0)' : bg + '00',
+      dots: [0, 1, 2].map((i) => ({ style: 'width: 11px; height: 11px; border-radius: 50%; background: ' + (i === sec ? INK : 'rgba(29,43,34,0.12)') + '; transition: background-color 200ms;' })),
+      dotsAria: 'Part ' + (sec + 1) + ' of 3: ' + ['who you shop for', 'their allergies', 'your store'][sec],
+      qList: isQ && !GRID[s.step], qGrid: isQ && !!GRID[s.step], isAllergens: s.step === 'allergens', agroups, aq: s.aq || '', onAq: (e) => this.setState({ aq: e.target.value }), aqNone: !!AQ && agroups.length === 0, aqText: (s.aq || '').trim(),
+      showMic: false,
+      linkOpen: linkList.length > 0, linkFrom: 'peanut',
+      linkText: 'Peanut is added. Some people with a peanut allergy also react to tree nuts or lupin. Add either? Nothing is added unless you tick it.',
+      linkRows: linkList.map((r) => { const on = linkSel.indexOf(r[0]) >= 0; return { label: r[1], icon: r[2], on, checked: on ? 'true' : 'false', box: boxS(on, true), tap: () => this.setState({ linkSel: on ? linkSel.filter((x) => x !== r[0]) : linkSel.concat([r[0]]) }) }; }),
+      linkSaveLabel: linkSel.length ? 'Add ' + linkSel.length + ' more' : 'Add selected',
+      linkSave: () => { const add = linkSel.filter((x) => x === 'treenuts' && !has(s.allergens, x)); const cust = linkSel.filter((x) => x !== 'treenuts' && s.custom.indexOf(x) < 0); this.setState({ allergens: s.allergens.concat(add), custom: s.custom.concat(cust), link: '', linkSel: [] }); },
+      linkKeep: () => this.setState({ link: '', linkSel: [] }),
+      s15: 15, s24: 24, nextChev: s.step !== 'welcome', nextInk: ok ? '#1d2b22' : '#a89f8a',
+      summaryTitle: who ? 'Here’s what I’ll check for ' + who : 'Here’s what I’ll check',
+      onZip: (e) => this.setState({ zip: (e.target.value || '').replace(/\D/g, '').slice(0, 5) }), useLocation: () => this.setState({ zip: '78701', city: 'Austin, TX', placeQ: '', picked: false, locUsed: true }),
+      locUsed: !!s.locUsed && s.zip === '78701', locTitle: s.locUsed && s.zip === '78701' ? 'Austin, TX 78701' : 'Use my location',
+      locSub: s.locUsed && s.zip === '78701' ? 'Found from your location' : 'Fastest. Fills in your ZIP code',
+      locBtn: 'margin-top: 16px; width: 100%; min-height: 68px; display: flex; align-items: center; gap: 14px; padding: 12px 14px; box-sizing: border-box; border-radius: 22px; cursor: pointer; background: #ffffff; ' + (s.locUsed && s.zip === '78701' ? 'border: 2px solid #1d2b22;' : 'border: 0;'),
+      placeQ: s.placeQ, hasPlaceQ: !!s.placeQ, onPlace: (e) => this.setState({ placeQ: e.target.value || '', picked: false }), clearPlace: () => this.setState({ placeQ: '', picked: false }),
+      showSuggest: s.placeQ.trim().length >= 2 && !s.picked, zipCard: /^\d{5}$/.test(s.zip) && !(s.placeQ.trim().length >= 2 && !s.picked), suggest, noSuggest: suggest.length === 0,
+      cityName: s.city || (s.zip === '78701' ? 'Austin, TX' : 'US'),
+      nearby: s.zip === '78701' ? '4 stores within 3 miles' : 'Stores near ' + (s.city || 'this ZIP code'),
+      regionName: /^\d{5}$/.test(s.zip) ? (s.city ? s.city + ' ' + s.zip : s.zip === '78701' ? 'Austin, TX ' + s.zip : 'ZIP ' + s.zip) : 'Region not set',
+      storeLine: s.store ? ({ wfm: 'Whole Foods Market', safeway: 'Safeway', heb: 'H-E-B', target: 'Target' })[s.store] + ' · change in Profile' : 'Store: set up later in Profile',
+      welcomePoints: [
+        { sym: 'nosign', title: 'Avoid anything', text: 'Allergens, diets, or any single ingredient', tint: '#ffe9e6', ink: '#c0352b' },
+        { sym: 'scalemass', title: 'Hit your numbers', text: 'Protein and calories for your goal', tint: '#fcebc4', ink: '#9a5f00' },
+        { sym: 'lock.shield', title: 'Stays on your iPhone', text: 'Apple’s on-device model, no account needed', tint: '#eef0ee', ink: '#1d2b22' }
+      ],
+      resolverOn: !!res, resMatching: !!res && res.phase === 'matching', resAmbiguous: !!res && res.phase === 'ambiguous', resMatched: !!res && res.phase === 'matched',
+      resSpark: res && res.phase === 'matching' ? 'ai-spark' : '',
+      resTitle: !res ? '' : res.phase === 'matching' ? 'Finding what “' + res.term + '” means' : res.phase === 'ambiguous' ? 'Which did you mean?' : 'Custom filter',
+      resStep: res ? ['Checking 2,229 known ingredients…', 'Looking for hidden names and E-numbers…', 'Grouping into a category…'][res.i || 0] : '',
+      resTerm: res ? res.term : '', resCat: res ? res.cat : '', resConf: res ? res.conf : '', resNote: res ? res.note : '', resConfStyle: 'font-size: 12px; font-weight: 600; padding: 3px 8px; border-radius: 9999px; ' + confColor,
+      resChoices: res && res.choices ? res.choices.map((c) => ({ label: c.label, text: c.text, pick: () => this.setState({ res: Object.assign({ term: res.term, phase: 'matched', off: [] }, c.res) }) })) : [],
+      resKeywords, resCount: resKeywords.filter((k) => k.on === 'true').length,
+      resCancel: () => this.setState({ res: null, query: res ? res.term : '' }),
+      resConfirm: () => this.setState({ custom: s.custom.concat([{ label: res.cat && res.cat !== 'Exact text' ? res.cat.replace(/ \(.*\)$/, '') : res.term, kws: res.kws.filter((k) => res.off.indexOf(k) < 0) }]), res: null }),
+      customChips, showCustoms: s.custom.length > 0 && !res,
+      canJump: goalSet && ['summary', 'goal', 'region'].indexOf(s.step) < 0, noJump: !(goalSet && ['summary', 'goal', 'region'].indexOf(s.step) < 0),
+      jumpLabel: s.step === 'store' ? 'Set up later' : 'Skip', jumpAria: s.step === 'store' ? 'Set up the store later' : 'Skip to the summary',
+      jump: () => this.setState({ step: !/^\d{5}$/.test(s.zip) ? 'region' : 'summary', res: null, prog: !/^\d{5}$/.test(s.zip) ? s.prog : 100 }), // the region is never skipped; the store can be set up later
+      families, query: s.query, onQuery: (e) => this.setState({ query: e.target.value }), hasQuery: !!qy, noQuery: !qy, showResults: !!qy && !res, showFamilies: !qy && !res, results,
+      mayChecked: may ? 'true' : 'false', mayTrack: mayS.track, mayKnob: mayS.knob, toggleMay: () => this.setState({ may: !may, mayTouched: true }),
+      mayHint: mayDefault ? 'On because of your answers.' : '', whoOptions,
+      targets, targetsBecause: s.source === 'help' ? 'Calculated from Apple Health' : 'Because you know your numbers',
+      summaryRules, pcards, noFlag: false, previewSym: { good: 'checkmark.circle', careful: 'exclamationmark.triangle', bad: 'nosign' }[previewLv],
+      previewWord: { good: 'OK for ' + (who || 'you'), careful: 'Check first', bad: 'Not for ' + (who || 'you') }[previewLv],
+      previewWhy: previewLv === 'bad' ? ': sunflower oil is a seed oil.' : previewLv === 'careful' ? ': 4 g of added sugar.' : ': nothing ' + (who ? who + ' avoids' : 'you avoid') + ' in the ingredients.',
+      impact: shares.length ? 'Hides about ' + hidden + '% of products.' : '',
+      canSkip: false, skip: () => go(1), skipLabel: 'Skip',
+      isFinal: s.step === 'summary', notFinal: s.step !== 'summary',
+      next: () => { if (!ok) return; if (s.step === 'nextperson') { const RK = ['goals', 'why', 'allergens', 'sev', 'medical', 'diet', 'avoid', 'custom', 'may', 'mayTouched', 'source', 'phase', 'phases', 'protein', 'kcal', 'medOther', 'relOther', 'softs']; const snap = {}; RK.forEach((k) => { snap[k] = s[k]; }); const fresh = {}; RK.forEach((k) => { fresh[k] = Array.isArray(this.base0[k]) ? [] : (this.base0[k] && typeof this.base0[k] === 'object' ? {} : this.base0[k]); }); this.setState(Object.assign(fresh, { doneP: s.doneP.concat([{ name: who, rules: snap }]), pi: s.pi + 1, step: 'goal' })); return; } if (s.step === 'region' && s.jumping) { if (s.store) this.setState({ step: 'summary', prog: 100, jumping: false }); else this.setState({ step: 'store', prog: Math.max(s.prog, 95) }); } else if (s.step === 'store' && s.jumping) this.setState({ step: 'summary', prog: 100, jumping: false }); else go(1); }, nextDisabled: ok ? 'false' : 'true',
+      nextLabel: s.step === 'nextperson' ? 'Start ' + (s.team[s.pi] || '') + '’s questions' : s.step === 'welcome' ? 'Get started' : (s.step === 'source' && s.source === 'help' ? 'Connect Apple Health' : 'Continue'),
+      nextStyle: 'flex: 1; min-height: 66px; display: flex; align-items: center; justify-content: center; gap: 8px; border-radius: 9999px; border: 0; font-family: inherit; font-size: 20px; font-weight: 600; color: ' + (ok ? INK : '#a89f8a') + '; cursor: pointer; background: ' + (ok ? '#eb9d15' : '#efe6d3') + '; box-shadow: ' + (ok ? '0 6px 18px rgba(235,157,21,0.28)' : 'none') + ';',
+      back: () => go(-1)
+    };
+  }
+}
+</script>
+</body>
+</html>

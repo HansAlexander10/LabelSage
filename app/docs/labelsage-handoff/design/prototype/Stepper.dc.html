@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Stepper</title>
+<script src="./support.js"></script>
+<link rel="stylesheet" href="ds/aishoppingagent/tokens.css">
+</head>
+<body>
+<x-dc>
+<helmet>
+<style>
+@import url("https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&display=swap");body{margin:0;font-family:"Outfit","SF Pro Rounded",ui-rounded,-apple-system,system-ui,sans-serif;-webkit-font-smoothing:antialiased}
+button{font-family:inherit;color:inherit}
+button:focus-visible{outline:2px solid #1b6b3e;outline-offset:2px}
+:root{--ease-out:cubic-bezier(0.23,1,0.32,1);--ease-drawer:cubic-bezier(0.32,0.72,0,1)}button,a{-webkit-tap-highlight-color:transparent;transition:transform 160ms var(--ease-out),background-color 160ms var(--ease-out)}button:active,a:active{transform:scale(0.97)}[role=radio]:active,[role=checkbox]:active,[role=option]:active,[role=menuitem]:active,[role=switch]:active{transform:none;background-color:rgba(118,118,128,0.12) !important}::selection{background:rgba(38,131,78,0.22)}@keyframes rc-sheet{from{transform:translateY(100%)}to{transform:none}}@keyframes rc-scrim{from{opacity:0}to{opacity:1}}@keyframes rc-pop{from{opacity:0;transform:scale(0.95)}to{opacity:1;transform:none}}.rc-sheet{animation:rc-sheet 420ms var(--ease-drawer) both}.rc-scrim{animation:rc-scrim 220ms var(--ease-out) both}.rc-pop{animation:rc-pop 180ms var(--ease-out) both}@media (prefers-reduced-motion:reduce){button:active,a:active{transform:none}.rc-sheet,.rc-pop{animation:rc-scrim 200ms ease both}}@media (prefers-reduced-transparency:reduce){[style*=backdrop-filter]{backdrop-filter:none !important;-webkit-backdrop-filter:none !important}}</style>
+<style>/* Liquid Glass (navigation layer only, per HIG). Frosted base everywhere; refraction where backdrop SVG filters work (Chromium). */:root{--lg-bg:rgba(255,255,255,0.52);--lg-bg-thick:rgba(255,255,255,0.8);--lg-bg-dark:rgba(255,255,255,0.14);--lg-edge:rgba(255,255,255,0.7);--lg-edge-dark:rgba(255,255,255,0.3);--lg-fx:blur(14px) saturate(180%);--lg-shadow:inset 0 0 2px 1px rgba(255,255,255,0.6),inset 0 0 10px 4px rgba(255,255,255,0.22),inset 0 4px 16px rgba(17,17,26,0.05),inset 0 8px 24px rgba(17,17,26,0.05),0 6px 20px rgba(0,0,0,0.10);--lg-shadow-float:inset 0 0 2px 1px rgba(255,255,255,0.6),inset 0 0 10px 4px rgba(255,255,255,0.22),0 12px 36px rgba(0,0,0,0.16);--lg-shadow-dark:inset 0 0 2px 1px rgba(255,255,255,0.35),inset 0 0 10px 4px rgba(255,255,255,0.12),0 6px 20px rgba(0,0,0,0.25)}@supports (not (font:-apple-system-body)) and (not (-moz-appearance:none)){:root{--lg-fx:url(#lg-filter) blur(2px) saturate(1.7)}}@media (prefers-reduced-transparency:reduce){:root{--lg-bg:rgba(255,255,255,0.97);--lg-bg-thick:#ffffff;--lg-bg-dark:rgba(44,44,46,0.94);--lg-fx:none}}@media (prefers-contrast:more){:root{--lg-edge:rgba(0,0,0,0.35);--lg-edge-dark:rgba(255,255,255,0.7)}}</style>
+</helmet>
+<div style="{{wrap}}">
+  <sc-if value="{{showValue}}" hint-placeholder-val="{{ true }}"><span aria-live="polite" style="{{valueStyle}}">{{value}}</span></sc-if>
+  <div role="group" aria-label="{{label}}" style="flex: none; display: flex; align-items: center; width: 94px; height: 32px; border-radius: 8px; background: rgba(118,118,128,0.12)">
+    <button aria-label="{{decAria}}" onClick="{{dec}}" style="{{decStyle}}"><dc-import name="Sym" sym="minus" size="{{s16}}" color="#232323" hint-size="16px,16px"></dc-import></button>
+    <span aria-hidden="true" style="flex: none; width: 1px; height: 18px; background: rgba(60,60,67,0.29)"></span>
+    <button aria-label="{{incAria}}" onClick="{{inc}}" style="{{incStyle}}"><dc-import name="Sym" sym="plus" size="{{s16}}" color="#232323" hint-size="16px,16px"></dc-import></button>
+  </div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"value":{"editor":"text","default":"2"},"label":{"editor":"text","default":"Quantity"},"show":{"editor":"enum","options":["left","top","none"],"default":"left"},"$preview":{"width":140,"height":44}}'>
+class Component extends DCLogic {
+  constructor(props) { super(props); this.state = { n: 2 }; }
+  renderVals() {
+    // The iOS default stepper (UIStepper): a 94 x 32 pt segment with minus and plus and a hairline between.
+    // The value is a separate label, to the left (rows, toolbars) or on top (narrow columns).
+    const p = this.props;
+    const controlled = typeof p.onInc === 'function';
+    const value = controlled ? p.value : this.state.n;
+    const show = p.show || 'left';
+    const btn = (off) => 'flex: 1; height: 32px; border: 0; padding: 0; background: transparent; display: grid; place-items: center; cursor: pointer;' + (off ? ' opacity: 0.3; pointer-events: none;' : '');
+    return {
+      s16: 16, value, label: p.label || 'Quantity', showValue: show !== 'none',
+      wrap: 'display: inline-flex; align-items: center; gap: ' + (show === 'top' ? '4px' : '10px') + '; flex-direction: ' + (show === 'top' ? 'column' : 'row') + ';',
+      valueStyle: 'min-width: ' + (p.valueWidth || 16) + 'px; text-align: ' + (show === 'top' ? 'center' : 'right') + '; font-size: 17px; font-weight: 600; font-variant-numeric: tabular-nums; color: #232323;',
+      decAria: p.decAria || 'Decrease ' + (p.label || 'quantity').toLowerCase(), incAria: p.incAria || 'Increase ' + (p.label || 'quantity').toLowerCase(),
+      decStyle: btn(!!p.decDisabled), incStyle: btn(!!p.incDisabled),
+      dec: () => (p.onDec ? p.onDec() : this.setState({ n: Math.max(0, this.state.n - 1) })),
+      inc: () => (controlled ? p.onInc() : this.setState({ n: this.state.n + 1 }))
+    };
+  }
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,107 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Product row</title>
+<script src="./support.js"></script>
+<link rel="stylesheet" href="ds/aishoppingagent/tokens.css">
+</head>
+<body>
+<x-dc>
+<helmet>
+<style>
+@import url("https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&display=swap");body{margin:0;font-family:"Outfit","SF Pro Rounded",ui-rounded,-apple-system,system-ui,sans-serif;-webkit-font-smoothing:antialiased}
+button{font-family:inherit;color:inherit}
+button:focus-visible,a:focus-visible{outline:2px solid #1b6b3e;outline-offset:2px}
+:root{--ease-out:cubic-bezier(0.23,1,0.32,1);--ease-drawer:cubic-bezier(0.32,0.72,0,1)}button,a{-webkit-tap-highlight-color:transparent;transition:transform 160ms var(--ease-out),background-color 160ms var(--ease-out)}button:active,a:active{transform:scale(0.97)}[role=radio]:active,[role=checkbox]:active,[role=option]:active,[role=menuitem]:active,[role=switch]:active{transform:none;background-color:rgba(118,118,128,0.12) !important}::selection{background:rgba(38,131,78,0.22)}@keyframes rc-sheet{from{transform:translateY(100%)}to{transform:none}}@keyframes rc-scrim{from{opacity:0}to{opacity:1}}@keyframes rc-pop{from{opacity:0;transform:scale(0.95)}to{opacity:1;transform:none}}.rc-sheet{animation:rc-sheet 420ms var(--ease-drawer) both}.rc-scrim{animation:rc-scrim 220ms var(--ease-out) both}.rc-pop{animation:rc-pop 180ms var(--ease-out) both}@media (prefers-reduced-motion:reduce){button:active,a:active{transform:none}.rc-sheet,.rc-pop{animation:rc-scrim 200ms ease both}}@media (prefers-reduced-transparency:reduce){[style*=backdrop-filter]{backdrop-filter:none !important;-webkit-backdrop-filter:none !important}}</style>
+<style>/* Liquid Glass (navigation layer only, per HIG). Frosted base everywhere; refraction where backdrop SVG filters work (Chromium). */:root{--lg-bg:rgba(255,255,255,0.52);--lg-bg-thick:rgba(255,255,255,0.8);--lg-bg-dark:rgba(255,255,255,0.14);--lg-edge:rgba(255,255,255,0.7);--lg-edge-dark:rgba(255,255,255,0.3);--lg-fx:blur(14px) saturate(180%);--lg-shadow:inset 0 0 2px 1px rgba(255,255,255,0.6),inset 0 0 10px 4px rgba(255,255,255,0.22),inset 0 4px 16px rgba(17,17,26,0.05),inset 0 8px 24px rgba(17,17,26,0.05),0 6px 20px rgba(0,0,0,0.10);--lg-shadow-float:inset 0 0 2px 1px rgba(255,255,255,0.6),inset 0 0 10px 4px rgba(255,255,255,0.22),0 12px 36px rgba(0,0,0,0.16);--lg-shadow-dark:inset 0 0 2px 1px rgba(255,255,255,0.35),inset 0 0 10px 4px rgba(255,255,255,0.12),0 6px 20px rgba(0,0,0,0.25)}@supports (not (font:-apple-system-body)) and (not (-moz-appearance:none)){:root{--lg-fx:url(#lg-filter) blur(2px) saturate(1.7)}}@media (prefers-reduced-transparency:reduce){:root{--lg-bg:rgba(255,255,255,0.97);--lg-bg-thick:#ffffff;--lg-bg-dark:rgba(44,44,46,0.94);--lg-fx:none}}@media (prefers-contrast:more){:root{--lg-edge:rgba(0,0,0,0.35);--lg-edge-dark:rgba(255,255,255,0.7)}}</style>
+</helmet>
+<div style="{{wrap}}"><svg aria-hidden="true" focusable="false" width="0" height="0" style="position: absolute; width: 0; height: 0; overflow: hidden"><defs><filter id="lg-filter" color-interpolation-filters="sRGB" x="0%" y="0%" width="100%" height="100%"><feImage x="0" y="0" width="100%" height="100%" preserveAspectRatio="none" result="map" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAIAAAACACAIAAABMXPacAAABRElEQVR42u3ZQQqDMBRF0RcNMbrqLr0DEdoN9ENzLo4cviMisbX2asmW9GQkI5nJTM6P63ruHMmRjKQne7JFSbIl+zPgPdGZzOT6nvEedjwDbklLepoBK+se42qAboRagGEEAEsDTCMAWBrgNAIAAAKwLMBlBF9BXkGqAziMAGBpAGdBxQCOo4sBdiPUAvgjVpr5AQAQAAACAEAAAAgAAAEAIAAABACAAAAQAAACAEAAAAgAAAEAIAAABACAAAAQAAACAEAAAAgAAAEAIAAABACAAAAQAAACAEAAAAgAAAEAIAAABAAAABMAACAAAAQAgAAAEAAAAgBAAAAIAAABACAAAATgL+sIqgF2I9QCdCPUAgwj1AIcRgCwNMBphFqAaYRagMsIXkEABACAfAUB0O8BnAUBWBvAcXQxgD9ixQDNCJW9Aa7lA8768ue5AAAAAElFTkSuQmCC"></feImage><feDisplacementMap in="SourceGraphic" in2="map" result="dispRed" scale="-14" xChannelSelector="R" yChannelSelector="G"></feDisplacementMap><feColorMatrix in="dispRed" type="matrix" values="1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0" result="red"></feColorMatrix><feDisplacementMap in="SourceGraphic" in2="map" result="dispGreen" scale="-17" xChannelSelector="R" yChannelSelector="G"></feDisplacementMap><feColorMatrix in="dispGreen" type="matrix" values="0 0 0 0 0 0 1 0 0 0 0 0 0 0 0 0 0 0 1 0" result="green"></feColorMatrix><feDisplacementMap in="SourceGraphic" in2="map" result="dispBlue" scale="-20" xChannelSelector="R" yChannelSelector="G"></feDisplacementMap><feColorMatrix in="dispBlue" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 1 0 0 0 0 0 1 0" result="blue"></feColorMatrix><feBlend in="red" in2="green" mode="screen" result="rg"></feBlend><feBlend in="rg" in2="blue" mode="screen" result="output"></feBlend><feGaussianBlur in="output" stdDeviation="2"></feGaussianBlur></filter></defs></svg>
+  <a href="{{href}}" onClick="{{rowTap}}" style="display: flex; flex: 1; min-width: 0; align-items: center; gap: 12px; text-decoration: none; color: #232323">
+    <div style="{{thumb}}">
+      <sc-if value="{{hasImg}}" hint-placeholder-val="{{ false }}"><img src="{{img}}" alt="" onError="{{imgFailed}}" style="width: 100%; height: 100%; object-fit: contain; border-radius: inherit"></sc-if><sc-if value="{{noImg}}" hint-placeholder-val="{{ false }}"><span aria-hidden="true" style="position: absolute; inset: 0; display: grid; place-items: center"><span style="{{packStyle}}"><span style="{{packLetter}}">{{packInitial}}</span></span></span></sc-if>
+      <span role="img" aria-label="{{flagWord}}" style="{{badge}}"><sc-if value="{{notFav}}" hint-placeholder-val="{{ true }}"><dc-import name="Sym" sym="{{flagSym}}" size="{{badgeIcon}}" hint-size="20px,20px"></dc-import></sc-if><sc-if value="{{isFav}}" hint-placeholder-val="{{ false }}"><dc-import name="Sym" sym="heart.fill" size="{{badgeIcon}}" color="#e0457b" hint-size="20px,20px"></dc-import></sc-if></span>
+    </div>
+    <div style="flex: 1; min-width: 0">
+      <div style="{{nameStyle}}">{{name}}</div>
+      <div style="display: flex; align-items: baseline; gap: 6px; margin-top: 2px; min-width: 0">
+        <sc-if value="{{hasPrice}}" hint-placeholder-val="{{ false }}"><span style="flex: none; font-size: 15px; font-weight: 600; font-variant-numeric: tabular-nums">{{price}}</span></sc-if>
+        <sc-if value="{{showMeta}}" hint-placeholder-val="{{ true }}"><span style="flex: 1; min-width: 0; font-size: 13px; color: #6b6656; white-space: nowrap; overflow: hidden; text-overflow: ellipsis">{{meta}}</span></sc-if>
+        <sc-if value="{{lineAlert}}" hint-placeholder-val="{{ false }}"><span style="flex: 1; min-width: 0; display: flex; align-items: center; gap: 4px; font-size: 13px; font-weight: 600; color: #b3261e; white-space: nowrap; overflow: hidden"><dc-import name="Sym" sym="exclamationmark.triangle" size="{{s13}}" color="#b3261e" hint-size="13px,13px"></dc-import><span style="overflow: hidden; text-overflow: ellipsis">{{alert}}</span></span></sc-if>
+      </div>
+      <sc-if value="{{hasChips}}" hint-placeholder-val="{{ false }}">
+        <div style="margin-top: 6px; display: flex; gap: 4px; flex-wrap: nowrap; overflow: hidden; -webkit-mask-image: linear-gradient(90deg,#232323 82%,transparent); mask-image: linear-gradient(90deg,#232323 82%,transparent)">
+          <sc-if value="{{hasAlert}}" hint-placeholder-val="{{ false }}"><span style="flex: none; display: inline-flex; align-items: center; gap: 4px; height: 24px; padding: 0 8px; border-radius: 9999px; font-size: 13px; font-weight: 600; white-space: nowrap; background: #ffe9e6; color: #b3261e"><dc-import name="Sym" sym="exclamationmark.triangle" size="{{s13}}" color="#b3261e" hint-size="13px,13px"></dc-import>{{alert}}</span></sc-if>
+          <sc-for list="{{chips}}" as="c" hint-placeholder-count="2"><span style="{{c.style}}"><dc-import name="Sym" sym="{{c.sym}}" size="{{s13}}" hint-size="13px,13px"></dc-import>{{c.text}}</span></sc-for>
+        </div>
+      </sc-if>
+    </div>
+  </a>
+  <div style="{{ctrlCol}}">
+    <sc-if value="{{isAdd}}" hint-placeholder-val="{{ true }}"><button aria-label="{{addAria}}" onClick="{{add}}" style="width: 44px; height: 44px; border-radius: 50%; border: 0; background: #26834e; display: grid; place-items: center; cursor: pointer"><dc-import name="Sym" sym="plus" size="{{s18}}" color="#ffffff" hint-size="18px,18px"></dc-import></button></sc-if>
+    <sc-if value="{{isCart}}" hint-placeholder-val="{{ false }}"><button aria-label="{{addAria}}" onClick="{{add}}" style="width: 40px; height: 40px; border-radius: 50%; border: 0; background: rgba(118,118,128,0.12); display: grid; place-items: center; cursor: pointer"><dc-import name="Sym" sym="cart.badge.plus" size="{{s18}}" hint-size="18px,18px"></dc-import></button></sc-if>
+    <sc-if value="{{isPicker}}" hint-placeholder-val="{{ false }}">
+      <div style="position: relative">
+        <button aria-haspopup="menu" aria-expanded="{{menuExpanded}}" aria-label="{{pickerAria}}" onClick="{{toggleMenu}}" style="min-width: 58px; height: 34px; padding: 0 8px 0 12px; display: flex; align-items: center; justify-content: center; gap: 4px; border: 0; border-radius: 9px; background: rgba(118,118,128,0.12); color: #232323; font-size: 17px; font-weight: 600; font-variant-numeric: tabular-nums; cursor: pointer">{{qty}}<dc-import name="Sym" sym="chevron.up.chevron.down" size="{{s13}}" color="#6b6656" hint-size="13px,13px"></dc-import></button>
+        <sc-if value="{{menuOpen}}" hint-placeholder-val="{{ false }}">
+          <div class="rc-pop" role="menu" aria-label="Quantity" style="position: absolute; right: 0; top: 40px; z-index: 20; width: 168px; transform-origin: 100% 0; border-radius: 14px; overflow: hidden; background: var(--lg-bg-thick); box-shadow: var(--lg-shadow-float); backdrop-filter: var(--lg-fx); -webkit-backdrop-filter: var(--lg-fx)">
+            <sc-for list="{{qtyOptions}}" as="o" hint-placeholder-count="6"><button role="menuitemradio" aria-checked="{{o.sel}}" onClick="{{o.pick}}" style="{{o.style}}"><span style="width: 18px; display: grid; place-items: center"><sc-if value="{{o.on}}" hint-placeholder-val="{{ false }}"><dc-import name="Sym" sym="checkmark" size="{{s14}}" color="#232323" hint-size="14px,14px"></dc-import></sc-if></span>{{o.label}}</button></sc-for>
+            <button role="menuitem" onClick="{{removeAll}}" style="width: 100%; min-height: 44px; display: flex; align-items: center; justify-content: space-between; padding: 0 16px 0 42px; border: 0; border-top: 6px solid rgba(118,118,128,0.12); background: transparent; color: #d70015; font-size: 17px; cursor: pointer">Remove<dc-import name="Sym" sym="trash" size="{{s16}}" color="#d70015" hint-size="16px,16px"></dc-import></button>
+          </div>
+        </sc-if>
+      </div>
+    </sc-if>
+    <sc-if value="{{isStepper}}" hint-placeholder-val="{{ false }}"><dc-import name="Stepper" value="{{qty}}" show="{{stepShow}}" label="Quantity" valueWidth="24" decAria="{{decAria}}" onInc="{{inc}}" onDec="{{dec}}" hint-size="94px,58px"></dc-import></sc-if>
+    <sc-if value="{{isSelect}}" hint-placeholder-val="{{ false }}"><button role="radio" aria-checked="{{selAria}}" aria-label="{{addAria}}" onClick="{{rowTap}}" style="{{radio}}"><sc-if value="{{selected}}" hint-placeholder-val="{{ false }}"><dc-import name="Sym" sym="checkmark" size="{{s14}}" color="#ffffff" hint-size="14px,14px"></dc-import></sc-if></button></sc-if>
+    <sc-if value="{{isChevron}}" hint-placeholder-val="{{ false }}"><dc-import name="Sym" sym="chevron.right" size="{{s14}}" color="#a8a390" hint-size="14px,14px"></dc-import></sc-if>
+  </div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"title":{"editor":"text","default":"Boulder Canyon Kettle Chips, Olive Oil"},"meta":{"editor":"text","default":"Boulder Canyon · 5.25 oz"},"price":{"editor":"text","default":"$4.49"},"img":{"editor":"text","default":"/_blob/009819ab8d0ecae0eba8e43b443ffd2b"},"lv":{"editor":"enum","options":["good","careful","bad","unknown"],"default":"good"},"size":{"editor":"enum","options":["row","line"],"default":"row"},"control":{"editor":"enum","options":["add","stepper","cart","select","chevron","none"],"default":"add"},"framed":{"editor":"boolean","default":true},"fav":{"editor":"boolean","default":false},"alert":{"editor":"text","default":""},"$preview":{"width":358,"height":128}}'>
+class Component extends DCLogic {
+  constructor(props) { super(props); this.state = { qty: props.qty || 0, menu: false, imgFail: false }; }
+  renderVals() {
+    const p = this.props;
+    const SYM = { good: 'checkmark.circle', careful: 'exclamationmark.triangle', bad: 'nosign', unknown: 'questionmark.circle.fill' };
+    const WORD = { good: 'OK for you', careful: 'Check first', bad: 'Not for you', unknown: 'Can’t confirm' };
+    const WASH = { good: '#e4f7ee', careful: '#fff5cc', bad: '#ffe9e6', unknown: '#f4f0d8' };
+    const lv = p.lv || 'good';
+    const line = p.size === 'line';
+    const chips = (p.chips || []).map((c) => ({ text: c.text, sym: SYM[c.lv] || SYM.good, style: 'flex: none; display: inline-flex; align-items: center; gap: 4px; height: 24px; padding: 0 8px; border-radius: 9999px; font-size: 13px; white-space: nowrap; background: ' + (WASH[c.lv] || WASH.good) + ';' }));
+    const controlled = typeof p.onInc === 'function';
+    const qty = controlled ? (p.qty || 0) : this.state.qty;
+    const set = (n) => this.setState({ qty: Math.max(0, Math.min(9, n)) });
+    let control = p.control || 'add';
+    if (control === 'add' && qty > 0) control = 'stepper';
+    const ctrlCol = 'flex: none; display: flex; justify-content: center; ' + (control === 'stepper' ? '' : line ? 'min-width: 44px;' : 'width: 44px;');
+    const framed = p.framed !== false;
+    const t = line ? 48 : 72;
+    const fav = !!p.fav; const alert = p.alert || '';
+    const h = line ? 64 : (chips.length || alert ? 128 : 96);
+    // quantity picker: sets the number in one tap, like an iOS menu-style Picker
+    const setQty = (n) => { if (p.onSet) p.onSet(n); else if (!controlled) set(n); else { let d = n - qty; while (d > 0) { p.onInc(); d--; } while (d < 0) { p.onDec ? p.onDec() : null; d++; } } this.setState({ menu: false }); };
+    const qtyOptions = [1, 2, 3, 4, 5, 6].map((n, i) => ({ label: String(n), on: n === qty, sel: n === qty ? 'true' : 'false', pick: () => setQty(n),
+      style: 'width: 100%; min-height: 44px; display: flex; align-items: center; gap: 8px; padding: 0 16px; border: 0; background: transparent; font-size: 17px; text-align: left; cursor: pointer;' + (i ? ' border-top: 0.5px solid rgba(60,60,67,0.18);' : '') }));
+    return { ctrlCol, stepShow: line ? 'left' : 'top', qtyOptions, menuOpen: this.state.menu, menuExpanded: this.state.menu ? 'true' : 'false',
+      toggleMenu: () => this.setState({ menu: !this.state.menu }), removeAll: () => setQty(0), pickerAria: 'Quantity, ' + qty + '. Change',
+      s13: 13, s14: 14, s16: 16, s18: 18, badgeIcon: line ? 16 : 20,
+      name: p.title || '', meta: p.meta || '', price: p.price || '', hasPrice: !!p.price, img: p.img || '', hasImg: !!p.img && !this.state.imgFail, imgFailed: () => { if (!this.state.imgFail) this.setState({ imgFail: true }); }, packInitial: String(p.meta || p.title || '?').trim().charAt(0).toUpperCase(), packStyle: 'width: 58%; height: 78%; border-radius: 22% 22% 16% 16%; display: grid; place-items: center; background: linear-gradient(180deg, #f6eedd, #e8dcc2); box-shadow: inset 0 -3px 0 rgba(122,90,40,0.14), inset 0 2px 0 rgba(255,255,255,0.7);', packLetter: 'font-family: Outfit, ui-rounded, system-ui, sans-serif; font-size: 18px; font-weight: 700; color: #8a6a3a;', noImg: !p.img || this.state.imgFail, phSize: line ? 20 : 26,
+      href: p.href || '#', chips, hasChips: !line && (chips.length > 0 || !!alert), qty,
+      isFav: fav, notFav: !fav, alert, hasAlert: !line && !!alert, lineAlert: line && !!alert, showMeta: !(line && alert),
+      flagSym: SYM[lv], flagWord: fav ? 'Favorite' + (alert ? ', ' + alert : '') : WORD[lv],
+      isSelect: control === 'select', selected: !!p.selected, selAria: p.selected ? 'true' : 'false',
+      radio: 'width: 26px; height: 26px; border-radius: 50%; display: grid; place-items: center; cursor: pointer; box-sizing: border-box; padding: 0; ' + (p.selected ? 'border: 0; background: #26834e;' : 'border: 2px solid #c9c4a8; background: transparent;'),
+      rowTap: () => { if (p.onOpen) p.onOpen(); else if (p.onSelect) p.onSelect(); },
+      isAdd: control === 'add', isCart: control === 'cart', isStepper: control === 'stepper' && line, isPicker: control === 'stepper' && !line, isChevron: control === 'chevron',
+      addAria: 'Add ' + (p.title || 'product'), decAria: qty === 1 ? 'Remove ' + (p.title || 'product') : 'Decrease quantity',
+      add: () => (p.onAdd ? p.onAdd() : set(1)), inc: () => (controlled ? p.onInc() : set(qty + 1)), dec: () => (p.onDec ? p.onDec() : set(qty - 1)),
+      wrap: 'display: flex; align-items: center; gap: 10px; height: ' + h + 'px; box-sizing: border-box; padding: ' + (line ? '8px 12px' : '12px') + ';' + (framed ? ' background: #ffffff; border-radius: 22px;' : '') + (p.selected ? ' box-shadow: inset 0 0 0 2px #26834e;' : '') + (p.divider ? ' border-top: 1px solid #e5e5ea;' : ''),
+      thumb: 'position: relative; flex: none; width: ' + t + 'px; height: ' + t + 'px; border-radius: ' + (line ? 10 : 14) + 'px; background: ' + (p.tint || '#ffffff') + '; border: 1px solid #e5e5ea; box-sizing: border-box;',
+      badge: 'position: absolute; right: -5px; bottom: -5px; width: ' + (line ? 22 : 28) + 'px; height: ' + (line ? 22 : 28) + 'px; border-radius: 50%; background: #ffffff; display: grid; place-items: center;',
+      nameStyle: (line ? 'font-size: 15px; font-weight: 600; line-height: 19px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;' : 'display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; overflow-wrap: anywhere; font-size: 16px; font-weight: 600; line-height: 20px;')
+    };
+  }
+}
+</script>
+</body>
+</html>

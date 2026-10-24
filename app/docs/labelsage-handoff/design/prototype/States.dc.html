@@ -1,0 +1,102 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Component states</title>
+<script src="./support.js"></script>
+<link rel="stylesheet" href="ds/aishoppingagent/tokens.css">
+</head>
+<body>
+<x-dc>
+<helmet>
+<style>body{margin:0}</style>
+<style>/* Liquid Glass (navigation layer only, per HIG). Frosted base everywhere; refraction where backdrop SVG filters work (Chromium). */:root{--lg-bg:rgba(255,255,255,0.52);--lg-bg-thick:rgba(255,255,255,0.8);--lg-bg-dark:rgba(255,255,255,0.14);--lg-edge:rgba(255,255,255,0.7);--lg-edge-dark:rgba(255,255,255,0.3);--lg-fx:blur(14px) saturate(180%);--lg-shadow:inset 0 0 2px 1px rgba(255,255,255,0.6),inset 0 0 10px 4px rgba(255,255,255,0.22),inset 0 4px 16px rgba(17,17,26,0.05),inset 0 8px 24px rgba(17,17,26,0.05),0 6px 20px rgba(0,0,0,0.10);--lg-shadow-float:inset 0 0 2px 1px rgba(255,255,255,0.6),inset 0 0 10px 4px rgba(255,255,255,0.22),0 12px 36px rgba(0,0,0,0.16);--lg-shadow-dark:inset 0 0 2px 1px rgba(255,255,255,0.35),inset 0 0 10px 4px rgba(255,255,255,0.12),0 6px 20px rgba(0,0,0,0.25)}@supports (not (font:-apple-system-body)) and (not (-moz-appearance:none)){:root{--lg-fx:url(#lg-filter) blur(2px) saturate(1.7)}}@media (prefers-reduced-transparency:reduce){:root{--lg-bg:rgba(255,255,255,0.97);--lg-bg-thick:#ffffff;--lg-bg-dark:rgba(44,44,46,0.94);--lg-fx:none}}@media (prefers-contrast:more){:root{--lg-edge:rgba(0,0,0,0.35);--lg-edge-dark:rgba(255,255,255,0.7)}}</style>
+</helmet>
+<div style="width: 1240px; height: 1180px; box-sizing: border-box; padding: 56px; background: var(--paper-white); font-family: 'Outfit', 'SF Pro Rounded', ui-rounded, -apple-system, system-ui, sans-serif;  color: var(--ink-black); display: flex; flex-direction: column; gap: 40px">
+
+<!-- 1 · Flag -->
+<section style="display: flex; flex-direction: column; gap: 16px">
+  <h2 style="margin: 0; font-size: 32px; font-weight: 700; letter-spacing: -0.019em; color: var(--canopy-green)">Verdict flag</h2>
+  <p style="margin: 0; font-size: 16px; color: var(--graphite); max-width: 760px">One flag per product, for this user. Color and shape always travel together; the word appears wherever there is room. Every verdict shows the label line it used and “Check the package; not medical advice.” The verdict is the worst result across everyone you shop for.</p>
+  <div style="display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 16px">
+    <div style="padding: 24px; border-radius: 24px; background: var(--verdict-good-wash); display: flex; flex-direction: column; gap: 12px">
+      <dc-import name="Sym" sym="checkmark.circle" size="{{f56}}" hint-size="56px,56px"></dc-import>
+      <div style="font-size: 24px; font-weight: 600">OK for you</div>
+      <div style="font-size: 14px; color: var(--graphite)">Circle with check. Nothing you avoid is in it.</div>
+    </div>
+    <div style="padding: 24px; border-radius: 24px; background: var(--verdict-careful-wash); display: flex; flex-direction: column; gap: 12px">
+      <dc-import name="Sym" sym="exclamationmark.triangle" size="{{f56}}" hint-size="56px,56px"></dc-import>
+      <div style="font-size: 24px; font-weight: 600">Check first</div>
+      <div style="font-size: 14px; color: var(--graphite)">Triangle with !. Worth a look before you buy.</div>
+    </div>
+    <div style="padding: 24px; border-radius: 24px; background: var(--verdict-bad-wash); display: flex; flex-direction: column; gap: 12px">
+      <dc-import name="Sym" sym="nosign" size="{{f56}}" hint-size="56px,56px"></dc-import>
+      <div style="font-size: 24px; font-weight: 600">Not for you</div>
+      <div style="font-size: 14px; color: var(--graphite)">Circle with a slash. Breaks at least one rule.</div>
+    </div>
+    <div style="padding: 24px; border-radius: 24px; background: #f4f0d8; display: flex; flex-direction: column; gap: 12px">
+      <dc-import name="Sym" sym="questionmark.circle.fill" size="{{f56}}" hint-size="56px,56px"></dc-import>
+      <div style="font-size: 24px; font-weight: 600">Can’t confirm</div>
+      <div style="font-size: 14px; color: #6b6656">Circle with ?. The label is missing a fact a hard rule needs. Never styled like Good.</div>
+    </div>
+    <div style="padding: 24px; border-radius: 24px; background: #f4f0d8; display: flex; gap: 20px; align-items: center">
+      <div style="flex: none; width: 48px; height: 48px; border-radius: 50%; display: grid; place-items: center; background: rgba(255,255,255,0.7); border: 0.5px solid rgba(255,255,255,0.95); box-shadow: inset 0 1px 0 rgba(255,255,255,0.9), 0 0 0 3px #ef4b3f33"><dc-import name="Sym" sym="nosign" size="{{f30}}" hint-size="30px,30px"></dc-import></div>
+      <div><div style="font-size: 18px; font-weight: 600">Photo signal</div><div style="font-size: 14px; color: #6b6656; margin-top: 4px">Bottom-right of the product photo. Symbol only, no text; the details live in For you.</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- 2 · Compact vs detailed -->
+<section style="display: flex; flex-direction: column; gap: 16px">
+  <h2 style="margin: 0; font-size: 32px; font-weight: 700; letter-spacing: -0.019em; color: var(--canopy-green)">Two states per component</h2>
+  <p style="margin: 0; font-size: 16px; color: var(--graphite); max-width: 760px">The agent shows the compact state inline when it recognises an intent. Tapping it opens the detailed state: a sheet (medium or large detent) or, for a product, the full page.</p>
+  <div style="display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 24px">
+
+    <div style="padding: 20px; border-radius: 24px; background: var(--lavender-mist); display: flex; flex-direction: column; gap: 14px">
+      <div style="font-size: 13px; font-weight: 600; color: var(--graphite)">“Are PopCorners OK for me?” → Product</div>
+      <div style="font-size: 12px; font-weight: 600; color: var(--canopy-green)">COMPACT</div>
+      <div style="padding: 12px; border-radius: 16px; background: var(--paper-white); border: 1px solid var(--frost-gray); display: flex; gap: 12px; align-items: center">
+        <div style="flex: none; width: 48px; height: 48px; border-radius: 8px; background: var(--sand)"></div>
+        <div style="flex: 1"><div style="font-size: 14px; font-weight: 600">Popped Corn Chips, Kettle</div><div style="display: flex; gap: 6px; align-items: center; font-size: 13px; margin-top: 2px"><dc-import name="Sym" sym="nosign" size="{{f16}}" hint-size="16px,16px"></dc-import>Not for you: sunflower oil</div></div>
+        <span style="font-size: 12px; font-weight: 600; padding: 5px 9px; border-radius: 9999px; background: var(--mint-wash); color: var(--canopy-green)">✓ Added</span>
+      </div>
+      <div style="font-size: 12px; font-weight: 600; color: var(--canopy-green)">DETAILED · sheet, then full page</div>
+      <div style="border-radius: 22px; background: var(--glass-ground); padding: 16px; color: #ffffff; display: flex; gap: 10px; align-items: center"><dc-import name="Sym" sym="nosign" size="{{f22}}" hint-size="22px,22px"></dc-import><div><div style="font-size: 18px; font-weight: 600">Not for you</div><div style="font-size: 13px; color: var(--glass-muted)">Rule rows · ingredients · swaps</div></div></div>
+    </div>
+
+    <div style="padding: 20px; border-radius: 24px; background: var(--lavender-mist); display: flex; flex-direction: column; gap: 14px">
+      <div style="font-size: 13px; font-weight: 600; color: var(--graphite)">“Compare it with Boulder Canyon” → Compare</div>
+      <div style="font-size: 12px; font-weight: 600; color: var(--canopy-green)">COMPACT</div>
+      <div style="padding: 12px; border-radius: 18px; background: var(--glass-ground); color: #ffffff; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px">
+        <div style="padding: 10px; border-radius: 12px; background: var(--glass-fill); border: 1px solid var(--glass-edge); display: flex; gap: 6px; align-items: center; font-size: 13px"><dc-import name="Sym" sym="nosign" size="{{f16}}" hint-size="16px,16px"></dc-import>PopCorners</div>
+        <div style="padding: 10px; border-radius: 12px; background: var(--glass-fill); border: 1px solid var(--glass-edge); display: flex; gap: 6px; align-items: center; font-size: 13px"><dc-import name="Sym" sym="checkmark.circle" size="{{f16}}" hint-size="16px,16px"></dc-import>Boulder Canyon</div>
+      </div>
+      <div style="font-size: 12px; font-weight: 600; color: var(--canopy-green)">DETAILED · large sheet</div>
+      <div style="border-radius: 18px; background: var(--paper-white); padding: 12px 14px; font-size: 13px; color: var(--graphite); line-height: 1.5">Glass verdict tiles per product · one row per thing you avoid with a flag in each column · AI summary · Save to go-tos</div>
+    </div>
+
+    <div style="padding: 20px; border-radius: 24px; background: var(--lavender-mist); display: flex; flex-direction: column; gap: 14px">
+      <div style="font-size: 13px; font-weight: 600; color: var(--graphite)">“Is this OK for Mia?” or a check → Verdict</div>
+      <div style="font-size: 12px; font-weight: 600; color: var(--canopy-green)">COMPACT</div>
+      <div style="padding: 12px 14px; border-radius: 9999px; background: var(--verdict-careful-wash); display: flex; gap: 8px; align-items: center; font-size: 14px"><dc-import name="Sym" sym="exclamationmark.triangle" size="{{f20}}" hint-size="20px,20px"></dc-import><span style="font-weight: 600">Check first</span><span style="color: var(--graphite)">· cane sugar, 3rd ingredient</span></div>
+      <div style="font-size: 12px; font-weight: 600; color: var(--canopy-green)">DETAILED · medium sheet</div>
+      <div style="border-radius: 18px; background: var(--paper-white); padding: 12px 14px; font-size: 13px; color: var(--graphite); line-height: 1.5">Rule-by-rule rows with toggles to switch a rule off for this check · link to the full product page</div>
+    </div>
+  </div>
+</section>
+
+<!-- 3 · Liquid glass usage -->
+<section style="display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 24px">
+  <div style="padding: 20px; border-radius: 24px; background: var(--mint-wash)"><div style="font-size: 18px; font-weight: 600; color: var(--canopy-green)">Light glass (controls)</div><p style="margin: 6px 0 0; font-size: 14px; line-height: 1.4; color: var(--graphite)">Floating action bar, composer, nav buttons over content: white at 62%, 24px blur, 180% saturation, 1px white edge. Follows iOS Liquid Glass: controls float, content stays flat.</p></div>
+  <div style="padding: 20px; border-radius: 24px; background: var(--glass-ground); color: #ffffff"><div style="font-size: 18px; font-weight: 600">Dark panels (standouts)</div><p style="margin: 6px 0 0; font-size: 14px; line-height: 1.4; color: var(--glass-muted)">Compare verdicts and scan results sit on an opaque dark panel with one verdict-colored glow. Content, not glass: per the HIG, Liquid Glass stays on the control layer.</p></div>
+  <div style="padding: 20px; border-radius: 24px; background: var(--peach-wash)"><div style="font-size: 18px; font-weight: 600; color: var(--canopy-green)">Sheets</div><p style="margin: 6px 0 0; font-size: 14px; line-height: 1.4; color: var(--graphite)">Detailed states open as native sheets with a grabber: medium detent for a product or verdict, large for a comparison. Swipe down or tap the scrim to return to the chat.</p></div>
+</section>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1240,"height":1180}}'>
+class Component extends DCLogic {
+  renderVals() { return { f16: 16, f20: 20, f22: 22, f30: 30, f56: 56 }; }
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,183 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Profile</title>
+<script src="./support.js"></script>
+<link rel="stylesheet" href="ds/aishoppingagent/tokens.css">
+</head>
+<body>
+<x-dc>
+<helmet>
+<style>
+@import url("https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&display=swap");
+body{margin:0;font-family:"Outfit","SF Pro Rounded",ui-rounded,-apple-system,system-ui,sans-serif;-webkit-font-smoothing:antialiased}
+a{color:#26834e}
+button{font-family:inherit;color:inherit}
+button:focus-visible,a:focus-visible{outline:2px solid #1b6b3e;outline-offset:2px}
+:root{--ease-out:cubic-bezier(0.23,1,0.32,1);--ease-drawer:cubic-bezier(0.32,0.72,0,1)}button,a{-webkit-tap-highlight-color:transparent;transition:transform 160ms var(--ease-out),background-color 160ms var(--ease-out)}button:active,a:active{transform:scale(0.97)}[role=radio]:active,[role=checkbox]:active,[role=option]:active,[role=menuitem]:active,[role=switch]:active{transform:none;background-color:rgba(118,118,128,0.12) !important}::selection{background:rgba(38,131,78,0.22)}@keyframes rc-sheet{from{transform:translateY(100%)}to{transform:none}}@keyframes rc-scrim{from{opacity:0}to{opacity:1}}@keyframes rc-pop{from{opacity:0;transform:scale(0.95)}to{opacity:1;transform:none}}.rc-sheet{animation:rc-sheet 420ms var(--ease-drawer) both}.rc-scrim{animation:rc-scrim 220ms var(--ease-out) both}.rc-pop{animation:rc-pop 180ms var(--ease-out) both}@media (prefers-reduced-motion:reduce){button:active,a:active{transform:none}.rc-sheet,.rc-pop{animation:rc-scrim 200ms ease both}}@media (prefers-reduced-transparency:reduce){[style*=backdrop-filter]{backdrop-filter:none !important;-webkit-backdrop-filter:none !important}}</style>
+<style>/* Liquid Glass (navigation layer only, per HIG). Frosted base everywhere; refraction where backdrop SVG filters work (Chromium). */:root{--lg-bg:rgba(255,255,255,0.52);--lg-bg-thick:rgba(255,255,255,0.8);--lg-bg-dark:rgba(255,255,255,0.14);--lg-edge:rgba(255,255,255,0.7);--lg-edge-dark:rgba(255,255,255,0.3);--lg-fx:blur(14px) saturate(180%);--lg-shadow:inset 0 0 2px 1px rgba(255,255,255,0.6),inset 0 0 10px 4px rgba(255,255,255,0.22),inset 0 4px 16px rgba(17,17,26,0.05),inset 0 8px 24px rgba(17,17,26,0.05),0 6px 20px rgba(0,0,0,0.10);--lg-shadow-float:inset 0 0 2px 1px rgba(255,255,255,0.6),inset 0 0 10px 4px rgba(255,255,255,0.22),0 12px 36px rgba(0,0,0,0.16);--lg-shadow-dark:inset 0 0 2px 1px rgba(255,255,255,0.35),inset 0 0 10px 4px rgba(255,255,255,0.12),0 6px 20px rgba(0,0,0,0.25)}@supports (not (font:-apple-system-body)) and (not (-moz-appearance:none)){:root{--lg-fx:url(#lg-filter) blur(2px) saturate(1.7)}}@media (prefers-reduced-transparency:reduce){:root{--lg-bg:rgba(255,255,255,0.97);--lg-bg-thick:#ffffff;--lg-bg-dark:rgba(44,44,46,0.94);--lg-fx:none}}@media (prefers-contrast:more){:root{--lg-edge:rgba(0,0,0,0.35);--lg-edge-dark:rgba(255,255,255,0.7)}}</style>
+</helmet>
+<div style="width: 390px; box-sizing: border-box; background: #fdf6ea; color: #1d2b22; padding: 54px 0 48px; font-family: 'Outfit', 'SF Pro Rounded', ui-rounded, -apple-system, system-ui, sans-serif"><svg aria-hidden="true" focusable="false" width="0" height="0" style="position: absolute; width: 0; height: 0; overflow: hidden"><defs><filter id="lg-filter" color-interpolation-filters="sRGB" x="0%" y="0%" width="100%" height="100%"><feImage x="0" y="0" width="100%" height="100%" preserveAspectRatio="none" result="map" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAIAAAACACAIAAABMXPacAAABRElEQVR42u3ZQQqDMBRF0RcNMbrqLr0DEdoN9ENzLo4cviMisbX2asmW9GQkI5nJTM6P63ruHMmRjKQne7JFSbIl+zPgPdGZzOT6nvEedjwDbklLepoBK+se42qAboRagGEEAEsDTCMAWBrgNAIAAAKwLMBlBF9BXkGqAziMAGBpAGdBxQCOo4sBdiPUAvgjVpr5AQAQAAACAEAAAAgAAAEAIAAABACAAAAQAAACAEAAAAgAAAEAIAAABACAAAAQAAACAEAAAAgAAAEAIAAABACAAAAQAAACAEAAAAgAAAEAIAAABAAAABMAACAAAAQAgAAAEAAAAgBAAAAIAAABACAAAATgL+sIqgF2I9QCdCPUAgwj1AIcRgCwNMBphFqAaYRagMsIXkEABACAfAUB0O8BnAUBWBvAcXQxgD9ixQDNCJW9Aa7lA8768ue5AAAAAElFTkSuQmCC"></feImage><feDisplacementMap in="SourceGraphic" in2="map" result="dispRed" scale="-14" xChannelSelector="R" yChannelSelector="G"></feDisplacementMap><feColorMatrix in="dispRed" type="matrix" values="1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0" result="red"></feColorMatrix><feDisplacementMap in="SourceGraphic" in2="map" result="dispGreen" scale="-17" xChannelSelector="R" yChannelSelector="G"></feDisplacementMap><feColorMatrix in="dispGreen" type="matrix" values="0 0 0 0 0 0 1 0 0 0 0 0 0 0 0 0 0 0 1 0" result="green"></feColorMatrix><feDisplacementMap in="SourceGraphic" in2="map" result="dispBlue" scale="-20" xChannelSelector="R" yChannelSelector="G"></feDisplacementMap><feColorMatrix in="dispBlue" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 1 0 0 0 0 0 1 0" result="blue"></feColorMatrix><feBlend in="red" in2="green" mode="screen" result="rg"></feBlend><feBlend in="rg" in2="blue" mode="screen" result="output"></feBlend><feGaussianBlur in="output" stdDeviation="2"></feGaussianBlur></filter></defs></svg>
+
+<div style="display: flex; align-items: center; padding: 0 16px">
+  <a href="Chat.dc.html" style="display: flex; align-items: center; gap: 2px; min-height: 44px; padding: 0 14px 0 8px; border-radius: 9999px; background: var(--lg-bg); border: 0.5px solid var(--lg-edge); box-shadow: var(--lg-shadow); backdrop-filter: var(--lg-fx); -webkit-backdrop-filter: var(--lg-fx); text-decoration: none; color: #232323; font-size: 17px"><dc-import name="Sym" sym="chevron.left" size="{{s20}}" hint-size="20px,20px"></dc-import>Chat</a>
+</div>
+<!-- title with LabelSage: he listens while you edit -->
+<div style="display: flex; align-items: flex-end; justify-content: space-between; margin: 10px 20px 0">
+  <div><h1 style="margin: 0; font-size: 34px; font-weight: 700; letter-spacing: -0.01em">Family</h1><div style="margin-top: 2px; font-size: 15px; color: #5d6a60">{{summaryLine}}</div></div>
+  <span aria-hidden="true" style="flex: none; margin-bottom: 2px"><dc-import name="Mascot" tight="{{yes}}" state="{{lwState}}" size="44" hint-size="44px,68px"></dc-import></span>
+</div>
+
+<!-- one profile card per person, like the onboarding summary -->
+<div style="margin: 14px 16px 0; display: flex; flex-direction: column; gap: 12px">
+  <sc-for list="{{people}}" as="pf" hint-placeholder-count="2">
+    <div style="{{pf.card}}">
+      <div style="display: flex; align-items: center; gap: 12px">
+        <div aria-hidden="true" style="{{pf.avatar}}">{{pf.initial}}</div>
+        <button onClick="{{pf.pick}}" aria-expanded="{{pf.sel}}" style="flex: 1; min-width: 0; border: 0; padding: 0; background: transparent; text-align: left; cursor: pointer"><span style="display: block; font-size: 20px; font-weight: 700">{{pf.label}}</span><span style="display: block; font-size: 14px; color: #5d6a60">{{pf.sub}}</span></button>
+        <button onClick="{{pf.pick}}" style="flex: none; min-height: 36px; padding: 0 14px; border-radius: 9999px; border: 0; background: rgba(29,43,34,0.07); font-size: 15px; font-weight: 600; cursor: pointer">{{pf.editLabel}}</button>
+      </div>
+      <sc-if value="{{pf.collapsed}}" hint-placeholder-val="{{ true }}">
+        <div style="margin-top: 12px; display: flex; flex-wrap: wrap; gap: 6px">
+          <sc-for list="{{pf.chips}}" as="c" hint-placeholder-count="3"><span style="{{c.style}}"><img src="emoji3d/{{c.icon}}" alt="" width="18" height="18">{{c.label}}</span></sc-for>
+        </div>
+      </sc-if>
+      <sc-if value="{{pf.open}}" hint-placeholder-val="{{ false }}">
+        <div style="margin-top: 10px">
+          <sc-for list="{{pf.items}}" as="r" hint-placeholder-count="3">
+            <div style="{{r.wrap}}">
+              <img src="emoji3d/{{r.icon}}" alt="" width="32" height="32" style="flex: none">
+              <div style="flex: 1; min-width: 0"><div style="font-size: 17px; font-weight: 600">{{r.label}}</div><div style="font-size: 13px; color: #5d6a60">{{r.detail}}</div></div>
+              <button onClick="{{r.flip}}" aria-label="{{r.flipAria}}" style="{{r.pill}}">{{r.kind}}</button>
+              <button role="switch" aria-checked="{{r.checked}}" aria-label="{{r.label}}" onClick="{{r.toggle}}" style="{{r.track}}"><span style="{{r.knob}}"></span></button>
+            </div>
+          </sc-for>
+          <a href="Chat.dc.html" style="display: flex; align-items: center; gap: 10px; min-height: 48px; padding: 0 2px; border-top: 1px solid rgba(29,43,34,0.08); text-decoration: none; font-size: 16px; font-weight: 600; color: #1b6b3e"><dc-import name="Sym" sym="plus" size="{{s16}}" color="#1b6b3e" hint-size="16px,16px"></dc-import>Add an allergy by telling {{mascotName}}</a>
+          <div style="font-size: 13px; color: #5d6a60; line-height: 1.35">Avoid hides it. Prefer not only shows it lower. Tap to switch.</div>
+        </div>
+      </sc-if>
+    </div>
+  </sc-for>
+  <button onClick="{{addProfile}}" style="min-height: 56px; display: flex; align-items: center; justify-content: center; gap: 8px; border: 2px dashed rgba(29,43,34,0.18); border-radius: 26px; background: transparent; font-size: 17px; font-weight: 600; color: #1b6b3e; cursor: pointer"><dc-import name="Sym" sym="plus" size="{{s16}}" color="#1b6b3e" hint-size="16px,16px"></dc-import>Add a person</button>
+  <div style="font-size: 13px; color: #5d6a60; line-height: 1.35; padding: 0 4px">Every product is checked for everyone here.</div>
+</div>
+
+<!-- macros and calories for you -->
+<div style="margin: 24px 16px 0">
+  <h2 style="margin: 0 0 8px 4px; font-size: 22px; font-weight: 700">Macros and calories</h2>
+  <div style="background: #ffffff; border-radius: 26px; box-shadow: 0 1px 2px rgba(29,43,34,0.04), 0 10px 26px rgba(29,43,34,0.05); overflow: hidden">
+    <div style="display: flex; align-items: center; gap: 12px; min-height: 60px; padding: 0 16px">
+      <img src="emoji3d/bar_chart.png" alt="" width="28" height="28">
+      <span style="flex: 1; font-size: 17px">Protein per meal</span>
+      <dc-import name="Stepper" value="{{protLabel}}" show="left" label="Protein per meal" valueWidth="44" onInc="{{protInc}}" onDec="{{protDec}}" hint-size="150px,32px"></dc-import>
+    </div>
+  </div>
+</div>
+
+<!-- go-tos: below the people -->
+<div style="margin: 24px 16px 0">
+  <div style="display: flex; align-items: center; justify-content: space-between; margin: 0 4px 8px">
+    <h2 style="margin: 0; display: flex; align-items: center; gap: 8px; font-size: 22px; font-weight: 700"><img src="emoji3d/red_heart.png" alt="" width="24" height="24">Go-tos</h2>
+    <span style="font-size: 15px; color: #5d6a60">{{favCount}} products</span>
+  </div>
+  <div style="background: #ffffff; border-radius: 26px; box-shadow: 0 1px 2px rgba(29,43,34,0.04), 0 10px 26px rgba(29,43,34,0.05); overflow: hidden">
+    <sc-for list="{{favs}}" as="f" hint-placeholder-count="3"><dc-import name="ProductRow" title="{{f.name}}" meta="{{f.meta}}" price="{{f.price}}" lv="{{f.lv}}" fav="{{yes}}" alert="{{f.alert}}" img="{{f.img}}" tint="{{f.tint}}" control="chevron" size="line" framed="{{no}}" divider="{{f.divider}}" hint-size="358px,64px"></dc-import></sc-for>
+  </div>
+  <div style="margin: 8px 4px 0; font-size: 13px; color: #5d6a60; line-height: 1.35">Checked again every time, in case the ingredients changed.</div>
+</div>
+
+<!-- settings -->
+<div style="margin: 24px 16px 0">
+  <h2 style="margin: 0 0 8px 4px; font-size: 22px; font-weight: 700">Settings</h2>
+  <div style="background: #ffffff; border-radius: 26px; box-shadow: 0 1px 2px rgba(29,43,34,0.04), 0 10px 26px rgba(29,43,34,0.05); overflow: hidden">
+    <sc-for list="{{links}}" as="l" hint-placeholder-count="2">
+      <a href="#settings" style="{{l.wrap}}"><dc-import name="Sym" sym="{{l.sym}}" size="{{s20}}" color="#1b6b3e" hint-size="20px,20px"></dc-import><span style="flex: 1; font-size: 17px">{{l.label}}</span><span style="font-size: 17px; color: #5d6a60">{{l.value}}</span><dc-import name="Sym" sym="chevron.right" size="{{s14}}" color="#a8a390" hint-size="14px,14px"></dc-import></a>
+    </sc-for>
+    <sc-for list="{{toggles}}" as="t" hint-placeholder-count="1">
+      <div style="display: flex; align-items: center; gap: 12px; min-height: 52px; padding: 0 16px; border-top: 1px solid rgba(29,43,34,0.08)">
+        <dc-import name="Sym" sym="{{t.sym}}" size="{{s20}}" color="#1b6b3e" hint-size="20px,20px"></dc-import>
+        <span style="flex: 1; font-size: 17px">{{t.label}}</span>
+        <button role="switch" aria-checked="{{t.checked}}" aria-label="{{t.label}}" onClick="{{t.toggle}}" style="{{t.track}}"><span style="{{t.knob}}"></span></button>
+      </div>
+    </sc-for>
+  </div>
+  <div style="margin: 8px 4px 0; display: flex; gap: 6px; font-size: 13px; color: #5d6a60; line-height: 1.35"><dc-import name="Sym" sym="lock.shield" size="{{s14}}" color="#5d6a60" hint-size="14px,14px"></dc-import><span>Runs on your iPhone. Your data stays here.</span></div>
+</div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"open":{"editor":"enum","options":["none","me","mia"],"default":"mia"},"$preview":{"width":390,"height":1800}}'>
+class Component extends DCLogic {
+  constructor(props) {
+    super(props);
+    this.state = {
+      people: [
+        { id: 'me', name: 'Artem', you: true, items: { seed: [1, 'avoid'], sugar: [1, 'prefer'], gluten: [1, 'avoid'], bio: [0, 'prefer'] } },
+        { id: 'mia', name: 'Mia', items: { peanut: [1, 'avoid'], treenuts: [1, 'avoid'] } }
+      ], open: props.open === 'none' ? '' : (props.open || 'mia'), protein: 25, set: { health: false }
+    };
+  }
+  renderVals() {
+    const NAME = (window.__lwBrand || (window.__lwBrand = (() => { try { const x = new XMLHttpRequest(); x.open('GET', 'brand.json', false); x.send(); if (x.status === 200) return JSON.parse(x.responseText); } catch (e) {} return { mascot: 'LabelSage', app: 'LabelSage' }; })())).mascot; /* the mascot's name lives in brand.json */
+    const s = this.state;
+    const INK = '#1d2b22', SHADOW = '0 1px 2px rgba(29,43,34,0.04), 0 10px 26px rgba(29,43,34,0.05)';
+    const sw = (on) => ({
+      track: 'flex: none; position: relative; width: 51px; height: 31px; border-radius: 9999px; border: 0; padding: 0; cursor: pointer; background: ' + (on ? '#26834e' : 'rgba(107,102,86,0.24)') + ';',
+      knob: 'position: absolute; top: 2px; left: ' + (on ? '22px' : '2px') + '; width: 27px; height: 27px; border-radius: 50%; background: #ffffff; box-shadow: 0 3px 8px rgba(0,0,0,0.15), 0 1px 1px rgba(0,0,0,0.16);',
+      checked: on ? 'true' : 'false'
+    });
+    const DEFS = {
+      seed: ['Seed oils', 'Sunflower, canola, soybean and similar', 'sunflower.png'],
+      sugar: ['Added sugar', 'More than 2 g a serving', 'candy.png'],
+      gluten: ['Gluten', 'Wheat, barley, rye', 'bread.png'],
+      bio: ['Bioengineered', 'When the pack says so', 'dna.png'],
+      peanut: ['Peanut', 'Allergy · “may contain” too', 'peanuts.png'],
+      treenuts: ['Tree nuts', 'Allergy · almond, cashew, walnut and the rest', 'chestnut.png'],
+      sesame: ['Sesame', 'Allergy · “may contain” too', 'bagel.png']
+    };
+    const KIND = { avoid: ['Avoid', '#ffe9e6', '#b3261e'], prefer: ['Prefer not', '#fff1d1', '#8a5a00'] };
+    const COLORS = [['#e4f0df', '#1b6b3e'], ['#fcebc4', '#7a4a00'], ['#efedff', '#4b3fa6'], ['#e7f1fb', '#1d5c8f']];
+    const setItem = (pid, k, val) => this.setState({ people: s.people.map((x) => (x.id === pid ? Object.assign({}, x, { items: Object.assign({}, x.items, { [k]: val }) }) : x)) });
+    const people = s.people.map((x, i) => {
+      const keys = Object.keys(x.items);
+      const on = keys.filter((k) => x.items[k][0]);
+      const avoid = on.filter((k) => x.items[k][1] === 'avoid').length;
+      const isOpen = s.open === x.id;
+      return {
+        label: x.name ? x.name + (x.you ? ' (you)' : '') : 'New person', initial: (x.name || '?').charAt(0).toUpperCase(),
+        sub: on.length ? avoid + ' to avoid' + (on.length > avoid ? ' · ' + (on.length - avoid) + ' prefer not' : '') : 'Nothing to avoid yet',
+        sel: isOpen ? 'true' : 'false', open: isOpen, collapsed: !isOpen, editLabel: isOpen ? 'Done' : 'Edit',
+        pick: () => this.setState({ open: isOpen ? '' : x.id }),
+        avatar: 'flex: none; width: 48px; height: 48px; border-radius: 50%; display: grid; place-items: center; font-size: 20px; font-weight: 700; background: ' + COLORS[i % 4][0] + '; color: ' + COLORS[i % 4][1] + ';',
+        card: 'padding: 16px; border-radius: 26px; background: #ffffff; box-shadow: ' + (isOpen ? '0 0 0 2px ' + INK : SHADOW) + ';',
+        chips: on.map((k) => ({ icon: DEFS[k][2], label: DEFS[k][0], style: 'display: inline-flex; align-items: center; gap: 6px; height: 32px; padding: 0 12px 0 8px; border-radius: 9999px; font-size: 14px; font-weight: 600; background: ' + KIND[x.items[k][1]][1] + '; color: ' + KIND[x.items[k][1]][2] + ';' })),
+        items: keys.map((k, j) => Object.assign({
+          icon: DEFS[k][2], label: DEFS[k][0], detail: DEFS[k][1], kind: KIND[x.items[k][1]][0],
+          flipAria: DEFS[k][0] + ': ' + KIND[x.items[k][1]][0] + '. Tap to switch',
+          flip: () => setItem(x.id, k, [x.items[k][0], x.items[k][1] === 'avoid' ? 'prefer' : 'avoid']),
+          pill: 'flex: none; min-height: 30px; padding: 0 10px; border-radius: 9999px; border: 0; font-size: 13px; font-weight: 600; cursor: pointer; background: ' + KIND[x.items[k][1]][1] + '; color: ' + KIND[x.items[k][1]][2] + ';' + (x.items[k][0] ? '' : ' opacity: 0.4;'),
+          wrap: 'display: flex; align-items: center; gap: 10px; min-height: 60px; padding: 6px 2px; box-sizing: border-box; border-top: 1px solid rgba(29,43,34,0.08);',
+          toggle: () => setItem(x.id, k, [x.items[k][0] ? 0 : 1, x.items[k][1]])
+        }, sw(!!x.items[k][0])))
+      };
+    });
+    const products = [
+      { name: 'Boulder Canyon Kettle Chips, Olive Oil', price: '$4.49', meta: 'Boulder Canyon · 5.25 oz', lv: 'good', img: '/_blob/009819ab8d0ecae0eba8e43b443ffd2b', tint: '#ffffff' },
+      { name: 'Hillside Greek Yogurt, Plain 2%', price: '$5.49', meta: 'Hillside · 32 oz', lv: 'good', tint: '#eef8f1' },
+      { name: 'Northfield Creamy Peanut Butter, 16 oz', price: '$3.29', meta: 'Northfield · 16 oz', lv: 'bad', alert: 'Not for Mia · peanut', tint: '#fbf1ef' }
+    ];
+    const favs = products.map((f, i) => Object.assign({}, f, { alert: f.alert || '', img: f.img || '', divider: i > 0 }));
+    const links = [['location', 'Region', 'Austin, TX 78701'], ['storefront', 'Store', 'Whole Foods Market'], ['globe', 'Language', 'English'], ['tag', 'Units', 'US']].map((l, i) => ({ sym: l[0], label: l[1], value: l[2], wrap: 'display: flex; align-items: center; gap: 12px; min-height: 52px; padding: 0 16px; text-decoration: none; color: ' + INK + ';' + (i ? ' border-top: 1px solid rgba(29,43,34,0.08);' : '') }));
+    const toggles = [['health', 'heart.text.square', 'Apple Health']].map((t) => Object.assign({ sym: t[1], label: t[2], toggle: () => this.setState({ set: Object.assign({}, s.set, { [t[0]]: !s.set[t[0]] }) }) }, sw(!!s.set[t[0]])));
+    return { yes: true, no: false, mascotName: NAME, s14: 14, s16: 16, s18: 18, s20: 20,
+      people, favs, favCount: products.length, links, toggles,
+      lwState: s.open ? 'listen' : 'idle',
+      summaryLine: 'I check every product for ' + (s.people.length === 1 ? 'you' : s.people.map((x) => (x.you ? 'you' : x.name || 'them')).join(' and ').replace(/ and (?=.* and )/g, ', ')) + '.',
+      addProfile: () => { const id = 'p' + Date.now(); this.setState({ people: s.people.concat([{ id, name: '', items: {} }]), open: id }); },
+      protLabel: s.protein + ' g', protInc: () => this.setState({ protein: Math.min(60, s.protein + 5) }), protDec: () => this.setState({ protein: Math.max(5, s.protein - 5) })
+    };
+  }
+}
+</script>
+</body>
+</html>

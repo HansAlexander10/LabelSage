@@ -1,0 +1,172 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Scan</title>
+<script src="./support.js"></script>
+<link rel="stylesheet" href="ds/aishoppingagent/tokens.css">
+</head>
+<body>
+<x-dc>
+<helmet>
+<style>
+@import url("https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&display=swap");
+body{margin:0;font-family:"Outfit","SF Pro Rounded",ui-rounded,-apple-system,system-ui,sans-serif;-webkit-font-smoothing:antialiased}
+button{font-family:inherit;color:inherit}
+button:focus-visible,a:focus-visible{outline:2px solid #ffffff;outline-offset:2px}
+@keyframes flag-bad{0%{box-shadow:0 0 0 0 rgba(239,75,63,.6)}70%{box-shadow:0 0 0 14px rgba(239,75,63,0)}100%{box-shadow:0 0 0 0 rgba(239,75,63,0)}}
+@keyframes flag-careful{0%{box-shadow:0 0 0 0 rgba(255,212,73,.65)}70%{box-shadow:0 0 0 14px rgba(255,212,73,0)}100%{box-shadow:0 0 0 0 rgba(255,212,73,0)}}
+@keyframes flag-good{0%{box-shadow:0 0 0 0 rgba(29,191,115,.55)}70%{box-shadow:0 0 0 14px rgba(29,191,115,0)}100%{box-shadow:0 0 0 0 rgba(29,191,115,0)}}
+.clamp2{display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.one{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+@keyframes scan-line{0%{top:12%}50%{top:84%}100%{top:12%}}
+@keyframes spin{to{transform:rotate(360deg)}}
+@keyframes sk{0%{background-position:-240px 0}100%{background-position:240px 0}}
+.scan-line{position:absolute;left:8%;right:8%;height:2px;border-radius:1px;background:#1dbf73;box-shadow:0 0 12px #1dbf73;animation:scan-line 1.6s ease-in-out infinite}
+.spin{animation:spin .9s linear infinite}
+.sk{border-radius:6px;background:linear-gradient(90deg,#ececf0 0%,#dedee3 40%,#ececf0 80%);background-size:480px 12px;animation:sk 1.4s linear infinite}
+@media (prefers-reduced-motion:reduce){.scan-line,.spin,.sk{animation:none}}
+:root{--ease-out:cubic-bezier(0.23,1,0.32,1);--ease-drawer:cubic-bezier(0.32,0.72,0,1)}button,a{-webkit-tap-highlight-color:transparent;transition:transform 160ms var(--ease-out),background-color 160ms var(--ease-out)}button:active,a:active{transform:scale(0.97)}[role=radio]:active,[role=checkbox]:active,[role=option]:active,[role=menuitem]:active,[role=switch]:active{transform:none;background-color:rgba(118,118,128,0.12) !important}::selection{background:rgba(38,131,78,0.22)}@keyframes rc-sheet{from{transform:translateY(100%)}to{transform:none}}@keyframes rc-scrim{from{opacity:0}to{opacity:1}}@keyframes rc-pop{from{opacity:0;transform:scale(0.95)}to{opacity:1;transform:none}}.rc-sheet{animation:rc-sheet 420ms var(--ease-drawer) both}.rc-scrim{animation:rc-scrim 220ms var(--ease-out) both}.rc-pop{animation:rc-pop 180ms var(--ease-out) both}@media (prefers-reduced-motion:reduce){button:active,a:active{transform:none}.rc-sheet,.rc-pop{animation:rc-scrim 200ms ease both}}@media (prefers-reduced-transparency:reduce){[style*=backdrop-filter]{backdrop-filter:none !important;-webkit-backdrop-filter:none !important}}</style>
+<style>/* Liquid Glass (navigation layer only, per HIG). Frosted base everywhere; refraction where backdrop SVG filters work (Chromium). */:root{--lg-bg:rgba(255,255,255,0.52);--lg-bg-thick:rgba(255,255,255,0.8);--lg-bg-dark:rgba(255,255,255,0.14);--lg-edge:rgba(255,255,255,0.7);--lg-edge-dark:rgba(255,255,255,0.3);--lg-fx:blur(14px) saturate(180%);--lg-shadow:inset 0 0 2px 1px rgba(255,255,255,0.6),inset 0 0 10px 4px rgba(255,255,255,0.22),inset 0 4px 16px rgba(17,17,26,0.05),inset 0 8px 24px rgba(17,17,26,0.05),0 6px 20px rgba(0,0,0,0.10);--lg-shadow-float:inset 0 0 2px 1px rgba(255,255,255,0.6),inset 0 0 10px 4px rgba(255,255,255,0.22),0 12px 36px rgba(0,0,0,0.16);--lg-shadow-dark:inset 0 0 2px 1px rgba(255,255,255,0.35),inset 0 0 10px 4px rgba(255,255,255,0.12),0 6px 20px rgba(0,0,0,0.25)}@supports (not (font:-apple-system-body)) and (not (-moz-appearance:none)){:root{--lg-fx:url(#lg-filter) blur(2px) saturate(1.7)}}@media (prefers-reduced-transparency:reduce){:root{--lg-bg:rgba(255,255,255,0.97);--lg-bg-thick:#ffffff;--lg-bg-dark:rgba(44,44,46,0.94);--lg-fx:none}}@media (prefers-contrast:more){:root{--lg-edge:rgba(0,0,0,0.35);--lg-edge-dark:rgba(255,255,255,0.7)}}</style>
+</helmet>
+<div style="width: 390px; height: 844px; position: relative; overflow: hidden; background: #232323; color: #ffffff; font-family: 'Outfit', 'SF Pro Rounded', ui-rounded, -apple-system, system-ui, sans-serif"><svg aria-hidden="true" focusable="false" width="0" height="0" style="position: absolute; width: 0; height: 0; overflow: hidden"><defs><filter id="lg-filter" color-interpolation-filters="sRGB" x="0%" y="0%" width="100%" height="100%"><feImage x="0" y="0" width="100%" height="100%" preserveAspectRatio="none" result="map" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAIAAAACACAIAAABMXPacAAABRElEQVR42u3ZQQqDMBRF0RcNMbrqLr0DEdoN9ENzLo4cviMisbX2asmW9GQkI5nJTM6P63ruHMmRjKQne7JFSbIl+zPgPdGZzOT6nvEedjwDbklLepoBK+se42qAboRagGEEAEsDTCMAWBrgNAIAAAKwLMBlBF9BXkGqAziMAGBpAGdBxQCOo4sBdiPUAvgjVpr5AQAQAAACAEAAAAgAAAEAIAAABACAAAAQAAACAEAAAAgAAAEAIAAABACAAAAQAAACAEAAAAgAAAEAIAAABACAAAAQAAACAEAAAAgAAAEAIAAABAAAABMAACAAAAQAgAAAEAAAAgBAAAAIAAABACAAAATgL+sIqgF2I9QCdCPUAgwj1AIcRgCwNMBphFqAaYRagMsIXkEABACAfAUB0O8BnAUBWBvAcXQxgD9ixQDNCJW9Aa7lA8768ue5AAAAAElFTkSuQmCC"></feImage><feDisplacementMap in="SourceGraphic" in2="map" result="dispRed" scale="-14" xChannelSelector="R" yChannelSelector="G"></feDisplacementMap><feColorMatrix in="dispRed" type="matrix" values="1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0" result="red"></feColorMatrix><feDisplacementMap in="SourceGraphic" in2="map" result="dispGreen" scale="-17" xChannelSelector="R" yChannelSelector="G"></feDisplacementMap><feColorMatrix in="dispGreen" type="matrix" values="0 0 0 0 0 0 1 0 0 0 0 0 0 0 0 0 0 0 1 0" result="green"></feColorMatrix><feDisplacementMap in="SourceGraphic" in2="map" result="dispBlue" scale="-20" xChannelSelector="R" yChannelSelector="G"></feDisplacementMap><feColorMatrix in="dispBlue" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 1 0 0 0 0 0 1 0" result="blue"></feColorMatrix><feBlend in="red" in2="green" mode="screen" result="rg"></feBlend><feBlend in="rg" in2="blue" mode="screen" result="output"></feBlend><feGaussianBlur in="output" stdDeviation="2"></feGaussianBlur></filter></defs></svg>
+
+  <!-- camera feed (mock) -->
+  <div aria-hidden="true" style="position: absolute; inset: 0; background: linear-gradient(180deg, #4a4038 0%, #3a322c 40%, #2a2420 100%)"></div>
+  <div aria-hidden="true" style="position: absolute; left: -20px; top: 150px; width: 120px; height: 160px; border-radius: 10px; background: #5c6b3a; filter: blur(6px); opacity: 0.7"></div>
+  <div aria-hidden="true" style="position: absolute; right: -30px; top: 170px; width: 130px; height: 150px; border-radius: 10px; background: #26834e; filter: blur(6px); opacity: 0.7"></div>
+  <div aria-hidden="true" style="position: absolute; left: -40px; right: -40px; top: 420px; height: 12px; background: rgba(255,255,255,0.10)"></div>
+  <img src="/_blob/58077391b4e19dddae5d17a63751ab9c" alt="" style="{{productStyle}}">
+
+  <!-- dimmed surround with a clear viewfinder -->
+  <div aria-hidden="true" style="position: absolute; left: 55px; top: 205px; width: 280px; height: 200px; border-radius: 24px; box-shadow: 0 0 0 1200px rgba(0,0,0,0.55)"></div>
+  <div style="position: absolute; left: 55px; top: 205px; width: 280px; height: 200px">
+    <svg width="280" height="200" viewBox="0 0 280 200" aria-hidden="true" style="position: absolute; inset: 0">
+      <path d="M2 40V26A24 24 0 0 1 26 2h14M240 2h14a24 24 0 0 1 24 24v14M278 160v14a24 24 0 0 1-24 24h-14M40 198H26A24 24 0 0 1 2 174v-14" fill="none" style="{{bracketStyle}}" stroke-width="4" stroke-linecap="round"></path>
+    </svg>
+    <sc-if value="{{isLoading}}" hint-placeholder-val="{{ false }}"><div class="scan-line"></div></sc-if>
+  </div>
+
+  <!-- top bar: Liquid Glass controls -->
+  <div style="position: absolute; left: 16px; right: 16px; top: 54px; display: flex; justify-content: space-between; align-items: center">
+    <a href="Chat.dc.html" aria-label="Close scanner" style="width: 44px; height: 44px; border-radius: 50%; display: grid; place-items: center; background: var(--lg-bg-dark); border: 0.5px solid var(--lg-edge-dark); box-shadow: var(--lg-shadow-dark); backdrop-filter: var(--lg-fx); -webkit-backdrop-filter: var(--lg-fx)"><dc-import name="Sym" sym="xmark" size="{{s18}}" color="#ffffff" hint-size="18px,18px"></dc-import></a>
+    <div style="font-size: 17px; font-weight: 600">Check a product</div>
+    <button aria-label="Flashlight" style="width: 44px; height: 44px; border-radius: 50%; border: 0.5px solid var(--lg-edge-dark); display: grid; place-items: center; background: var(--lg-bg-dark); box-shadow: var(--lg-shadow-dark); backdrop-filter: var(--lg-fx); -webkit-backdrop-filter: var(--lg-fx); cursor: pointer"><dc-import name="Sym" sym="flashlight.off.fill" size="{{s18}}" color="#ffffff" hint-size="18px,18px"></dc-import></button>
+  </div>
+
+  <div style="position: absolute; left: 0; right: 0; top: 150px; text-align: center; font-size: 17px; font-weight: 500">{{hint}}</div>
+  <div style="position: absolute; left: 0; right: 0; top: 398px; height: 42px; display: flex; justify-content: center; align-items: flex-end; gap: 6px; font-size: 15px; color: rgba(255,255,255,0.75)"><sc-if value="{{hasSub}}" hint-placeholder-val="{{ true }}"><span aria-hidden="true" style="flex: none"><dc-import name="Mascot" tight="{{yes}}" state="point" size="26" hint-size="26px,40px" onDark="{{yes}}"></dc-import></span></sc-if><span style="padding-bottom: 2px">{{subhint}}</span></div>
+
+  <!-- IDLE: tap target to simulate a scan, plus classic bottom controls -->
+  <sc-if value="{{isIdle}}" hint-placeholder-val="{{ true }}">
+    <button aria-label="Simulate a scan" onClick="{{simulate}}" style="position: absolute; left: 55px; top: 205px; width: 280px; height: 200px; border: 0; background: transparent; cursor: pointer"></button>
+    <div style="position: absolute; left: 16px; right: 16px; bottom: 40px; display: flex; flex-direction: column; align-items: center; gap: 18px">
+      <div style="display: flex; padding: 3px; border-radius: 9999px; background: var(--lg-bg-dark); border: 0.5px solid var(--lg-edge-dark); box-shadow: var(--lg-shadow-dark); backdrop-filter: var(--lg-fx); -webkit-backdrop-filter: var(--lg-fx)">
+        <sc-for list="{{modes}}" as="m" hint-placeholder-count="2"><button aria-pressed="{{m.on}}" onClick="{{m.pick}}" style="{{m.style}}">{{m.label}}</button></sc-for>
+      </div>
+      <div style="display: flex; gap: 10px">
+        <sc-if value="{{isBarcodeMode}}" hint-placeholder-val="{{ true }}"><button style="min-height: 44px; padding: 0 16px; border-radius: 9999px; border: 0.5px solid var(--lg-edge-dark); background: var(--lg-bg-dark); box-shadow: var(--lg-shadow-dark); backdrop-filter: var(--lg-fx); -webkit-backdrop-filter: var(--lg-fx); display: flex; align-items: center; gap: 8px; font-size: 15px; font-weight: 500; cursor: pointer"><dc-import name="Sym" sym="keyboard" size="{{s18}}" color="#ffffff" hint-size="18px,18px"></dc-import>Enter code</button></sc-if><sc-if value="{{isIngMode}}" hint-placeholder-val="{{ false }}"><button style="min-height: 44px; padding: 0 16px; border-radius: 9999px; border: 0.5px solid var(--lg-edge-dark); background: var(--lg-bg-dark); box-shadow: var(--lg-shadow-dark); backdrop-filter: var(--lg-fx); -webkit-backdrop-filter: var(--lg-fx); display: flex; align-items: center; gap: 8px; font-size: 15px; font-weight: 500; cursor: pointer"><dc-import name="Sym" sym="photo" size="{{s18}}" color="#ffffff" hint-size="18px,18px"></dc-import>Upload a photo</button></sc-if>
+        <a href="Chat.dc.html" style="min-height: 44px; padding: 0 16px; border-radius: 9999px; border: 0.5px solid var(--lg-edge-dark); background: var(--lg-bg-dark); box-shadow: var(--lg-shadow-dark); backdrop-filter: var(--lg-fx); -webkit-backdrop-filter: var(--lg-fx); display: flex; align-items: center; gap: 8px; font-size: 15px; font-weight: 500; text-decoration: none; color: #ffffff"><dc-import name="Sym" sym="magnifyingglass" size="{{s18}}" color="#ffffff" hint-size="18px,18px"></dc-import>Type a name</a>
+      </div>
+    </div>
+  </sc-if>
+
+  <!-- LOADING: sheet with skeleton -->
+  <sc-if value="{{isLoading}}" hint-placeholder-val="{{ false }}">
+    <div role="status" aria-label="Looking up product" style="position: absolute; left: 8px; right: 8px; bottom: 8px; padding: 10px 16px 28px; border-radius: 34px; background: #ffffff; color: #232323">
+      <div aria-hidden="true" style="width: 36px; height: 5px; border-radius: 3px; background: #c9c4a8; margin: 0 auto 14px"></div>
+      <div style="display: flex; align-items: center; gap: 10px; font-size: 15px; color: #4a4740">
+        <span aria-hidden="true" style="flex: none; margin: -10px 0 -4px"><dc-import name="Mascot" tight="{{yes}}" state="reading" size="24" hint-size="24px,37px"></dc-import></span>
+        Looking up 0 28400 59031 8…
+      </div>
+      <div style="margin-top: 14px; display: flex; gap: 12px; align-items: center">
+        <div class="sk" style="flex: none; width: 64px; height: 64px; border-radius: 14px"></div>
+        <div style="flex: 1; display: flex; flex-direction: column; gap: 8px"><div class="sk" style="height: 14px; width: 80%"></div><div class="sk" style="height: 12px; width: 55%"></div><div class="sk" style="height: 20px; width: 40%; border-radius: 10px"></div></div>
+      </div>
+      <div style="margin-top: 16px; display: flex; gap: 8px"><div class="sk" style="flex: 1; height: 44px; border-radius: 22px"></div><div class="sk" style="flex: 1; height: 44px; border-radius: 22px"></div></div>
+    </div>
+  </sc-if>
+
+  <!-- PRODUCT: the product page itself, opened at a medium detent; drag up for the rest -->
+  <sc-if value="{{isProduct}}" hint-placeholder-val="{{ false }}">
+    <button onClick="{{rescan}}" style="position: absolute; left: 50%; top: 132px; transform: translateX(-50%); z-index: 2; min-height: 40px; padding: 0 14px; border-radius: 9999px; border: 0.5px solid var(--lg-edge-dark); background: var(--lg-bg-dark); box-shadow: var(--lg-shadow-dark); backdrop-filter: var(--lg-fx); -webkit-backdrop-filter: var(--lg-fx); display: flex; align-items: center; gap: 6px; font-size: 15px; font-weight: 500; color: #ffffff; cursor: pointer"><dc-import name="Sym" sym="barcode.viewfinder" size="{{s16}}" color="#ffffff" hint-size="16px,16px"></dc-import>Check another</button>
+    <div role="dialog" aria-label="Product" style="position: absolute; left: 0; right: 0; top: 430px; bottom: 0; border-radius: 34px 34px 0 0; overflow-x: hidden; overflow-y: auto; background: #f2f2f7; color: #232323"><dc-import name="Main" as="sheet" photo="hide" from="scan" bought="{{bought}}" hint-size="390px,1400px"></dc-import></div>
+  </sc-if>
+  <!-- NOT FOUND: same scanner, same sheet as loading -->
+  <sc-if value="{{isNotFound}}" hint-placeholder-val="{{ false }}">
+    <div role="dialog" aria-label="Not found" style="position: absolute; left: 8px; right: 8px; bottom: 8px; padding: 10px 20px 28px; border-radius: 34px; background: #ffffff; color: #232323">
+      <div aria-hidden="true" style="width: 36px; height: 5px; border-radius: 3px; background: #c9c4a8; margin: 0 auto 14px"></div>
+      <div style="display: flex; gap: 14px; align-items: flex-start">
+        <div aria-hidden="true" style="flex: none; width: 52px; display: grid; place-items: center"><dc-import name="Mascot" tight="{{yes}}" state="disguise" size="40" hint-size="40px,62px"></dc-import></div>
+        <div style="flex: 1"><div style="font-size: 20px; font-weight: 600; line-height: 1.2">This one’s new to me. Photo the ingredients and I’ll read them.</div><div style="font-size: 15px; color: #6b6656; margin-top: 4px; font-variant-numeric: tabular-nums">Barcode 0 12345 67890 5</div></div>
+      </div>
+      <button onClick="{{photoIng}}" style="{{primary}}"><dc-import name="Sym" sym="camera" size="{{s18}}" color="#1d2b22" hint-size="18px,18px"></dc-import>Photo the ingredients</button>
+      <sc-if value="{{reported}}" hint-placeholder-val="{{ false }}">
+        <div role="status" style="margin-top: 10px; display: flex; gap: 8px; align-items: center; padding: 12px 14px; border-radius: 16px; background: #e4f7ee; font-size: 15px"><dc-import name="Sym" sym="checkmark.circle" size="{{s20}}" hint-size="20px,20px"></dc-import>Thanks. We’ll add it.</div>
+      </sc-if>
+      <div style="display: flex; gap: 10px; margin-top: 10px">
+        <sc-if value="{{notReported}}" hint-placeholder-val="{{ true }}"><button onClick="{{report}}" style="{{secondary}}"><dc-import name="Sym" sym="paperclip" size="{{s18}}" color="#1b6b3e" hint-size="18px,18px"></dc-import>Report it</button></sc-if>
+        <button onClick="{{rescan}}" style="{{secondary}}"><dc-import name="Sym" sym="barcode.viewfinder" size="{{s18}}" color="#1b6b3e" hint-size="18px,18px"></dc-import>Check another</button>
+      </div>
+    </div>
+  </sc-if>
+
+  <!-- NO LABEL DATA: found, but nothing to check -->
+  <sc-if value="{{isNoLabel}}" hint-placeholder-val="{{ false }}">
+    <div role="dialog" aria-label="Can’t confirm" style="position: absolute; left: 8px; right: 8px; bottom: 8px; padding: 10px 20px 28px; border-radius: 34px; background: #ffffff; color: #232323">
+      <div aria-hidden="true" style="width: 36px; height: 5px; border-radius: 3px; background: #c9c4a8; margin: 0 auto 14px"></div>
+      <div style="display: flex; gap: 14px; align-items: center">
+        <div style="position: relative; flex: none; width: 64px; height: 64px; border-radius: 14px; background: #f2f2f7; border: 1px solid #e5e5ea; box-sizing: border-box"><span style="position: absolute; right: -6px; bottom: -6px; width: 28px; height: 28px; border-radius: 50%; background: #ffffff; display: grid; place-items: center"><dc-import name="Sym" sym="questionmark.circle.fill" size="{{s22}}" label="Can’t confirm" hint-size="22px,22px"></dc-import></span></div>
+        <div style="flex: 1"><div style="font-size: 13px; color: #6b6656">Northfield</div><div style="font-size: 18px; font-weight: 600; line-height: 1.2">Northfield Trail Mix, Classic, 10 oz</div></div>
+      </div>
+      <div style="margin-top: 14px; display: flex; gap: 12px; align-items: flex-start; padding: 14px; border-radius: 18px; background: #fdf6ea">
+        <span aria-hidden="true" style="flex: none"><dc-import name="Mascot" tight="{{yes}}" state="thinking" size="30" hint-size="30px,46px"></dc-import></span>
+        <div style="flex: 1"><div style="font-size: 17px; font-weight: 600">Can’t confirm</div><div style="font-size: 15px; line-height: 1.35; color: #4a4740; margin-top: 2px">No ingredient list for this one yet. Check the package, or photo the ingredients and I’ll read them.</div><div style="margin-top: 6px; font-size: 12px; color: #6b6656">Data updated Oct 2026 · not medical advice</div></div>
+      </div>
+      <div style="display: flex; gap: 10px; margin-top: 12px">
+        <button onClick="{{report}}" style="{{secondary}}"><dc-import name="Sym" sym="doc.text" size="{{s18}}" color="#26834e" hint-size="18px,18px"></dc-import>{{reportLabel}}</button>
+        <button onClick="{{rescan}}" style="{{secondary}}"><dc-import name="Sym" sym="barcode.viewfinder" size="{{s18}}" color="#1b6b3e" hint-size="18px,18px"></dc-import>Check another</button>
+      </div>
+    </div>
+  </sc-if>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"away":{"editor":"boolean","default":false},"phase":{"editor":"enum","options":["idle","loading","product","notfound","nolabel"],"default":"idle"},"hold":{"editor":"boolean","default":false},"mode":{"editor":"enum","options":["barcode","label"],"default":"barcode"},"bought":{"editor":"boolean","default":false},"$preview":{"width":390,"height":844}}'>
+class Component extends DCLogic {
+  constructor(props) { super(props); this.state = { phase: props.phase || 'idle', mode: props.mode === 'label' ? 'label' : 'barcode', fav: false, reported: false }; }
+  componentWillUnmount() { clearTimeout(this.t); }
+  renderVals() {
+    const s = this.state;
+    const hold = !!this.props.hold;
+    const simulate = () => {
+      if (hold) return;
+      this.setState({ phase: 'loading' });
+      clearTimeout(this.t);
+      this.t = setTimeout(() => this.setState({ phase: 'product' }), 1500);
+    };
+    const modes = [['barcode', 'Barcode'], ['label', 'Ingredients']].map(([id, label]) => ({
+      label, on: s.mode === id ? 'true' : 'false', pick: () => this.setState({ mode: id }),
+      style: 'min-height: 36px; padding: 0 16px; border-radius: 9999px; border: 0; font-size: 15px; font-weight: 600; cursor: pointer; background: ' + (s.mode === id ? '#ffffff' : 'transparent') + '; color: ' + (s.mode === id ? '#232323' : '#ffffff') + ';'
+    }));
+    const idle = s.phase === 'idle', loading = s.phase === 'loading', product = s.phase === 'product', notfound = s.phase === 'notfound', nolabel = s.phase === 'nolabel';
+    const btn = 'min-height: 50px; border-radius: 9999px; font-size: 17px; font-weight: 600; display: flex; align-items: center; justify-content: center; gap: 6px; cursor: pointer; text-decoration: none; font-family: inherit;';
+    return {
+      bought: !!this.props.bought, s14: 14, s16: 16, s18: 18, s20: 20, s22: 22, modes, isBarcodeMode: s.mode === 'barcode', isIngMode: s.mode !== 'barcode',
+      isIdle: idle, isLoading: loading, isProduct: product, isNotFound: notfound, isNoLabel: nolabel, s28: 28,
+      notReported: !s.reported, reported: s.reported, report: () => this.setState({ reported: true }), reportLabel: s.reported ? 'Reported' : 'Report it',
+      primary: 'margin-top: 14px; width: 100%; min-height: 56px; border: 0; background: #eb9d15; color: #1d2b22; box-shadow: 0 6px 18px rgba(235,157,21,0.3); ' + btn,
+      photoIng: () => { clearTimeout(this.t); this.setState({ phase: 'idle', mode: 'label' }); },
+      secondary: 'flex: 1; border: 0; background: rgba(29,43,34,0.07); color: #1b6b3e; font-size: 15px; ' + btn,
+      hint: idle ? (s.mode === 'barcode' ? 'Point at the barcode' : 'No barcode? Photo the ingredients') : (loading || nolabel ? 'Barcode found' : (notfound ? 'Barcode read' : '')),
+      yes: true, hasSub: idle && !this.props.away, subhint: idle ? (s.mode === 'barcode' ? 'Hold steady inside the frame · tap to try' : 'The ingredient list on the pack, or upload a photo of it') : '',
+      bracketStyle: 'stroke: ' + (idle || notfound ? '#ffffff' : '#1dbf73') + ';',
+      productStyle: 'position: absolute; left: 50%; top: 210px; width: 190px; height: 190px; margin-left: -95px; object-fit: contain; border-radius: 16px; transform: rotate(-3deg);' + (idle ? ' filter: blur(5px); opacity: 0.85;' : '') + (notfound || nolabel ? ' display: none;' : ''),
+      simulate, rescan: () => { clearTimeout(this.t); this.setState({ phase: 'idle', reported: false }); },
+      favSym: s.fav ? 'heart.fill' : 'heart', favColor: s.fav ? '#ef4b3f' : '#232323', favAria: s.fav ? 'Remove from go-tos' : 'Add to go-tos',
+      toggleFav: () => this.setState({ fav: !s.fav })
+    };
+  }
+}
+</script>
+</body>
+</html>

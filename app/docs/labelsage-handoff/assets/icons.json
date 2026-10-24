@@ -1,0 +1,961 @@
+{
+ "version": 1,
+ "updated": "2026-10-23",
+ "size": 256,
+ "sources": {
+  "fluent": "Microsoft Fluent Emoji 3D, MIT License, github.com/microsoft/fluentui-emoji"
+ },
+ "fallback": {
+  "missing": "Letter tile: first letter of the label on a sand tile. Used when no icon exists for the ingredient.",
+  "failed": "Same letter tile when the image does not load (server down, offline, broken file). Never an error message.",
+  "loading": "Soft sand tile with a slow shimmer, at most 600 ms before the letter tile shows."
+ },
+ "categories": [
+  {
+   "id": "allergens",
+   "title": "Main allergens",
+   "note": "The 9 US major allergens plus the extra EU ones"
+  },
+  {
+   "id": "treenuts",
+   "title": "Tree nuts",
+   "note": "Each nut can be picked on its own"
+  },
+  {
+   "id": "seafood",
+   "title": "Fish and shellfish",
+   "note": "Fish, crustaceans and molluscs"
+  },
+  {
+   "id": "more",
+   "title": "Other allergens and sensitivities",
+   "note": "Less common allergens and food sensitivities"
+  },
+  {
+   "id": "ingredients",
+   "title": "Ingredients people avoid",
+   "note": "From the “Anything else?” step and the ingredient catalog"
+  },
+  {
+   "id": "diets",
+   "title": "Diets",
+   "note": "Each diet adds its own ingredient list"
+  },
+  {
+   "id": "religion",
+   "title": "Religion and culture",
+   "note": "Hidden ingredients like gelatin and animal fats"
+  },
+  {
+   "id": "medical",
+   "title": "Medical and health",
+   "note": "Medical diets and health goals"
+  },
+  {
+   "id": "goals",
+   "title": "Macros and calories",
+   "note": "Numbers people track"
+  },
+  {
+   "id": "people",
+   "title": "People",
+   "note": "Who you shop for"
+  },
+  {
+   "id": "app",
+   "title": "App and verdicts",
+   "note": "Actions, verdict helpers and trust"
+  }
+ ],
+ "icons": {
+  "peanut": {
+   "label": "Peanut",
+   "category": "allergens",
+   "source": "fluent",
+   "asset": "peanuts"
+  },
+  "treenuts": {
+   "label": "Tree nuts",
+   "category": "allergens",
+   "source": "fluent",
+   "asset": "chestnut"
+  },
+  "milk": {
+   "label": "Milk",
+   "category": "allergens",
+   "source": "fluent",
+   "asset": "glass_of_milk"
+  },
+  "egg": {
+   "label": "Egg",
+   "category": "allergens",
+   "source": "fluent",
+   "asset": "egg"
+  },
+  "soy": {
+   "label": "Soy",
+   "category": "allergens",
+   "source": "fluent",
+   "asset": "beans"
+  },
+  "wheat": {
+   "label": "Wheat",
+   "category": "allergens",
+   "source": "fluent",
+   "standIn": true,
+   "asset": "sheaf_of_rice"
+  },
+  "fish": {
+   "label": "Fish",
+   "category": "allergens",
+   "source": "fluent",
+   "asset": "fish"
+  },
+  "shellfish": {
+   "label": "Shellfish",
+   "category": "allergens",
+   "source": "fluent",
+   "asset": "shrimp"
+  },
+  "sesame": {
+   "label": "Sesame",
+   "category": "allergens",
+   "source": "fluent",
+   "standIn": true,
+   "asset": "bagel"
+  },
+  "gluten": {
+   "label": "Gluten",
+   "category": "allergens",
+   "source": "fluent",
+   "asset": "bread"
+  },
+  "mustard": {
+   "label": "Mustard",
+   "category": "allergens",
+   "source": "fluent",
+   "standIn": true,
+   "asset": "hot_dog"
+  },
+  "celery": {
+   "label": "Celery",
+   "category": "allergens",
+   "source": "fluent",
+   "standIn": true,
+   "asset": "leafy_green"
+  },
+  "lupin": {
+   "label": "Lupin",
+   "category": "allergens",
+   "source": "fluent",
+   "standIn": true,
+   "asset": "beans"
+  },
+  "sulfites": {
+   "label": "Sulfites",
+   "category": "allergens",
+   "source": "fluent",
+   "asset": "wine_glass"
+  },
+  "molluscs": {
+   "label": "Molluscs",
+   "category": "allergens",
+   "source": "fluent",
+   "asset": "squid"
+  },
+  "almond": {
+   "label": "Almond",
+   "category": "treenuts",
+   "source": "fluent",
+   "standIn": true,
+   "asset": "chestnut"
+  },
+  "cashew": {
+   "label": "Cashew",
+   "category": "treenuts",
+   "source": "fluent",
+   "standIn": true,
+   "asset": "chestnut"
+  },
+  "walnut": {
+   "label": "Walnut",
+   "category": "treenuts",
+   "source": "fluent",
+   "standIn": true,
+   "asset": "chestnut"
+  },
+  "pecan": {
+   "label": "Pecan",
+   "category": "treenuts",
+   "source": "fluent",
+   "standIn": true,
+   "asset": "chestnut"
+  },
+  "pistachio": {
+   "label": "Pistachio",
+   "category": "treenuts",
+   "source": "fluent",
+   "standIn": true,
+   "asset": "chestnut"
+  },
+  "hazelnut": {
+   "label": "Hazelnut",
+   "category": "treenuts",
+   "source": "fluent",
+   "standIn": true,
+   "asset": "chestnut"
+  },
+  "macadamia": {
+   "label": "Macadamia",
+   "category": "treenuts",
+   "source": "fluent",
+   "standIn": true,
+   "asset": "chestnut"
+  },
+  "brazilnut": {
+   "label": "Brazil nut",
+   "category": "treenuts",
+   "source": "fluent",
+   "standIn": true,
+   "asset": "chestnut"
+  },
+  "pinenut": {
+   "label": "Pine nut",
+   "category": "treenuts",
+   "source": "fluent",
+   "standIn": true,
+   "asset": "chestnut"
+  },
+  "chestnut": {
+   "label": "Chestnut",
+   "category": "treenuts",
+   "source": "fluent",
+   "asset": "chestnut"
+  },
+  "coconut": {
+   "label": "Coconut",
+   "category": "treenuts",
+   "source": "fluent",
+   "asset": "coconut"
+  },
+  "fish2": {
+   "label": "Fish",
+   "category": "seafood",
+   "source": "fluent",
+   "asset": "fish"
+  },
+  "tropicalfish": {
+   "label": "White fish",
+   "category": "seafood",
+   "source": "fluent",
+   "asset": "tropical_fish"
+  },
+  "shrimp": {
+   "label": "Shrimp",
+   "category": "seafood",
+   "source": "fluent",
+   "asset": "shrimp"
+  },
+  "crab": {
+   "label": "Crab",
+   "category": "seafood",
+   "source": "fluent",
+   "asset": "crab"
+  },
+  "lobster": {
+   "label": "Lobster",
+   "category": "seafood",
+   "source": "fluent",
+   "asset": "lobster"
+  },
+  "oyster": {
+   "label": "Oysters",
+   "category": "seafood",
+   "source": "fluent",
+   "asset": "oyster"
+  },
+  "mussel": {
+   "label": "Mussels",
+   "category": "seafood",
+   "source": "fluent",
+   "standIn": true,
+   "asset": "oyster"
+  },
+  "squid": {
+   "label": "Squid",
+   "category": "seafood",
+   "source": "fluent",
+   "asset": "squid"
+  },
+  "octopus": {
+   "label": "Octopus",
+   "category": "seafood",
+   "source": "fluent",
+   "asset": "octopus"
+  },
+  "sushi": {
+   "label": "Sushi and raw fish",
+   "category": "seafood",
+   "source": "fluent",
+   "asset": "sushi"
+  },
+  "corn": {
+   "label": "Corn",
+   "category": "more",
+   "source": "fluent",
+   "asset": "ear_of_corn"
+  },
+  "kiwi": {
+   "label": "Kiwi",
+   "category": "more",
+   "source": "fluent",
+   "asset": "kiwi_fruit"
+  },
+  "banana": {
+   "label": "Banana",
+   "category": "more",
+   "source": "fluent",
+   "asset": "banana"
+  },
+  "strawberry": {
+   "label": "Strawberry",
+   "category": "more",
+   "source": "fluent",
+   "asset": "strawberry"
+  },
+  "peach": {
+   "label": "Peach and stone fruit",
+   "category": "more",
+   "source": "fluent",
+   "asset": "peach"
+  },
+  "tomato": {
+   "label": "Tomato",
+   "category": "more",
+   "source": "fluent",
+   "asset": "tomato"
+  },
+  "nightshades": {
+   "label": "Nightshades",
+   "category": "more",
+   "source": "fluent",
+   "asset": "eggplant"
+  },
+  "potato": {
+   "label": "Potato",
+   "category": "more",
+   "source": "fluent",
+   "asset": "potato"
+  },
+  "bellpepper": {
+   "label": "Bell pepper",
+   "category": "more",
+   "source": "fluent",
+   "asset": "bell_pepper"
+  },
+  "chili": {
+   "label": "Chili",
+   "category": "more",
+   "source": "fluent",
+   "asset": "hot_pepper"
+  },
+  "garlic": {
+   "label": "Garlic",
+   "category": "more",
+   "source": "fluent",
+   "asset": "garlic"
+  },
+  "onion": {
+   "label": "Onion",
+   "category": "more",
+   "source": "fluent",
+   "asset": "onion"
+  },
+  "mushroom": {
+   "label": "Mushrooms",
+   "category": "more",
+   "source": "fluent",
+   "asset": "mushroom"
+  },
+  "peas": {
+   "label": "Peas and legumes",
+   "category": "more",
+   "source": "fluent",
+   "asset": "pea_pod"
+  },
+  "redmeat": {
+   "label": "Red meat (alpha-gal)",
+   "category": "more",
+   "source": "fluent",
+   "asset": "cut_of_meat"
+  },
+  "lactose": {
+   "label": "Lactose",
+   "category": "more",
+   "source": "fluent",
+   "asset": "cheese_wedge"
+  },
+  "histamine": {
+   "label": "High-histamine foods",
+   "category": "more",
+   "source": "fluent",
+   "asset": "cheese_wedge"
+  },
+  "sugar": {
+   "label": "Added sugars",
+   "category": "ingredients",
+   "source": "fluent",
+   "asset": "candy"
+  },
+  "syrup": {
+   "label": "Corn syrup and syrups",
+   "category": "ingredients",
+   "source": "fluent",
+   "asset": "honey_pot"
+  },
+  "sweet": {
+   "label": "Artificial sweeteners",
+   "category": "ingredients",
+   "source": "fluent",
+   "asset": "lollipop"
+  },
+  "flavors": {
+   "label": "Natural flavors",
+   "category": "ingredients",
+   "source": "fluent",
+   "asset": "test_tube"
+  },
+  "seed": {
+   "label": "Seed oils",
+   "category": "ingredients",
+   "source": "fluent",
+   "asset": "sunflower"
+  },
+  "palm": {
+   "label": "Palm oil",
+   "category": "ingredients",
+   "source": "fluent",
+   "asset": "palm_tree"
+  },
+  "olive": {
+   "label": "Olive oil",
+   "category": "ingredients",
+   "source": "fluent",
+   "asset": "olive"
+  },
+  "gums": {
+   "label": "Gums and thickeners",
+   "category": "ingredients",
+   "source": "fluent",
+   "asset": "jar"
+  },
+  "preserv": {
+   "label": "Preservatives",
+   "category": "ingredients",
+   "source": "fluent",
+   "asset": "canned_food"
+  },
+  "nitrite": {
+   "label": "Nitrites",
+   "category": "ingredients",
+   "source": "fluent",
+   "asset": "bacon"
+  },
+  "msg": {
+   "label": "MSG and yeast extract",
+   "category": "ingredients",
+   "source": "fluent",
+   "asset": "salt"
+  },
+  "colors": {
+   "label": "Artificial colors",
+   "category": "ingredients",
+   "source": "fluent",
+   "asset": "artist_palette"
+  },
+  "gelatin": {
+   "label": "Gelatin",
+   "category": "ingredients",
+   "source": "fluent",
+   "asset": "custard"
+  },
+  "pork": {
+   "label": "Pork and lard",
+   "category": "ingredients",
+   "source": "fluent",
+   "asset": "pig_face"
+  },
+  "caffeine": {
+   "label": "Caffeine",
+   "category": "ingredients",
+   "source": "fluent",
+   "asset": "hot_beverage"
+  },
+  "alcohol": {
+   "label": "Alcohol",
+   "category": "ingredients",
+   "source": "fluent",
+   "asset": "beer_mug"
+  },
+  "cilantro": {
+   "label": "Herbs like cilantro",
+   "category": "ingredients",
+   "source": "fluent",
+   "asset": "herb"
+  },
+  "butter": {
+   "label": "Butter and dairy fat",
+   "category": "ingredients",
+   "source": "fluent",
+   "asset": "butter"
+  },
+  "bioengineered": {
+   "label": "Bioengineered",
+   "category": "ingredients",
+   "source": "fluent",
+   "asset": "dna"
+  },
+  "ultraprocessed": {
+   "label": "Ultra-processed",
+   "category": "ingredients",
+   "source": "fluent",
+   "asset": "factory"
+  },
+  "sodium": {
+   "label": "Sodium",
+   "category": "ingredients",
+   "source": "fluent",
+   "asset": "salt"
+  },
+  "vegan": {
+   "label": "Vegan",
+   "category": "diets",
+   "source": "fluent",
+   "asset": "leafy_green"
+  },
+  "vegetarian": {
+   "label": "Vegetarian",
+   "category": "diets",
+   "source": "fluent",
+   "asset": "carrot"
+  },
+  "pescatarian": {
+   "label": "Pescatarian",
+   "category": "diets",
+   "source": "fluent",
+   "asset": "fish"
+  },
+  "keto": {
+   "label": "Keto",
+   "category": "diets",
+   "source": "fluent",
+   "asset": "avocado"
+  },
+  "paleo": {
+   "label": "Paleo or whole food",
+   "category": "diets",
+   "source": "fluent",
+   "asset": "cut_of_meat"
+  },
+  "lowfodmap": {
+   "label": "Low FODMAP",
+   "category": "diets",
+   "source": "fluent",
+   "asset": "onion"
+  },
+  "dairyfree": {
+   "label": "Dairy-free",
+   "category": "diets",
+   "source": "fluent",
+   "asset": "glass_of_milk"
+  },
+  "glutenfree": {
+   "label": "Gluten-free",
+   "category": "diets",
+   "source": "fluent",
+   "asset": "sheaf_of_rice"
+  },
+  "organic": {
+   "label": "Organic",
+   "category": "diets",
+   "source": "fluent",
+   "asset": "seedling"
+  },
+  "local": {
+   "label": "Local",
+   "category": "diets",
+   "source": "fluent",
+   "asset": "round_pushpin"
+  },
+  "halal": {
+   "label": "Halal",
+   "category": "religion",
+   "source": "fluent",
+   "asset": "star_and_crescent"
+  },
+  "kosher": {
+   "label": "Kosher",
+   "category": "religion",
+   "source": "fluent",
+   "asset": "star_of_david"
+  },
+  "nobeef": {
+   "label": "No beef",
+   "category": "religion",
+   "source": "fluent",
+   "asset": "cow_face"
+  },
+  "hindu": {
+   "label": "Hindu vegetarian",
+   "category": "religion",
+   "source": "fluent",
+   "asset": "om"
+  },
+  "buddhist": {
+   "label": "Buddhist vegetarian",
+   "category": "religion",
+   "source": "fluent",
+   "asset": "wheel_of_dharma"
+  },
+  "fasting": {
+   "label": "Lent and fasting",
+   "category": "religion",
+   "source": "fluent",
+   "asset": "latin_cross"
+  },
+  "religion": {
+   "label": "Other",
+   "category": "religion",
+   "source": "fluent",
+   "asset": "place_of_worship"
+  },
+  "medical": {
+   "label": "Medical diet",
+   "category": "medical",
+   "source": "fluent",
+   "asset": "stethoscope"
+  },
+  "celiac": {
+   "label": "Celiac",
+   "category": "medical",
+   "source": "fluent",
+   "asset": "sheaf_of_rice"
+  },
+  "heart": {
+   "label": "Heart health",
+   "category": "medical",
+   "source": "fluent",
+   "asset": "anatomical_heart"
+  },
+  "bloodsugar": {
+   "label": "Blood sugar",
+   "category": "medical",
+   "source": "fluent",
+   "asset": "drop_of_blood"
+  },
+  "pregnancy": {
+   "label": "Pregnancy",
+   "category": "medical",
+   "source": "fluent",
+   "asset": "pregnant_woman"
+  },
+  "medication": {
+   "label": "Medication",
+   "category": "medical",
+   "source": "fluent",
+   "asset": "pill"
+  },
+  "allergy": {
+   "label": "Allergy or intolerance",
+   "category": "medical",
+   "source": "fluent",
+   "asset": "warning"
+  },
+  "dislike": {
+   "label": "Just don’t like it",
+   "category": "medical",
+   "source": "fluent",
+   "asset": "neutral_face"
+  },
+  "protein": {
+   "label": "Protein",
+   "category": "goals",
+   "source": "fluent",
+   "asset": "flexed_biceps"
+  },
+  "calories": {
+   "label": "Calories",
+   "category": "goals",
+   "source": "fluent",
+   "asset": "fire"
+  },
+  "macros": {
+   "label": "Macros",
+   "category": "goals",
+   "source": "fluent",
+   "asset": "bar_chart"
+  },
+  "weight": {
+   "label": "Weight",
+   "category": "goals",
+   "source": "fluent",
+   "asset": "balance_scale"
+  },
+  "health": {
+   "label": "Apple Health",
+   "category": "goals",
+   "source": "fluent",
+   "asset": "red_heart"
+  },
+  "me": {
+   "label": "Me",
+   "category": "people",
+   "source": "fluent",
+   "asset": "bust_in_silhouette"
+  },
+  "family": {
+   "label": "My family",
+   "category": "people",
+   "source": "fluent",
+   "asset": "busts_in_silhouette"
+  },
+  "woman": {
+   "label": "Woman",
+   "category": "people",
+   "source": "fluent",
+   "asset": "woman"
+  },
+  "man": {
+   "label": "Man",
+   "category": "people",
+   "source": "fluent",
+   "asset": "man"
+  },
+  "girl": {
+   "label": "Girl",
+   "category": "people",
+   "source": "fluent",
+   "asset": "girl"
+  },
+  "boy": {
+   "label": "Boy",
+   "category": "people",
+   "source": "fluent",
+   "asset": "boy"
+  },
+  "baby": {
+   "label": "Baby",
+   "category": "people",
+   "source": "fluent",
+   "asset": "baby"
+  },
+  "older": {
+   "label": "Older person",
+   "category": "people",
+   "source": "fluent",
+   "asset": "older_person"
+  },
+  "check": {
+   "label": "Check a product",
+   "category": "app",
+   "source": "fluent",
+   "asset": "magnifying_glass_tilted_left"
+  },
+  "ask": {
+   "label": "Ask about a product",
+   "category": "app",
+   "source": "fluent",
+   "asset": "label"
+  },
+  "options": {
+   "label": "Other options",
+   "category": "app",
+   "source": "fluent",
+   "asset": "sparkles"
+  },
+  "camera": {
+   "label": "Photo the ingredients",
+   "category": "app",
+   "source": "fluent",
+   "asset": "camera_with_flash"
+  },
+  "ok": {
+   "label": "OK for",
+   "category": "app",
+   "source": "fluent",
+   "asset": "check_mark_button"
+  },
+  "notfor": {
+   "label": "Not for",
+   "category": "app",
+   "source": "fluent",
+   "asset": "prohibited"
+  },
+  "checkfirst": {
+   "label": "Check first",
+   "category": "app",
+   "source": "fluent",
+   "asset": "warning"
+  },
+  "cantconfirm": {
+   "label": "Can’t confirm",
+   "category": "app",
+   "source": "fluent",
+   "asset": "red_question_mark"
+  },
+  "gotos": {
+   "label": "Go-tos",
+   "category": "app",
+   "source": "fluent",
+   "asset": "red_heart"
+  },
+  "private": {
+   "label": "Stays on your iPhone",
+   "category": "app",
+   "source": "fluent",
+   "asset": "locked"
+  },
+  "phone": {
+   "label": "iPhone",
+   "category": "app",
+   "source": "fluent",
+   "asset": "mobile_phone"
+  },
+  "hello": {
+   "label": "Hello",
+   "category": "app",
+   "source": "fluent",
+   "asset": "waving_hand"
+  },
+  "add": {
+   "label": "Add",
+   "category": "app",
+   "source": "fluent",
+   "asset": "plus"
+  }
+ },
+ "aliases": {
+  "peanuts": "peanut",
+  "groundnut": "peanut",
+  "tree nut": "treenuts",
+  "nuts": "treenuts",
+  "dairy": "milk",
+  "lactose": "lactose",
+  "cheese": "lactose",
+  "whey": "milk",
+  "casein": "milk",
+  "eggs": "egg",
+  "albumin": "egg",
+  "soya": "soy",
+  "soybean": "soy",
+  "edamame": "soy",
+  "lecithin": "soy",
+  "gluten": "gluten",
+  "flour": "wheat",
+  "barley": "gluten",
+  "rye": "gluten",
+  "malt": "gluten",
+  "spelt": "gluten",
+  "semolina": "gluten",
+  "prawn": "shrimp",
+  "prawns": "shrimp",
+  "scampi": "shrimp",
+  "crayfish": "lobster",
+  "clam": "mussel",
+  "clams": "mussel",
+  "scallop": "oyster",
+  "scallops": "oyster",
+  "calamari": "squid",
+  "salmon": "fish2",
+  "tuna": "fish2",
+  "cod": "tropicalfish",
+  "anchovy": "fish2",
+  "tahini": "sesame",
+  "halva": "sesame",
+  "dijon": "mustard",
+  "celeriac": "celery",
+  "lupine": "lupin",
+  "sulphites": "sulfites",
+  "wine": "sulfites",
+  "cornstarch": "corn",
+  "maize": "corn",
+  "corn syrup": "syrup",
+  "dextrose": "sugar",
+  "maltodextrin": "sugar",
+  "cane sugar": "sugar",
+  "sucralose": "sweet",
+  "aspartame": "sweet",
+  "stevia": "sweet",
+  "canola": "seed",
+  "sunflower oil": "seed",
+  "soybean oil": "seed",
+  "vegetable oil": "seed",
+  "palm kernel": "palm",
+  "xanthan": "gums",
+  "guar": "gums",
+  "carrageenan": "gums",
+  "sorbate": "preserv",
+  "benzoate": "preserv",
+  "nitrite": "nitrite",
+  "glutamate": "msg",
+  "yeast extract": "msg",
+  "red 40": "colors",
+  "titanium dioxide": "colors",
+  "caramel color": "colors",
+  "lard": "pork",
+  "bacon": "pork",
+  "beef": "nobeef",
+  "coffee": "caffeine",
+  "beer": "alcohol",
+  "cilantro": "cilantro",
+  "mushrooms": "mushroom",
+  "eggplant": "nightshades",
+  "paprika": "nightshades",
+  "gmo": "bioengineered",
+  "nova 4": "ultraprocessed",
+  "salt": "sodium",
+  "brazil nut": "brazilnut",
+  "pine nut": "pinenut",
+  "oysters": "oyster",
+  "mussels": "mussel",
+  "tree nuts": "treenuts",
+  "fish or shellfish": "shellfish",
+  "fish and shellfish": "shellfish",
+  "added sugars": "sugar",
+  "natural flavors": "flavors",
+  "seed oils": "seed",
+  "gums and thickeners": "gums",
+  "preservatives": "preserv",
+  "palm oil": "palm",
+  "msg and yeast extract": "msg",
+  "artificial sweeteners": "sweet",
+  "artificial colors": "colors",
+  "sodium nitrite": "nitrite",
+  "pork and lard": "pork",
+  "soy lecithin": "soy",
+  "canola oil": "seed",
+  "sunflower lecithin": "seed",
+  "almonds": "almond",
+  "walnuts": "walnut",
+  "cashews": "cashew",
+  "pecans": "pecan",
+  "pistachios": "pistachio",
+  "hazelnuts": "hazelnut",
+  "added sugar": "sugar",
+  "nightshade vegetables": "nightshades",
+  "gelatin (animal-derived)": "gelatin",
+  "flavor enhancers": "msg",
+  "artificial red colors": "colors",
+  "corn and corn derivatives": "corn",
+  "high-histamine foods": "histamine",
+  "histamine releasers": "histamine",
+  "bioengineered": "bioengineered",
+  "apple health": "health",
+  "protein goal": "protein",
+  "all tree nuts": "treenuts",
+  "all fish and shellfish": "shellfish",
+  "all fish": "fish",
+  "all shellfish": "shellfish"
+ },
+ "note": "Every icon is from Microsoft Fluent Emoji 3D. standIn: Fluent has no exact icon (individual tree nuts, sesame, mustard, celery, lupin, mussels, wheat), so the nearest one is used. Swap in exact art later by replacing the file; keys stay the same. In the app, \"asset\" is the image set name in LabelSageIcons.xcassets (256 px PNG from Microsoft Fluent Emoji 3D, MIT). Draw at 24 to 72 pt."
+}

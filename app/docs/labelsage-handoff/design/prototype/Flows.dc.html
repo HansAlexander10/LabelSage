@@ -1,0 +1,237 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Flows</title>
+<script src="./support.js"></script>
+<link rel="stylesheet" href="ds/aishoppingagent/tokens.css">
+</head>
+<body>
+<x-dc>
+<helmet>
+<style>@import url("https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&display=swap");body{margin:0;font-family:"Outfit","SF Pro Rounded",ui-rounded,-apple-system,system-ui,sans-serif;-webkit-font-smoothing:antialiased}</style>
+<style>/* Liquid Glass (navigation layer only, per HIG). Frosted base everywhere; refraction where backdrop SVG filters work (Chromium). */:root{--lg-bg:rgba(255,255,255,0.52);--lg-bg-thick:rgba(255,255,255,0.8);--lg-bg-dark:rgba(255,255,255,0.14);--lg-edge:rgba(255,255,255,0.7);--lg-edge-dark:rgba(255,255,255,0.3);--lg-fx:blur(14px) saturate(180%);--lg-shadow:inset 0 0 2px 1px rgba(255,255,255,0.6),inset 0 0 10px 4px rgba(255,255,255,0.22),inset 0 4px 16px rgba(17,17,26,0.05),inset 0 8px 24px rgba(17,17,26,0.05),0 6px 20px rgba(0,0,0,0.10);--lg-shadow-float:inset 0 0 2px 1px rgba(255,255,255,0.6),inset 0 0 10px 4px rgba(255,255,255,0.22),0 12px 36px rgba(0,0,0,0.16);--lg-shadow-dark:inset 0 0 2px 1px rgba(255,255,255,0.35),inset 0 0 10px 4px rgba(255,255,255,0.12),0 6px 20px rgba(0,0,0,0.25)}@supports (not (font:-apple-system-body)) and (not (-moz-appearance:none)){:root{--lg-fx:url(#lg-filter) blur(2px) saturate(1.7)}}@media (prefers-reduced-transparency:reduce){:root{--lg-bg:rgba(255,255,255,0.97);--lg-bg-thick:#ffffff;--lg-bg-dark:rgba(44,44,46,0.94);--lg-fx:none}}@media (prefers-contrast:more){:root{--lg-edge:rgba(0,0,0,0.35);--lg-edge-dark:rgba(255,255,255,0.7)}}</style>
+</helmet>
+<div style="width: 1960px; box-sizing: border-box; padding: 48px; background: #ffffff; color: #1d2b22; display: flex; flex-direction: column; gap: 56px">
+  <div>
+    <h1 style="margin: 0; font-size: 40px; font-weight: 700">User stories, AI first: chat, then scan</h1>
+    <p style="margin: 10px 0 0; max-width: 1400px; font-size: 18px; line-height: 1.45; color: #3d4a42">Every story starts in the chat. Check a product opens the camera, and the answer comes back as a product page sheet or in the thread. You shop for your family: Mia has a peanut and tree nut allergy, you avoid seed oils. Brown outline = a pivot, amber outline = where the story ends. Lists, basket and Instacart are parked; recipe shopping is removed.</p>
+  </div>
+  <section style="display: flex; gap: 24px; align-items: flex-start">
+    <div style="flex: none; width: 220px; padding-top: 8px">
+      <h2 style="margin: 0; font-size: 24px; line-height: 1.2; font-weight: 700">First open</h2>
+      <div style="margin-top: 10px; display: inline-flex; align-items: center; height: 30px; padding: 0 12px; border-radius: 9999px; font-size: 15px; font-weight: 600; background: #e4f0df; color: #1b6b3e;">Ends: first check</div>
+      <p style="margin: 10px 0 0; font-size: 15px; line-height: 1.4; color: #5d6a60">Welcome, everyone at home, then the chat. LabelSage points at Check a product and the camera opens on one tap.</p>
+    </div>
+    <div style="display: flex; gap: 10px; align-items: flex-start">
+      <div style="flex: none; display: flex; flex-direction: column; gap: 8px; width: 195px">
+        <div style="width: 195px; height: 422px; border-radius: 26px; overflow: hidden; position: relative; box-shadow: 0 0 0 1px #e5e5ea;"><div style="width: 390px; height: 844px; overflow: hidden; transform: scale(0.5); transform-origin: 0 0"><dc-import name="Splash" hint-size="390px,844px"></dc-import></div></div>
+        <div style="font-size: 14px; line-height: 1.35; color: #3d4a42">Launch: LabelSage on the brand green</div>
+      </div>
+      <div aria-hidden="true" style="flex: none; height: 422px; display: grid; place-items: center"><dc-import name="Sym" sym="arrow.right" size="{{s20}}" color="#a1a1a6" hint-size="20px,20px"></dc-import></div>
+      <div style="flex: none; display: flex; flex-direction: column; gap: 8px; width: 195px">
+        <div style="width: 195px; height: 422px; border-radius: 26px; overflow: hidden; position: relative; box-shadow: 0 0 0 1px #e5e5ea;"><div style="width: 390px; height: 844px; overflow: hidden; transform: scale(0.5); transform-origin: 0 0"><dc-import name="OnboardSimple" start="summary" preset="family3" hint-size="390px,844px"></dc-import></div></div>
+        <div style="font-size: 14px; line-height: 1.35; color: #3d4a42">Onboarding ends on one profile card per person</div>
+      </div>
+      <div aria-hidden="true" style="flex: none; height: 422px; display: grid; place-items: center"><dc-import name="Sym" sym="arrow.right" size="{{s20}}" color="#a1a1a6" hint-size="20px,20px"></dc-import></div>
+      <div style="flex: none; display: flex; flex-direction: column; gap: 8px; width: 195px">
+        <div style="width: 195px; height: 422px; border-radius: 26px; overflow: hidden; position: relative; box-shadow: 0 0 0 3px #9a5f00;"><div style="width: 390px; height: 844px; overflow: hidden; transform: scale(0.5); transform-origin: 0 0"><dc-import name="Chat" view="start" first="{{yes}}" hint-size="390px,844px"></dc-import></div></div>
+        <div style="font-size: 14px; line-height: 1.35; color: #3d4a42"><span style="display: inline-block; margin-bottom: 4px; padding: 2px 8px; border-radius: 9999px; background: #fcebc4; color: #9a5f00; font-size: 12px; font-weight: 700">Pivot</span><br>The chat: LabelSage points at Check a product</div>
+      </div>
+      <div aria-hidden="true" style="flex: none; height: 422px; display: grid; place-items: center"><dc-import name="Sym" sym="arrow.right" size="{{s20}}" color="#a1a1a6" hint-size="20px,20px"></dc-import></div>
+      <div style="flex: none; display: flex; flex-direction: column; gap: 8px; width: 195px">
+        <div style="width: 195px; height: 422px; border-radius: 26px; overflow: hidden; position: relative; box-shadow: 0 0 0 1px #e5e5ea;"><div style="width: 390px; height: 844px; overflow: hidden; transform: scale(0.5); transform-origin: 0 0"><dc-import name="Scan" phase="idle" hold="{{yes}}" hint-size="390px,844px"></dc-import></div></div>
+        <div style="font-size: 14px; line-height: 1.35; color: #3d4a42">The camera opens</div>
+      </div>
+      <div aria-hidden="true" style="flex: none; height: 422px; display: grid; place-items: center"><dc-import name="Sym" sym="arrow.right" size="{{s20}}" color="#a1a1a6" hint-size="20px,20px"></dc-import></div>
+      <div style="flex: none; display: flex; flex-direction: column; gap: 8px; width: 195px">
+        <div style="width: 195px; height: 422px; border-radius: 26px; overflow: hidden; position: relative; box-shadow: 0 0 0 3px #eb9d15;"><div style="width: 390px; height: 844px; overflow: hidden; transform: scale(0.5); transform-origin: 0 0"><dc-import name="Scan" phase="product" hold="{{yes}}" hint-size="390px,844px"></dc-import></div></div>
+        <div style="font-size: 14px; line-height: 1.35; color: #3d4a42"><b>A verdict for everyone</b><br>The product page opens as a sheet</div>
+      </div>
+    </div>
+  </section>
+  <section style="display: flex; gap: 24px; align-items: flex-start">
+    <div style="flex: none; width: 220px; padding-top: 8px">
+      <h2 style="margin: 0; font-size: 24px; line-height: 1.2; font-weight: 700">Snack aisle after school</h2>
+      <div style="margin-top: 10px; display: inline-flex; align-items: center; height: 30px; padding: 0 12px; border-radius: 9999px; font-size: 15px; font-weight: 600; background: #fcebc4; color: #9a5f00;">Ends: saved to go-tos</div>
+      <p style="margin: 10px 0 0; font-size: 15px; line-height: 1.4; color: #5d6a60">In the store. You avoid seed oils; Mia avoids peanut and tree nuts.</p>
+    </div>
+    <div style="display: flex; gap: 10px; align-items: flex-start">
+      <div style="flex: none; display: flex; flex-direction: column; gap: 8px; width: 195px">
+        <div style="width: 195px; height: 422px; border-radius: 26px; overflow: hidden; position: relative; box-shadow: 0 0 0 1px #e5e5ea;"><div style="width: 390px; height: 844px; overflow: hidden; transform: scale(0.5); transform-origin: 0 0"><dc-import name="Chat" view="start" pick="scan" hint-size="390px,844px"></dc-import></div></div>
+        <div style="font-size: 14px; line-height: 1.35; color: #3d4a42">Home is the chat · Check a product</div>
+      </div>
+      <div aria-hidden="true" style="flex: none; height: 422px; display: grid; place-items: center"><dc-import name="Sym" sym="arrow.right" size="{{s20}}" color="#a1a1a6" hint-size="20px,20px"></dc-import></div>
+      <div style="flex: none; display: flex; flex-direction: column; gap: 8px; width: 195px">
+        <div style="width: 195px; height: 422px; border-radius: 26px; overflow: hidden; position: relative; box-shadow: 0 0 0 1px #e5e5ea;"><div style="width: 390px; height: 844px; overflow: hidden; transform: scale(0.5); transform-origin: 0 0"><dc-import name="Scan" phase="idle" hold="{{yes}}" hint-size="390px,844px"></dc-import></div></div>
+        <div style="font-size: 14px; line-height: 1.35; color: #3d4a42">Points at PopCorners Kettle</div>
+      </div>
+      <div aria-hidden="true" style="flex: none; height: 422px; display: grid; place-items: center"><dc-import name="Sym" sym="arrow.right" size="{{s20}}" color="#a1a1a6" hint-size="20px,20px"></dc-import></div>
+      <div style="flex: none; display: flex; flex-direction: column; gap: 8px; width: 195px">
+        <div style="width: 195px; height: 422px; border-radius: 26px; overflow: hidden; position: relative; box-shadow: 0 0 0 1px #e5e5ea;"><div style="width: 390px; height: 844px; overflow: hidden; transform: scale(0.5); transform-origin: 0 0"><dc-import name="Scan" phase="product" hold="{{yes}}" hint-size="390px,844px"></dc-import></div></div>
+        <div style="font-size: 14px; line-height: 1.35; color: #3d4a42">Not for you: sunflower oil. Try instead is right there</div>
+      </div>
+      <div aria-hidden="true" style="flex: none; height: 422px; display: grid; place-items: center"><dc-import name="Sym" sym="arrow.right" size="{{s20}}" color="#a1a1a6" hint-size="20px,20px"></dc-import></div>
+      <div style="flex: none; display: flex; flex-direction: column; gap: 8px; width: 195px">
+        <div style="width: 195px; height: 422px; border-radius: 26px; overflow: hidden; position: relative; box-shadow: 0 0 0 3px #9a5f00;"><div style="width: 390px; height: 844px; overflow: hidden; transform: scale(0.5); transform-origin: 0 0"><dc-import name="Pick" hint-size="390px,844px"></dc-import></div></div>
+        <div style="font-size: 14px; line-height: 1.35; color: #3d4a42"><span style="display: inline-block; margin-bottom: 4px; padding: 2px 8px; border-radius: 9999px; background: #fcebc4; color: #9a5f00; font-size: 12px; font-weight: 700">Pivot</span><br>Compare with: the camera first, or tap an option</div>
+      </div>
+      <div aria-hidden="true" style="flex: none; height: 422px; display: grid; place-items: center"><dc-import name="Sym" sym="arrow.right" size="{{s20}}" color="#a1a1a6" hint-size="20px,20px"></dc-import></div>
+      <div style="flex: none; display: flex; flex-direction: column; gap: 8px; width: 195px">
+        <div style="width: 195px; height: 422px; border-radius: 26px; overflow: hidden; position: relative; box-shadow: 0 0 0 1px #e5e5ea;"><div style="width: 390px; height: 844px; overflow: hidden; transform: scale(0.5); transform-origin: 0 0"><dc-import name="Compare" frame="{{yes}}" hint-size="390px,844px"></dc-import></div></div>
+        <div style="font-size: 14px; line-height: 1.35; color: #3d4a42">Why Boulder Canyon works for you</div>
+      </div>
+      <div aria-hidden="true" style="flex: none; height: 422px; display: grid; place-items: center"><dc-import name="Sym" sym="arrow.right" size="{{s20}}" color="#a1a1a6" hint-size="20px,20px"></dc-import></div>
+      <div style="flex: none; display: flex; flex-direction: column; gap: 8px; width: 195px">
+        <div style="width: 195px; height: 422px; border-radius: 26px; overflow: hidden; position: relative; box-shadow: 0 0 0 3px #eb9d15;"><div style="width: 390px; height: 844px; overflow: hidden; transform: scale(0.5); transform-origin: 0 0"><dc-import name="Compare" frame="{{yes}}" done="{{yes}}" hint-size="390px,844px"></dc-import></div></div>
+        <div style="font-size: 14px; line-height: 1.35; color: #3d4a42"><b>Saved to go-tos</b><br>Checked again every time</div>
+      </div>
+    </div>
+  </section>
+  <section style="display: flex; gap: 24px; align-items: flex-start">
+    <div style="flex: none; width: 220px; padding-top: 8px">
+      <h2 style="margin: 0; font-size: 24px; line-height: 1.2; font-weight: 700">Peanut butter, chat to camera and back</h2>
+      <div style="margin-top: 10px; display: inline-flex; align-items: center; height: 30px; padding: 0 12px; border-radius: 9999px; font-size: 15px; font-weight: 600; background: #ffe9e6; color: #b3261e;">Ends: other options</div>
+      <p style="margin: 10px 0 0; font-size: 15px; line-height: 1.4; color: #5d6a60">The answer from the camera lands back in the chat. LabelSage stands guard on an allergy.</p>
+    </div>
+    <div style="display: flex; gap: 10px; align-items: flex-start">
+      <div style="flex: none; display: flex; flex-direction: column; gap: 8px; width: 195px">
+        <div style="width: 195px; height: 422px; border-radius: 26px; overflow: hidden; position: relative; box-shadow: 0 0 0 1px #e5e5ea;"><div style="width: 390px; height: 844px; overflow: hidden; transform: scale(0.5); transform-origin: 0 0"><dc-import name="Chat" view="start" pick="scan" hint-size="390px,844px"></dc-import></div></div>
+        <div style="font-size: 14px; line-height: 1.35; color: #3d4a42">Check a product from the chat</div>
+      </div>
+      <div aria-hidden="true" style="flex: none; height: 422px; display: grid; place-items: center"><dc-import name="Sym" sym="arrow.right" size="{{s20}}" color="#a1a1a6" hint-size="20px,20px"></dc-import></div>
+      <div style="flex: none; display: flex; flex-direction: column; gap: 8px; width: 195px">
+        <div style="width: 195px; height: 422px; border-radius: 26px; overflow: hidden; position: relative; box-shadow: 0 0 0 1px #e5e5ea;"><div style="width: 390px; height: 844px; overflow: hidden; transform: scale(0.5); transform-origin: 0 0"><dc-import name="Scan" phase="idle" hold="{{yes}}" hint-size="390px,844px"></dc-import></div></div>
+        <div style="font-size: 14px; line-height: 1.35; color: #3d4a42">The camera opens on a jar of peanut butter</div>
+      </div>
+      <div aria-hidden="true" style="flex: none; height: 422px; display: grid; place-items: center"><dc-import name="Sym" sym="arrow.right" size="{{s20}}" color="#a1a1a6" hint-size="20px,20px"></dc-import></div>
+      <div style="flex: none; display: flex; flex-direction: column; gap: 8px; width: 195px">
+        <div style="width: 195px; height: 422px; border-radius: 26px; overflow: hidden; position: relative; box-shadow: 0 0 0 3px #9a5f00;"><div style="width: 390px; height: 844px; overflow: hidden; transform: scale(0.5); transform-origin: 0 0"><dc-import name="Chat" view="thread" topic="scanned" hint-size="390px,844px"></dc-import></div></div>
+        <div style="font-size: 14px; line-height: 1.35; color: #3d4a42"><span style="display: inline-block; margin-bottom: 4px; padding: 2px 8px; border-radius: 9999px; background: #fcebc4; color: #9a5f00; font-size: 12px; font-weight: 700">Pivot</span><br>Back in the chat: “Not for Mia. Contains peanut.” LabelSage on guard</div>
+      </div>
+      <div aria-hidden="true" style="flex: none; height: 422px; display: grid; place-items: center"><dc-import name="Sym" sym="arrow.right" size="{{s20}}" color="#a1a1a6" hint-size="20px,20px"></dc-import></div>
+      <div style="flex: none; display: flex; flex-direction: column; gap: 8px; width: 195px">
+        <div style="width: 195px; height: 422px; border-radius: 26px; overflow: hidden; position: relative; box-shadow: 0 0 0 3px #eb9d15;"><div style="width: 390px; height: 844px; overflow: hidden; transform: scale(0.5); transform-origin: 0 0"><dc-import name="Chat" view="thread" topic="options" hint-size="390px,844px"></dc-import></div></div>
+        <div style="font-size: 14px; line-height: 1.35; color: #3d4a42"><b>Try instead</b><br>3 options OK for you and Mia</div>
+      </div>
+    </div>
+  </section>
+  <section style="display: flex; gap: 24px; align-items: flex-start">
+    <div style="flex: none; width: 220px; padding-top: 8px">
+      <h2 style="margin: 0; font-size: 24px; line-height: 1.2; font-weight: 700">At home: is my go-to still OK?</h2>
+      <div style="margin-top: 10px; display: inline-flex; align-items: center; height: 30px; padding: 0 12px; border-radius: 9999px; font-size: 15px; font-weight: 600; background: #fcebc4; color: #9a5f00;">Ends: compared</div>
+      <p style="margin: 10px 0 0; font-size: 15px; line-height: 1.4; color: #5d6a60">A new diet: no seed oils. You ask about a product you already buy.</p>
+    </div>
+    <div style="display: flex; gap: 10px; align-items: flex-start">
+      <div style="flex: none; display: flex; flex-direction: column; gap: 8px; width: 195px">
+        <div style="width: 195px; height: 422px; border-radius: 26px; overflow: hidden; position: relative; box-shadow: 0 0 0 1px #e5e5ea;"><div style="width: 390px; height: 844px; overflow: hidden; transform: scale(0.5); transform-origin: 0 0"><dc-import name="Chat" view="start" pick="ask" hint-size="390px,844px"></dc-import></div></div>
+        <div style="font-size: 14px; line-height: 1.35; color: #3d4a42">Ask about a product</div>
+      </div>
+      <div aria-hidden="true" style="flex: none; height: 422px; display: grid; place-items: center"><dc-import name="Sym" sym="arrow.right" size="{{s20}}" color="#a1a1a6" hint-size="20px,20px"></dc-import></div>
+      <div style="flex: none; display: flex; flex-direction: column; gap: 8px; width: 195px">
+        <div style="width: 195px; height: 422px; border-radius: 26px; overflow: hidden; position: relative; box-shadow: 0 0 0 1px #e5e5ea;"><div style="width: 390px; height: 844px; overflow: hidden; transform: scale(0.5); transform-origin: 0 0"><dc-import name="Chat" view="thread" topic="check" hint-size="390px,844px"></dc-import></div></div>
+        <div style="font-size: 14px; line-height: 1.35; color: #3d4a42">Not for you: sunflower oil. Boulder Canyon is OK</div>
+      </div>
+      <div aria-hidden="true" style="flex: none; height: 422px; display: grid; place-items: center"><dc-import name="Sym" sym="arrow.right" size="{{s20}}" color="#a1a1a6" hint-size="20px,20px"></dc-import></div>
+      <div style="flex: none; display: flex; flex-direction: column; gap: 8px; width: 195px">
+        <div style="width: 195px; height: 422px; border-radius: 26px; overflow: hidden; position: relative; box-shadow: 0 0 0 3px #9a5f00;"><div style="width: 390px; height: 844px; overflow: hidden; transform: scale(0.5); transform-origin: 0 0"><dc-import name="Chat" view="thread" topic="check" sheet="product" hint-size="390px,844px"></dc-import></div></div>
+        <div style="font-size: 14px; line-height: 1.35; color: #3d4a42"><span style="display: inline-block; margin-bottom: 4px; padding: 2px 8px; border-radius: 9999px; background: #fcebc4; color: #9a5f00; font-size: 12px; font-weight: 700">Pivot</span><br>Opens the product page as a sheet; LabelSage moves into it</div>
+      </div>
+      <div aria-hidden="true" style="flex: none; height: 422px; display: grid; place-items: center"><dc-import name="Sym" sym="arrow.right" size="{{s20}}" color="#a1a1a6" hint-size="20px,20px"></dc-import></div>
+      <div style="flex: none; display: flex; flex-direction: column; gap: 8px; width: 195px">
+        <div style="width: 195px; height: 422px; border-radius: 26px; overflow: hidden; position: relative; box-shadow: 0 0 0 3px #eb9d15;"><div style="width: 390px; height: 844px; overflow: hidden; transform: scale(0.5); transform-origin: 0 0"><dc-import name="Chat" view="thread" topic="check" sheet="compare" hint-size="390px,844px"></dc-import></div></div>
+        <div style="font-size: 14px; line-height: 1.35; color: #3d4a42"><b>Compare both</b><br>Save the better one to go-tos</div>
+      </div>
+    </div>
+  </section>
+  <section style="display: flex; gap: 24px; align-items: flex-start">
+    <div style="flex: none; width: 220px; padding-top: 8px">
+      <h2 style="margin: 0; font-size: 24px; line-height: 1.2; font-weight: 700">No barcode, or a new product</h2>
+      <div style="margin-top: 10px; display: inline-flex; align-items: center; height: 30px; padding: 0 12px; border-radius: 9999px; font-size: 15px; font-weight: 600; background: #e7f1fb; color: #1d5c8f;">Ends: checked from a photo</div>
+      <p style="margin: 10px 0 0; font-size: 15px; line-height: 1.4; color: #5d6a60">The barcode is unknown, so LabelSage asks for a photo of the ingredients.</p>
+    </div>
+    <div style="display: flex; gap: 10px; align-items: flex-start">
+      <div style="flex: none; display: flex; flex-direction: column; gap: 8px; width: 195px">
+        <div style="width: 195px; height: 422px; border-radius: 26px; overflow: hidden; position: relative; box-shadow: 0 0 0 1px #e5e5ea;"><div style="width: 390px; height: 844px; overflow: hidden; transform: scale(0.5); transform-origin: 0 0"><dc-import name="Chat" view="start" pick="photo" hint-size="390px,844px"></dc-import></div></div>
+        <div style="font-size: 14px; line-height: 1.35; color: #3d4a42">Upload photo, or Check a product</div>
+      </div>
+      <div aria-hidden="true" style="flex: none; height: 422px; display: grid; place-items: center"><dc-import name="Sym" sym="arrow.right" size="{{s20}}" color="#a1a1a6" hint-size="20px,20px"></dc-import></div>
+      <div style="flex: none; display: flex; flex-direction: column; gap: 8px; width: 195px">
+        <div style="width: 195px; height: 422px; border-radius: 26px; overflow: hidden; position: relative; box-shadow: 0 0 0 3px #9a5f00;"><div style="width: 390px; height: 844px; overflow: hidden; transform: scale(0.5); transform-origin: 0 0"><dc-import name="Scan" phase="notfound" hold="{{yes}}" hint-size="390px,844px"></dc-import></div></div>
+        <div style="font-size: 14px; line-height: 1.35; color: #3d4a42"><span style="display: inline-block; margin-bottom: 4px; padding: 2px 8px; border-radius: 9999px; background: #fcebc4; color: #9a5f00; font-size: 12px; font-weight: 700">Pivot</span><br>“This one’s new to me.” LabelSage in disguise</div>
+      </div>
+      <div aria-hidden="true" style="flex: none; height: 422px; display: grid; place-items: center"><dc-import name="Sym" sym="arrow.right" size="{{s20}}" color="#a1a1a6" hint-size="20px,20px"></dc-import></div>
+      <div style="flex: none; display: flex; flex-direction: column; gap: 8px; width: 195px">
+        <div style="width: 195px; height: 422px; border-radius: 26px; overflow: hidden; position: relative; box-shadow: 0 0 0 1px #e5e5ea;"><div style="width: 390px; height: 844px; overflow: hidden; transform: scale(0.5); transform-origin: 0 0"><dc-import name="Scan" phase="idle" mode="label" hold="{{yes}}" hint-size="390px,844px"></dc-import></div></div>
+        <div style="font-size: 14px; line-height: 1.35; color: #3d4a42">Photo the ingredients</div>
+      </div>
+      <div aria-hidden="true" style="flex: none; height: 422px; display: grid; place-items: center"><dc-import name="Sym" sym="arrow.right" size="{{s20}}" color="#a1a1a6" hint-size="20px,20px"></dc-import></div>
+      <div style="flex: none; display: flex; flex-direction: column; gap: 8px; width: 195px">
+        <div style="width: 195px; height: 422px; border-radius: 26px; overflow: hidden; position: relative; box-shadow: 0 0 0 1px #e5e5ea;"><div style="width: 390px; height: 844px; overflow: hidden; transform: scale(0.5); transform-origin: 0 0"><dc-import name="Scan" phase="loading" hold="{{yes}}" hint-size="390px,844px"></dc-import></div></div>
+        <div style="font-size: 14px; line-height: 1.35; color: #3d4a42">Checking</div>
+      </div>
+      <div aria-hidden="true" style="flex: none; height: 422px; display: grid; place-items: center"><dc-import name="Sym" sym="arrow.right" size="{{s20}}" color="#a1a1a6" hint-size="20px,20px"></dc-import></div>
+      <div style="flex: none; display: flex; flex-direction: column; gap: 8px; width: 195px">
+        <div style="width: 195px; height: 422px; border-radius: 26px; overflow: hidden; position: relative; box-shadow: 0 0 0 3px #eb9d15;"><div style="width: 390px; height: 844px; overflow: hidden; transform: scale(0.5); transform-origin: 0 0"><dc-import name="Scan" phase="product" hold="{{yes}}" hint-size="390px,844px"></dc-import></div></div>
+        <div style="font-size: 14px; line-height: 1.35; color: #3d4a42"><b>A verdict for everyone</b></div>
+      </div>
+    </div>
+  </section>
+  <section style="display: flex; gap: 24px; align-items: flex-start">
+    <div style="flex: none; width: 220px; padding-top: 8px">
+      <h2 style="margin: 0; font-size: 24px; line-height: 1.2; font-weight: 700">Mia reacted to hummus</h2>
+      <div style="margin-top: 10px; display: inline-flex; align-items: center; height: 30px; padding: 0 12px; border-radius: 9999px; font-size: 15px; font-weight: 600; background: #efedff; color: #4b3fa6;">Ends: allergies updated</div>
+      <p style="margin: 10px 0 0; font-size: 15px; line-height: 1.4; color: #5d6a60">Preferences change in the chat. Nothing is saved until you confirm.</p>
+    </div>
+    <div style="display: flex; gap: 10px; align-items: flex-start">
+      <div style="flex: none; display: flex; flex-direction: column; gap: 8px; width: 195px">
+        <div style="width: 195px; height: 422px; border-radius: 26px; overflow: hidden; position: relative; box-shadow: 0 0 0 1px #e5e5ea;"><div style="width: 390px; height: 844px; overflow: hidden; transform: scale(0.5); transform-origin: 0 0"><dc-import name="Chat" view="start" pick="allergies" hint-size="390px,844px"></dc-import></div></div>
+        <div style="font-size: 14px; line-height: 1.35; color: #3d4a42">Change allergies</div>
+      </div>
+      <div aria-hidden="true" style="flex: none; height: 422px; display: grid; place-items: center"><dc-import name="Sym" sym="arrow.right" size="{{s20}}" color="#a1a1a6" hint-size="20px,20px"></dc-import></div>
+      <div style="flex: none; display: flex; flex-direction: column; gap: 8px; width: 195px">
+        <div style="width: 195px; height: 422px; border-radius: 26px; overflow: hidden; position: relative; box-shadow: 0 0 0 3px #9a5f00;"><div style="width: 390px; height: 844px; overflow: hidden; transform: scale(0.5); transform-origin: 0 0"><dc-import name="Chat" view="thread" topic="profile" hint-size="390px,844px"></dc-import></div></div>
+        <div style="font-size: 14px; line-height: 1.35; color: #3d4a42"><span style="display: inline-block; margin-bottom: 4px; padding: 2px 8px; border-radius: 9999px; background: #fcebc4; color: #9a5f00; font-size: 12px; font-weight: 700">Pivot</span><br>Add sesame to Mia’s allergies? Allergy or intolerance</div>
+      </div>
+      <div aria-hidden="true" style="flex: none; height: 422px; display: grid; place-items: center"><dc-import name="Sym" sym="arrow.right" size="{{s20}}" color="#a1a1a6" hint-size="20px,20px"></dc-import></div>
+      <div style="flex: none; display: flex; flex-direction: column; gap: 8px; width: 195px">
+        <div style="width: 195px; height: 422px; border-radius: 26px; overflow: hidden; position: relative; box-shadow: 0 0 0 1px #e5e5ea;"><div style="width: 390px; height: 844px; overflow: hidden; transform: scale(0.5); transform-origin: 0 0"><dc-import name="Chat" view="thread" topic="profile" confirmed="{{yes}}" hint-size="390px,844px"></dc-import></div></div>
+        <div style="font-size: 14px; line-height: 1.35; color: #3d4a42">Saved. Mia’s go-tos checked again</div>
+      </div>
+      <div aria-hidden="true" style="flex: none; height: 422px; display: grid; place-items: center"><dc-import name="Sym" sym="arrow.right" size="{{s20}}" color="#a1a1a6" hint-size="20px,20px"></dc-import></div>
+      <div style="flex: none; display: flex; flex-direction: column; gap: 8px; width: 195px">
+        <div style="width: 195px; height: 422px; border-radius: 26px; overflow: hidden; position: relative; box-shadow: 0 0 0 3px #eb9d15;"><div style="width: 390px; height: 844px; overflow: hidden; transform: scale(0.5); transform-origin: 0 0"><dc-import name="Profile" open="mia" hint-size="390px,844px"></dc-import></div></div>
+        <div style="font-size: 14px; line-height: 1.35; color: #3d4a42"><b>Family</b><br>Mia’s card lists sesame</div>
+      </div>
+    </div>
+  </section>
+  <section style="display: flex; gap: 24px; align-items: flex-start">
+    <div style="flex: none; width: 220px; padding-top: 8px">
+      <h2 style="margin: 0; font-size: 24px; line-height: 1.2; font-weight: 700">Chips without seed oils</h2>
+      <div style="margin-top: 10px; display: inline-flex; align-items: center; height: 30px; padding: 0 12px; border-radius: 9999px; font-size: 15px; font-weight: 600; background: #f0efec; color: #4a4740;">Ends: options (needs D4)</div>
+      <p style="margin: 10px 0 0; font-size: 15px; line-height: 1.4; color: #5d6a60">Exploring at home. Results need a product and availability source before launch (decision D4).</p>
+    </div>
+    <div style="display: flex; gap: 10px; align-items: flex-start">
+      <div style="flex: none; display: flex; flex-direction: column; gap: 8px; width: 195px">
+        <div style="width: 195px; height: 422px; border-radius: 26px; overflow: hidden; position: relative; box-shadow: 0 0 0 1px #e5e5ea;"><div style="width: 390px; height: 844px; overflow: hidden; transform: scale(0.5); transform-origin: 0 0"><dc-import name="Chat" view="start" pick="type" hint-size="390px,844px"></dc-import></div></div>
+        <div style="font-size: 14px; line-height: 1.35; color: #3d4a42">Types “kettle chips without seed oils”</div>
+      </div>
+      <div aria-hidden="true" style="flex: none; height: 422px; display: grid; place-items: center"><dc-import name="Sym" sym="arrow.right" size="{{s20}}" color="#a1a1a6" hint-size="20px,20px"></dc-import></div>
+      <div style="flex: none; display: flex; flex-direction: column; gap: 8px; width: 195px">
+        <div style="width: 195px; height: 422px; border-radius: 26px; overflow: hidden; position: relative; box-shadow: 0 0 0 1px #e5e5ea;"><div style="width: 390px; height: 844px; overflow: hidden; transform: scale(0.5); transform-origin: 0 0"><dc-import name="Chat" view="thread" loading="{{yes}}" hint-size="390px,844px"></dc-import></div></div>
+        <div style="font-size: 14px; line-height: 1.35; color: #3d4a42">LabelSage reads the ingredients</div>
+      </div>
+      <div aria-hidden="true" style="flex: none; height: 422px; display: grid; place-items: center"><dc-import name="Sym" sym="arrow.right" size="{{s20}}" color="#a1a1a6" hint-size="20px,20px"></dc-import></div>
+      <div style="flex: none; display: flex; flex-direction: column; gap: 8px; width: 195px">
+        <div style="width: 195px; height: 422px; border-radius: 26px; overflow: hidden; position: relative; box-shadow: 0 0 0 3px #eb9d15;"><div style="width: 390px; height: 844px; overflow: hidden; transform: scale(0.5); transform-origin: 0 0"><dc-import name="Chat" view="thread" topic="options" hint-size="390px,844px"></dc-import></div></div>
+        <div style="font-size: 14px; line-height: 1.35; color: #3d4a42"><b>3 options OK for you and Mia</b></div>
+      </div>
+    </div>
+  </section>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1960,"height":4300}}'>
+class Component extends DCLogic { renderVals() { return { s20: 20, yes: true }; } }
+</script>
+</body>
+</html>

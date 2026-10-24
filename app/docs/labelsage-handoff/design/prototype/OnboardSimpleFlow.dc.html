@@ -1,0 +1,81 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Onboarding, simple style</title>
+<script src="./support.js"></script>
+<link rel="stylesheet" href="ds/aishoppingagent/tokens.css">
+</head>
+<body>
+<x-dc>
+<helmet>
+<style>@import url("https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&display=swap");body{margin:0;font-family:"Outfit","SF Pro Rounded",ui-rounded,-apple-system,system-ui,sans-serif;-webkit-font-smoothing:antialiased}</style>
+</helmet>
+<div style="width: 5930px; box-sizing: border-box; padding: 40px; background: #ffffff; color: #1c1c1e">
+  <h1 style="margin: 0; font-size: 34px; font-weight: 700">Onboarding · {{name}} guides every step</h1>
+  <p style="margin: 8px 0 28px; max-width: 1240px; font-size: 17px; line-height: 1.45; color: #4a4740">The decision tree, everyone at home with their own questions, in a calm system, worded with the hero’s voice doc (ingredients, check, allergies, “OK for Mia”, never “safe”): one skeleton per screen (round back, a dot per part, Skip; {{name}} where the illustration sits; his line as the big title; content; one amber pill), a tinted background per kind of question, white cards with 3D icons, square checkboxes, 2-column tiles for short choices. After everyone’s allergies, the region (required) and the store (optional, “Set up later”) are asked once for the household. Allergens are 9 cards; groups open in place, and related allergens are suggested, never pre-ticked. Icons: Microsoft Fluent Emoji 3D (MIT).</p>
+  <div style="display: flex; gap: 30px; align-items: flex-start">
+    <div style="display: flex; flex-direction: column; gap: 12px">
+      <div style="font-size: 15px; font-weight: 600; color: #1d2b22">1 · Welcome: trust, the mascot, one promise</div>
+      <div style="width: 390px; height: 844px; border-radius: 44px; overflow: hidden; box-shadow: 0 0 0 1px #e5e5ea"><dc-import name="OnboardSimple" start="welcome" preset="none" hint-size="390px,844px"></dc-import></div>
+    </div>
+    <div style="display: flex; flex-direction: column; gap: 12px">
+      <div style="font-size: 15px; font-weight: 600; color: #1d2b22">2 · Who do you shop for?</div>
+      <div style="width: 390px; height: 844px; border-radius: 44px; overflow: hidden; box-shadow: 0 0 0 1px #e5e5ea"><dc-import name="OnboardSimple" start="household" preset="none" hint-size="390px,844px"></dc-import></div>
+    </div>
+    <div style="display: flex; flex-direction: column; gap: 12px">
+      <div style="font-size: 15px; font-weight: 600; color: #1d2b22">3 · Everyone at home</div>
+      <div style="width: 390px; height: 844px; border-radius: 44px; overflow: hidden; box-shadow: 0 0 0 1px #e5e5ea"><dc-import name="OnboardSimple" start="firstprofile" preset="family" hint-size="390px,844px"></dc-import></div>
+    </div>
+    <div style="display: flex; flex-direction: column; gap: 12px">
+      <div style="font-size: 15px; font-weight: 600; color: #1d2b22">4 · What should I check for?</div>
+      <div style="width: 390px; height: 844px; border-radius: 44px; overflow: hidden; box-shadow: 0 0 0 1px #e5e5ea"><dc-import name="OnboardSimple" start="goal" preset="allergy" hint-size="390px,844px"></dc-import></div>
+    </div>
+    <div style="display: flex; flex-direction: column; gap: 12px">
+      <div style="font-size: 15px; font-weight: 600; color: #1d2b22">5 · Why avoid (list)</div>
+      <div style="width: 390px; height: 844px; border-radius: 44px; overflow: hidden; box-shadow: 0 0 0 1px #e5e5ea"><dc-import name="OnboardSimple" start="why" preset="allergy" hint-size="390px,844px"></dc-import></div>
+    </div>
+    <div style="display: flex; flex-direction: column; gap: 12px">
+      <div style="font-size: 15px; font-weight: 600; color: #1d2b22">6 · Allergens: groups open in place</div>
+      <div style="width: 390px; height: 844px; border-radius: 44px; overflow: hidden; box-shadow: 0 0 0 1px #e5e5ea"><dc-import name="OnboardSimple" start="allergens" preset="none" open="treenuts" hint-size="390px,844px"></dc-import></div>
+    </div>
+    <div style="display: flex; flex-direction: column; gap: 12px">
+      <div style="font-size: 15px; font-weight: 600; color: #1d2b22">7 · Peanut: related allergens, not pre-ticked</div>
+      <div style="width: 390px; height: 844px; border-radius: 44px; overflow: hidden; box-shadow: 0 0 0 1px #e5e5ea"><dc-import name="OnboardSimple" start="allergens" preset="none" sheet="{{yes}}" hint-size="390px,844px"></dc-import></div>
+    </div>
+    <div style="display: flex; flex-direction: column; gap: 12px">
+      <div style="font-size: 15px; font-weight: 600; color: #1d2b22">8 · Allergy or intolerance, per allergen (Allergy by default)</div>
+      <div style="width: 390px; height: 844px; border-radius: 44px; overflow: hidden; box-shadow: 0 0 0 1px #e5e5ea"><dc-import name="OnboardSimple" start="severity" preset="allergy" hint-size="390px,844px"></dc-import></div>
+    </div>
+    <div style="display: flex; flex-direction: column; gap: 12px">
+      <div style="font-size: 15px; font-weight: 600; color: #1d2b22">9 · Diet (tiles)</div>
+      <div style="width: 390px; height: 844px; border-radius: 44px; overflow: hidden; box-shadow: 0 0 0 1px #e5e5ea"><dc-import name="OnboardSimple" start="diet" preset="none" hint-size="390px,844px"></dc-import></div>
+    </div>
+    <div style="display: flex; flex-direction: column; gap: 12px">
+      <div style="font-size: 15px; font-weight: 600; color: #1d2b22">10 · Search knows other names (prawns)</div>
+      <div style="width: 390px; height: 844px; border-radius: 44px; overflow: hidden; box-shadow: 0 0 0 1px #e5e5ea"><dc-import name="OnboardSimple" start="allergens" preset="none" search="prawns" hint-size="390px,844px"></dc-import></div>
+    </div>
+    <div style="display: flex; flex-direction: column; gap: 12px">
+      <div style="font-size: 15px; font-weight: 600; color: #1d2b22">11 · Anything else: preferences like palm oil</div>
+      <div style="width: 390px; height: 844px; border-radius: 44px; overflow: hidden; box-shadow: 0 0 0 1px #e5e5ea"><dc-import name="OnboardSimple" start="avoid" preset="allergy" hint-size="390px,844px"></dc-import></div>
+    </div>
+    <div style="display: flex; flex-direction: column; gap: 12px">
+      <div style="font-size: 15px; font-weight: 600; color: #1d2b22">12 · Where are you? Region is required, once for the household</div>
+      <div style="width: 390px; height: 844px; border-radius: 44px; overflow: hidden; box-shadow: 0 0 0 1px #e5e5ea"><dc-import name="OnboardSimple" start="region" preset="none" hint-size="390px,844px"></dc-import></div>
+    </div>
+    <div style="display: flex; flex-direction: column; gap: 12px">
+      <div style="font-size: 15px; font-weight: 600; color: #1d2b22">13 · Where do you shop? Optional: Set up later</div>
+      <div style="width: 390px; height: 844px; border-radius: 44px; overflow: hidden; box-shadow: 0 0 0 1px #e5e5ea"><dc-import name="OnboardSimple" start="store" preset="allergy" hint-size="390px,844px"></dc-import></div>
+    </div>
+    <div style="display: flex; flex-direction: column; gap: 12px">
+      <div style="font-size: 15px; font-weight: 600; color: #1d2b22">14 · Summary: three people, one profile card each</div>
+      <div style="width: 390px; height: 844px; border-radius: 44px; overflow: hidden; box-shadow: 0 0 0 1px #e5e5ea"><dc-import name="OnboardSimple" start="summary" preset="family3" hint-size="390px,844px"></dc-import></div>
+    </div>
+  </div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":5930,"height":1060}}'>
+class Component extends DCLogic { renderVals() { const B = window.__lwBrand || (window.__lwBrand = (() => { try { const x = new XMLHttpRequest(); x.open('GET', 'brand.json', false); x.send(); if (x.status === 200) return JSON.parse(x.responseText); } catch (e) {} return { mascot: 'LabelSage', app: 'LabelSage' }; })()); /* names live in brand.json */ return { yes: true, name: B.mascot }; } }
+</script>
+</body>
+</html>

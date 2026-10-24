@@ -1,0 +1,90 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Mascot states</title>
+<script src="./support.js"></script>
+<link rel="stylesheet" href="ds/aishoppingagent/tokens.css">
+</head>
+<body>
+<x-dc>
+<helmet>
+<style>@import url("https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&display=swap");body{margin:0;font-family:"Outfit","SF Pro Rounded",ui-rounded,-apple-system,system-ui,sans-serif;-webkit-font-smoothing:antialiased}</style>
+</helmet>
+<div style="width: 1240px; box-sizing: border-box; padding: 40px; background: #ffffff; color: #1c1c1e">
+  <h1 style="margin: 0; font-size: 34px; font-weight: 700">{{name}}, the label hero</h1>
+  <p style="margin: 8px 0 28px; max-width: 900px; font-size: 17px; line-height: 1.45; color: #4a4740">It reads the label so you don’t have to. Thirteen states, one rig, each a clear action that loops seamlessly with the feet on the ground or seated on books (only “done” leaves it, on purpose: a jump, then hops). Motion is transform and opacity only, and Reduce Motion holds each pose still. On an allergy result he stands guard: still and serious, and the flag leads.</p>
+  <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px">
+  <div style="display: flex; flex-direction: column; gap: 14px">
+    <div style="height: 320px; border-radius: 28px; background: #f2f2f7; display: grid; place-items: center"><dc-import name="Mascot" state="idle" idleAfter="15" found="0" size="200" hint-size="200px,240px"></dc-import></div>
+    <div style="font-size: 20px; font-weight: 700; color: #1c1c1e">Idle</div>
+    <div style="font-size: 15px; line-height: 1.4; color: #4a4740">Home and empty states. Feet planted: breathes and shifts its weight, glances left and right, blinks; arms, cape and string follow a beat later. 4.8 s loop. After 15 s without a tap he starts humming (wait and see); a tap stops it.</div>
+  </div>
+  <div style="display: flex; flex-direction: column; gap: 14px">
+    <div style="height: 320px; border-radius: 28px; background: #f2f2f7; display: grid; place-items: center"><dc-import name="Mascot" state="reading" found="2" size="200" hint-size="200px,240px"></dc-import></div>
+    <div style="font-size: 20px; font-weight: 700; color: #1c1c1e">Reading</div>
+    <div style="font-size: 15px; line-height: 1.4; color: #4a4740">While a photo of the ingredients is read. Looks through the magnifier with one eye, then moves the lens across to the other eye and back; whichever eye is under the glass shows big, the arm stretches to follow. Lines turn green as items are found. 3.2 s loop.</div>
+  </div>
+  <div style="display: flex; flex-direction: column; gap: 14px">
+    <div style="height: 320px; border-radius: 28px; background: #f2f2f7; display: grid; place-items: center"><dc-import name="Mascot" state="done" found="3" size="200" hint-size="200px,240px"></dc-import></div>
+    <div style="font-size: 20px; font-weight: 700; color: #1c1c1e">Done</div>
+    <div style="font-size: 15px; line-height: 1.4; color: #4a4740">Once, when reading finishes: squash, jump, land. Then a happy hop from one leg to the other with a pause on each: stands on one leg, crouches, hops, lands on the other. Arms wave, sparkles twinkle. 2 s loop.</div>
+  </div>
+  <div style="display: flex; flex-direction: column; gap: 14px">
+    <div style="height: 320px; border-radius: 28px; background: #f2f2f7; display: grid; place-items: center"><dc-import name="Mascot" state="thinking" found="0" size="200" hint-size="200px,240px"></dc-import></div>
+    <div style="font-size: 20px; font-weight: 700; color: #1c1c1e">Thinking</div>
+    <div style="font-size: 15px; line-height: 1.4; color: #4a4740">When the agent needs a choice (which pesto?). Feet planted: one arm folded, the other hand under the chin tapping twice; rocks gently, eyes drift up left and right, brow lifts, mouth goes “hmm”; the ? bobs. 3.2 s loop.</div>
+  </div>
+  <div style="display: flex; flex-direction: column; gap: 14px">
+    <div style="height: 320px; border-radius: 28px; background: #f2f2f7; display: grid; place-items: center"><dc-import name="Mascot" state="talk" size="200" hint-size="200px,252px"></dc-import></div>
+    <div style="font-size: 20px; font-weight: 700; color: #1c1c1e">Talk <span style="font-size: 13px; font-weight: 700; color: #52794a; vertical-align: middle">NEW</span></div>
+    <div style="font-size: 15px; line-height: 1.4; color: #4a4740">Whenever a bubble is on screen. Mouth opens and closes with the words, one hand gestures, a brow lifts. 1.8 s loop.</div>
+  </div>
+  <div style="display: flex; flex-direction: column; gap: 14px">
+    <div style="height: 320px; border-radius: 28px; background: #f2f2f7; display: grid; place-items: center"><dc-import name="Mascot" state="wave" size="200" hint-size="200px,252px"></dc-import></div>
+    <div style="font-size: 20px; font-weight: 700; color: #1c1c1e">Wave <span style="font-size: 13px; font-weight: 700; color: #52794a; vertical-align: middle">NEW</span></div>
+    <div style="font-size: 15px; line-height: 1.4; color: #4a4740">Hello and goodbye: first open, welcome back, end of the tour. Waves, mouth open, leans into it. 0.6 s wave.</div>
+  </div>
+  <div style="display: flex; flex-direction: column; gap: 14px">
+    <div style="height: 320px; border-radius: 28px; background: #f2f2f7; display: grid; place-items: center"><dc-import name="Mascot" state="point" size="200" hint-size="200px,252px"></dc-import></div>
+    <div style="font-size: 20px; font-weight: 700; color: #1c1c1e">Point <span style="font-size: 13px; font-weight: 700; color: #52794a; vertical-align: middle">NEW</span></div>
+    <div style="font-size: 15px; line-height: 1.4; color: #4a4740">Directs you to the options or a button below. Two pokes, then holds; eyes follow the hand. 2.4 s loop.</div>
+  </div>
+  <div style="display: flex; flex-direction: column; gap: 14px">
+    <div style="height: 320px; border-radius: 28px; background: #f2f2f7; display: grid; place-items: center"><dc-import name="Mascot" state="listen" size="200" hint-size="200px,252px"></dc-import></div>
+    <div style="font-size: 20px; font-weight: 700; color: #1c1c1e">Listen <span style="font-size: 13px; font-weight: 700; color: #52794a; vertical-align: middle">NEW</span></div>
+    <div style="font-size: 15px; line-height: 1.4; color: #4a4740">While you choose. Looks down at the options and nods gently, feet planted. 2.4 s loop.</div>
+  </div>
+  <div style="display: flex; flex-direction: column; gap: 14px">
+    <div style="height: 320px; border-radius: 28px; background: #f2f2f7; display: grid; place-items: center"><dc-import name="Mascot" state="hum" size="200" hint-size="200px,252px"></dc-import></div>
+    <div style="font-size: 20px; font-weight: 700; color: #1c1c1e">Hum <span style="font-size: 13px; font-weight: 700; color: #52794a; vertical-align: middle">NEW</span></div>
+    <div style="font-size: 15px; line-height: 1.4; color: #4a4740">When nothing happens for 15 s. Strolls in place from foot to foot, whistles with eyes up, music notes float away. Any tap brings him back. 1.6 s loop.</div>
+  </div>
+  <div style="display: flex; flex-direction: column; gap: 14px">
+    <div style="height: 320px; border-radius: 28px; background: #f2f2f7; display: grid; place-items: center"><dc-import name="Mascot" state="compare" size="190" hint-size="190px,240px"></dc-import></div>
+    <div style="font-size: 20px; font-weight: 700; color: #1c1c1e">Compare <span style="font-size: 13px; font-weight: 700; color: #52794a; vertical-align: middle">NEW</span></div>
+    <div style="font-size: 15px; line-height: 1.4; color: #4a4740">While Compare works out which of two products fits. Holds one in each hand, raises one and studies it, lowers it, raises the other. 3.6 s loop.</div>
+  </div>
+  <div style="display: flex; flex-direction: column; gap: 14px">
+    <div style="height: 320px; border-radius: 28px; background: #f2f2f7; display: grid; place-items: center"><dc-import name="Mascot" state="sit" size="200" hint-size="200px,252px"></dc-import></div>
+    <div style="font-size: 20px; font-weight: 700; color: #1c1c1e">Sit <span style="font-size: 13px; font-weight: 700; color: #52794a; vertical-align: middle">NEW</span></div>
+    <div style="font-size: 15px; line-height: 1.4; color: #4a4740">Learning about you: while a profile or a long list is being built. Sits on a stack of books with an open book, eyes follow the lines, a page turns, a small smile. 3.6 s loop.</div>
+  </div>
+  <div style="display: flex; flex-direction: column; gap: 14px">
+    <div style="height: 320px; border-radius: 28px; background: #f2f2f7; display: grid; place-items: center"><dc-import name="Mascot" state="disguise" size="200" hint-size="200px,252px"></dc-import></div>
+    <div style="font-size: 20px; font-weight: 700; color: #1c1c1e">Disguise <span style="font-size: 13px; font-weight: 700; color: #52794a; vertical-align: middle">NEW</span></div>
+    <div style="font-size: 15px; line-height: 1.4; color: #4a4740">When a product can’t be found. Glasses, red nose and mustache: he glances left and right, the mustache twitches, the nose bounces, the glasses get a nudge. Not on Bad results. 4.8 s loop.</div>
+  </div>
+  <div style="display: flex; flex-direction: column; gap: 14px">
+    <div style="height: 320px; border-radius: 28px; background: #fff1ef; display: grid; place-items: center"><dc-import name="Mascot" state="guard" size="200" hint-size="200px,252px"></dc-import></div>
+    <div style="font-size: 20px; font-weight: 700; color: #1c1c1e">Guard <span style="font-size: 13px; font-weight: 700; color: #52794a; vertical-align: middle">NEW</span></div>
+    <div style="font-size: 15px; line-height: 1.4; color: #4a4740">When an ingredient is not for someone (“Not for Mia. Contains peanut.”). He stands still and serious: no bob, no sway, brows down, flat mouth, eyes straight ahead. No joke, no celebration; the flag stays the main thing on screen. No loop.</div>
+  </div>
+  </div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1240,"height":1840}}'>
+class Component extends DCLogic { renderVals() { const B = window.__lwBrand || (window.__lwBrand = (() => { try { const x = new XMLHttpRequest(); x.open('GET', 'brand.json', false); x.send(); if (x.status === 200) return JSON.parse(x.responseText); } catch (e) {} return { mascot: 'LabelSage', app: 'LabelSage' }; })()); const NAME = B.mascot; /* names live in brand.json */ return { name: NAME }; } }
+</script>
+</body>
+</html>

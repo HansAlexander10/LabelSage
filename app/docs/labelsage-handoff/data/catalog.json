@@ -1,0 +1,1759 @@
+{
+ "version": 1,
+ "updated": "2026-10-23",
+ "locale": "en-US",
+ "note": "Demo catalog for the MVP prototype, written for a US label. Reviewed by no clinician yet: the team must review terms, notTerms and the ambiguous list before launch (open question Q7). shareInProducts values are placeholders from the prototype; confirm their source before showing them.",
+ "usMajorAllergens": [
+  "milk",
+  "egg",
+  "fish",
+  "shellfish",
+  "treenuts",
+  "peanut",
+  "wheat",
+  "soy",
+  "sesame"
+ ],
+ "mayContainMarkers": [
+  "may contain",
+  "may also contain",
+  "may contain traces of",
+  "made in a facility that also processes",
+  "made in a facility that processes",
+  "manufactured in a facility that also processes",
+  "manufactured in a facility that processes",
+  "processed in a facility that also processes",
+  "produced in a facility that also handles",
+  "made on shared equipment with",
+  "made on equipment that also processes",
+  "produced on shared equipment with",
+  "packaged in a facility that also processes"
+ ],
+ "containsMarkers": [
+  "contains"
+ ],
+ "negationSuffixes": [
+  "free"
+ ],
+ "families": [
+  {
+   "id": "peanut",
+   "name": "Peanut",
+   "kind": "allergen",
+   "icon": "peanut",
+   "terms": [
+    "peanut",
+    "peanuts",
+    "groundnut",
+    "groundnuts",
+    "arachis oil",
+    "arachis",
+    "monkey nuts",
+    "peanut butter",
+    "peanut flour",
+    "peanut oil"
+   ],
+   "shareInProducts": 0.04
+  },
+  {
+   "id": "treenuts",
+   "name": "Tree nuts",
+   "kind": "allergen",
+   "icon": "treenuts",
+   "terms": [
+    "tree nut",
+    "tree nuts",
+    "nut oil",
+    "nut paste"
+   ],
+   "notTerms": [
+    "nutmeg",
+    "butternut",
+    "coconut",
+    "water chestnut",
+    "doughnut",
+    "donut",
+    "peanut",
+    "peanuts",
+    "nut free",
+    "tree nut free"
+   ],
+   "children": [
+    "almond",
+    "cashew",
+    "walnut",
+    "pecan",
+    "pistachio",
+    "hazelnut",
+    "macadamia",
+    "brazilnut",
+    "pinenut"
+   ],
+   "note": "The group matches its own terms plus every child's terms. Picking the group = all children.",
+   "shareInProducts": 0.07
+  },
+  {
+   "id": "almond",
+   "name": "Almond",
+   "kind": "allergen",
+   "icon": "almond",
+   "terms": [
+    "almond",
+    "almonds",
+    "marzipan",
+    "praline",
+    "amaretto",
+    "frangipane"
+   ],
+   "notTerms": [
+    "nutmeg",
+    "butternut",
+    "coconut",
+    "water chestnut",
+    "doughnut",
+    "donut",
+    "peanut",
+    "peanuts",
+    "nut free",
+    "tree nut free"
+   ],
+   "parent": "treenuts"
+  },
+  {
+   "id": "cashew",
+   "name": "Cashew",
+   "kind": "allergen",
+   "icon": "cashew",
+   "terms": [
+    "cashew",
+    "cashews"
+   ],
+   "notTerms": [
+    "nutmeg",
+    "butternut",
+    "coconut",
+    "water chestnut",
+    "doughnut",
+    "donut",
+    "peanut",
+    "peanuts",
+    "nut free",
+    "tree nut free"
+   ],
+   "parent": "treenuts"
+  },
+  {
+   "id": "walnut",
+   "name": "Walnut",
+   "kind": "allergen",
+   "icon": "walnut",
+   "terms": [
+    "walnut",
+    "walnuts"
+   ],
+   "notTerms": [
+    "nutmeg",
+    "butternut",
+    "coconut",
+    "water chestnut",
+    "doughnut",
+    "donut",
+    "peanut",
+    "peanuts",
+    "nut free",
+    "tree nut free"
+   ],
+   "parent": "treenuts"
+  },
+  {
+   "id": "pecan",
+   "name": "Pecan",
+   "kind": "allergen",
+   "icon": "pecan",
+   "terms": [
+    "pecan",
+    "pecans"
+   ],
+   "notTerms": [
+    "nutmeg",
+    "butternut",
+    "coconut",
+    "water chestnut",
+    "doughnut",
+    "donut",
+    "peanut",
+    "peanuts",
+    "nut free",
+    "tree nut free"
+   ],
+   "parent": "treenuts"
+  },
+  {
+   "id": "pistachio",
+   "name": "Pistachio",
+   "kind": "allergen",
+   "icon": "pistachio",
+   "terms": [
+    "pistachio",
+    "pistachios"
+   ],
+   "notTerms": [
+    "nutmeg",
+    "butternut",
+    "coconut",
+    "water chestnut",
+    "doughnut",
+    "donut",
+    "peanut",
+    "peanuts",
+    "nut free",
+    "tree nut free"
+   ],
+   "parent": "treenuts"
+  },
+  {
+   "id": "hazelnut",
+   "name": "Hazelnut",
+   "kind": "allergen",
+   "icon": "hazelnut",
+   "terms": [
+    "hazelnut",
+    "hazelnuts",
+    "filbert",
+    "filberts",
+    "gianduja"
+   ],
+   "notTerms": [
+    "nutmeg",
+    "butternut",
+    "coconut",
+    "water chestnut",
+    "doughnut",
+    "donut",
+    "peanut",
+    "peanuts",
+    "nut free",
+    "tree nut free"
+   ],
+   "parent": "treenuts"
+  },
+  {
+   "id": "macadamia",
+   "name": "Macadamia",
+   "kind": "allergen",
+   "icon": "macadamia",
+   "terms": [
+    "macadamia",
+    "macadamias"
+   ],
+   "notTerms": [
+    "nutmeg",
+    "butternut",
+    "coconut",
+    "water chestnut",
+    "doughnut",
+    "donut",
+    "peanut",
+    "peanuts",
+    "nut free",
+    "tree nut free"
+   ],
+   "parent": "treenuts"
+  },
+  {
+   "id": "brazilnut",
+   "name": "Brazil nut",
+   "kind": "allergen",
+   "icon": "brazilnut",
+   "terms": [
+    "brazil nut",
+    "brazil nuts"
+   ],
+   "notTerms": [
+    "nutmeg",
+    "butternut",
+    "coconut",
+    "water chestnut",
+    "doughnut",
+    "donut",
+    "peanut",
+    "peanuts",
+    "nut free",
+    "tree nut free"
+   ],
+   "parent": "treenuts"
+  },
+  {
+   "id": "pinenut",
+   "name": "Pine nut",
+   "kind": "allergen",
+   "icon": "pinenut",
+   "terms": [
+    "pine nut",
+    "pine nuts",
+    "pignoli",
+    "pinyon"
+   ],
+   "notTerms": [
+    "nutmeg",
+    "butternut",
+    "coconut",
+    "water chestnut",
+    "doughnut",
+    "donut",
+    "peanut",
+    "peanuts",
+    "nut free",
+    "tree nut free"
+   ],
+   "parent": "treenuts"
+  },
+  {
+   "id": "milk",
+   "name": "Milk",
+   "kind": "allergen",
+   "icon": "milk",
+   "terms": [
+    "milk",
+    "whey",
+    "casein",
+    "caseinate",
+    "caseinates",
+    "sodium caseinate",
+    "calcium caseinate",
+    "butter",
+    "buttermilk",
+    "butterfat",
+    "butter oil",
+    "cream",
+    "cheese",
+    "lactose",
+    "ghee",
+    "curd",
+    "curds",
+    "yogurt",
+    "yoghurt",
+    "milk powder",
+    "milk solids",
+    "milkfat",
+    "milk fat",
+    "lactalbumin",
+    "lactoglobulin",
+    "kefir",
+    "paneer",
+    "custard",
+    "half and half",
+    "recaldent"
+   ],
+   "notTerms": [
+    "cocoa butter",
+    "shea butter",
+    "peanut butter",
+    "almond butter",
+    "nut butter",
+    "seed butter",
+    "sunflower butter",
+    "cashew butter",
+    "apple butter",
+    "cream of tartar",
+    "coconut milk",
+    "coconut cream",
+    "oat milk",
+    "rice milk",
+    "almond milk",
+    "soy milk",
+    "soymilk",
+    "cashew milk",
+    "milk thistle",
+    "ice cream bean",
+    "dairy free",
+    "milk free",
+    "non dairy"
+   ],
+   "shareInProducts": 0.31
+  },
+  {
+   "id": "egg",
+   "name": "Egg",
+   "kind": "allergen",
+   "icon": "egg",
+   "terms": [
+    "egg",
+    "eggs",
+    "egg white",
+    "egg whites",
+    "egg yolk",
+    "egg yolks",
+    "albumin",
+    "albumen",
+    "ovalbumin",
+    "ovomucoid",
+    "lysozyme",
+    "mayonnaise",
+    "meringue",
+    "eggnog",
+    "dried egg",
+    "egg powder"
+   ],
+   "notTerms": [
+    "eggplant",
+    "eggplants",
+    "egg free"
+   ],
+   "shareInProducts": 0.05
+  },
+  {
+   "id": "soy",
+   "name": "Soy",
+   "kind": "allergen",
+   "icon": "soy",
+   "terms": [
+    "soy",
+    "soya",
+    "soybean",
+    "soybeans",
+    "soy lecithin",
+    "soya lecithin",
+    "tofu",
+    "edamame",
+    "miso",
+    "tempeh",
+    "tamari",
+    "shoyu",
+    "soy sauce",
+    "soy protein",
+    "soy flour",
+    "natto",
+    "yuba"
+   ],
+   "notTerms": [
+    "soy free"
+   ],
+   "shareInProducts": 0.17
+  },
+  {
+   "id": "wheat",
+   "name": "Wheat",
+   "kind": "allergen",
+   "icon": "wheat",
+   "terms": [
+    "wheat",
+    "flour",
+    "enriched flour",
+    "bleached flour",
+    "all purpose flour",
+    "whole wheat",
+    "semolina",
+    "durum",
+    "spelt",
+    "farro",
+    "einkorn",
+    "emmer",
+    "kamut",
+    "khorasan",
+    "bulgur",
+    "couscous",
+    "seitan",
+    "wheat gluten",
+    "vital wheat gluten",
+    "graham",
+    "farina",
+    "wheat starch",
+    "breadcrumbs",
+    "bread crumbs",
+    "panko"
+   ],
+   "notTerms": [
+    "buckwheat",
+    "wheat free",
+    "rice flour",
+    "corn flour",
+    "cornflour",
+    "almond flour",
+    "oat flour",
+    "coconut flour",
+    "chickpea flour",
+    "potato flour",
+    "tapioca flour",
+    "buckwheat flour",
+    "sorghum flour",
+    "cassava flour",
+    "soy flour",
+    "peanut flour",
+    "lupin flour",
+    "banana flour",
+    "quinoa flour",
+    "millet flour",
+    "teff flour",
+    "amaranth flour",
+    "pea flour"
+   ],
+   "note": "In the US, plain 'flour' means wheat flour. Other flours are excluded by notTerms.",
+   "shareInProducts": 0.14
+  },
+  {
+   "id": "fish",
+   "name": "Fish and shellfish",
+   "kind": "allergen",
+   "icon": "fish",
+   "terms": [
+    "seafood",
+    "shellfish"
+   ],
+   "notTerms": [
+    "fish free"
+   ],
+   "children": [
+    "fish2",
+    "shrimp",
+    "crab",
+    "lobster",
+    "oyster",
+    "mussel",
+    "squid"
+   ],
+   "note": "Onboarding shows one 'Fish and shellfish' card with leaves. US law splits fish and crustacean shellfish; both are majors.",
+   "shareInProducts": 0.03
+  },
+  {
+   "id": "fish2",
+   "name": "Fish",
+   "kind": "allergen",
+   "icon": "fish2",
+   "terms": [
+    "fish",
+    "anchovy",
+    "anchovies",
+    "cod",
+    "salmon",
+    "tuna",
+    "tilapia",
+    "pollock",
+    "haddock",
+    "sardine",
+    "sardines",
+    "mackerel",
+    "trout",
+    "halibut",
+    "bass",
+    "catfish",
+    "herring",
+    "fish sauce",
+    "fish oil",
+    "fish gelatin",
+    "surimi",
+    "bonito"
+   ],
+   "parent": "fish"
+  },
+  {
+   "id": "shrimp",
+   "name": "Shrimp",
+   "kind": "allergen",
+   "icon": "shrimp",
+   "terms": [
+    "shrimp",
+    "shrimps",
+    "prawn",
+    "prawns",
+    "krill"
+   ],
+   "parent": "fish"
+  },
+  {
+   "id": "crab",
+   "name": "Crab",
+   "kind": "allergen",
+   "icon": "crab",
+   "terms": [
+    "crab",
+    "crabs",
+    "crabmeat"
+   ],
+   "parent": "fish"
+  },
+  {
+   "id": "lobster",
+   "name": "Lobster",
+   "kind": "allergen",
+   "icon": "lobster",
+   "terms": [
+    "lobster",
+    "lobsters",
+    "crayfish",
+    "crawfish",
+    "langoustine",
+    "langoustines"
+   ],
+   "parent": "fish"
+  },
+  {
+   "id": "oyster",
+   "name": "Oysters",
+   "kind": "allergen",
+   "icon": "oyster",
+   "terms": [
+    "oyster",
+    "oysters",
+    "oyster sauce"
+   ],
+   "parent": "fish"
+  },
+  {
+   "id": "mussel",
+   "name": "Mussels",
+   "kind": "allergen",
+   "icon": "mussel",
+   "terms": [
+    "mussel",
+    "mussels",
+    "clam",
+    "clams",
+    "scallop",
+    "scallops",
+    "cockle",
+    "cockles"
+   ],
+   "parent": "fish"
+  },
+  {
+   "id": "squid",
+   "name": "Squid",
+   "kind": "allergen",
+   "icon": "squid",
+   "terms": [
+    "squid",
+    "calamari",
+    "octopus",
+    "cuttlefish",
+    "snail",
+    "snails",
+    "escargot"
+   ],
+   "parent": "fish"
+  },
+  {
+   "id": "sesame",
+   "name": "Sesame",
+   "kind": "allergen",
+   "icon": "sesame",
+   "terms": [
+    "sesame",
+    "sesame seed",
+    "sesame seeds",
+    "sesame oil",
+    "tahini",
+    "tahina",
+    "halva",
+    "halvah",
+    "benne",
+    "gingelly",
+    "til"
+   ],
+   "notTerms": [
+    "sesame free"
+   ],
+   "shareInProducts": 0.02
+  },
+  {
+   "id": "mustard",
+   "name": "Mustard",
+   "kind": "allergen",
+   "icon": "mustard",
+   "terms": [
+    "mustard",
+    "mustard seed",
+    "mustard seeds",
+    "mustard flour",
+    "mustard oil",
+    "dijon"
+   ],
+   "parent": "other"
+  },
+  {
+   "id": "celery",
+   "name": "Celery",
+   "kind": "allergen",
+   "icon": "celery",
+   "terms": [
+    "celery",
+    "celeriac",
+    "celery seed",
+    "celery salt",
+    "celery powder",
+    "celery juice"
+   ],
+   "parent": "other"
+  },
+  {
+   "id": "lupin",
+   "name": "Lupin",
+   "kind": "allergen",
+   "icon": "lupin",
+   "terms": [
+    "lupin",
+    "lupins",
+    "lupine",
+    "lupini",
+    "lupin flour"
+   ],
+   "parent": "other"
+  },
+  {
+   "id": "sulfites",
+   "name": "Sulfites",
+   "kind": "allergen",
+   "icon": "sulfites",
+   "terms": [
+    "sulfite",
+    "sulfites",
+    "sulphite",
+    "sulphites",
+    "sulfur dioxide",
+    "sulphur dioxide",
+    "sodium bisulfite",
+    "sodium metabisulfite",
+    "potassium metabisulfite",
+    "sodium sulfite",
+    "e220",
+    "e221",
+    "e222",
+    "e223",
+    "e224",
+    "e225",
+    "e226",
+    "e227",
+    "e228"
+   ],
+   "parent": "other"
+  },
+  {
+   "id": "corn",
+   "name": "Corn",
+   "kind": "allergen",
+   "icon": "corn",
+   "terms": [
+    "corn",
+    "maize",
+    "cornstarch",
+    "corn starch",
+    "corn syrup",
+    "cornmeal",
+    "corn meal",
+    "polenta",
+    "masa",
+    "hominy",
+    "corn oil",
+    "corn flour",
+    "cornflour",
+    "high fructose corn syrup",
+    "popcorn",
+    "grits"
+   ],
+   "notTerms": [
+    "peppercorn",
+    "peppercorns",
+    "corn free"
+   ],
+   "parent": "other"
+  },
+  {
+   "id": "coconut",
+   "name": "Coconut",
+   "kind": "allergen",
+   "icon": "coconut",
+   "terms": [
+    "coconut",
+    "coconut oil",
+    "coconut milk",
+    "coconut cream",
+    "copra",
+    "coconut flour"
+   ],
+   "parent": "other"
+  },
+  {
+   "id": "gluten",
+   "name": "Gluten",
+   "kind": "ingredient",
+   "icon": "gluten",
+   "terms": [
+    "wheat",
+    "flour",
+    "enriched flour",
+    "bleached flour",
+    "all purpose flour",
+    "whole wheat",
+    "semolina",
+    "durum",
+    "spelt",
+    "farro",
+    "einkorn",
+    "emmer",
+    "kamut",
+    "khorasan",
+    "bulgur",
+    "couscous",
+    "seitan",
+    "wheat gluten",
+    "vital wheat gluten",
+    "graham",
+    "farina",
+    "wheat starch",
+    "breadcrumbs",
+    "bread crumbs",
+    "panko",
+    "barley",
+    "rye",
+    "malt",
+    "malt extract",
+    "malt vinegar",
+    "malted barley",
+    "barley malt",
+    "malt flavoring",
+    "triticale",
+    "brewer's yeast",
+    "brewers yeast"
+   ],
+   "notTerms": [
+    "buckwheat",
+    "gluten free",
+    "wheat free",
+    "rice flour",
+    "corn flour",
+    "cornflour",
+    "almond flour",
+    "oat flour",
+    "coconut flour",
+    "chickpea flour",
+    "potato flour",
+    "tapioca flour",
+    "buckwheat flour",
+    "sorghum flour",
+    "cassava flour",
+    "soy flour",
+    "peanut flour",
+    "lupin flour",
+    "banana flour",
+    "quinoa flour",
+    "millet flour",
+    "teff flour",
+    "amaranth flour",
+    "pea flour"
+   ],
+   "note": "Celiac and the 'Gluten' ingredient group. Oats are handled as an ambiguous term (cross-contamination).",
+   "shareInProducts": 0.14,
+   "isA": "gluten"
+  },
+  {
+   "id": "sugar",
+   "name": "Added sugars",
+   "kind": "ingredient",
+   "icon": "sugar",
+   "terms": [
+    "sugar",
+    "cane sugar",
+    "brown sugar",
+    "corn syrup",
+    "high fructose corn syrup",
+    "dextrose",
+    "glucose",
+    "glucose syrup",
+    "fructose",
+    "sucrose",
+    "maltose",
+    "maltodextrin",
+    "invert sugar",
+    "cane juice",
+    "evaporated cane juice",
+    "molasses",
+    "brown rice syrup",
+    "rice syrup",
+    "agave",
+    "agave syrup",
+    "honey",
+    "maple syrup",
+    "coconut sugar",
+    "date syrup",
+    "caramel"
+   ],
+   "notTerms": [
+    "sugar free",
+    "no sugar added",
+    "no added sugar"
+   ],
+   "shareInProducts": 0.43,
+   "isA": "an added sugar"
+  },
+  {
+   "id": "flavors",
+   "name": "Natural flavors",
+   "kind": "ingredient",
+   "icon": "flavors",
+   "terms": [
+    "natural flavor",
+    "natural flavors",
+    "natural flavour",
+    "natural flavours",
+    "artificial flavor",
+    "artificial flavors",
+    "natural and artificial flavors",
+    "flavoring",
+    "flavorings",
+    "flavouring"
+   ],
+   "shareInProducts": 0.25,
+   "isA": "a natural flavor"
+  },
+  {
+   "id": "seed",
+   "name": "Seed oils",
+   "kind": "ingredient",
+   "icon": "seed",
+   "terms": [
+    "sunflower oil",
+    "high oleic sunflower oil",
+    "soybean oil",
+    "canola oil",
+    "rapeseed oil",
+    "vegetable oil",
+    "cottonseed oil",
+    "safflower oil",
+    "high oleic safflower oil",
+    "corn oil",
+    "grapeseed oil",
+    "rice bran oil",
+    "sunflower lecithin"
+   ],
+   "shareInProducts": 0.2,
+   "isA": "a seed oil"
+  },
+  {
+   "id": "gums",
+   "name": "Gums and thickeners",
+   "kind": "ingredient",
+   "icon": "gums",
+   "terms": [
+    "carrageenan",
+    "xanthan gum",
+    "guar gum",
+    "gellan gum",
+    "locust bean gum",
+    "cellulose gum",
+    "gum arabic",
+    "acacia gum",
+    "modified starch",
+    "modified food starch",
+    "modified corn starch",
+    "e407",
+    "e415",
+    "e412"
+   ],
+   "shareInProducts": 0.12,
+   "isA": "a gum or thickener"
+  },
+  {
+   "id": "preserv",
+   "name": "Preservatives",
+   "kind": "ingredient",
+   "icon": "preserv",
+   "terms": [
+    "potassium sorbate",
+    "sodium benzoate",
+    "sodium nitrite",
+    "sodium nitrate",
+    "nitrite",
+    "nitrites",
+    "bha",
+    "bht",
+    "tbhq",
+    "calcium propionate",
+    "sorbic acid",
+    "benzoic acid",
+    "e211",
+    "e202",
+    "e250"
+   ],
+   "shareInProducts": 0.08,
+   "isA": "a preservative"
+  },
+  {
+   "id": "palm",
+   "name": "Palm oil",
+   "kind": "ingredient",
+   "icon": "palm",
+   "terms": [
+    "palm oil",
+    "palm kernel oil",
+    "palm olein",
+    "palmitate",
+    "palm fat",
+    "palm fruit oil"
+   ],
+   "shareInProducts": 0.05,
+   "isA": "palm oil"
+  },
+  {
+   "id": "msg",
+   "name": "MSG and yeast extract",
+   "kind": "ingredient",
+   "icon": "msg",
+   "terms": [
+    "monosodium glutamate",
+    "msg",
+    "yeast extract",
+    "autolyzed yeast",
+    "autolyzed yeast extract",
+    "hydrolyzed vegetable protein",
+    "hydrolyzed protein",
+    "e621"
+   ],
+   "shareInProducts": 0.05,
+   "isA": "a flavor enhancer"
+  },
+  {
+   "id": "sweet",
+   "name": "Artificial sweeteners",
+   "kind": "ingredient",
+   "icon": "sweet",
+   "terms": [
+    "sucralose",
+    "acesulfame k",
+    "acesulfame potassium",
+    "aspartame",
+    "saccharin",
+    "neotame",
+    "advantame",
+    "e955",
+    "e950",
+    "e951"
+   ],
+   "shareInProducts": 0.04,
+   "isA": "an artificial sweetener"
+  },
+  {
+   "id": "colors",
+   "name": "Artificial colors",
+   "kind": "ingredient",
+   "icon": "colors",
+   "terms": [
+    "red 40",
+    "red 3",
+    "yellow 5",
+    "yellow 6",
+    "blue 1",
+    "blue 2",
+    "green 3",
+    "allura red",
+    "tartrazine",
+    "sunset yellow",
+    "erythrosine",
+    "caramel color",
+    "titanium dioxide",
+    "e129",
+    "e102",
+    "e110",
+    "e127",
+    "e171",
+    "e150d"
+   ],
+   "shareInProducts": 0.03,
+   "isA": "an artificial color"
+  },
+  {
+   "id": "meat",
+   "name": "Meat",
+   "kind": "ingredient",
+   "icon": "redmeat",
+   "terms": [
+    "beef",
+    "pork",
+    "chicken",
+    "turkey",
+    "lamb",
+    "mutton",
+    "veal",
+    "venison",
+    "duck",
+    "goose",
+    "bacon",
+    "ham",
+    "sausage",
+    "pepperoni",
+    "salami",
+    "prosciutto",
+    "meat",
+    "chicken broth",
+    "beef broth",
+    "bone broth",
+    "chicken fat",
+    "beef fat",
+    "tallow",
+    "beef tallow",
+    "lard",
+    "suet",
+    "schmaltz",
+    "gelatin",
+    "gelatine",
+    "collagen"
+   ],
+   "notTerms": [
+    "meat free",
+    "meatless"
+   ],
+   "isA": "meat"
+  },
+  {
+   "id": "pork",
+   "name": "Pork and lard",
+   "kind": "ingredient",
+   "icon": "pork",
+   "terms": [
+    "pork",
+    "lard",
+    "bacon",
+    "ham",
+    "prosciutto",
+    "pancetta",
+    "pepperoni",
+    "salami",
+    "chorizo",
+    "pork gelatin",
+    "pork fat",
+    "porcine"
+   ],
+   "isA": "pork"
+  },
+  {
+   "id": "beef",
+   "name": "Beef",
+   "kind": "ingredient",
+   "icon": "nobeef",
+   "terms": [
+    "beef",
+    "beef tallow",
+    "tallow",
+    "beef gelatin",
+    "beef broth",
+    "beef fat",
+    "veal",
+    "bovine"
+   ],
+   "isA": "beef"
+  },
+  {
+   "id": "alcohol",
+   "name": "Alcohol",
+   "kind": "ingredient",
+   "icon": "alcohol",
+   "terms": [
+    "alcohol",
+    "ethanol",
+    "ethyl alcohol",
+    "wine",
+    "beer",
+    "rum",
+    "brandy",
+    "vodka",
+    "whiskey",
+    "whisky",
+    "bourbon",
+    "sake",
+    "mirin",
+    "liqueur",
+    "cooking wine",
+    "wine vinegar"
+   ],
+   "notTerms": [
+    "alcohol free",
+    "non alcoholic"
+   ],
+   "note": "'wine vinegar' is listed; whether it counts for halal is a scholarly question. Team to confirm.",
+   "isA": "alcohol"
+  },
+  {
+   "id": "gelatin",
+   "name": "Gelatin",
+   "kind": "ingredient",
+   "icon": "gelatin",
+   "terms": [
+    "gelatin",
+    "gelatine",
+    "e441"
+   ],
+   "isA": "gelatin"
+  },
+  {
+   "id": "honey",
+   "name": "Honey",
+   "kind": "ingredient",
+   "icon": "syrup",
+   "terms": [
+    "honey",
+    "honeycomb",
+    "royal jelly",
+    "bee pollen"
+   ],
+   "isA": "honey"
+  },
+  {
+   "id": "insect",
+   "name": "Insect-derived",
+   "kind": "ingredient",
+   "icon": "colors",
+   "terms": [
+    "carmine",
+    "cochineal",
+    "e120",
+    "shellac",
+    "confectioner's glaze"
+   ],
+   "isA": "insect-derived"
+  },
+  {
+   "id": "grains",
+   "name": "Grains",
+   "kind": "ingredient",
+   "icon": "glutenfree",
+   "terms": [
+    "wheat",
+    "flour",
+    "enriched flour",
+    "bleached flour",
+    "all purpose flour",
+    "whole wheat",
+    "semolina",
+    "durum",
+    "spelt",
+    "farro",
+    "einkorn",
+    "emmer",
+    "kamut",
+    "khorasan",
+    "bulgur",
+    "couscous",
+    "seitan",
+    "wheat gluten",
+    "vital wheat gluten",
+    "graham",
+    "farina",
+    "wheat starch",
+    "breadcrumbs",
+    "bread crumbs",
+    "panko",
+    "barley",
+    "rye",
+    "oats",
+    "oat",
+    "rice",
+    "corn",
+    "maize",
+    "quinoa",
+    "millet",
+    "sorghum",
+    "teff",
+    "amaranth",
+    "buckwheat"
+   ],
+   "notTerms": [
+    "oat free"
+   ],
+   "isA": "a grain"
+  },
+  {
+   "id": "legumes",
+   "name": "Legumes",
+   "kind": "ingredient",
+   "icon": "peas",
+   "terms": [
+    "beans",
+    "bean",
+    "lentils",
+    "lentil",
+    "chickpeas",
+    "chickpea",
+    "peas",
+    "pea protein",
+    "soy",
+    "soybean",
+    "peanut",
+    "peanuts",
+    "lupin"
+   ],
+   "notTerms": [
+    "green beans",
+    "vanilla bean",
+    "vanilla beans",
+    "coffee beans",
+    "cocoa beans"
+   ],
+   "isA": "a legume"
+  },
+  {
+   "id": "shellfish_only",
+   "name": "Shellfish",
+   "kind": "ingredient",
+   "icon": "shellfish",
+   "terms": [
+    "shrimp",
+    "shrimps",
+    "prawn",
+    "prawns",
+    "krill",
+    "crab",
+    "crabs",
+    "crabmeat",
+    "lobster",
+    "lobsters",
+    "crayfish",
+    "crawfish",
+    "langoustine",
+    "langoustines",
+    "oyster",
+    "oysters",
+    "oyster sauce",
+    "mussel",
+    "mussels",
+    "clam",
+    "clams",
+    "scallop",
+    "scallops",
+    "cockle",
+    "cockles",
+    "squid",
+    "calamari",
+    "octopus",
+    "cuttlefish",
+    "snail",
+    "snails",
+    "escargot",
+    "shellfish"
+   ],
+   "isA": "shellfish"
+  }
+ ],
+ "diets": {
+  "vegan": {
+   "name": "Vegan",
+   "icon": "vegan",
+   "avoid": [
+    "milk",
+    "egg",
+    "fish",
+    "meat",
+    "gelatin",
+    "honey",
+    "insect"
+   ],
+   "reason": "{ingredient} isn’t vegan"
+  },
+  "vegetarian": {
+   "name": "Vegetarian",
+   "icon": "vegetarian",
+   "avoid": [
+    "fish",
+    "meat",
+    "gelatin"
+   ],
+   "reason": "{ingredient} isn’t vegetarian"
+  },
+  "pescatarian": {
+   "name": "Pescatarian",
+   "icon": "pescatarian",
+   "avoid": [
+    "meat",
+    "gelatin"
+   ],
+   "reason": "{ingredient} isn’t pescatarian"
+  },
+  "keto": {
+   "name": "Keto",
+   "icon": "keto",
+   "avoid": [
+    "sugar"
+   ],
+   "limits": [
+    {
+     "nutrient": "netCarbsG",
+     "perDay": 20
+    }
+   ],
+   "reason": "{ingredient} is an added sugar"
+  },
+  "paleo": {
+   "name": "Paleo or whole food",
+   "icon": "paleo",
+   "avoid": [
+    "grains",
+    "legumes",
+    "sugar",
+    "milk"
+   ],
+   "reason": "{ingredient} isn’t paleo"
+  },
+  "halal": {
+   "name": "Halal",
+   "icon": "halal",
+   "avoid": [
+    "pork",
+    "alcohol"
+   ],
+   "note": "Plain gelatin and mono- and diglycerides are Can't confirm (source unknown).",
+   "reason": "{ingredient} isn’t halal"
+  },
+  "kosher": {
+   "name": "Kosher",
+   "icon": "kosher",
+   "avoid": [
+    "pork",
+    "shellfish_only"
+   ],
+   "note": "Kosher needs a certification mark the data rarely has. MVP flags forbidden ingredients only and adds 'Look for a kosher mark on the package.'",
+   "reason": "{ingredient} isn’t kosher"
+  },
+  "nobeef": {
+   "name": "No beef",
+   "icon": "nobeef",
+   "avoid": [
+    "beef"
+   ],
+   "reason": "{ingredient} is beef"
+  }
+ },
+ "medical": {
+  "celiac": {
+   "name": "Celiac or gluten-free",
+   "icon": "celiac",
+   "avoid": [
+    "gluten"
+   ],
+   "strength": "allergy",
+   "mayContainDefault": true
+  },
+  "heart": {
+   "name": "Heart health",
+   "icon": "heart",
+   "limits": [
+    {
+     "nutrient": "sodiumMg",
+     "perDay": 1500
+    }
+   ]
+  },
+  "sugar": {
+   "name": "Blood sugar",
+   "icon": "bloodsugar",
+   "limits": [
+    {
+     "nutrient": "addedSugarsG",
+     "perDay": 25
+    }
+   ]
+  }
+ },
+ "ambiguous": [
+  {
+   "term": "natural flavors",
+   "alt": [
+    "natural flavor",
+    "natural flavour",
+    "natural flavours",
+    "flavoring",
+    "flavorings",
+    "natural and artificial flavors",
+    "artificial flavors",
+    "artificial flavor"
+   ],
+   "couldBe": [
+    "gluten",
+    "celery",
+    "mustard",
+    "lupin",
+    "corn",
+    "msg"
+   ],
+   "why": "‘Natural flavors’ isn’t specific."
+  },
+  {
+   "term": "spices",
+   "alt": [
+    "spice",
+    "spice extract",
+    "seasoning",
+    "seasonings"
+   ],
+   "couldBe": [
+    "celery",
+    "mustard"
+   ],
+   "why": "‘Spices’ doesn’t say which ones."
+  },
+  {
+   "term": "lecithin",
+   "alt": [
+    "e322"
+   ],
+   "couldBe": [
+    "soy",
+    "egg"
+   ],
+   "why": "‘Lecithin’ doesn’t say its source."
+  },
+  {
+   "term": "modified food starch",
+   "alt": [
+    "food starch",
+    "starch",
+    "modified starch"
+   ],
+   "couldBe": [
+    "wheat",
+    "gluten",
+    "corn"
+   ],
+   "why": "The starch doesn’t say its source."
+  },
+  {
+   "term": "maltodextrin",
+   "alt": [],
+   "couldBe": [
+    "corn",
+    "wheat"
+   ],
+   "why": "‘Maltodextrin’ doesn’t say its source."
+  },
+  {
+   "term": "dextrose",
+   "alt": [],
+   "couldBe": [
+    "corn"
+   ],
+   "why": "‘Dextrose’ is usually corn; the label doesn’t say."
+  },
+  {
+   "term": "oats",
+   "alt": [
+    "oat",
+    "rolled oats",
+    "oat flour",
+    "oat fiber"
+   ],
+   "couldBe": [
+    "gluten"
+   ],
+   "why": "Oats are often cross-contaminated unless labelled gluten-free.",
+   "resolvedBy": [
+    "gluten free oats",
+    "certified gluten free oats"
+   ]
+  },
+  {
+   "term": "mono and diglycerides",
+   "alt": [
+    "mono and di glycerides",
+    "monoglycerides",
+    "diglycerides",
+    "e471"
+   ],
+   "couldBe": [
+    "meat",
+    "pork"
+   ],
+   "why": "Mono- and diglycerides can come from animal fat."
+  },
+  {
+   "term": "enzymes",
+   "alt": [
+    "rennet",
+    "enzyme"
+   ],
+   "couldBe": [
+    "meat"
+   ],
+   "why": "Enzymes and rennet can be animal-derived.",
+   "resolvedBy": [
+    "microbial enzymes",
+    "vegetable rennet",
+    "microbial rennet"
+   ]
+  },
+  {
+   "term": "worcestershire sauce",
+   "alt": [
+    "worcestershire"
+   ],
+   "couldBe": [
+    "fish"
+   ],
+   "why": "Worcestershire sauce often has anchovies."
+  },
+  {
+   "term": "nougat",
+   "alt": [],
+   "couldBe": [
+    "treenuts",
+    "egg",
+    "milk"
+   ],
+   "why": "Nougat recipes vary."
+  },
+  {
+   "term": "gelatin",
+   "alt": [
+    "gelatine",
+    "e441"
+   ],
+   "couldBe": [
+    "pork"
+   ],
+   "why": "‘Gelatin’ doesn’t say its source.",
+   "resolvedBy": [
+    "fish gelatin",
+    "bovine gelatin",
+    "beef gelatin",
+    "halal gelatin",
+    "pork gelatin"
+   ]
+  },
+  {
+   "term": "hydrolyzed vegetable protein",
+   "alt": [
+    "hydrolyzed plant protein",
+    "textured vegetable protein",
+    "tvp"
+   ],
+   "couldBe": [
+    "soy",
+    "wheat",
+    "gluten"
+   ],
+   "why": "The protein doesn’t say its source."
+  }
+ ],
+ "onboarding": {
+  "allergenGroups": [
+   {
+    "id": "peanut",
+    "label": "Peanuts",
+    "icon": "peanut"
+   },
+   {
+    "id": "treenuts",
+    "label": "Tree nuts",
+    "icon": "treenuts",
+    "leaves": [
+     "almond",
+     "cashew",
+     "walnut",
+     "pecan",
+     "pistachio",
+     "hazelnut",
+     "macadamia",
+     "brazilnut",
+     "pinenut"
+    ]
+   },
+   {
+    "id": "milk",
+    "label": "Milk",
+    "icon": "milk"
+   },
+   {
+    "id": "egg",
+    "label": "Eggs",
+    "icon": "egg"
+   },
+   {
+    "id": "soy",
+    "label": "Soy",
+    "icon": "soy"
+   },
+   {
+    "id": "wheat",
+    "label": "Wheat",
+    "icon": "wheat"
+   },
+   {
+    "id": "fish",
+    "label": "Fish and shellfish",
+    "icon": "fish",
+    "leaves": [
+     "fish2",
+     "shrimp",
+     "crab",
+     "lobster",
+     "oyster",
+     "mussel",
+     "squid"
+    ]
+   },
+   {
+    "id": "sesame",
+    "label": "Sesame",
+    "icon": "sesame"
+   },
+   {
+    "id": "other",
+    "label": "Other",
+    "icon": "add",
+    "leaves": [
+     "mustard",
+     "celery",
+     "lupin",
+     "sulfites",
+     "corn",
+     "coconut"
+    ]
+   }
+  ],
+  "related": {
+   "peanut": [
+    "treenuts",
+    "lupin"
+   ]
+  },
+  "searchSynonyms": {
+   "prawn": "fish",
+   "prawns": "fish",
+   "shrimp": "fish",
+   "shellfish": "fish",
+   "crab": "fish",
+   "lobster": "fish",
+   "scallop": "fish",
+   "dairy": "milk",
+   "lactose": "milk",
+   "cheese": "milk",
+   "whey": "milk",
+   "casein": "milk",
+   "gluten": "wheat",
+   "flour": "wheat",
+   "nut": "treenuts",
+   "nuts": "treenuts",
+   "tahini": "sesame",
+   "albumin": "egg",
+   "soya": "soy"
+  },
+  "dietCovers": {
+   "vegan": [
+    "milk",
+    "egg",
+    "fish"
+   ],
+   "vegetarian": [
+    "fish"
+   ]
+  },
+  "anythingElseGroups": [
+   "sugar",
+   "flavors",
+   "seed",
+   "gluten",
+   "gums",
+   "preserv",
+   "palm",
+   "msg",
+   "sweet",
+   "colors"
+  ]
+ }
+}

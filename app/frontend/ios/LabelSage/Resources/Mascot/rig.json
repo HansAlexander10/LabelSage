@@ -1,0 +1,293 @@
+{
+  "artboard": {
+    "width": 960,
+    "height": 1210,
+    "origin_y_offset": 60,
+    "note": "Stage units = pixels of the parts at full size. Each part: place its anchor (part-local px) at the stage point, then apply rotate/scale about that point."
+  },
+  "draw_order_back_to_front": [
+    "shadow",
+    "cape",
+    "leg_l",
+    "leg_r",
+    "arm_l",
+    "tag",
+    "label_line_highlights",
+    "string",
+    "eyes",
+    "brows",
+    "mouth",
+    "arm_r",
+    "magnifier_arm",
+    "question",
+    "sparks"
+  ],
+  "parts": {
+    "tag": {
+      "anchor": [
+        0,
+        0
+      ],
+      "at": [
+        300,
+        330
+      ]
+    },
+    "string": {
+      "anchor": [
+        116,
+        596
+      ],
+      "at": [
+        529,
+        425
+      ],
+      "scale": 0.42,
+      "pivot": "anchor (the hole)"
+    },
+    "cape": {
+      "anchor": [
+        581,
+        43
+      ],
+      "at": [
+        460,
+        620
+      ],
+      "rotate": -40,
+      "scale": 0.95,
+      "pivot": "anchor (collar)"
+    },
+    "leg_l": {
+      "anchor": [
+        96,
+        6
+      ],
+      "at": [
+        465,
+        1030
+      ],
+      "scale": 0.72
+    },
+    "leg_r": {
+      "anchor": [
+        19,
+        6
+      ],
+      "at": [
+        590,
+        1030
+      ],
+      "scale": 0.72
+    },
+    "arm_l": {
+      "anchor": [
+        136,
+        6
+      ],
+      "at": [
+        316,
+        750
+      ],
+      "pivot": "anchor (shoulder)"
+    },
+    "arm_r": {
+      "anchor": [
+        18,
+        6
+      ],
+      "at": [
+        737,
+        750
+      ],
+      "pivot": "anchor (shoulder)"
+    },
+    "eye_l": {
+      "center_at": [
+        450,
+        592
+      ]
+    },
+    "eye_r": {
+      "center_at": [
+        603,
+        592
+      ]
+    },
+    "brow_l": {
+      "center_at": [
+        450,
+        512
+      ],
+      "states": [
+        "reading",
+        "thinking"
+      ]
+    },
+    "brow_r": {
+      "center_at": [
+        603,
+        512
+      ],
+      "states": [
+        "reading",
+        "thinking"
+      ]
+    },
+    "mouth_smile": {
+      "center_at": [
+        526,
+        670
+      ],
+      "states": [
+        "idle"
+      ]
+    },
+    "mouth_open": {
+      "center_at": [
+        526,
+        675
+      ],
+      "states": [
+        "done"
+      ]
+    },
+    "mouth_flat": {
+      "center_at": [
+        526,
+        675
+      ],
+      "scale": 0.55,
+      "states": [
+        "reading",
+        "thinking"
+      ]
+    },
+    "magnifier": {
+      "anchor": [
+        132,
+        133
+      ],
+      "at": [
+        585,
+        800
+      ],
+      "scale": [
+        -0.72,
+        0.72
+      ],
+      "note": "mirrored; lens over the label lines",
+      "states": [
+        "reading"
+      ]
+    },
+    "arm_r_reading": {
+      "part": "arm_r",
+      "anchor": [
+        18,
+        6
+      ],
+      "at": [
+        737,
+        750
+      ],
+      "rotate": 40,
+      "states": [
+        "reading"
+      ],
+      "note": "grips the magnifier handle; arm + magnifier rotate together about the right shoulder"
+    },
+    "question": {
+      "center_at": [
+        830,
+        370
+      ],
+      "scale": 0.9,
+      "states": [
+        "thinking"
+      ]
+    },
+    "sparks": {
+      "spark_a": [
+        180,
+        370
+      ],
+      "spark_b": [
+        860,
+        320
+      ],
+      "spark_c": [
+        900,
+        530
+      ],
+      "dot_a": [
+        140,
+        570
+      ],
+      "dot_b": [
+        940,
+        420
+      ],
+      "states": [
+        "done"
+      ]
+    },
+    "label_line_highlights": {
+      "lines": [
+        [
+          360,
+          810,
+          692
+        ],
+        [
+          360,
+          840,
+          692
+        ],
+        [
+          360,
+          870,
+          606
+        ]
+      ],
+      "stroke": 8,
+      "color": "#52794a",
+      "note": "draw over the tag lines; reveal one by one with the found input"
+    },
+    "shadow": {
+      "ellipse": [
+        526,
+        1235,
+        210,
+        26
+      ],
+      "color": "rgba(61,35,24,0.14)"
+    }
+  },
+  "pivots": {
+    "character_ground": [
+      526,
+      1235
+    ],
+    "lean": [
+      526,
+      1030
+    ],
+    "cape": [
+      460,
+      620
+    ],
+    "string": [
+      529,
+      425
+    ],
+    "shoulder_l": [
+      316,
+      750
+    ],
+    "shoulder_r": [
+      737,
+      750
+    ]
+  }
+}

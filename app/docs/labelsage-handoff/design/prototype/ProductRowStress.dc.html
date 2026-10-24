@@ -1,0 +1,93 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Product row stress test</title>
+<script src="./support.js"></script>
+<link rel="stylesheet" href="ds/aishoppingagent/tokens.css">
+</head>
+<body>
+<x-dc>
+<helmet>
+<style>
+@import url("https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&display=swap");body{margin:0;font-family:"Outfit","SF Pro Rounded",ui-rounded,-apple-system,system-ui,sans-serif;-webkit-font-smoothing:antialiased}
+button{font-family:inherit;color:inherit}
+button:focus-visible{outline:2px solid #1b6b3e;outline-offset:2px}
+</style>
+<style>/* Liquid Glass (navigation layer only, per HIG). Frosted base everywhere; refraction where backdrop SVG filters work (Chromium). */:root{--lg-bg:rgba(255,255,255,0.52);--lg-bg-thick:rgba(255,255,255,0.8);--lg-bg-dark:rgba(255,255,255,0.14);--lg-edge:rgba(255,255,255,0.7);--lg-edge-dark:rgba(255,255,255,0.3);--lg-fx:blur(14px) saturate(180%);--lg-shadow:inset 0 0 2px 1px rgba(255,255,255,0.6),inset 0 0 10px 4px rgba(255,255,255,0.22),inset 0 4px 16px rgba(17,17,26,0.05),inset 0 8px 24px rgba(17,17,26,0.05),0 6px 20px rgba(0,0,0,0.10);--lg-shadow-float:inset 0 0 2px 1px rgba(255,255,255,0.6),inset 0 0 10px 4px rgba(255,255,255,0.22),0 12px 36px rgba(0,0,0,0.16);--lg-shadow-dark:inset 0 0 2px 1px rgba(255,255,255,0.35),inset 0 0 10px 4px rgba(255,255,255,0.12),0 6px 20px rgba(0,0,0,0.25)}@supports (not (font:-apple-system-body)) and (not (-moz-appearance:none)){:root{--lg-fx:url(#lg-filter) blur(2px) saturate(1.7)}}@media (prefers-reduced-transparency:reduce){:root{--lg-bg:rgba(255,255,255,0.97);--lg-bg-thick:#ffffff;--lg-bg-dark:rgba(44,44,46,0.94);--lg-fx:none}}@media (prefers-contrast:more){:root{--lg-edge:rgba(0,0,0,0.35);--lg-edge-dark:rgba(255,255,255,0.7)}}</style>
+</helmet>
+<div style="width: 390px; min-height: 1240px; box-sizing: border-box; padding: 24px 16px 40px; background: #f2f2f7; color: #1c1c1e; font-family: 'Outfit', 'SF Pro Rounded', ui-rounded, -apple-system, system-ui, sans-serif">
+  <h1 style="margin: 0 4px; font-size: 28px; line-height: 1.15; font-weight: 700">Product row, stress test</h1>
+  <p style="margin: 6px 4px 0; font-size: 15px; line-height: 1.4; color: #6b6656">The same shared row with real-world extremes. Switch the data to see what holds.</p>
+
+  <div role="tablist" aria-label="Data" style="margin-top: 16px; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); padding: 2px; border-radius: 9px; background: rgba(118,118,128,0.12)">
+    <sc-for list="{{tabs}}" as="t" hint-placeholder-count="3"><button role="tab" aria-selected="{{t.sel}}" onClick="{{t.pick}}" style="{{t.style}}">{{t.label}}</button></sc-for>
+  </div>
+
+  <sc-if value="{{hasRows}}" hint-placeholder-val="{{ true }}">
+    <div style="margin: 20px 4px 8px; font-size: 17px; font-weight: 600">Rows</div>
+    <div style="display: flex; flex-direction: column; gap: 8px">
+      <sc-for list="{{rows}}" as="r" hint-placeholder-count="4"><dc-import name="ProductRow" title="{{r.title}}" meta="{{r.meta}}" price="{{r.price}}" lv="{{r.lv}}" img="{{r.img}}" chips="{{r.chips}}" qty="{{r.qty}}" control="{{r.control}}" fav="{{r.fav}}" alert="{{r.alert}}" hint-size="358px,128px"></dc-import></sc-for>
+    </div>
+    <div style="margin: 20px 4px 8px; font-size: 17px; font-weight: 600">One-line rows</div>
+    <div style="background: #ffffff; border-radius: 22px; overflow: hidden">
+      <sc-for list="{{lines}}" as="r" hint-placeholder-count="3"><dc-import name="ProductRow" title="{{r.title}}" meta="{{r.meta}}" price="{{r.price}}" lv="{{r.lv}}" img="{{r.img}}" qty="{{r.qty}}" control="{{r.control}}" fav="{{r.fav}}" alert="{{r.alert}}" size="line" framed="{{no}}" divider="{{r.divider}}" hint-size="358px,64px"></dc-import></sc-for>
+    </div>
+  </sc-if>
+
+  <sc-if value="{{isEmpty}}" hint-placeholder-val="{{ false }}">
+    <div style="margin-top: 20px; padding: 32px 24px; border-radius: 22px; background: #ffffff; display: flex; flex-direction: column; align-items: center; text-align: center">
+      <dc-import name="Sym" sym="cart" size="{{s40}}" color="#aeaeb2" hint-size="40px,40px"></dc-import>
+      <div style="margin-top: 12px; font-size: 20px; font-weight: 600">Your cart is empty</div>
+      <div style="margin-top: 6px; font-size: 15px; line-height: 1.4; color: #6b6656">Scan a product or add a list from a photo. Everything you add is checked for your household.</div>
+      <button style="margin-top: 18px; min-height: 50px; padding: 0 24px; border: 0; border-radius: 9999px; background: #eb9d15; color: #232323; font-size: 17px; font-weight: 600; cursor: pointer">Scan a product</button>
+    </div>
+  </sc-if>
+
+  <div style="margin: 16px 4px 0; font-size: 13px; line-height: 1.4; color: #6b6656">{{findings}}</div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"data":{"editor":"enum","options":["demo","worst","empty"],"default":"worst"},"$preview":{"width":390,"height":1240}}'>
+class Component extends DCLogic {
+  constructor(props) { super(props); this.state = { data: props.data || 'worst' }; }
+  renderVals() {
+    const s = this.state;
+    const POP = '/_blob/58077391b4e19dddae5d17a63751ab9c', BC = '/_blob/009819ab8d0ecae0eba8e43b443ffd2b';
+    const DEMO = {
+      rows: [
+        { title: 'Boulder Canyon Kettle Chips, Olive Oil', meta: 'Boulder Canyon · 5.25 oz', price: '$4.49', lv: 'good', img: BC, chips: [{ lv: 'good', text: 'Olive oil' }], qty: 0, control: 'add' },
+        { title: 'PopCorners Popped Corn Chips, Kettle', meta: 'PopCorners · 3 oz', price: '$4.29', lv: 'bad', img: POP, chips: [{ lv: 'bad', text: 'Sunflower oil' }], qty: 1, control: 'add' }
+      ],
+      lines: [
+        { title: 'Hillside Greek Yogurt, Plain 2%', meta: 'Hillside · 32 oz', price: '$5.49', lv: 'good', img: '', qty: 0, control: 'chevron' },
+        { title: 'Northfield Creamy Peanut Butter, 16 oz', meta: 'Northfield · 16 oz', price: '$3.29', lv: 'bad', img: '', qty: 0, control: 'cart', fav: true, alert: 'Peanut · Mia is allergic' }
+      ]
+    };
+    // worst case, spread across the first rows: long, unbreakable, one letter, non-Latin, missing fields, extremes
+    const WORST = {
+      rows: [
+        { title: 'Organic Unsweetened Vanilla Almond and Coconut Barista Blend Plant-Based Beverage, Family Size, 96 fl oz', meta: 'Some Really Long Brand Name Natural Foods Company · 96 fl oz · $0.13/fl oz', price: '$12,499.99', lv: 'careful', img: '', chips: [{ lv: 'careful', text: 'Contains added cane sugar and natural flavors' }, { lv: 'good', text: 'No seed oils' }, { lv: 'good', text: '1 g protein' }], qty: 99, control: 'add' },
+        { title: 'SupercalifragilisticProteinCrunchBarVarietyPackWithExtraLongUnbrokenName', meta: '', price: '', lv: 'unknown', img: '', chips: [{ lv: 'unknown', text: 'No ingredient list in our data' }], qty: 0, control: 'add' },
+        { title: 'Q', meta: 'Q', price: '$0.99', lv: 'good', img: POP, chips: [], qty: 1, control: 'select' },
+        { title: '抹茶ラテ 無糖 Matcha Latte, Unsweetened, 12 × 330 ml', meta: 'Kyoto Tea House · 12 pack', price: '$34.00', lv: 'bad', img: BC, chips: [{ lv: 'bad', text: 'Milk: severe allergy for Mia and Leo' }], qty: 0, control: 'add', fav: true, alert: 'Milk · Mia and Leo are allergic' }
+      ],
+      lines: [
+        { title: 'Organic Unsweetened Vanilla Almond and Coconut Barista Blend, 96 fl oz', meta: 'Some Really Long Brand Name Natural Foods Company', price: '$12,499.99', lv: 'careful', img: '', qty: 0, control: 'chevron' },
+        { title: 'Northfield Creamy Peanut Butter, 16 oz', meta: '', price: '', lv: 'bad', img: '', qty: 0, control: 'cart', fav: true, alert: 'Peanut, tree nuts and sesame · Mia, Leo and Sam are allergic' },
+        { title: 'Q', meta: '', price: '', lv: 'unknown', img: '', qty: 12, control: 'stepper' }
+      ]
+    };
+    const set = s.data === 'demo' ? DEMO : WORST;
+    const norm = (r, i) => Object.assign({ fav: false, alert: '', chips: [], divider: i > 0 }, r);
+    const tabs = [['demo', 'Demo data'], ['worst', 'Worst case'], ['empty', 'Empty']].map(([id, label]) => ({ label, sel: s.data === id ? 'true' : 'false', pick: () => this.setState({ data: id }),
+      style: 'min-height: 32px; border-radius: 7px; border: 0; font-size: 13px; cursor: pointer; font-weight: ' + (s.data === id ? '600' : '500') + '; background: ' + (s.data === id ? '#ffffff' : 'transparent') + '; box-shadow: ' + (s.data === id ? '0 3px 8px rgba(0,0,0,0.12), 0 3px 1px rgba(0,0,0,0.04)' : 'none') + ';' }));
+    return {
+      s40: 40, no: false, tabs, isEmpty: s.data === 'empty', hasRows: s.data !== 'empty',
+      rows: set.rows.map(norm), lines: set.lines.map(norm),
+      findings: s.data === 'worst' ? 'Names clamp to two lines and unbroken words wrap. Missing photos show a bag, missing prices and brands leave no gap, the control column never moves, and 99 still fits the stepper.' : s.data === 'empty' ? 'The empty cart names the next step instead of showing a blank list.' : 'Everyday data.'
+    };
+  }
+}
+</script>
+</body>
+</html>

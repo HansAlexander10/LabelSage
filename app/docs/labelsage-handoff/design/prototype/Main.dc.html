@@ -1,0 +1,476 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Product detail</title>
+<script src="./support.js"></script>
+<link rel="stylesheet" href="ds/aishoppingagent/tokens.css">
+</head>
+<body>
+<x-dc>
+<helmet>
+<style>
+@import url("https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&display=swap");
+body{margin:0;font-family:"Outfit","SF Pro Rounded",ui-rounded,-apple-system,system-ui,sans-serif;-webkit-font-smoothing:antialiased}
+a{color:#26834e}a:hover{color:#1b6b3e}
+button{font-family:inherit;color:inherit}
+button:focus-visible{outline:2px solid #1b6b3e;outline-offset:2px}
+@keyframes flag-bad{0%{box-shadow:0 0 0 0 rgba(239,75,63,.6)}70%{box-shadow:0 0 0 14px rgba(239,75,63,0)}100%{box-shadow:0 0 0 0 rgba(239,75,63,0)}}
+@keyframes flag-careful{0%{box-shadow:0 0 0 0 rgba(255,212,73,.65)}70%{box-shadow:0 0 0 14px rgba(255,212,73,0)}100%{box-shadow:0 0 0 0 rgba(255,212,73,0)}}
+@keyframes flag-good{0%{box-shadow:0 0 0 0 rgba(29,191,115,.55)}70%{box-shadow:0 0 0 14px rgba(29,191,115,0)}100%{box-shadow:0 0 0 0 rgba(29,191,115,0)}}
+.clamp2{display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.one{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+@media (prefers-reduced-motion:reduce){[style*="animation"]{animation:none !important}}
+@keyframes ai-shimmer{0%{background-position:-240px 0}100%{background-position:240px 0}}
+@keyframes ai-pulse{0%,100%{transform:scale(1);opacity:1}50%{transform:scale(1.18);opacity:.65}}
+@keyframes ai-in{from{opacity:0;transform:translateY(4px)}to{opacity:1;transform:none}}
+.ai-bar{height:12px;border-radius:6px;background:linear-gradient(90deg,#ececf0 0%,#dedee3 40%,#ececf0 80%);background-size:480px 12px;animation:ai-shimmer 1.4s linear infinite}
+.ai-spark{display:inline-flex;animation:ai-pulse 1.2s ease-in-out infinite}
+.ai-text{animation:ai-in .35s ease-out both}
+@media (prefers-reduced-motion:reduce){.ai-bar,.ai-spark,.ai-text{animation:none}}
+@keyframes hero-blur{to{filter:blur(22px) saturate(1.2);transform:scale(1.14);opacity:.5}}
+.hero-img{animation:hero-blur linear both;animation-timeline:scroll(nearest block);animation-range:0 460px}
+@keyframes mini-in{from{opacity:0;transform:translateY(-10px);visibility:hidden}to{opacity:1;transform:none;visibility:visible}}
+.mini-bar{animation:mini-in linear both;animation-timeline:scroll(nearest block);animation-range:400px 480px}
+@supports not (animation-timeline:scroll()){.mini-bar{display:none}}
+@media (prefers-reduced-motion:reduce){.hero-img{animation:none}}
+:root{--ease-out:cubic-bezier(0.23,1,0.32,1);--ease-drawer:cubic-bezier(0.32,0.72,0,1)}button,a{-webkit-tap-highlight-color:transparent;transition:transform 160ms var(--ease-out),background-color 160ms var(--ease-out)}button:active,a:active{transform:scale(0.97)}[role=radio]:active,[role=checkbox]:active,[role=option]:active,[role=menuitem]:active,[role=switch]:active{transform:none;background-color:rgba(118,118,128,0.12) !important}::selection{background:rgba(38,131,78,0.22)}@keyframes rc-sheet{from{transform:translateY(100%)}to{transform:none}}@keyframes rc-scrim{from{opacity:0}to{opacity:1}}@keyframes rc-pop{from{opacity:0;transform:scale(0.95)}to{opacity:1;transform:none}}.rc-sheet{animation:rc-sheet 420ms var(--ease-drawer) both}.rc-scrim{animation:rc-scrim 220ms var(--ease-out) both}.rc-pop{animation:rc-pop 180ms var(--ease-out) both}@media (prefers-reduced-motion:reduce){button:active,a:active{transform:none}.rc-sheet,.rc-pop{animation:rc-scrim 200ms ease both}}@media (prefers-reduced-transparency:reduce){[style*=backdrop-filter]{backdrop-filter:none !important;-webkit-backdrop-filter:none !important}}</style>
+<style>/* Liquid Glass (navigation layer only, per HIG). Frosted base everywhere; refraction where backdrop SVG filters work (Chromium). */:root{--lg-bg:rgba(255,255,255,0.52);--lg-bg-thick:rgba(255,255,255,0.8);--lg-bg-dark:rgba(255,255,255,0.14);--lg-edge:rgba(255,255,255,0.7);--lg-edge-dark:rgba(255,255,255,0.3);--lg-fx:blur(14px) saturate(180%);--lg-shadow:inset 0 0 2px 1px rgba(255,255,255,0.6),inset 0 0 10px 4px rgba(255,255,255,0.22),inset 0 4px 16px rgba(17,17,26,0.05),inset 0 8px 24px rgba(17,17,26,0.05),0 6px 20px rgba(0,0,0,0.10);--lg-shadow-float:inset 0 0 2px 1px rgba(255,255,255,0.6),inset 0 0 10px 4px rgba(255,255,255,0.22),0 12px 36px rgba(0,0,0,0.16);--lg-shadow-dark:inset 0 0 2px 1px rgba(255,255,255,0.35),inset 0 0 10px 4px rgba(255,255,255,0.12),0 6px 20px rgba(0,0,0,0.25)}@supports (not (font:-apple-system-body)) and (not (-moz-appearance:none)){:root{--lg-fx:url(#lg-filter) blur(2px) saturate(1.7)}}@media (prefers-reduced-transparency:reduce){:root{--lg-bg:rgba(255,255,255,0.97);--lg-bg-thick:#ffffff;--lg-bg-dark:rgba(44,44,46,0.94);--lg-fx:none}}@media (prefers-contrast:more){:root{--lg-edge:rgba(0,0,0,0.35);--lg-edge-dark:rgba(255,255,255,0.7)}}</style>
+</helmet>
+<div style="{{rootStyle}}; color: #1d2b22; font-family: 'Outfit', 'SF Pro Rounded', ui-rounded, -apple-system, system-ui, sans-serif"><svg aria-hidden="true" focusable="false" width="0" height="0" style="position: absolute; width: 0; height: 0; overflow: hidden"><defs><filter id="lg-filter" color-interpolation-filters="sRGB" x="0%" y="0%" width="100%" height="100%"><feImage x="0" y="0" width="100%" height="100%" preserveAspectRatio="none" result="map" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAIAAAACACAIAAABMXPacAAABRElEQVR42u3ZQQqDMBRF0RcNMbrqLr0DEdoN9ENzLo4cviMisbX2asmW9GQkI5nJTM6P63ruHMmRjKQne7JFSbIl+zPgPdGZzOT6nvEedjwDbklLepoBK+se42qAboRagGEEAEsDTCMAWBrgNAIAAAKwLMBlBF9BXkGqAziMAGBpAGdBxQCOo4sBdiPUAvgjVpr5AQAQAAACAEAAAAgAAAEAIAAABACAAAAQAAACAEAAAAgAAAEAIAAABACAAAAQAAACAEAAAAgAAAEAIAAABACAAAAQAAACAEAAAAgAAAEAIAAABAAAABMAACAAAAQAgAAAEAAAAgBAAAAIAAABACAAAATgL+sIqgF2I9QCdCPUAgwj1AIcRgCwNMBphFqAaYRagMsIXkEABACAfAUB0O8BnAUBWBvAcXQxgD9ixQDNCJW9Aa7lA8768ue5AAAAAElFTkSuQmCC"></feImage><feDisplacementMap in="SourceGraphic" in2="map" result="dispRed" scale="-14" xChannelSelector="R" yChannelSelector="G"></feDisplacementMap><feColorMatrix in="dispRed" type="matrix" values="1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0" result="red"></feColorMatrix><feDisplacementMap in="SourceGraphic" in2="map" result="dispGreen" scale="-17" xChannelSelector="R" yChannelSelector="G"></feDisplacementMap><feColorMatrix in="dispGreen" type="matrix" values="0 0 0 0 0 0 1 0 0 0 0 0 0 0 0 0 0 0 1 0" result="green"></feColorMatrix><feDisplacementMap in="SourceGraphic" in2="map" result="dispBlue" scale="-20" xChannelSelector="R" yChannelSelector="G"></feDisplacementMap><feColorMatrix in="dispBlue" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 1 0 0 0 0 0 1 0" result="blue"></feColorMatrix><feBlend in="red" in2="green" mode="screen" result="rg"></feBlend><feBlend in="rg" in2="blue" mode="screen" result="output"></feBlend><feGaussianBlur in="output" stdDeviation="2"></feGaussianBlur></filter></defs></svg>
+
+<!-- COMPACT HEADER: the big photo scrolls away, then a small image, the name and the flag stay on top (page only) -->
+<sc-if value="{{isPage}}" hint-placeholder-val="{{ true }}">
+<div style="position: sticky; top: 0; z-index: 6; height: 0">
+  <div class="mini-bar" style="position: absolute; left: 0; right: 0; top: 0; height: 108px; padding: 50px 16px 0; box-sizing: border-box; display: flex; align-items: center; gap: 10px; background: rgba(255,255,255,0.92); backdrop-filter: blur(16px) saturate(180%); -webkit-backdrop-filter: blur(16px) saturate(180%); box-shadow: 0 1px 0 rgba(29,43,34,0.08)">
+    <span aria-hidden="true" style="flex: none; width: 44px; height: 44px; border-radius: 50%; display: grid; place-items: center"><dc-import name="Sym" sym="chevron.left" size="{{s20}}" hint-size="20px,20px"></dc-import></span>
+    <img src="/_blob/58077391b4e19dddae5d17a63751ab9c" alt="" style="flex: none; width: 44px; height: 44px; object-fit: contain">
+    <span style="flex: 1; min-width: 0"><span class="one" style="display: block; font-size: 16px; font-weight: 600">Popped Corn Chips, Kettle</span><span style="display: block; font-size: 13px; color: #5d6a60">{{verdictWord}}</span></span>
+    <span role="img" aria-label="{{verdictAria}}" style="{{signalMini}}"><dc-import name="Sym" sym="{{verdictSym}}" size="{{s20}}" hint-size="20px,20px"></dc-import></span>
+  </div>
+</div>
+</sc-if>
+<!-- MEDIA: photo, page dots bottom-left, verdict signal bottom-right -->
+<sc-if value="{{showMedia}}" hint-placeholder-val="{{ true }}">
+<div style="{{mediaStyle}}">
+  <sc-if value="{{isSheet}}" hint-placeholder-val="{{ false }}"><div aria-hidden="true" style="position: absolute; left: 50%; top: 8px; z-index: 2; width: 36px; height: 5px; margin-left: -18px; border-radius: 3px; background: #c9c4a8"></div></sc-if>
+  <img src="/_blob/58077391b4e19dddae5d17a63751ab9c" alt="PopCorners Popped Corn Chips, Kettle, 3 oz bag" class="hero-img" style="{{imgStyle}}; object-fit: contain; mix-blend-mode: multiply">
+
+  <sc-if value="{{isPage}}" hint-placeholder-val="{{ true }}"><div style="position: absolute; left: 16px; right: 16px; top: 54px; display: flex; justify-content: space-between">
+    <button aria-label="Back" style="width: 44px; height: 44px; border-radius: 50%; border: 0.5px solid var(--lg-edge); background: var(--lg-bg); box-shadow: var(--lg-shadow); backdrop-filter: var(--lg-fx); -webkit-backdrop-filter: var(--lg-fx); display: grid; place-items: center; cursor: pointer"><dc-import name="Sym" sym="chevron.left" size="{{s20}}" hint-size="20px,20px"></dc-import></button>
+    <div style="display: flex; gap: 8px">
+      <button aria-label="{{favAria}}" aria-pressed="{{favPressed}}" onClick="{{toggleFav}}" style="width: 44px; height: 44px; border-radius: 50%; border: 0.5px solid var(--lg-edge); background: var(--lg-bg); box-shadow: var(--lg-shadow); backdrop-filter: var(--lg-fx); -webkit-backdrop-filter: var(--lg-fx); display: grid; place-items: center; cursor: pointer"><dc-import name="Sym" sym="{{favSym}}" size="{{s20}}" color="{{favColor}}" hint-size="20px,20px"></dc-import></button>
+    </div>
+  </div></sc-if>
+
+  <!-- page control (UIPageControl style) -->
+  <div role="tablist" aria-label="Product photos" style="position: absolute; left: 50%; bottom: 46px; transform: translateX(-50%); display: flex; align-items: center; gap: 2px; padding: 0 6px; height: 28px; border-radius: 9999px; background: var(--lg-bg); box-shadow: var(--lg-shadow); backdrop-filter: var(--lg-fx); -webkit-backdrop-filter: var(--lg-fx)">
+    <sc-for list="{{photos}}" as="p" hint-placeholder-count="3">
+      <button role="tab" aria-selected="{{p.selected}}" aria-label="{{p.aria}}" onClick="{{p.pick}}" style="width: 18px; height: 28px; border: 0; padding: 0; background: transparent; display: grid; place-items: center; cursor: pointer"><span style="{{p.dot}}"></span></button>
+    </sc-for>
+  </div>
+
+  <!-- verdict signal: one symbol, no text -->
+  <div role="img" aria-label="{{verdictAria}}" style="{{signalStyle}}">
+    <dc-import name="Sym" sym="{{verdictSym}}" size="{{s34}}" hint-size="34px,34px"></dc-import>
+  </div>
+</div>
+</sc-if>
+<sc-if value="{{noMedia}}" hint-placeholder-val="{{ false }}"><div style="position: relative; background: #ffffff; padding-top: 22px"><div aria-hidden="true" style="position: absolute; left: 50%; top: 8px; width: 36px; height: 5px; margin-left: -18px; border-radius: 3px; background: #c9c4a8"></div><div role="img" aria-label="{{verdictAria}}" style="{{signalSmall}}"><dc-import name="Sym" sym="{{verdictSym}}" size="{{s26}}" hint-size="26px,26px"></dc-import></div></div></sc-if>
+
+<!-- CONTENT slides over the sticky hero, which blurs as you scroll -->
+<div style="{{contentStyle}}">
+<!-- TITLE -->
+<div style="background: #ffffff; padding: 16px 20px 18px">
+  <div style="font-size: 15px; color: #6b6656">PopCorners</div>
+  <h1 style="margin: 2px 0 0; font-size: 26px; line-height: 1.15; font-weight: 700; letter-spacing: -0.01em; color: #1c1c1e">Popped Corn Chips, Kettle</h1>
+  <div style="margin-top: 6px; display: flex; align-items: baseline; gap: 8px">
+    <span style="font-size: 17px; color: #4a4740">3 oz · 3 servings of 28 g</span>
+  </div>
+  <div style="margin-top: 4px; font-size: 13px; color: #8c8775">Chips &amp; snacks · PepsiCo</div>
+</div>
+
+<!-- FOR YOU · at a glance -->
+<div style="margin: 16px 16px 0">
+  <div style="display: flex; align-items: flex-end; justify-content: space-between; margin: 0 0 6px 4px"><h2 style="margin: 0 0 4px; font-size: 22px; font-weight: 700; color: #1d2b22">For you</h2><sc-if value="{{lwOn}}" hint-placeholder-val="{{ true }}"><div aria-hidden="true" style="flex: none; margin-right: 8px"><dc-import name="Mascot" tight="{{yes}}" state="{{lwState}}" size="36" hint-size="36px,56px"></dc-import></div></sc-if></div>
+  <div style="position: relative; background: #ffffff; border-radius: 26px; overflow: hidden; box-shadow: 0 1px 2px rgba(29,43,34,0.04), 0 10px 26px rgba(29,43,34,0.05)">
+    <div style="{{verdictStyle}}">
+      <dc-import name="Sym" sym="{{verdictSym}}" size="{{s28}}" hint-size="28px,28px"></dc-import>
+      <div style="flex: 1; min-width: 0">
+        <div style="font-size: 17px; font-weight: 600">{{verdictWord}}</div>
+        <sc-if value="{{detShown}}" hint-placeholder-val="{{ true }}"><div style="font-size: 15px; line-height: 1.33; color: #4a4740; margin-top: 1px">{{verdictReason}}</div></sc-if>
+        <sc-if value="{{aiShown}}" hint-placeholder-val="{{ false }}"><div class="ai-text" style="font-size: 15px; line-height: 1.38; color: #232323; margin-top: 2px">{{aiReason}}</div></sc-if>
+        <sc-if value="{{hasSwap}}" hint-placeholder-val="{{ true }}">
+          <a href="Compare.dc.html" style="margin-top: 10px; display: flex; align-items: center; gap: 10px; padding: 8px 10px 8px 8px; border-radius: 16px; background: #ffffff; text-decoration: none; color: #232323">
+            <img src="/_blob/009819ab8d0ecae0eba8e43b443ffd2b" alt="" style="flex: none; width: 40px; height: 40px; object-fit: contain">
+            <span style="flex: 1; min-width: 0"><span style="display: block; font-size: 12px; color: #6b6656">Try instead</span><span style="display: block; font-size: 15px; font-weight: 600; white-space: nowrap; overflow: hidden; text-overflow: ellipsis">Boulder Canyon Olive Oil Chips</span></span>
+            <span style="flex: none; font-size: 15px; font-weight: 600; color: #26834e">Compare</span>
+          </a>
+        </sc-if>
+        <div style="margin-top: 8px; font-size: 12px; color: #6b6656">Check the package. Not medical advice.</div>
+      </div>
+    </div>
+    <sc-for list="{{stats}}" as="st" hint-placeholder-count="5">
+      <div style="display: flex; align-items: center; gap: 8px; min-height: 48px; margin: 0 16px; border-top: 1px solid #e5e5ea">
+        <span style="flex: 1; font-size: 17px">{{st.label}}</span>
+        <span style="{{st.valStyle}}">{{st.value}}</span>
+        <sc-if value="{{st.dot}}" hint-placeholder-val="{{ false }}"><span style="{{st.dotStyle}}"></span></sc-if>
+        <sc-if value="{{st.unknown}}" hint-placeholder-val="{{ false }}"><dc-import name="Sym" sym="questionmark.circle.fill" size="{{s18}}" label="Can’t confirm: the pack does not say" hint-size="18px,18px"></dc-import></sc-if>
+      </div>
+    </sc-for>
+
+    <!-- Your rules: disclosure -->
+    <button aria-expanded="{{rulesOpen}}" onClick="{{toggleRules}}" style="width: 100%; display: flex; align-items: center; gap: 10px; min-height: 52px; padding: 0 16px; border: 0; border-top: 1px solid #e5e5ea; background: #fbf8f1; cursor: pointer; text-align: left">
+      <dc-import name="Sym" sym="slider.horizontal.3" size="{{s18}}" color="#26834e" hint-size="18px,18px"></dc-import>
+      <span style="flex: 1; font-size: 17px; font-weight: 600; color: #1b6b3e; white-space: nowrap">What you avoid</span>
+      <span style="font-size: 14px; color: #4a4740; white-space: nowrap">{{rulesSummary}}</span>
+      <span style="{{rulesChev}}"><dc-import name="Sym" sym="chevron.down" size="{{s14}}" color="#6b6656" hint-size="14px,14px"></dc-import></span>
+    </button>
+    <sc-if value="{{rulesOpen}}" hint-placeholder-val="{{ false }}">
+      <div style="background: #fbf8f1; padding: 0 16px 10px">
+        <sc-for list="{{rules}}" as="r" hint-placeholder-count="5">
+          <div style="display: flex; align-items: center; gap: 10px; min-height: 48px; border-top: 1px solid #e5e5ea">
+            <span style="flex: 1; font-size: 17px">{{r.label}}</span>
+            <button role="switch" aria-checked="{{r.checked}}" aria-label="{{r.label}}" onClick="{{r.toggle}}" style="{{r.trackStyle}}"><span style="{{r.knobStyle}}"></span></button>
+          </div>
+        </sc-for>
+        <div style="padding-top: 4px; font-size: 13px; color: #6b6656">Turning one off changes this check only, not your profile.</div>
+      </div>
+    </sc-if>
+  </div>
+</div>
+
+<!-- OTHER OPTIONS: three cards, tap one to compare -->
+<div style="margin: 24px 0 0">
+  <div style="display: flex; align-items: center; justify-content: space-between; padding: 0 20px 8px">
+    <h2 style="margin: 0; font-size: 22px; font-weight: 700">Other options for you</h2>
+    <a href="Pick.dc.html" style="font-size: 15px; font-weight: 600; text-decoration: none; color: #1b6b3e">See all</a>
+  </div>
+  <div id="alts" style="display: flex; gap: 12px; overflow-x: auto; padding: 0 16px 6px; scrollbar-width: none">
+    <sc-for list="{{alts}}" as="a" hint-placeholder-count="3">
+      <a href="Compare.dc.html" aria-label="{{a.aria}}" style="flex: none; width: 204px; padding: 10px; box-sizing: border-box; background: #ffffff; border-radius: 26px; box-shadow: 0 1px 2px rgba(29,43,34,0.04), 0 10px 26px rgba(29,43,34,0.05); display: flex; flex-direction: column; gap: 6px; text-decoration: none; color: #1d2b22">
+        <div style="position: relative; height: 132px; border-radius: 18px; background: {{a.tint}}; overflow: hidden; display: grid; place-items: center">
+          <sc-if value="{{a.img}}" hint-placeholder-val="{{ false }}"><img src="{{a.img}}" alt="" style="width: 100%; height: 100%; object-fit: contain; mix-blend-mode: multiply"></sc-if>
+          <sc-if value="{{a.noImg}}" hint-placeholder-val="{{ false }}"><img src="emoji3d/{{a.icon}}" alt="" width="64" height="64"></sc-if>
+        </div>
+        <div style="display: flex; align-items: center; gap: 5px; font-size: 13px; font-weight: 600; color: #1b6b3e"><dc-import name="Sym" sym="checkmark.circle" size="{{s14}}" label="OK" hint-size="14px,14px"></dc-import>OK for you and Mia</div>
+        <div class="clamp2" style="font-size: 16px; font-weight: 600; line-height: 20px; height: 40px">{{a.name}}</div>
+        <div class="one" style="font-size: 13px; color: #5d6a60">{{a.meta}}</div>
+        <div style="display: flex; align-items: center; justify-content: space-between; margin-top: 2px">
+          <span style="font-size: 17px; font-weight: 700">{{a.price}}</span>
+          <span style="display: flex; align-items: center; gap: 4px; font-size: 14px; font-weight: 600; color: #1b6b3e"><dc-import name="Sym" sym="arrow.left.arrow.right" size="{{s14}}" color="#1b6b3e" hint-size="14px,14px"></dc-import>Compare</span>
+        </div>
+      </a>
+    </sc-for>
+  </div>
+</div>
+
+<!-- KEY INGREDIENTS -->
+<div style="margin: 24px 16px 0">
+  <h2 style="margin: 0 0 8px 4px; font-size: 22px; font-weight: 700; color: #1d2b22">Key ingredients <span style="font-weight: 400; color: #6b6656">4</span></h2>
+  <div style="position: relative; background: #ffffff; border-radius: 26px; overflow: hidden; box-shadow: 0 1px 2px rgba(29,43,34,0.04), 0 10px 26px rgba(29,43,34,0.05)">
+    <sc-for list="{{ingredients}}" as="g" hint-placeholder-count="3">
+      <div style="{{g.wrapStyle}}">
+        <button aria-expanded="{{g.open}}" onClick="{{g.toggle}}" style="width: 100%; min-height: 60px; display: flex; align-items: center; gap: 12px; padding: 8px 16px; background: none; border: 0; text-align: left; cursor: pointer">
+          <dc-import name="Sym" sym="{{g.sym}}" size="{{s22}}" label="{{g.word}}" hint-size="22px,22px"></dc-import>
+          <div style="flex: 1; min-width: 0">
+            <div style="font-size: 17px">{{g.name}}</div>
+            <div style="font-size: 13px; color: #6b6656; margin-top: 1px">{{g.tone}}</div>
+          </div>
+          <span style="{{g.chevStyle}}"><dc-import name="Sym" sym="chevron.down" size="{{s14}}" color="#6b6656" hint-size="14px,14px"></dc-import></span>
+        </button>
+        <sc-if value="{{g.open}}" hint-placeholder-val="{{ false }}">
+          <div style="padding: 0 16px 14px 50px">
+            <p style="margin: 0; font-size: 15px; line-height: 1.4; color: #4a4740">{{g.why}}</p>
+            <a href="#ingredient" style="display: inline-block; margin-top: 6px; font-size: 15px; font-weight: 500; text-decoration: none">More about {{g.lower}}</a>
+          </div>
+        </sc-if>
+      </div>
+    </sc-for>
+    <button aria-expanded="{{allShown}}" onClick="{{toggleAll}}" style="width: 100%; min-height: 48px; display: flex; align-items: center; justify-content: center; gap: 6px; border: 0; border-top: 1px solid #e5e5ea; background: transparent; font-size: 15px; font-weight: 500; color: #26834e; cursor: pointer">{{allLabel}}<span style="{{allChev}}"><dc-import name="Sym" sym="chevron.down" size="{{s12}}" color="#26834e" hint-size="12px,12px"></dc-import></span></button>
+  </div>
+</div>
+
+<!-- NUTRITION: calorie donut (share of calories by macro), two key facts, full label on demand -->
+<div style="margin: 24px 16px 0">
+  <h2 style="margin: 0 0 8px 4px; font-size: 22px; font-weight: 700; color: #1d2b22">Nutrition</h2>
+  <div style="position: relative; background: #ffffff; border-radius: 26px; overflow: hidden; box-shadow: 0 1px 2px rgba(29,43,34,0.04), 0 10px 26px rgba(29,43,34,0.05)">
+    <div style="padding: 20px 16px 18px; display: flex; flex-direction: column; align-items: center">
+      <div role="img" aria-label="{{donutAria}}" style="position: relative; width: 168px; height: 168px">
+        <svg viewBox="0 0 168 168" width="168" height="168" aria-hidden="true" style="position: absolute; inset: 0; transform: rotate(-90deg)">
+          <circle cx="84" cy="84" r="72" style="fill: none; stroke: #e5e5ea; stroke-width: 12px"></circle>
+          <sc-for list="{{macros}}" as="m" hint-placeholder-count="3">
+            <circle cx="84" cy="84" r="72" style="{{m.arc}}"></circle>
+          </sc-for>
+        </svg>
+        <div style="position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center">
+          <span style="font-size: 40px; font-weight: 700; line-height: 1; letter-spacing: -0.02em; font-variant-numeric: tabular-nums">{{kcal}}</span>
+          <span style="margin-top: 4px; font-size: 11px; font-weight: 600; color: #4a4740">Calories</span>
+          <span style="margin-top: 2px; font-size: 12px; color: #6b6656">{{kcalBasis}}</span>
+        </div>
+      </div>
+      <div style="margin-top: 18px; width: 100%; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr))">
+        <sc-for list="{{macros}}" as="m" hint-placeholder-count="3">
+          <div style="display: flex; flex-direction: column; align-items: center; gap: 6px">
+            <span aria-hidden="true" style="{{m.chip}}"><span style="font-size: 15px; font-weight: 700; font-variant-numeric: tabular-nums">{{m.gNum}}</span><span style="font-size: 11px; font-weight: 600; color: #6b6656; margin-top: 1px">g</span></span>
+            <span style="display: flex; align-items: center; gap: 3px; font-size: 14px; font-weight: 600">{{m.upper}}<sc-if value="{{m.flag}}" hint-placeholder-val="{{ false }}"><dc-import name="Sym" sym="exclamationmark.triangle" size="{{s14}}" label="Check first" hint-size="14px,14px"></dc-import></sc-if></span>
+            <span style="font-size: 13px; color: #6b6656; font-variant-numeric: tabular-nums">{{m.cal}} · {{m.pct}}</span>
+          </div>
+        </sc-for>
+      </div>
+    </div>
+    <div style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); padding: 12px 4px; border-top: 1px solid #e5e5ea">
+      <sc-for list="{{facts}}" as="f" hint-placeholder-count="2">
+        <div style="{{f.cellStyle}}">
+          <div style="display: flex; align-items: center; justify-content: center; gap: 3px">
+            <span style="font-size: 20px; font-weight: 600; font-variant-numeric: tabular-nums">{{f.value}}</span>
+            <sc-if value="{{f.flag}}" hint-placeholder-val="{{ false }}"><dc-import name="Sym" sym="{{f.sym}}" size="{{s14}}" label="{{f.flagWord}}" hint-size="14px,14px"></dc-import></sc-if>
+          </div>
+          <div style="font-size: 12px; color: #6b6656; margin-top: 2px">{{f.label}}</div>
+        </div>
+      </sc-for>
+    </div>
+    <button aria-expanded="{{nutOpen}}" onClick="{{toggleNut}}" style="width: 100%; min-height: 48px; display: flex; align-items: center; gap: 8px; padding: 0 16px; border: 0; border-top: 1px solid #e5e5ea; background: transparent; text-align: left; cursor: pointer">
+      <span style="flex: 1; font-size: 17px">Full nutrition facts</span>
+      <span style="font-size: 15px; color: #6b6656">per 28 g serving</span>
+      <span style="{{nutChev}}"><dc-import name="Sym" sym="chevron.down" size="{{s14}}" color="#6b6656" hint-size="14px,14px"></dc-import></span>
+    </button>
+    <sc-if value="{{nutOpen}}" hint-placeholder-val="{{ false }}">
+      <div style="padding: 0 16px 12px">
+        <div style="display: flex; justify-content: flex-end; padding: 4px 0 6px">
+          <div style="display: flex; padding: 2px; border-radius: 8px; background: rgba(118,118,128,0.14)">
+            <button aria-pressed="{{perServing}}" onClick="{{setServing}}" style="{{servingStyle}}">Serving</button>
+            <button aria-pressed="{{per100}}" onClick="{{set100}}" style="{{hundredStyle}}">100 g</button>
+          </div>
+        </div>
+        <sc-for list="{{nutrition}}" as="n" hint-placeholder-count="8">
+          <div style="{{n.rowStyle}}">
+            <span style="{{n.labelStyle}}">{{n.label}}</span>
+            <span style="margin-left: auto; font-size: 15px; font-variant-numeric: tabular-nums">{{n.amount}}</span>
+            <span style="width: 40px; text-align: right; font-size: 13px; color: #6b6656; font-variant-numeric: tabular-nums">{{n.dv}}</span>
+          </div>
+        </sc-for>
+        <div style="padding-top: 8px; font-size: 12px; color: #6b6656">% Daily Value based on 2,000 kcal a day.</div>
+      </div>
+    </sc-if>
+  </div>
+</div>
+
+</div>
+
+</div>
+<!-- toast -->
+<sc-if value="{{toast}}" hint-placeholder-val="{{ false }}">
+  <div role="status" style="position: absolute; left: 16px; right: 16px; bottom: 100px; display: flex; align-items: center; gap: 10px; padding: 12px 14px; border-radius: 18px; background: #26834e; color: #ffffff">
+    <dc-import name="Sym" sym="checkmark" size="{{s18}}" color="#1dbf73" hint-size="18px,18px"></dc-import>
+    <div style="flex: 1; font-size: 15px">{{toast}}</div>
+    <button onClick="{{dismiss}}" style="min-height: 32px; padding: 0 12px; border-radius: 9999px; border: 0; background: #ffffff; color: #1b6b3e; font-size: 15px; font-weight: 600; cursor: pointer">{{toastAction}}</button>
+  </div>
+</sc-if>
+
+<!-- TOOLBAR · Liquid Glass. MVP: back to the chat, or check the next product -->
+<div style="{{barPos}}; display: flex; gap: 8px; align-items: center">
+  <div style="flex: 1; height: 62px; display: flex; align-items: center; gap: 6px; padding: 5px; box-sizing: border-box; border-radius: 9999px; border: 0.5px solid var(--lg-edge); background: var(--lg-bg); box-shadow: var(--lg-shadow); backdrop-filter: var(--lg-fx); -webkit-backdrop-filter: var(--lg-fx)">
+    <a href="Chat.dc.html" style="flex: none; height: 52px; padding: 0 16px; border-radius: 9999px; display: flex; align-items: center; gap: 6px; font-size: 16px; font-weight: 600; color: #1d2b22; text-decoration: none"><dc-import name="Sym" sym="sparkles" size="{{s18}}" hint-size="18px,18px"></dc-import>Ask {{mascotName}}</a>
+    <a href="Scan.dc.html" style="flex: 1; height: 52px; border-radius: 9999px; background: #eb9d15; color: #1d2b22; font-size: 17px; font-weight: 600; display: flex; align-items: center; justify-content: center; gap: 6px; text-decoration: none; box-shadow: 0 6px 18px rgba(235,157,21,0.3)"><dc-import name="Sym" sym="barcode.viewfinder" size="{{s18}}" color="#1d2b22" hint-size="18px,18px"></dc-import>Check another</a>
+  </div>
+</div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"as":{"editor":"enum","options":["page","sheet"],"default":"page"},"photo":{"editor":"enum","options":["show","hide"],"default":"show"},"from":{"editor":"enum","options":["chat","scan","page"],"default":"page"},"bought":{"editor":"boolean","default":false},"away":{"editor":"boolean","default":false},"$preview":{"width":390,"height":1900}}'>
+class Component extends DCLogic {
+  constructor(props) {
+    super(props);
+    this.state = { ai: false, fav: false, rules: { seed: true, sugar: true, gluten: true, protein: false, bio: false }, rulesOpen: false, open: 'oil', all: false, nutOpen: false, basis: 'serving', photo: 0, qty: 1, inCart: props.bought ? 1 : 0, toast: '', toastAction: 'Undo' };
+  }
+  componentDidMount() { this.t = setTimeout(() => this.setState({ ai: true }), 2400); }
+  componentWillUnmount() { clearTimeout(this.t); }
+  renderVals() {
+    const s = this.state;
+    const rank = { good: 0, careful: 1, bad: 2 };
+    const word = { good: 'OK', careful: 'Check first', bad: 'Not for you' };
+    const sym = { good: 'checkmark.circle', careful: 'exclamationmark.triangle', bad: 'nosign' };
+    const color = { good: '#1dbf73', careful: '#ffd449', bad: '#ef4b3f' };
+    const wash = { good: '#e4f7ee', careful: '#fff5cc', bad: '#ffe9e6' };
+    const defs = [
+      { id: 'seed', label: 'Avoid seed oils', level: 'bad', why: 'sunflower oil is the 2nd ingredient' },
+      { id: 'sugar', label: 'Limit added sugar', level: 'careful', why: '4 g added sugar per serving' },
+      { id: 'gluten', label: 'Gluten-free', level: 'good', why: 'labelled gluten free' },
+      { id: 'protein', label: 'Protein goal, 25 g a meal', level: 'careful', why: 'only 1 g protein per serving' },
+      { id: 'bio', label: 'Avoid bioengineered', level: 'careful', why: 'the corn is bioengineered' }
+    ];
+    const active = defs.filter((d) => s.rules[d.id]).sort((a, b) => rank[b.level] - rank[a.level]);
+    const verdict = active.length ? active[0].level : 'good';
+    const words = { good: 'OK for you', careful: 'Check first', bad: 'Not for you' };
+    const breaks = active.filter((d) => d.level === 'bad');
+    const cares = active.filter((d) => d.level === 'careful');
+    const fits = active.filter((d) => d.level === 'good');
+    const cap = (t) => t.charAt(0).toUpperCase() + t.slice(1);
+    let reason;
+    if (verdict === 'bad') reason = cap(breaks[0].why) + '. That’s on your avoid list.';
+    else if (verdict === 'careful') reason = cap(cares[0].why) + '. Nothing you avoid is in it.';
+    else reason = active.length ? 'Nothing you avoid is in it.' : 'Nothing to avoid is set. General check only.';
+
+    const dotS = (c) => 'width: 10px; height: 10px; border-radius: 50%; background: ' + c + ';';
+    const valS = 'font-size: 17px; color: #6b6656; font-variant-numeric: tabular-nums;';
+    const ingDefs = [
+      { id: 'corn', name: 'Yellow corn', rule: 'bio', base: 'careful', baseTone: 'Refined starch', why: 'Bioengineered corn. Mostly refined starch, 1 g fiber.' },
+      { id: 'oil', name: 'Sunflower oil', rule: 'seed', base: 'careful', baseTone: 'Seed oil', why: 'Seed oil, 2nd ingredient. Most of the 4.5 g fat.' },
+      { id: 'sugar', name: 'Cane sugar', rule: 'sugar', base: 'careful', baseTone: 'Added sugar', why: 'All 4 g of sugar is added. 8% daily value.' },
+      { id: 'salt', name: 'Sea salt', rule: null, base: 'good', baseTone: 'Seasoning', why: '105 mg sodium per serving, 5% of the daily value. Nothing you avoid.' }
+    ];
+    const levelOf = (g) => {
+      if (g.rule && s.rules[g.rule]) return defs.find((d) => d.id === g.rule).level;
+      return g.base === 'good' ? 'good' : 'careful';
+    };
+    const toneOf = (g, lv) => {
+      if (g.rule && s.rules[g.rule]) {
+        const d = defs.find((x) => x.id === g.rule);
+        return word[lv] + (lv === 'bad' ? ' · ' + d.label : ' · ' + d.label);
+      }
+      return word[lv] + ' · ' + g.baseTone.toLowerCase();
+    };
+    const levels = ingDefs.map(levelOf);
+    const concern = levels.filter((l) => l !== 'good').length;
+    const benefit = levels.length - concern;
+    const shown = s.all ? ingDefs : ingDefs.slice(0, 3);
+    const ingredients = shown.map((g, i) => {
+      const lv = levelOf(g); const isOpen = s.open === g.id;
+      return {
+        name: g.name, lower: g.name.toLowerCase(), why: g.why, sym: sym[lv], word: word[lv], tone: toneOf(g, lv), open: isOpen,
+        toggle: () => this.setState({ open: isOpen ? '' : g.id }),
+        chevStyle: 'line-height: 0;' + (isOpen ? ' transform: rotate(180deg);' : ''),
+        wrapStyle: i ? 'border-top: 1px solid #e5e5ea; margin-left: 50px;' : ''
+      };
+    }).map((g, i) => Object.assign(g, { wrapStyle: i ? 'border-top: 1px solid #e5e5ea;' : '' }));
+
+    const stats = [
+      { label: 'May contain', value: 'Not on the pack', dot: false, unknown: true, valStyle: valS }
+    ].concat(s.rules.protein ? [{ label: 'Protein toward goal', value: '1 of 25 g', dot: false, valStyle: valS }] : []);
+
+    const rules = defs.map((d) => {
+      const on = !!s.rules[d.id];
+      return {
+        label: d.label, checked: on ? 'true' : 'false',
+        toggle: () => { clearTimeout(this.t); this.setState({ rules: Object.assign({}, s.rules, { [d.id]: !on }), ai: false }); this.t = setTimeout(() => this.setState({ ai: true }), 1600); },
+        trackStyle: 'flex: none; position: relative; width: 51px; height: 31px; border-radius: 9999px; border: 0; padding: 0; cursor: pointer; background: ' + (on ? '#26834e' : 'rgba(107,102,86,0.24)') + ';',
+        knobStyle: 'position: absolute; top: 2px; left: ' + (on ? '22px' : '2px') + '; width: 27px; height: 27px; border-radius: 50%; background: #ffffff; box-shadow: 0 3px 8px rgba(0,0,0,0.15), 0 1px 1px rgba(0,0,0,0.16);'
+      };
+    });
+
+    const sugarOn = !!s.rules.sugar, protOn = !!s.rules.protein;
+    const facts = [
+      { value: '4 g', label: 'added sugar', flag: sugarOn, sym: sym.careful, flagWord: 'Check first' },
+      { value: '105 mg', label: 'sodium', flag: false }
+    ].map((f, i) => Object.assign(f, { cellStyle: 'text-align: center;' + (i ? ' border-left: 1px solid #e5e5ea;' : '') }));
+    // calorie donut: each macro's share of calories (4 kcal/g protein and carbs, 9 kcal/g fat); colours from the brand palette, not the verdict colours
+    const C = 2 * Math.PI * 72;
+    const MAC = [['Carbs', 20, 4, '#eb9d15', '#fcebc4', false], ['Fat', 4.5, 9, '#7e9086', '#e8ede9', false], ['Protein', 1, 4, '#26834e', '#e4f0df', protOn]];
+    const kcalSum = MAC.reduce((m, x) => m + x[1] * x[2], 0);
+    let at = 0;
+    const macros = MAC.map((x) => {
+      const kc = x[1] * x[2], share = kc / kcalSum, len = Math.max(0, share * C - 4);
+      const arc = 'fill: none; stroke: ' + x[3] + '; stroke-width: 12px; stroke-linecap: butt; stroke-dasharray: ' + len.toFixed(1) + ' ' + C.toFixed(1) + '; stroke-dashoffset: ' + (-at).toFixed(1) + ';';
+      at += share * C;
+      return { upper: x[0], gNum: String(x[1]), cal: Math.round(kc) + ' kcal', pct: Math.round(share * 100) + '%', flag: x[5], arc,
+        chip: 'width: 52px; height: 52px; border-radius: 50%; display: flex; align-items: baseline; justify-content: center; padding-top: 15px; box-sizing: border-box; gap: 1px; background: ' + x[4] + '; box-shadow: inset 0 0 0 3px ' + x[3] + ';' };
+    });
+    const donutAria = '120 calories per serving. ' + macros.map((m) => m.upper.toLowerCase() + ' ' + m.pct).join(', ') + ' of calories.';
+
+    const per = s.basis === 'serving';
+    const k = 100 / 28;
+    const N = [
+      ['Calories', 120, '', '', true], ['Total fat', 4.5, 'g', '6%', true], ['Saturated fat', 0.5, 'g', '3%', false],
+      ['Sodium', 105, 'mg', '5%', true], ['Total carbohydrate', 20, 'g', '7%', true], ['Dietary fiber', 1, 'g', '4%', false],
+      ['Added sugars', 4, 'g', '8%', false], ['Protein', 1, 'g', '', true]
+    ];
+    const nutrition = N.map((r, i) => {
+      const v = per ? r[1] : Math.round(r[1] * k * (r[1] >= 50 ? 1 : 10)) / (r[1] >= 50 ? 1 : 10);
+      return {
+        label: r[0], amount: v + (r[2] ? ' ' + r[2] : ''), dv: per ? r[3] : '',
+        labelStyle: 'font-size: 15px;' + (r[4] ? ' font-weight: 600;' : ' padding-left: 14px; color: #4a4740;'),
+        rowStyle: 'display: flex; align-items: center; gap: 6px; min-height: 40px;' + (i < N.length - 1 ? ' border-bottom: 1px solid #e5e5ea;' : '')
+      };
+    });
+    const seg = (on) => 'min-height: 28px; padding: 0 10px; border-radius: 7px; border: 0; font-size: 13px; cursor: pointer; font-weight: ' + (on ? '600' : '400') + '; background: ' + (on ? '#ffffff' : 'transparent') + '; box-shadow: ' + (on ? '0 1px 3px rgba(0,0,0,0.12)' : 'none') + ';';
+    const chev = (open) => 'line-height: 0;' + (open ? ' transform: rotate(180deg);' : '');
+
+    const photos = [0, 1, 2].map((i) => ({
+      selected: s.photo === i ? 'true' : 'false', aria: 'Photo ' + (i + 1) + ' of 3', pick: () => this.setState({ photo: i }),
+      dot: 'display: block; width: 7px; height: 7px; border-radius: 50%; background: ' + (s.photo === i ? '#232323' : 'rgba(0,0,0,0.28)') + ';'
+    }));
+
+    const summaries = {
+      bad: 'Not for you: sunflower oil is a seed oil. 4 g added sugar is worth a look.',
+      careful: 'Nothing you avoid is in it. Fine as an occasional snack.',
+      good: 'OK for you. Nothing you avoid is in it.'
+    };
+    // AI text: why it fits, why it does not, what to do. Never changes the flag.
+    const fromScan = this.props.from === 'scan';
+    const aiParts = [];
+    if (breaks.length) aiParts.push(cap(breaks[0].why) + ', so it’s not for you.');
+    if (cares.length) aiParts.push('Watch ' + cares.map((d) => d.why).join(', and ') + '.');
+    if (verdict === 'bad') {}
+    else if (verdict === 'careful') aiParts.push('Fine as an occasional snack; one serving is about 15 chips.');
+    else aiParts.push(active.length ? 'OK for you. It is still processed (NOVA 3), so keep it a side.' : 'Add what you avoid to get a personal check.');
+    const alts = [
+      { name: 'Boulder Canyon Kettle Chips, Olive Oil', meta: 'Boulder Canyon · 5.25 oz · olive oil', price: '$4.49', tint: '#ffffff', img: '/_blob/009819ab8d0ecae0eba8e43b443ffd2b' },
+      { name: 'Wegmans Kettle Chips, Avocado Oil', meta: 'Wegmans · 8 oz · avocado oil', price: '$3.99', tint: '#eef8f1', icon: 'avocado.png' },
+      { name: 'Snake River Farms Kettle Chips, Tallow', meta: 'Snake River Farms · 5 oz · beef tallow', price: '$6.99', tint: '#fdf6ea', icon: 'meat_on_bone.png' }
+    ].map((a) => Object.assign(a, { noImg: !a.img, aria: 'Compare with ' + a.name, compare: () => this.setState({ toast: 'Added to compare: ' + a.name.split(' ').slice(0, 2).join(' '), toastAction: 'Open' }) }));
+
+    const NAME = (window.__lwBrand || (window.__lwBrand = (() => { try { const x = new XMLHttpRequest(); x.open('GET', 'brand.json', false); x.send(); if (x.status === 200) return JSON.parse(x.responseText); } catch (e) {} return { mascot: 'LabelSage', app: 'LabelSage' }; })())).mascot; /* the mascot's name lives in brand.json */
+    return {
+      mascotName: NAME, yes: true, lwOn: !this.props.away, lwState: ({ bad: 'guard', careful: 'thinking', good: 'done' })[verdict],
+      signalMini: 'flex: none; width: 36px; height: 36px; box-sizing: border-box; border-radius: 50%; display: grid; place-items: center; background: #ffffff; border: 2.5px solid ' + color[verdict] + ';',
+      aiShown: s.ai, detShown: !s.ai, aiReason: aiParts.join(' '), hasSwap: verdict !== 'good', isBad: verdict === 'bad', notBad: verdict !== 'bad',
+      rulesSummary: [breaks.length ? breaks.length + ' to avoid' : '', cares.length ? cares.length + ' to check' : '', !breaks.length && !cares.length ? 'All OK' : ''].filter(Boolean).join(' · '),
+      showMedia: this.props.photo !== 'hide', noMedia: this.props.photo === 'hide', s26: 26,
+      signalSmall: 'position: absolute; right: 16px; top: 18px; z-index: 1; width: 48px; height: 48px; box-sizing: border-box; border-radius: 50%; display: grid; place-items: center; background: #ffffff; border: 3px solid ' + color[verdict] + '; animation: flag-' + verdict + ' 2s ease-out 2;',
+      isSheet: this.props.as === 'sheet', isPage: this.props.as !== 'sheet', s34: 34,
+      rootStyle: this.props.as === 'sheet' ? 'width: 100%; box-sizing: border-box; background: #fdf6ea; position: relative; padding-bottom: 24px' : 'width: 390px; height: 844px; overflow-x: hidden; overflow-y: auto; box-sizing: border-box; background: #fdf6ea; position: relative; padding-bottom: 28px',
+      contentStyle: 'position: relative; z-index: 1; background: #fdf6ea;' + (this.props.photo === 'hide' ? '' : ' margin-top: -28px; border-radius: 28px 28px 0 0; overflow: hidden;'),
+      mediaStyle: 'position: sticky; top: 0; z-index: 0; height: ' + (this.props.as === 'sheet' ? 380 : 600) + 'px; background: #ffffff; overflow: clip;',
+      imgStyle: this.props.as === 'sheet' ? 'position: absolute; left: 50%; top: 34px; width: 280px; height: 280px; margin-left: -140px' : 'position: absolute; left: 50%; top: 100px; width: 380px; height: 400px; margin-left: -190px',
+      barPos: 'position: sticky; z-index: 3; bottom: ' + (this.props.as === 'sheet' ? 16 : 0) + 'px; margin: 20px 12px 0',
+      favSym: s.fav ? 'heart.fill' : 'heart', favColor: s.fav ? '#ef4b3f' : '#232323', favPressed: s.fav ? 'true' : 'false',
+      favAria: s.fav ? 'Remove from go-tos' : 'Add to go-tos',
+      toggleFav: () => this.setState({ fav: !s.fav, toast: s.fav ? 'Removed from go-tos' : 'Saved to go-tos', toastAction: s.fav ? 'Undo' : 'View' }),
+      aiSteps: ['Reading 4 ingredients…', 'Checking what you avoid…', 'Finding other options…', 'Writing your summary…'],
+      aiChips: ['Find one without seed oils', 'OK after a workout?'], aiDur: 2600,
+      s12: 12, s14: 14, s16: 16, s18: 18, s20: 20, s22: 22, s28: 28, s30: 30,
+      photos,
+      verdictSym: sym[verdict], verdictWord: words[verdict], verdictReason: reason,
+      verdictAria: 'Verdict: ' + words[verdict],
+      signalStyle: 'position: absolute; right: 16px; bottom: ' + (this.props.photo === 'hide' ? 14 : 44) + 'px; width: 60px; height: 60px; box-sizing: border-box; border-radius: 50%; display: grid; place-items: center; background: #ffffff; border: 3px solid ' + color[verdict] + '; animation: flag-' + verdict + ' 2s ease-out 2;',
+      verdictStyle: 'display: flex; gap: 12px; align-items: flex-start; padding: 14px 16px; background: ' + wash[verdict] + ';',
+      stats, rules, rulesOpen: s.rulesOpen, toggleRules: () => this.setState({ rulesOpen: !s.rulesOpen }),
+      rulesChev: chev(s.rulesOpen),
+      rulesAria: breaks.length + ' not OK, ' + cares.length + ' to check, ' + fits.length + ' OK',
+      ruleCounts: [[breaks.length, color.bad], [cares.length, color.careful], [fits.length, color.good]].map((x) => ({ n: x[0], style: 'display: flex; align-items: center; gap: 4px; font-size: 15px; color: #4a4740; font-variant-numeric: tabular-nums;', dot: 'width: 8px; height: 8px; border-radius: 50%; background: ' + x[1] + ';' })),
+      ingredients, allShown: s.all ? 'true' : 'false', allLabel: s.all ? 'Show fewer' : 'See all 4 ingredients', allChev: chev(s.all),
+      toggleAll: () => this.setState({ all: !s.all }),
+      facts, macros, donutAria, kcal: '120', kcalBasis: 'per serving', nutOpen: s.nutOpen, toggleNut: () => this.setState({ nutOpen: !s.nutOpen }), nutChev: chev(s.nutOpen),
+      nutrition, perServing: per ? 'true' : 'false', per100: per ? 'false' : 'true',
+      servingStyle: seg(per), hundredStyle: seg(!per),
+      setServing: () => this.setState({ basis: 'serving' }), set100: () => this.setState({ basis: '100' }),
+      alts,
+      qty: s.qty, atMin: s.qty <= 1,
+      inc: () => this.setState({ qty: Math.min(9, s.qty + 1) }),
+      dec: () => this.setState({ qty: Math.max(1, s.qty - 1) }),
+      // from a scan the shopper is in the store holding the product: one tap marks it shopped; it is never added to the cart list
+      cartSym: fromScan ? 'checkmark' : (s.inCart ? 'checkmark' : 'cart.badge.plus'),
+      cartLabel: fromScan ? 'Got it' : (s.inCart ? 'On list · ' + s.inCart : 'Add to list'), notScan: !fromScan,
+      addAnywayLabel: fromScan ? 'On list anyway' : (s.inCart ? 'Added · ' + s.inCart : 'Add anyway'),
+      addCart: () => this.setState(fromScan ? { inCart: s.inCart + s.qty } : { inCart: s.inCart + s.qty, toast: s.qty + ' × Popped Corn Chips added to your list', toastAction: 'Undo' }),
+      isDone: fromScan && s.inCart > 0, showGood: !(fromScan && s.inCart > 0),
+      doneLabel: 'Shopped', undoCart: () => this.setState({ inCart: 0 }),
+      addCompare: () => this.setState({ toast: 'Added to compare · 1 of 3', toastAction: 'Open' }),
+      toast: s.toast, toastAction: s.toastAction,
+      dismiss: () => this.setState({ toast: '' })
+    };
+  }
+}
+</script>
+</body>
+</html>

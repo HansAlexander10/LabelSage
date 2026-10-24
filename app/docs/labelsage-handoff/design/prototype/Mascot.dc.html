@@ -1,0 +1,248 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Mascot</title>
+<script src="./support.js"></script>
+<link rel="stylesheet" href="ds/aishoppingagent/tokens.css">
+</head>
+<body>
+<x-dc>
+<helmet>
+<style>body{margin:0}.st-disguise .tg-all{animation:tg-idle 4.8s cubic-bezier(0.77,0,0.175,1) infinite}.st-disguise .tg-arm-l{animation:tg-arm-sway-l 2.4s cubic-bezier(0.77,0,0.175,1) -0.3s infinite}.st-disguise .tg-arm-r{animation:tg-arm-sway-r 2.4s cubic-bezier(0.77,0,0.175,1) -0.3s infinite}@keyframes tg-sneak{0%,8%,92%,100%{transform:translate(0,2px)}16%,40%{transform:translate(-18px,2px)}48%,52%{transform:translate(0,2px)}60%,84%{transform:translate(18px,2px)}}.st-disguise .tg-eyes,.st-disguise .tg-glint{animation:tg-sneak 4.8s cubic-bezier(0.77,0,0.175,1) infinite}.tg-stache{transform-box:view-box;transform-origin:526px 700px}.tg-nose{transform-box:view-box;transform-origin:526px 666px}.tg-specs{transform-box:view-box;transform-origin:526px 590px}@keyframes tg-twitch{0%,62%,100%{transform:none}66%{transform:rotate(-5deg) scaleY(1.06)}70%{transform:rotate(4deg)}74%{transform:rotate(-3deg)}78%{transform:none}}@keyframes tg-honk{0%,62%,100%{transform:none}67%{transform:scale(1.12)}74%{transform:scale(0.96)}80%{transform:none}}@keyframes tg-specs-nudge{0%,20%,34%,100%{transform:none}25%{transform:translateY(-7px)}29%{transform:translateY(1px)}}.st-disguise .tg-stache{animation:tg-twitch 2.4s cubic-bezier(0.23,1,0.32,1) infinite}.st-disguise .tg-nose{animation:tg-honk 2.4s cubic-bezier(0.23,1,0.32,1) infinite}.st-disguise .tg-specs{animation:tg-specs-nudge 4.8s cubic-bezier(0.23,1,0.32,1) infinite}</style>
+</helmet>
+<div style="{{wrap}}" onClick="{{wake}}">
+<svg viewBox="{{vb}}" width="{{w}}" height="{{h}}" role="{{role}}" aria-label="{{label}}" aria-hidden="{{hidden}}" style="display: block; overflow: visible">
+<style>/* The label mascot, rigged from the cut-out parts in mascot/*.png (your generated art, unchanged). Pivots match the Rive handoff. Motion: transform and opacity only. */
+.tg *{transform-box:view-box}
+.tg-eye,.tg-spark,.tg-q,.tg-mouth,.tg-brow-r{transform-box:fill-box;transform-origin:center}
+.tg-all{transform-origin:528px 1226px}
+.tg-lean{transform-origin:526px 1030px;transition:transform 300ms cubic-bezier(0.23,1,0.32,1)}
+.tg-cape{transform-origin:460px 620px}
+.tg-string{transform-origin:529px 425px}
+.tg-arm-l,.tg-arm-fold{transform-origin:316px 750px;transition:transform 300ms cubic-bezier(0.23,1,0.32,1)}
+.tg-arm-r,.tg-tool{transform-origin:737px 750px;transition:transform 300ms cubic-bezier(0.23,1,0.32,1)}
+.tg-eyes{transition:transform 300ms cubic-bezier(0.23,1,0.32,1)}.tg-glint{transition:transform 300ms cubic-bezier(0.23,1,0.32,1)}
+.tg-shadow{transform-origin:528px 1228px}
+.tg-leg-l{transform-origin:465px 1030px}.tg-leg-r{transform-origin:590px 1030px}
+.tg-lensgrp,.tg-reach{transform-box:view-box}.tg-reach{transform-origin:737px 750px}.tg-bigeye{transform-box:fill-box;transform-origin:center}
+.tg-spark{opacity:0}
+.v-reading,.v-done,.v-think,.v-brows,.v-talk,.v-hum,.v-hum-m,.v-compare,.v-sit,.v-disguise{display:none}.st-disguise .v-disguise,.st-disguise .v-brows{display:inline}.st-disguise .v-smile{display:none}
+.st-sit .v-sit{display:inline}.st-sit .tg-leg-l,.st-sit .tg-leg-r,.st-sit .tg-shadow{display:none}
+.tg-page{transform-box:view-box;transform-origin:526px 820px}
+.st-compare .v-compare,.st-compare .v-brows{display:inline}.st-compare .tg-arm-l,.st-compare .tg-arm-r{display:none}
+.tg-cmp-l{transform-origin:316px 750px}.tg-cmp-r{transform-origin:737px 750px}.tg-prod-l{transform-box:view-box;transform-origin:216px 1005px}.tg-prod-r{transform-box:view-box;transform-origin:837px 1005px}
+.st-hum .v-hum,.st-hum .v-hum-m{display:inline}.st-hum .v-smile{display:none}
+.tg-note{transform-box:fill-box;transform-origin:center;opacity:0}
+.st-talk .v-talk,.st-wave .v-talk{display:inline}.st-wave .v-smile{display:none}.st-point .v-brows,.st-listen .v-brows,.st-talk .v-brows,.st-idle .v-brows,.st-wave .v-brows,.st-hum .v-brows,.st-sit .v-brows{display:inline}
+.st-reading .v-reading,.st-done .v-done,.st-thinking .v-think,.st-reading .v-brows,.st-thinking .v-brows{display:inline}
+/* guard: an allergen for someone. Still and serious: no bob, no sway, brows down, flat mouth, eyes straight ahead */.st-guard .v-brows{display:inline;transform:translateY(14px)}.st-guard .v-smile{display:none}.st-guard g.v-think:not(.tg-arm-fold){display:inline}.st-guard .tg-mouth{animation:none}.st-guard .tg-q{display:none}.st-guard .tg-all,.st-guard .tg-eyes,.st-guard .tg-glint,.st-guard .tg-arm-l,.st-guard .tg-arm-r{animation:none}
+.st-thinking .tg-arm-l,.st-done .v-smile,.st-thinking .v-smile,.st-done .v-eyes,.st-reading .tg-arm-r{display:none}
+@keyframes tg-lens{0%,30%,100%{transform:translateX(0)}12%{transform:translateX(-8px)}22%{transform:translateX(7px)}42%,88%{transform:translateX(-153px)}56%{transform:translateX(-161px)}72%{transform:translateX(-146px)}}
+@keyframes tg-reach{0%,30%,100%{transform:rotate(100deg) scale(0.75)}12%{transform:rotate(101deg) scale(0.77)}22%{transform:rotate(99deg) scale(0.73)}42%,88%{transform:rotate(104.8deg) scale(1.3)}56%{transform:rotate(104.9deg) scale(1.33)}72%{transform:rotate(104.7deg) scale(1.28)}}
+@keyframes tg-big-r{0%,28%,100%{opacity:1}33%,97%{opacity:0}}
+@keyframes tg-big-l{0%,39%,91%,100%{opacity:0}44%,86%{opacity:1}}
+@keyframes tg-eye-r-under{0%,30%,100%{opacity:0}35%,95%{opacity:1}}
+@keyframes tg-eye-l-under{0%,38%,92%,100%{opacity:1}42%,88%{opacity:0}}
+@keyframes tg-pupil{0%,100%{transform:translate(-5px,3px)}50%{transform:translate(6px,3px)}}
+@keyframes tg-read-body2{0%,24%,46%,82%{transform:rotate(0deg) scale(1,1)}36%{transform:rotate(-2deg) scale(1,0.985)}94%{transform:rotate(2deg) scale(1,0.985)}100%{transform:rotate(0deg) scale(1,1)}}
+@keyframes tg-read-look{0%,30%,100%{transform:translate(4px,6px)}42%,88%{transform:translate(-4px,6px)}}
+@keyframes tg-mouth{0%,40%,100%{opacity:0}48%,88%{opacity:1}}
+@keyframes tg-mouth-inv{0%,40%,100%{opacity:1}48%,88%{opacity:0}}
+@keyframes tg-talk-body{0%,100%{transform:rotate(-1deg) scale(1,1)}50%{transform:rotate(1deg) scale(1.008,1.016)}}
+@keyframes tg-talk-arm{0%,100%{transform:rotate(4deg)}30%{transform:rotate(-26deg)}60%{transform:rotate(-14deg)}}
+@keyframes tg-talk-brow{0%,100%{transform:none}30%,60%{transform:translateY(-8px)}}
+@keyframes tg-hi{0%,100%{transform:rotate(-118deg)}50%{transform:rotate(-146deg)}}
+@keyframes tg-hi-body{0%,100%{transform:rotate(1.5deg)}50%{transform:rotate(3.5deg)}}
+@keyframes tg-point{0%,40%,100%{transform:rotate(-76deg)}10%,26%{transform:rotate(-88deg)}18%,34%{transform:rotate(-76deg)}}
+@keyframes tg-point-body{0%,100%{transform:rotate(2.5deg)}50%{transform:rotate(3.5deg)}}
+@keyframes tg-nod{0%,30%,60%,100%{transform:rotate(0deg) scale(1,1)}12%,42%{transform:rotate(1.5deg) scale(1.01,0.975)}}
+@keyframes tg-listen-eyes{0%,100%{transform:translate(6px,10px)}50%{transform:translate(-4px,10px)}}
+@keyframes tg-hum-body{0%,100%{transform:rotate(-6deg) translateY(0) scale(1,1)}25%{transform:rotate(0deg) translateY(-10px) scale(0.99,1.02)}50%{transform:rotate(6deg) translateY(0) scale(1,1)}75%{transform:rotate(0deg) translateY(-10px) scale(0.99,1.02)}}
+@keyframes tg-hum-leg-l{0%,50%,100%{transform:rotate(0deg)}75%{transform:rotate(14deg)}}
+@keyframes tg-hum-leg-r{0%,50%,100%{transform:rotate(0deg)}25%{transform:rotate(-14deg)}}
+@keyframes tg-hum-arm-l{0%,100%{transform:rotate(12deg)}50%{transform:rotate(-10deg)}}
+@keyframes tg-hum-arm-r{0%,100%{transform:rotate(10deg)}50%{transform:rotate(-12deg)}}
+@keyframes tg-hum-eyes{0%,100%{transform:translate(9px,-11px)}50%{transform:translate(4px,-13px)}}
+@keyframes tg-note{0%{opacity:0;transform:translate(0,0) rotate(-8deg) scale(0.8)}20%{opacity:1}70%{opacity:1}100%{opacity:0;transform:translate(34px,-110px) rotate(10deg) scale(1.05)}}
+@keyframes tg-cmp-l{0%,10%,45%,55%,90%,100%{transform:rotate(48deg) scale(0.85)}22%,38%{transform:rotate(104deg) scale(0.85)}}
+@keyframes tg-prod-l{0%,10%,45%,55%,90%,100%{transform:rotate(-48deg)}22%,38%{transform:rotate(-104deg)}}
+@keyframes tg-cmp-r{0%,10%,45%,55%,90%,100%{transform:rotate(-44deg) scale(0.85)}67%,83%{transform:rotate(-99deg) scale(0.85)}}
+@keyframes tg-prod-r{0%,10%,45%,55%,90%,100%{transform:rotate(44deg)}67%,83%{transform:rotate(99deg)}}
+@keyframes tg-cmp-body{0%,10%,45%,55%,90%,100%{transform:rotate(0deg)}22%,38%{transform:rotate(-5deg)}67%,83%{transform:rotate(5deg)}}
+@keyframes tg-cmp-blink{0%,8%,12%,43%,47%,53%,57%,88%,92%,100%{transform:scaleY(1)}10%,45%,55%,90%{transform:scaleY(0.1)}}
+@keyframes tg-cmp-eyes{0%,10%,45%,55%,90%,100%{transform:translate(0,6px)}22%,38%{transform:translate(-32px,-14px)}67%,83%{transform:translate(32px,-14px)}}
+@keyframes tg-cmp-brow{0%,55%,90%,100%{transform:none}67%,83%{transform:translateY(-12px)}}
+@keyframes tg-sit-read{0%,100%{transform:translateY(150px) rotate(0deg)}50%{transform:translateY(150px) rotate(1.5deg) scale(1,0.99)}}
+@keyframes tg-sit-eyes{0%{transform:translate(-10px,16px)}40%{transform:translate(10px,16px)}46%{transform:translate(-10px,22px)}86%{transform:translate(10px,22px)}92%,100%{transform:translate(-10px,16px)}}
+@keyframes tg-page{0%,78%{transform:scaleX(1)}90%{transform:scaleX(0.05)}91%,100%{transform:scaleX(-1)}}
+@keyframes tg-page-o{0%,90%{opacity:1}96%,100%{opacity:0}}
+@keyframes tg-blink{0%,93%,100%{transform:scaleY(1)}96%{transform:scaleY(0.12)}}
+@keyframes tg-idle{0%,100%{transform:rotate(-2deg) scale(1,1)}25%{transform:rotate(0deg) scale(1.01,1.022)}50%{transform:rotate(2deg) scale(1,1)}75%{transform:rotate(0deg) scale(1.01,1.022)}}
+@keyframes tg-glance{0%,34%,78%,100%{transform:none}40%,54%{transform:translate(-11px,-2px)}60%,72%{transform:translate(11px,-2px)}}
+@keyframes tg-arm-sway-l{0%,100%{transform:rotate(5deg)}50%{transform:rotate(-5deg)}}
+@keyframes tg-arm-sway-r{0%,100%{transform:rotate(-5deg)}50%{transform:rotate(5deg)}}
+@keyframes tg-cape{0%,100%{transform:rotate(-7deg) scale(1,1)}50%{transform:rotate(7deg) scale(0.94,1.05)}}
+@keyframes tg-string{0%,100%{transform:rotate(-9deg)}50%{transform:rotate(9deg)}}
+@keyframes tg-read-body{0%,100%{transform:rotate(2.5deg) scale(1,0.985)}10%,40%{transform:rotate(0deg) scale(1,1)}50%{transform:rotate(2.5deg) scale(1,0.985)}60%,90%{transform:rotate(0deg) scale(1,1)}}
+@keyframes tg-sweep{0%,5%,95%,100%{transform:translate(-14px,0) rotate(-2deg)}45%,55%{transform:translate(14px,-4px) rotate(2deg)}}
+@keyframes tg-bigeye{0%,5%,95%,100%{transform:translate(-14px,4px)}45%,55%{transform:translate(14px,4px)}}
+@keyframes tg-look{0%,5%,95%,100%{transform:translate(-12px,9px)}45%,55%{transform:translate(12px,9px)}}
+@keyframes tg-read-brow{0%,40%,60%,100%{transform:none}48%{transform:translateY(-8px)}}
+@keyframes tg-jump{0%{transform:none}18%{transform:translateY(16px) scale(1.07,0.91)}55%{transform:translateY(-120px) scale(0.96,1.05)}82%{transform:translateY(8px) scale(1.04,0.96)}100%{transform:none}}
+@keyframes tg-hop{0%,18%,98%,100%{transform:translateY(0) rotate(-5deg) scale(1,1)}24%{transform:translateY(0) rotate(-3deg) scale(1.05,0.93)}33%{transform:translateY(-34px) rotate(0deg) scale(0.97,1.04)}42%{transform:translateY(0) rotate(5deg) scale(1.05,0.94)}48%,68%{transform:translateY(0) rotate(5deg) scale(1,1)}74%{transform:translateY(0) rotate(3deg) scale(1.05,0.93)}83%{transform:translateY(-34px) rotate(0deg) scale(0.97,1.04)}92%{transform:translateY(0) rotate(-5deg) scale(1.05,0.94)}}
+@keyframes tg-kick-r{0%,24%,92%,100%{transform:rotate(-24deg)}33%,83%{transform:rotate(-8deg)}42%,74%{transform:rotate(0deg)}}
+@keyframes tg-kick-l{0%,24%,92%,100%{transform:rotate(0deg)}33%,83%{transform:rotate(8deg)}42%,74%{transform:rotate(24deg)}}
+@keyframes tg-shadow-hop{0%,24%,42%,74%,92%,100%{transform:none;opacity:1}33%,83%{transform:scale(0.78);opacity:0.55}}
+@keyframes tg-cheer{0%,100%{transform:rotate(-3deg) scale(1,1)}25%{transform:rotate(0deg) scale(1.04,0.95)}50%{transform:rotate(3deg) scale(1,1)}75%{transform:rotate(0deg) scale(1.04,0.95)}}
+@keyframes tg-wave-l{0%,100%{transform:rotate(108deg)}50%{transform:rotate(140deg)}}
+@keyframes tg-wave-r{0%,100%{transform:rotate(-108deg)}50%{transform:rotate(-140deg)}}
+@keyframes tg-shadow{0%,100%{transform:none;opacity:1}55%{transform:scale(0.65);opacity:0.45}}
+@keyframes tg-spark{0%{opacity:0;transform:scale(0.6)}60%{opacity:1;transform:scale(1.15)}100%{opacity:1;transform:scale(1)}}
+@keyframes tg-twinkle{0%,100%{opacity:1;transform:scale(1) rotate(0deg)}50%{opacity:0.6;transform:scale(0.78) rotate(20deg)}}
+@keyframes tg-ponder{0%,100%{transform:rotate(-2deg)}50%{transform:rotate(2.5deg)}}
+@keyframes tg-tap{0%,46%,100%{transform:rotate(123deg) scale(0.8)}8%,24%{transform:rotate(115deg) scale(0.8)}16%,32%{transform:rotate(123deg) scale(0.8)}}
+@keyframes tg-think-eyes{0%,100%{transform:translate(-8px,-11px)}45%,90%{transform:translate(9px,-12px)}}
+@keyframes tg-brow{0%,8%,58%,100%{transform:none}16%,50%{transform:translateY(-14px) rotate(-6deg)}}
+@keyframes tg-hmm{0%,30%,100%{transform:none}45%,80%{transform:translateX(8px)}}
+@keyframes tg-q{0%,100%{transform:translateY(0) rotate(-8deg) scale(1)}50%{transform:translateY(-20px) rotate(8deg) scale(1.08)}}
+.st-talk .tg-all{animation:tg-talk-body 1.2s cubic-bezier(0.77,0,0.175,1) infinite}
+.st-talk .tg-talk-open{animation:tg-mouth 0.5s steps(1,end) infinite}
+.st-talk .v-smile{animation:tg-mouth-inv 0.5s steps(1,end) infinite}
+.st-talk .tg-arm-r{animation:tg-talk-arm 1.8s cubic-bezier(0.77,0,0.175,1) infinite}
+.st-talk .tg-arm-l{animation:tg-arm-sway-l 2.4s cubic-bezier(0.77,0,0.175,1) infinite}
+.st-talk .tg-brow-r{animation:tg-talk-brow 1.8s cubic-bezier(0.77,0,0.175,1) infinite}
+.st-wave .tg-arm-r{transform:rotate(-130deg);animation:tg-hi 0.6s cubic-bezier(0.77,0,0.175,1) infinite}
+.st-wave .tg-all{animation:tg-hi-body 1.2s cubic-bezier(0.77,0,0.175,1) infinite}
+.st-wave .tg-arm-l{animation:tg-arm-sway-l 2.4s cubic-bezier(0.77,0,0.175,1) infinite}
+.st-point .tg-arm-r{transform:rotate(-76deg);animation:tg-point 2.4s cubic-bezier(0.77,0,0.175,1) infinite}
+.st-point .tg-all{animation:tg-point-body 2.4s cubic-bezier(0.77,0,0.175,1) infinite}
+.st-point .tg-eyes{transform:translate(10px,-2px)}.st-point .tg-glint{transform:translate(10px,-2px)}
+.st-point .tg-arm-l{animation:tg-arm-sway-l 2.4s cubic-bezier(0.77,0,0.175,1) infinite}
+.st-listen .tg-all{animation:tg-nod 2.4s cubic-bezier(0.77,0,0.175,1) infinite}
+.st-listen .tg-eyes{animation:tg-listen-eyes 3.2s cubic-bezier(0.77,0,0.175,1) infinite}.st-listen .tg-glint{animation:tg-listen-eyes 3.2s cubic-bezier(0.77,0,0.175,1) infinite}
+.st-listen .tg-arm-l{animation:tg-arm-sway-l 2.4s cubic-bezier(0.77,0,0.175,1) infinite}
+.st-listen .tg-arm-r{animation:tg-arm-sway-r 2.4s cubic-bezier(0.77,0,0.175,1) infinite}
+.st-hum .tg-all{animation:tg-hum-body 1.6s cubic-bezier(0.77,0,0.175,1) infinite}
+.st-hum .tg-leg-l{animation:tg-hum-leg-l 1.6s cubic-bezier(0.77,0,0.175,1) infinite}
+.st-hum .tg-leg-r{animation:tg-hum-leg-r 1.6s cubic-bezier(0.77,0,0.175,1) infinite}
+.st-hum .tg-arm-l{animation:tg-hum-arm-l 1.6s cubic-bezier(0.77,0,0.175,1) infinite}
+.st-hum .tg-arm-r{animation:tg-hum-arm-r 1.6s cubic-bezier(0.77,0,0.175,1) infinite}
+.st-hum .tg-eyes{animation:tg-hum-eyes 3.2s cubic-bezier(0.77,0,0.175,1) infinite}.st-hum .tg-glint{animation:tg-hum-eyes 3.2s cubic-bezier(0.77,0,0.175,1) infinite}
+.st-hum .tg-note{animation:tg-note 2.4s cubic-bezier(0.23,1,0.32,1) infinite}
+.st-hum .tg-note.n2{animation-delay:0.8s}.st-hum .tg-note.n3{animation-delay:1.6s}
+.st-compare .tg-cmp-l{animation:tg-cmp-l 3.6s cubic-bezier(0.77,0,0.175,1) infinite}
+.st-compare .tg-prod-l{animation:tg-prod-l 3.6s cubic-bezier(0.77,0,0.175,1) infinite}
+.st-compare .tg-cmp-r{animation:tg-cmp-r 3.6s cubic-bezier(0.77,0,0.175,1) infinite}
+.st-compare .tg-prod-r{animation:tg-prod-r 3.6s cubic-bezier(0.77,0,0.175,1) infinite}
+.st-compare .tg-all{animation:tg-cmp-body 3.6s cubic-bezier(0.77,0,0.175,1) infinite}
+.st-compare .tg-eyes{animation:tg-cmp-eyes 3.6s cubic-bezier(0.77,0,0.175,1) infinite}.st-compare .tg-glint{animation:tg-cmp-eyes 3.6s cubic-bezier(0.77,0,0.175,1) infinite}
+.st-compare .tg-eye{animation:tg-cmp-blink 3.6s linear infinite}
+.st-compare .tg-brow-r{animation:tg-cmp-brow 3.6s cubic-bezier(0.77,0,0.175,1) infinite}
+.st-sit .tg-lean{animation:tg-sit-read 3.6s cubic-bezier(0.77,0,0.175,1) infinite}
+.st-sit .tg-eyes{animation:tg-sit-eyes 3.6s linear infinite}.st-sit .tg-glint{animation:tg-sit-eyes 3.6s linear infinite}
+.st-sit .tg-page{animation:tg-page 3.6s cubic-bezier(0.77,0,0.175,1) infinite,tg-page-o 3.6s linear infinite}
+.st-sit .tg-arm-l{transform:rotate(-58deg) scale(0.55)}
+.st-sit .tg-arm-r{transform:rotate(58deg) scale(0.55)}
+.tg-eye{animation:tg-blink 4.2s linear infinite}
+.tg-cape{animation:tg-cape 2.4s cubic-bezier(0.77,0,0.175,1) infinite}
+.tg-string{animation:tg-string 2.4s cubic-bezier(0.77,0,0.175,1) -0.4s infinite}
+.st-idle .tg-all{animation:tg-idle 4.8s cubic-bezier(0.77,0,0.175,1) infinite}
+.st-idle .tg-eyes{animation:tg-glance 6s cubic-bezier(0.77,0,0.175,1) infinite}.st-idle .tg-glint{animation:tg-glance 6s cubic-bezier(0.77,0,0.175,1) infinite}
+.st-idle .tg-arm-l{animation:tg-arm-sway-l 2.4s cubic-bezier(0.77,0,0.175,1) -0.3s infinite}
+.st-idle .tg-arm-r{animation:tg-arm-sway-r 2.4s cubic-bezier(0.77,0,0.175,1) -0.3s infinite}
+.st-reading .tg-lean{transform:rotate(-3deg)}
+.st-reading .tg-all{animation:tg-read-body2 3.2s cubic-bezier(0.77,0,0.175,1) infinite}
+.st-reading .tg-lensgrp{animation:tg-lens 3.2s cubic-bezier(0.77,0,0.175,1) infinite}
+.st-reading .tg-reach{animation:tg-reach 3.2s cubic-bezier(0.77,0,0.175,1) infinite}
+.st-reading .tg-big-r{animation:tg-big-r 3.2s cubic-bezier(0.77,0,0.175,1) infinite}
+.st-reading .tg-big-l{animation:tg-big-l 3.2s cubic-bezier(0.77,0,0.175,1) infinite}
+.st-reading .tg-eye.er{animation:tg-blink 4.2s linear infinite,tg-eye-r-under 3.2s cubic-bezier(0.77,0,0.175,1) infinite}
+.st-reading .tg-eye.el{animation:tg-blink 4.2s linear infinite,tg-eye-l-under 3.2s cubic-bezier(0.77,0,0.175,1) infinite}
+.st-reading .tg-bigeye{animation:tg-pupil 0.9s cubic-bezier(0.77,0,0.175,1) infinite}
+.st-reading .tg-eyes{animation:tg-read-look 3.2s cubic-bezier(0.77,0,0.175,1) infinite}.st-reading .tg-glint{animation:tg-read-look 3.2s cubic-bezier(0.77,0,0.175,1) infinite}
+.st-reading .tg-brow-r{animation:tg-read-brow 1.6s cubic-bezier(0.77,0,0.175,1) infinite}
+.st-reading .tg-arm-l{animation:tg-arm-sway-l 2.4s cubic-bezier(0.77,0,0.175,1) -0.3s infinite}
+.st-done .tg-arm-l{animation:tg-wave-l 1s cubic-bezier(0.77,0,0.175,1) 620ms infinite;transform:rotate(116deg)}
+.st-done .tg-arm-r{animation:tg-wave-r 1s cubic-bezier(0.77,0,0.175,1) 1070ms infinite;transform:rotate(-116deg)}
+.st-done .tg-all{animation:tg-jump 620ms cubic-bezier(0.23,1,0.32,1) both,tg-hop 2s cubic-bezier(0.77,0,0.175,1) 620ms infinite}
+.st-done .tg-leg-r{animation:tg-kick-r 2s cubic-bezier(0.77,0,0.175,1) 620ms infinite}
+.st-done .tg-leg-l{animation:tg-kick-l 2s cubic-bezier(0.77,0,0.175,1) 620ms infinite}
+.st-done .tg-shadow{animation:tg-shadow 620ms cubic-bezier(0.23,1,0.32,1) both,tg-shadow-hop 2s cubic-bezier(0.77,0,0.175,1) 620ms infinite}
+.st-done .tg-spark{animation:tg-spark 520ms cubic-bezier(0.23,1,0.32,1) both,tg-twinkle 1.2s cubic-bezier(0.77,0,0.175,1) 700ms infinite}
+.st-done .tg-spark.b{animation-delay:80ms,900ms}.st-done .tg-spark.c{animation-delay:160ms,1100ms}.st-done .tg-spark.d{animation-delay:240ms,800ms}.st-done .tg-spark.e{animation-delay:300ms,1000ms}
+.st-thinking .tg-all{animation:tg-ponder 3.2s cubic-bezier(0.77,0,0.175,1) infinite}
+.st-thinking .tg-arm-fold{transform:rotate(-92deg)}
+.st-thinking .tg-arm-r{animation:tg-tap 3.2s cubic-bezier(0.77,0,0.175,1) infinite;transform:rotate(123deg) scale(0.8)}
+.st-thinking .tg-eyes{animation:tg-think-eyes 3.2s cubic-bezier(0.77,0,0.175,1) infinite}.st-thinking .tg-glint{animation:tg-think-eyes 3.2s cubic-bezier(0.77,0,0.175,1) infinite}
+.st-thinking .tg-brow-r{animation:tg-brow 3.2s cubic-bezier(0.77,0,0.175,1) infinite}
+.st-thinking .tg-mouth{animation:tg-hmm 3.2s cubic-bezier(0.77,0,0.175,1) infinite}
+.st-thinking .tg-q{animation:tg-q 1.6s cubic-bezier(0.77,0,0.175,1) infinite}
+@media (prefers-reduced-motion:reduce){.tg *{animation:none !important;transition:none !important}.st-reading .tg-reach{transform:rotate(100deg) scale(0.75)}.st-reading .tg-eye.er,.st-reading .tg-big-l{opacity:0}.st-done .tg-spark{opacity:1}.st-done .tg-arm-l{transform:rotate(124deg)}.st-done .tg-arm-r{transform:rotate(-124deg)}.st-thinking .tg-arm-r{transform:rotate(123deg) scale(0.8)}.st-thinking .tg-eyes{transform:translate(8px,-12px)}.st-thinking .tg-glint{transform:translate(8px,-12px)}}
+</style>
+<g class="tg {{stateCls}}">
+  <g class="tg-shadow"><ellipse cx="528" cy="1229" rx="170" ry="13" fill="{{shadow}}"></ellipse><ellipse cx="421" cy="1226" rx="44" ry="8" fill="{{contact}}"></ellipse><ellipse cx="634" cy="1226" rx="44" ry="8" fill="{{contact}}"></ellipse></g>
+  <g class="v-sit tg-books"><ellipse cx="526" cy="1252" rx="300" ry="20" fill="rgba(61,35,24,0.16)"></ellipse><g transform="translate(520 1214)" stroke="#4f2c1e" stroke-width="7" stroke-linejoin="round"><path d="M-230 -26 L210 -34 Q228 -34 228 -16 L228 14 Q228 30 210 30 L-230 38 Q-246 38 -246 22 L-246 -10 Q-246 -26 -230 -26 Z" fill="#9cc77f"></path><path d="M-200 2 L196 -6" stroke="#fff8e7" stroke-width="9" stroke-linecap="round"></path></g><g transform="translate(534 1150)" stroke="#4f2c1e" stroke-width="7" stroke-linejoin="round"><path d="M-230 -26 L210 -34 Q228 -34 228 -16 L228 14 Q228 30 210 30 L-230 38 Q-246 38 -246 22 L-246 -10 Q-246 -26 -230 -26 Z" fill="#f0b54a"></path><path d="M-200 2 L196 -6" stroke="#fff8e7" stroke-width="9" stroke-linecap="round"></path></g><g transform="translate(522 1088)" stroke="#4f2c1e" stroke-width="7" stroke-linejoin="round"><path d="M-230 -26 L210 -34 Q228 -34 228 -16 L228 14 Q228 30 210 30 L-230 38 Q-246 38 -246 22 L-246 -10 Q-246 -26 -230 -26 Z" fill="#d9744f"></path><path d="M-200 2 L196 -6" stroke="#fff8e7" stroke-width="9" stroke-linecap="round"></path></g></g><g class="tg-all"><g class="tg-lean">
+    <g class="tg-cape"><image href="mascot/cape.png" width="588" height="353" preserveAspectRatio="none" transform="translate(460 620) rotate(-40) scale(0.95) translate(-581 -43)"></image></g>
+    <g class="tg-leg-l"><image href="mascot/leg_l.png" width="116" height="283" preserveAspectRatio="none" transform="translate(465 1030) scale(0.72) translate(-96 -6)"></image></g><g class="tg-leg-r"><image href="mascot/leg_r.png" width="115" height="283" preserveAspectRatio="none" transform="translate(590 1030) scale(0.72) translate(-19 -6)"></image></g>
+    <g class="tg-arm-l"><image href="mascot/arm_l.png" width="155" height="268" preserveAspectRatio="none" transform="translate(180.0 744.0)"></image></g>
+    <image href="mascot/tag.png" width="453" height="711" preserveAspectRatio="none" transform="translate(300.0 330.0)"></image>
+    <g fill="none"><path d="M360 810 H 692" stroke="{{l1}}" stroke-width="8" stroke-linecap="round"></path><path d="M360 840 H 692" stroke="{{l2}}" stroke-width="8" stroke-linecap="round"></path><path d="M360 870 H 606" stroke="{{l3}}" stroke-width="8" stroke-linecap="round"></path></g>
+    <g class="tg-string"><image href="mascot/string.png" width="210" height="603" preserveAspectRatio="none" transform="translate(480.3 174.7) scale(0.42)"></image></g>
+    <g class="tg-eyes">
+      <g class="v-eyes"><g class="tg-eye el"><image href="mascot/eye_l_base.png" width="73" height="95" preserveAspectRatio="none" transform="translate(450 592) scale(1) translate(-36.5 -47.5)"></image><g transform="translate(458 581) scale(0.25) translate(-458 -581)"><g class="tg-glint"><g transform="translate(458 581) scale(4) translate(-458 -581)"><circle cx="458" cy="581" r="9.6" fill="#fbf3e4"></circle></g></g></g></g><g class="tg-eye er"><image href="mascot/eye_r_base.png" width="73" height="95" preserveAspectRatio="none" transform="translate(603 592) scale(1) translate(-36.5 -47.5)"></image><g transform="translate(595 581) scale(0.25) translate(-595 -581)"><g class="tg-glint"><g transform="translate(595 581) scale(4) translate(-595 -581)"><circle cx="595" cy="581" r="9.6" fill="#fbf3e4"></circle></g></g></g></g></g>
+      <g class="v-brows"><image href="mascot/brow_l.png" width="79" height="48" preserveAspectRatio="none" transform="translate(450 512) scale(1) translate(-39.5 -24.0)"></image><g class="tg-brow-r"><image href="mascot/brow_r.png" width="79" height="48" preserveAspectRatio="none" transform="translate(603 512) scale(1) translate(-39.5 -24.0)"></image></g></g>
+    </g>
+    <g class="v-done"><image href="mascot/brow_l.png" width="79" height="48" preserveAspectRatio="none" transform="translate(450 592) scale(1.1) translate(-39.5 -24.0)"></image><image href="mascot/brow_r.png" width="79" height="48" preserveAspectRatio="none" transform="translate(603 592) scale(1.1) translate(-39.5 -24.0)"></image><image href="mascot/mouth_open.png" width="121" height="81" preserveAspectRatio="none" transform="translate(526 675) scale(1) translate(-60.5 -40.5)"></image></g>
+    <g class="v-smile"><image href="mascot/mouth_smile.png" width="99" height="51" preserveAspectRatio="none" transform="translate(526 670) scale(1) translate(-49.5 -25.5)"></image></g><g class="v-hum-m"><image href="mascot/mouth_open.png" width="121" height="81" preserveAspectRatio="none" transform="translate(540 678) scale(0.36) translate(-60.5 -40.5)"></image></g><g class="v-talk"><g class="tg-talk-open"><image href="mascot/mouth_open.png" width="121" height="81" preserveAspectRatio="none" transform="translate(526 674) scale(0.78) translate(-60.5 -40.5)"></image></g></g>
+    <g class="v-disguise"><g class="tg-dis">
+      <g class="tg-stache"><path d="M526 690 C 500 676, 470 678, 452 694 C 436 708, 424 730, 400 738 C 428 754, 470 744, 494 726 C 508 715, 518 709, 526 709 C 534 709, 544 715, 558 726 C 582 744, 624 754, 652 738 C 628 730, 616 708, 600 694 C 582 678, 552 676, 526 690 Z" fill="#3d2318" stroke="#4f2c1e" stroke-width="5" stroke-linejoin="round"></path><path d="M470 700 Q 488 694 500 702 M552 702 Q 564 694 582 700" fill="none" stroke="#6b4a3a" stroke-width="5" stroke-linecap="round" opacity="0.6"></path></g>
+      <g class="tg-nose"><circle cx="526" cy="666" r="30" fill="#d8453a" stroke="#4f2c1e" stroke-width="6"></circle><path d="M510 652 Q 520 644 532 646" fill="none" stroke="#ffffff" stroke-width="7" stroke-linecap="round" opacity="0.85"></path></g>
+      <g class="tg-specs">
+        <path d="M398 584 L 326 572 M654 584 L 726 572" fill="none" stroke="#4f2c1e" stroke-width="19" stroke-linecap="round"></path>
+        <path d="M398 584 L 326 572 M654 584 L 726 572" fill="none" stroke="#d8453a" stroke-width="10" stroke-linecap="round"></path>
+        <path d="M498 584 Q 526 566 554 584" fill="none" stroke="#4f2c1e" stroke-width="19" stroke-linecap="round"></path>
+        <path d="M498 584 Q 526 566 554 584" fill="none" stroke="#d8453a" stroke-width="10" stroke-linecap="round"></path>
+        <circle cx="450" cy="590" r="50" fill="#ffe1dc" fill-opacity="0.16" stroke="#4f2c1e" stroke-width="22"></circle><circle cx="450" cy="590" r="50" fill="none" stroke="#d8453a" stroke-width="13"></circle>
+        <circle cx="603" cy="590" r="50" fill="#ffe1dc" fill-opacity="0.16" stroke="#4f2c1e" stroke-width="22"></circle><circle cx="603" cy="590" r="50" fill="none" stroke="#d8453a" stroke-width="13"></circle>
+        <path d="M424 566 Q 432 556 444 554 M577 566 Q 585 556 597 554" fill="none" stroke="#ffffff" stroke-width="5" stroke-linecap="round" opacity="0.7"></path>
+      </g>
+    </g></g>
+    <g class="v-think"><g class="tg-mouth"><image href="mascot/mouth_flat.png" width="138" height="37" preserveAspectRatio="none" transform="translate(526 675) scale(0.55) translate(-69.0 -18.5)"></image></g></g>
+    <g class="tg-arm-fold v-think"><image href="mascot/arm_l.png" width="155" height="268" preserveAspectRatio="none" transform="translate(180.0 744.0)"></image></g><g class="tg-arm-r"><image href="mascot/arm_r.png" width="155" height="268" preserveAspectRatio="none" transform="translate(719.0 744.0)"></image></g>
+    <g class="tg-reach v-reading"><image href="mascot/arm_r.png" width="155" height="268" preserveAspectRatio="none" transform="translate(719 744)"></image></g><g class="tg-lensgrp v-reading"><image href="mascot/magnifier.png" width="266" height="450" preserveAspectRatio="none" transform="translate(603 592) rotate(34.9) scale(-0.65 0.65) translate(-132 -133)"></image><defs><clipPath id="tg-lens"><circle cx="603" cy="592" r="62"></circle></clipPath></defs><g clip-path="url(#tg-lens)"><circle cx="603" cy="592" r="62" fill="#cfe7df" opacity="0.55"></circle><g class="tg-big tg-big-r"><g class="tg-bigeye"><image href="mascot/eye_r.png" width="73" height="95" preserveAspectRatio="none" transform="translate(603 592) scale(1.7) translate(-36.5 -47.5)"></image></g></g><g class="tg-big tg-big-l"><g class="tg-bigeye"><image href="mascot/eye_l.png" width="73" height="95" preserveAspectRatio="none" transform="translate(603 592) scale(1.7) translate(-36.5 -47.5)"></image></g></g></g><circle cx="582" cy="568" r="12" fill="#ffffff" opacity="0.55"></circle></g><g class="tg-cmp-l v-compare"><image href="mascot/arm_l.png" width="155" height="268" preserveAspectRatio="none" transform="translate(180.0 744.0)"></image><g class="tg-prod-l"><g transform="translate(216 855) scale(1.9)" stroke="#4f2c1e" stroke-width="4.5" stroke-linejoin="round"><path d="M-52 -78 L-40 -86 L-28 -78 L-14 -86 L0 -78 L14 -86 L28 -78 L40 -86 L52 -78 Q58 0 52 78 L40 86 L28 78 L14 86 L0 78 L-14 86 L-28 78 L-40 86 L-52 78 Q-58 0 -52 -78 Z" fill="#f0b54a"></path><ellipse cx="0" cy="-6" rx="34" ry="26" fill="#fff8e7"></ellipse><path d="M-18 -10 H18 M-14 4 H14" stroke-width="5" stroke-linecap="round" fill="none"></path></g></g></g><g class="tg-cmp-r v-compare"><image href="mascot/arm_r.png" width="155" height="268" preserveAspectRatio="none" transform="translate(719.0 744.0)"></image><g class="tg-prod-r"><g transform="translate(837 855) scale(1.9)" stroke="#4f2c1e" stroke-width="4.5" stroke-linejoin="round"><path d="M-52 -78 L-40 -86 L-28 -78 L-14 -86 L0 -78 L14 -86 L28 -78 L40 -86 L52 -78 Q58 0 52 78 L40 86 L28 78 L14 86 L0 78 L-14 86 L-28 78 L-40 86 L-52 78 Q-58 0 -52 -78 Z" fill="#9cc77f"></path><ellipse cx="0" cy="-6" rx="34" ry="26" fill="#fff8e7"></ellipse><path d="M-18 -10 H18 M-14 4 H14" stroke-width="5" stroke-linecap="round" fill="none"></path></g></g></g><g class="v-sit tg-book"><g stroke="#4f2c1e" stroke-width="7" stroke-linejoin="round"><path d="M526 742 Q446 712 360 730 L362 904 Q446 888 526 916 Z" fill="#3f7fbf"></path><path d="M526 742 Q606 712 692 730 L690 904 Q606 888 526 916 Z" fill="#3f7fbf"></path><path d="M526 752 Q450 726 376 740 L378 888 Q450 876 526 902 Z" fill="#fffaf0"></path><path d="M526 752 Q602 726 676 740 L674 888 Q602 876 526 902 Z" fill="#fffaf0"></path><path d="M402 780 H498 M402 806 H498 M402 832 H480 M554 780 H650 M554 806 H650 M554 832 H632" stroke-width="5" stroke-linecap="round" fill="none" opacity="0.55"></path></g><g class="tg-page" stroke="#4f2c1e" stroke-width="6" stroke-linejoin="round"><path d="M526 752 Q602 726 676 740 L674 888 Q602 876 526 902 Z" fill="#fffdf6"></path></g><circle cx="372" cy="842" r="20" fill="#3d2318"></circle><circle cx="680" cy="842" r="20" fill="#3d2318"></circle></g><g class="v-think"><g class="tg-q"><image href="mascot/question.png" width="122" height="188" preserveAspectRatio="none" transform="translate(830 370) scale(0.9) translate(-61.0 -94.0)"></image></g></g>
+  </g></g>
+  <g class="v-hum"><g class="tg-note n1"><g transform="translate(820 480) scale(1.7)" stroke="#4f2c1e" stroke-width="5" stroke-linejoin="round"><ellipse cx="0" cy="0" rx="17" ry="12" transform="rotate(-22)" fill="#f5b53d"></ellipse><path d="M14 -4 L14 -66 Q30 -58 34 -40 Q36 -30 30 -24" fill="none" stroke-linecap="round"></path></g></g><g class="tg-note n2"><g transform="translate(880 420) scale(1.5)" stroke="#4f2c1e" stroke-width="5" stroke-linejoin="round"><ellipse cx="0" cy="0" rx="16" ry="11" transform="rotate(-22)" fill="#f5b53d"></ellipse><ellipse cx="44" cy="-10" rx="16" ry="11" transform="rotate(-22 44 -10)" fill="#f5b53d"></ellipse><path d="M13 -4 L13 -62 L57 -72 L57 -14" fill="none" stroke-linecap="round"></path><path d="M13 -50 L57 -60" fill="none"></path></g></g><g class="tg-note n3"><g transform="translate(790 400) scale(1.35)" stroke="#4f2c1e" stroke-width="5" stroke-linejoin="round"><ellipse cx="0" cy="0" rx="17" ry="12" transform="rotate(-22)" fill="#f5b53d"></ellipse><path d="M14 -4 L14 -66 Q30 -58 34 -40 Q36 -30 30 -24" fill="none" stroke-linecap="round"></path></g></g></g><g class="v-done"><g class="tg-spark a"><image href="mascot/spark_a.png" width="78" height="84" preserveAspectRatio="none" transform="translate(180 370) scale(1) translate(-39.0 -42.0)"></image></g><g class="tg-spark b"><image href="mascot/spark_b.png" width="63" height="67" preserveAspectRatio="none" transform="translate(860 320) scale(1) translate(-31.5 -33.5)"></image></g><g class="tg-spark c"><image href="mascot/spark_c.png" width="64" height="68" preserveAspectRatio="none" transform="translate(900 530) scale(1) translate(-32.0 -34.0)"></image></g><g class="tg-spark d"><image href="mascot/dot_a.png" width="34" height="34" preserveAspectRatio="none" transform="translate(140 570) scale(1) translate(-17.0 -17.0)"></image></g><g class="tg-spark e"><image href="mascot/dot_b.png" width="34" height="34" preserveAspectRatio="none" transform="translate(940 420) scale(1) translate(-17.0 -17.0)"></image></g></g>
+</g>
+</svg>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"idleAfter":{"editor":"number","default":0},"state":{"editor":"enum","options":["idle","hum","sit","compare","disguise","talk","wave","point","listen","reading","done","thinking","guard"],"default":"idle"},"found":{"editor":"number","default":0},"size":{"editor":"number","default":200},"label":{"editor":"text","default":""},"onDark":{"editor":"boolean","default":false},"tight":{"editor":"boolean","default":false},"$preview":{"width":200,"height":252}}'>
+class Component extends DCLogic {
+  constructor(props) { super(props); this.state = { bored: false }; this.arm(); }
+  arm() { clearTimeout(this.t); const n = Number(this.props.idleAfter) || 0; if (n > 0) this.t = setTimeout(() => this.setState({ bored: true }), n * 1000); }
+  componentWillUnmount() { clearTimeout(this.t); }
+  componentDidUpdate(prev) { if (prev && prev.state !== this.props.state) { if (this.state.bored) this.setState({ bored: false }); this.arm(); } }
+  renderVals() {
+    // The label mascot. state: idle | reading | done | thinking. found: 0-3 label lines turned green.
+    // Decorative by default (aria-hidden); pass label to expose it as an image.
+    const p = this.props;
+    const st0 = ['idle', 'hum', 'sit', 'compare', 'disguise', 'talk', 'wave', 'point', 'listen', 'reading', 'done', 'thinking', 'guard'].indexOf(p.state) >= 0 ? p.state : 'idle';
+    const st = st0 === 'idle' && this.state.bored ? 'hum' : st0;
+    const n = st === 'done' ? 3 : Math.max(0, Math.min(3, Number(p.found) || 0));
+    // tight: the whole body cropped close (no stage margin), for small sizes like the chat avatar
+    const tight = !!p.tight;
+    const w = Number(p.size) || 200, h = Math.round(w * (tight ? 1.5417 : 1.2604));
+    const ok = '#52794a';
+    return {
+      wake: () => { if (this.state.bored) this.setState({ bored: false }); this.arm(); },
+      w, h, vb: tight ? '170 150 720 1110' : '0 60 960 1210', stateCls: 'st-' + st, wrap: 'width: ' + w + 'px; height: ' + h + 'px;',
+      l1: n >= 1 ? ok : 'transparent', l2: n >= 2 ? ok : 'transparent', l3: n >= 3 ? ok : 'transparent',
+      shadow: p.onDark ? 'rgba(0,0,0,0.30)' : 'rgba(61,35,24,0.16)', contact: p.onDark ? 'rgba(0,0,0,0.38)' : 'rgba(61,35,24,0.28)',
+      label: p.label || '', role: p.label ? 'img' : 'presentation', hidden: p.label ? 'false' : 'true'
+    };
+  }
+}
+</script>
+</body>
+</html>

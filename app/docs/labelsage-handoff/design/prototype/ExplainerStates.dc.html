@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Explainer messages</title>
+<script src="./support.js"></script>
+<link rel="stylesheet" href="ds/aishoppingagent/tokens.css">
+</head>
+<body>
+<x-dc>
+<helmet>
+<style>@import url("https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&display=swap");body{margin:0;font-family:"Outfit","SF Pro Rounded",ui-rounded,-apple-system,system-ui,sans-serif;-webkit-font-smoothing:antialiased}</style>
+</helmet>
+<div style="width: 2590px; box-sizing: border-box; padding: 40px; background: #ffffff; color: #1c1c1e">
+  <h1 style="margin: 0; font-size: 34px; font-weight: 700">Explainer messages: {{name}} guides you</h1>
+  <p style="margin: 8px 0 28px; max-width: 1100px; font-size: 17px; line-height: 1.45; color: #4a4740">One component, three forms: a welcome sheet where he speaks, a coach mark that spotlights one element, and an inline tip in the chat. While the agent works, {{name}} reads in the thread instead of a spinner. Same bubble, same voice, same buttons everywhere.</p>
+  <div style="display: flex; gap: 40px; align-items: flex-start">
+  <div style="display: flex; flex-direction: column; gap: 12px">
+    <div style="font-size: 15px; font-weight: 600; color: #52794a">1 · Welcome, first run (sheet, step 1 of 3)</div>
+    <div style="width: 390px; height: 844px; border-radius: 44px; overflow: hidden; position: relative; background: #f2f2f7">
+      <dc-import name="Chat" view="start" away="{{yes}}" hint-size="390px,844px"></dc-import>
+      <div aria-hidden="true" style="position: absolute; inset: 0; z-index: 30; background: rgba(24,14,8,0.45)"></div>
+      <div style="position: absolute; left: 0; right: 0; bottom: 0; z-index: 31"><dc-import name="Explainer" variant="sheet" title="Hi, I’m {name}" text="I read the ingredients so you don’t have to, for everyone you shop for." step="1" total="3" primary="Show me how" secondary="Skip" mascot="idle" hint-size="390px,300px"></dc-import></div>
+    </div>
+  </div>
+  <div style="display: flex; flex-direction: column; gap: 12px">
+    <div style="font-size: 15px; font-weight: 600; color: #52794a">2 · Coach mark on Scan (tip, step 2 of 3)</div>
+    <div style="width: 390px; height: 844px; border-radius: 44px; overflow: hidden; position: relative; background: #f2f2f7">
+      <dc-import name="Scan" phase="idle" hold="{{yes}}" away="{{yes}}" hint-size="390px,844px"></dc-import>
+      <div aria-hidden="true" style="position: absolute; border-radius: 30px; z-index: 30; box-shadow: 0 0 0 2000px rgba(24,14,8,0.55), 0 0 0 3px rgba(255,250,240,0.9); left: 50px; top: 196px; width: 290px; height: 216px; pointer-events: none"></div>
+      <div style="position: absolute; left: 30px; top: 438px; z-index: 31"><dc-import name="Explainer" variant="tip" title="Point at the barcode" text="Hold steady. I check the ingredients, Mia’s allergies first." step="2" total="3" primary="Next" secondary="Skip" mascot="reading" tail="up" tailX="157" hint-size="330px,170px"></dc-import></div>
+    </div>
+  </div>
+  <div style="display: flex; flex-direction: column; gap: 12px">
+    <div style="font-size: 15px; font-weight: 600; color: #52794a">3 · Coach mark on the verdict (tip, step 3 of 3)</div>
+    <div style="width: 390px; height: 844px; border-radius: 44px; overflow: hidden; position: relative; background: #f2f2f7">
+      <dc-import name="Main" away="{{yes}}" hint-size="390px,844px"></dc-import>
+      <div aria-hidden="true" style="position: absolute; border-radius: 50%; z-index: 30; box-shadow: 0 0 0 2000px rgba(24,14,8,0.55), 0 0 0 3px rgba(255,250,240,0.9); left: 307px; top: 405px; width: 84px; height: 84px; pointer-events: none"></div>
+      <div style="position: absolute; left: 30px; top: 512px; z-index: 31"><dc-import name="Explainer" variant="tip" title="One flag, one reason" text="This symbol is the verdict. Tap it and I show what I found, and who it’s not for." step="3" total="3" primary="Got it" mascot="idle" tail="up" tailX="300" hint-size="330px,170px"></dc-import></div>
+    </div>
+  </div>
+  <div style="display: flex; flex-direction: column; gap: 12px">
+    <div style="font-size: 15px; font-weight: 600; color: #52794a">4 · Tip in chat: he says it from his place above the composer</div>
+    <div style="width: 390px; height: 844px; border-radius: 44px; overflow: hidden; position: relative; background: #f2f2f7">
+      <dc-import name="Chat" view="thread" tip="Tip: ask me anything, like “is this OK for Mia?” I answer with a flag and the reason." hint-size="390px,844px"></dc-import>
+    </div>
+  </div>
+  <div style="display: flex; flex-direction: column; gap: 12px">
+    <div style="font-size: 15px; font-weight: 600; color: #52794a">5 · Chat loading: he reads in his place while the agent works</div>
+    <div style="width: 390px; height: 844px; border-radius: 44px; overflow: hidden; position: relative; background: #f2f2f7">
+      <dc-import name="Chat" view="thread" loading="{{yes}}" hint-size="390px,844px"></dc-import>
+    </div>
+  </div>
+    <div style="width: 360px; padding-top: 34px">
+      <div style="font-size: 20px; font-weight: 700; color: #3d2318; margin-bottom: 6px">Rules</div>
+      <div style="padding: 14px 0; border-top: 1px solid #e5ded0"><div style="font-size: 15px; font-weight: 700; color: #b3261e">Hard rule: only one {{name}}</div><div style="margin-top: 4px; font-size: 15px; line-height: 1.45; color: #4a3b30">He is one person, so never two on a screen. In the chat he stands above the composer; when a sheet or tip needs him, he moves there and leaves his spot. Two at once is a bug.</div></div><div style="padding: 14px 0; border-top: 1px solid #e5ded0"><div style="font-size: 15px; font-weight: 700; color: #3d2318">Who speaks</div><div style="margin-top: 4px; font-size: 15px; line-height: 1.45; color: #4a3b30">{{name}}, always beside the message. The bubble’s tail points at him, so it’s clear the agent is talking.</div></div><div style="padding: 14px 0; border-top: 1px solid #e5ded0"><div style="font-size: 15px; font-weight: 700; color: #3d2318">When</div><div style="margin-top: 4px; font-size: 15px; line-height: 1.45; color: #4a3b30">A 3-step tour on first run. One tip the first time each screen opens, shown once. New features. Empty states.</div></div><div style="padding: 14px 0; border-top: 1px solid #e5ded0"><div style="font-size: 15px; font-weight: 700; color: #3d2318">How long</div><div style="margin-top: 4px; font-size: 15px; line-height: 1.45; color: #4a3b30">One idea per message. Title up to 5 words, text under 20. Plain words, no puns near health.</div></div><div style="padding: 14px 0; border-top: 1px solid #e5ded0"><div style="font-size: 15px; font-weight: 700; color: #3d2318">Buttons</div><div style="margin-top: 4px; font-size: 15px; line-height: 1.45; color: #4a3b30">Next or Got it (primary). Skip ends the whole tour. Tips never cover a flag or block a decision.</div></div><div style="padding: 14px 0; border-top: 1px solid #e5ded0"><div style="font-size: 15px; font-weight: 700; color: #3d2318">Never</div><div style="margin-top: 4px; font-size: 15px; line-height: 1.45; color: #4a3b30">A tip on an allergy result. There he stands guard: still, serious, the flag and the reason lead. He never says “safe”.</div></div><div style="padding: 14px 0; border-top: 1px solid #e5ded0"><div style="font-size: 15px; font-weight: 700; color: #3d2318">Accessible</div><div style="margin-top: 4px; font-size: 15px; line-height: 1.45; color: #4a3b30">Announced as a dialog; focus starts on the message. Reduce Motion keeps him still. “Show tips again” lives in Profile.</div></div>
+    </div>
+  </div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":2590,"height":1060}}'>
+class Component extends DCLogic { renderVals() { const B = window.__lwBrand || (window.__lwBrand = (() => { try { const x = new XMLHttpRequest(); x.open('GET', 'brand.json', false); x.send(); if (x.status === 200) return JSON.parse(x.responseText); } catch (e) {} return { mascot: 'LabelSage', app: 'LabelSage' }; })()); const NAME = B.mascot; /* names live in brand.json */ return { yes: true, name: NAME }; } }
+</script>
+</body>
+</html>

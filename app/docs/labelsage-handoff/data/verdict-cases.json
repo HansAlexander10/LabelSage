@@ -1,0 +1,1122 @@
+{
+ "version": 1,
+ "note": "Executable spec for the verdict engine. Every product is a made-up demo product. Run tools/reference_engine.py; the Swift tests read this file too.",
+ "households": {
+  "demo": {
+   "people": [
+    {
+     "id": "you",
+     "name": "Alex",
+     "isOwner": true,
+     "profile": {
+      "avoid": [
+       {
+        "id": "seed",
+        "strength": "avoid"
+       },
+       {
+        "id": "sugar",
+        "strength": "preferNot"
+       }
+      ]
+     }
+    },
+    {
+     "id": "mia",
+     "name": "Mia",
+     "isOwner": false,
+     "profile": {
+      "allergens": [
+       {
+        "id": "peanut",
+        "severity": "allergy"
+       },
+       {
+        "id": "treenuts",
+        "severity": "allergy"
+       }
+      ],
+      "mayContain": true
+     }
+    }
+   ]
+  },
+  "three": {
+   "people": [
+    {
+     "id": "you",
+     "name": "Alex",
+     "isOwner": true,
+     "profile": {
+      "avoid": [
+       {
+        "id": "seed",
+        "strength": "avoid"
+       }
+      ]
+     }
+    },
+    {
+     "id": "mia",
+     "name": "Mia",
+     "isOwner": false,
+     "profile": {
+      "allergens": [
+       {
+        "id": "peanut",
+        "severity": "allergy"
+       },
+       {
+        "id": "treenuts",
+        "severity": "allergy"
+       }
+      ],
+      "mayContain": true
+     }
+    },
+    {
+     "id": "leo",
+     "name": "Leo",
+     "isOwner": false,
+     "profile": {
+      "allergens": [
+       {
+        "id": "milk",
+        "severity": "allergy"
+       },
+       {
+        "id": "egg",
+        "severity": "allergy"
+       }
+      ],
+      "diets": [
+       "vegetarian"
+      ],
+      "mayContain": true
+     }
+    }
+   ]
+  },
+  "milkAllergy": {
+   "people": [
+    {
+     "id": "mia",
+     "name": "Mia",
+     "isOwner": false,
+     "profile": {
+      "allergens": [
+       {
+        "id": "milk",
+        "severity": "allergy"
+       }
+      ],
+      "mayContain": true
+     }
+    }
+   ]
+  },
+  "milkIntolerance": {
+   "people": [
+    {
+     "id": "you",
+     "name": "Alex",
+     "isOwner": true,
+     "profile": {
+      "allergens": [
+       {
+        "id": "milk",
+        "severity": "intolerance"
+       }
+      ],
+      "mayContain": true
+     }
+    }
+   ]
+  },
+  "peanutNoMay": {
+   "people": [
+    {
+     "id": "mia",
+     "name": "Mia",
+     "isOwner": false,
+     "profile": {
+      "allergens": [
+       {
+        "id": "peanut",
+        "severity": "allergy"
+       }
+      ],
+      "mayContain": false
+     }
+    }
+   ]
+  },
+  "egg": {
+   "people": [
+    {
+     "id": "leo",
+     "name": "Leo",
+     "isOwner": false,
+     "profile": {
+      "allergens": [
+       {
+        "id": "egg",
+        "severity": "allergy"
+       }
+      ],
+      "mayContain": true
+     }
+    }
+   ]
+  },
+  "treenuts": {
+   "people": [
+    {
+     "id": "mia",
+     "name": "Mia",
+     "isOwner": false,
+     "profile": {
+      "allergens": [
+       {
+        "id": "treenuts",
+        "severity": "allergy"
+       }
+      ],
+      "mayContain": true
+     }
+    }
+   ]
+  },
+  "almondOnly": {
+   "people": [
+    {
+     "id": "mia",
+     "name": "Mia",
+     "isOwner": false,
+     "profile": {
+      "allergens": [
+       {
+        "id": "treenuts",
+        "severity": "allergy",
+        "leaves": [
+         "almond"
+        ]
+       }
+      ],
+      "mayContain": true
+     }
+    }
+   ]
+  },
+  "wheat": {
+   "people": [
+    {
+     "id": "sam",
+     "name": "Sam",
+     "isOwner": false,
+     "profile": {
+      "allergens": [
+       {
+        "id": "wheat",
+        "severity": "allergy"
+       }
+      ],
+      "mayContain": true
+     }
+    }
+   ]
+  },
+  "celiac": {
+   "people": [
+    {
+     "id": "you",
+     "name": "Alex",
+     "isOwner": true,
+     "profile": {
+      "medical": [
+       "celiac"
+      ],
+      "mayContain": true
+     }
+    }
+   ]
+  },
+  "soy": {
+   "people": [
+    {
+     "id": "sam",
+     "name": "Sam",
+     "isOwner": false,
+     "profile": {
+      "allergens": [
+       {
+        "id": "soy",
+        "severity": "allergy"
+       }
+      ],
+      "mayContain": true
+     }
+    }
+   ]
+  },
+  "fish": {
+   "people": [
+    {
+     "id": "mia",
+     "name": "Mia",
+     "isOwner": false,
+     "profile": {
+      "allergens": [
+       {
+        "id": "fish",
+        "severity": "allergy"
+       }
+      ],
+      "mayContain": true
+     }
+    }
+   ]
+  },
+  "mustard": {
+   "people": [
+    {
+     "id": "you",
+     "name": "Alex",
+     "isOwner": true,
+     "profile": {
+      "allergens": [
+       {
+        "id": "mustard",
+        "severity": "allergy"
+       }
+      ],
+      "mayContain": true
+     }
+    }
+   ]
+  },
+  "halal": {
+   "people": [
+    {
+     "id": "sam",
+     "name": "Sam",
+     "isOwner": false,
+     "profile": {
+      "diets": [
+       "halal"
+      ]
+     }
+    }
+   ]
+  },
+  "vegan": {
+   "people": [
+    {
+     "id": "you",
+     "name": "Alex",
+     "isOwner": true,
+     "profile": {
+      "diets": [
+       "vegan"
+      ]
+     }
+    }
+   ]
+  },
+  "vegetarian": {
+   "people": [
+    {
+     "id": "leo",
+     "name": "Leo",
+     "isOwner": false,
+     "profile": {
+      "diets": [
+       "vegetarian"
+      ]
+     }
+    }
+   ]
+  },
+  "kosher": {
+   "people": [
+    {
+     "id": "you",
+     "name": "Alex",
+     "isOwner": true,
+     "profile": {
+      "diets": [
+       "kosher"
+      ]
+     }
+    }
+   ]
+  },
+  "heart": {
+   "people": [
+    {
+     "id": "dad",
+     "name": "Dad",
+     "isOwner": false,
+     "profile": {
+      "medical": [
+       "heart"
+      ]
+     }
+    }
+   ]
+  },
+  "palm": {
+   "people": [
+    {
+     "id": "you",
+     "name": "Alex",
+     "isOwner": true,
+     "profile": {
+      "avoid": [
+       {
+        "id": "palm",
+        "strength": "avoid"
+       }
+      ]
+     }
+    }
+   ]
+  },
+  "custom": {
+   "people": [
+    {
+     "id": "you",
+     "name": "Alex",
+     "isOwner": true,
+     "profile": {
+      "custom": [
+       {
+        "label": "Cilantro",
+        "terms": [
+         "cilantro",
+         "coriander leaf",
+         "coriander leaves"
+        ],
+        "strength": "avoid"
+       }
+      ]
+     }
+    }
+   ]
+  }
+ },
+ "cases": [
+  {
+   "id": "demo-popcorners",
+   "household": "demo",
+   "product": {
+    "name": "Demo Corn Chips, Kettle",
+    "ingredientsText": "Ingredients: Yellow corn, sunflower oil, cane sugar, sea salt."
+   },
+   "expect": {
+    "levels": {
+     "you": "notFor",
+     "mia": "ok"
+    },
+    "reasons": {
+     "you": "Not for you: sunflower oil is a seed oil.",
+     "mia": "OK for Mia. Nothing Mia avoids is in it."
+    },
+    "line": "Not for you · OK for Mia",
+    "index": {
+     "you": 2
+    }
+   },
+   "note": "The product page story: seed oil is the 2nd ingredient."
+  },
+  {
+   "id": "demo-olive-oil-chips",
+   "household": "demo",
+   "product": {
+    "name": "Demo Kettle Chips, Olive Oil",
+    "ingredientsText": "Potatoes, olive oil, sea salt."
+   },
+   "expect": {
+    "levels": {
+     "you": "ok",
+     "mia": "ok"
+    },
+    "line": "OK for you and Mia"
+   }
+  },
+  {
+   "id": "demo-peanut-butter",
+   "household": "demo",
+   "product": {
+    "name": "Demo Creamy Peanut Butter",
+    "ingredientsText": "Roasted peanuts, salt."
+   },
+   "expect": {
+    "levels": {
+     "you": "ok",
+     "mia": "notFor"
+    },
+    "reasons": {
+     "mia": "Not for Mia. Contains peanuts."
+    },
+    "line": "Not for Mia · OK for you"
+   },
+   "note": "Guard pose: Not for Mia. The reason names the ingredient as printed."
+  },
+  {
+   "id": "demo-sugar-prefer-not",
+   "household": "demo",
+   "product": {
+    "name": "Demo Granola",
+    "ingredientsText": "Rolled oats, cane sugar, olive oil, cinnamon."
+   },
+   "expect": {
+    "levels": {
+     "you": "checkFirst",
+     "mia": "ok"
+    },
+    "reasons": {
+     "you": "Check first: cane sugar is an added sugar."
+    },
+    "line": "Check first for you · OK for Mia"
+   }
+  },
+  {
+   "id": "three-everyone",
+   "household": "three",
+   "product": {
+    "name": "Demo Rice Cakes",
+    "ingredientsText": "Whole grain brown rice, sea salt."
+   },
+   "expect": {
+    "levels": {
+     "you": "ok",
+     "mia": "ok",
+     "leo": "ok"
+    },
+    "line": "OK for everyone"
+   }
+  },
+  {
+   "id": "milk-hidden-whey",
+   "household": "milkAllergy",
+   "product": {
+    "name": "Demo Protein Bar",
+    "ingredientsText": "Peanuts, whey protein concentrate, honey, salt."
+   },
+   "expect": {
+    "levels": {
+     "mia": "notFor"
+    },
+    "reasons": {
+     "mia": "Not for Mia. Contains whey: that’s milk."
+    }
+   }
+  },
+  {
+   "id": "milk-not-cocoa-butter",
+   "household": "milkAllergy",
+   "product": {
+    "name": "Demo Dark Chocolate",
+    "ingredientsText": "Chocolate liquor, cane sugar, cocoa butter, vanilla."
+   },
+   "expect": {
+    "levels": {
+     "mia": "ok"
+    }
+   },
+   "note": "cocoa butter is not milk"
+  },
+  {
+   "id": "milk-not-peanut-butter",
+   "household": "milkAllergy",
+   "product": {
+    "name": "Demo PB Crackers",
+    "ingredientsText": "Rice flour, peanut butter, salt."
+   },
+   "expect": {
+    "levels": {
+     "mia": "ok"
+    }
+   }
+  },
+  {
+   "id": "milk-sub-ingredient",
+   "household": "milkAllergy",
+   "product": {
+    "name": "Demo Cookies",
+    "ingredientsText": "Enriched flour, chocolate chips (sugar, chocolate liquor, cocoa butter, milkfat, soy lecithin), butter, eggs."
+   },
+   "expect": {
+    "levels": {
+     "mia": "notFor"
+    },
+    "reasons": {
+     "mia": "Not for Mia. Contains milkfat: that’s milk."
+    },
+    "index": {
+     "mia": 2
+    }
+   },
+   "note": "Sub-ingredients share the index of their parent (chocolate chips is the 2nd ingredient)."
+  },
+  {
+   "id": "milk-two-percent-or-less",
+   "household": "milkAllergy",
+   "product": {
+    "name": "Demo Soup",
+    "ingredientsText": "Water, potatoes, onions, contains 2% or less of: salt, whey, spices."
+   },
+   "expect": {
+    "levels": {
+     "mia": "notFor"
+    },
+    "reasons": {
+     "mia": "Not for Mia. Contains whey: that’s milk."
+    }
+   }
+  },
+  {
+   "id": "milk-contains-statement",
+   "household": "milkAllergy",
+   "product": {
+    "name": "Demo Crackers",
+    "ingredientsText": "Rice flour, sunflower oil, natural flavors, salt.",
+    "containsStatement": "Contains: milk."
+   },
+   "expect": {
+    "levels": {
+     "mia": "notFor"
+    },
+    "reasons": {
+     "mia": "Not for Mia. Contains milk."
+    }
+   }
+  },
+  {
+   "id": "milk-natural-flavors-not-ambiguous",
+   "household": "milkAllergy",
+   "product": {
+    "name": "Demo Seltzer",
+    "ingredientsText": "Carbonated water, natural flavors."
+   },
+   "expect": {
+    "levels": {
+     "mia": "ok"
+    }
+   },
+   "note": "Milk is a US major allergen and must be declared, so natural flavors can't hide it."
+  },
+  {
+   "id": "milk-intolerance-may-contain",
+   "household": "milkIntolerance",
+   "product": {
+    "name": "Demo Pretzels",
+    "ingredientsText": "Wheat flour, salt, yeast. May contain milk."
+   },
+   "expect": {
+    "levels": {
+     "you": "ok"
+    }
+   },
+   "note": "Intolerance: in the ingredients only."
+  },
+  {
+   "id": "milk-dairy-free-claim",
+   "household": "milkAllergy",
+   "product": {
+    "name": "Demo Oat Drink",
+    "ingredientsText": "Oat base (water, oats), sunflower oil, dairy-free cultures."
+   },
+   "expect": {
+    "levels": {
+     "mia": "ok"
+    }
+   }
+  },
+  {
+   "id": "peanut-may-contain",
+   "household": "demo",
+   "product": {
+    "name": "Demo Trail Mix",
+    "ingredientsText": "Raisins, sunflower seeds, pumpkin seeds. May contain peanuts and tree nuts."
+   },
+   "expect": {
+    "levels": {
+     "mia": "notFor",
+     "you": "ok"
+    },
+    "reasons": {
+     "mia": "Not for Mia. May contain peanuts."
+    }
+   }
+  },
+  {
+   "id": "peanut-may-contain-off",
+   "household": "peanutNoMay",
+   "product": {
+    "name": "Demo Trail Mix",
+    "ingredientsText": "Raisins, pumpkin seeds. Made in a facility that also processes peanuts."
+   },
+   "expect": {
+    "levels": {
+     "mia": "checkFirst"
+    },
+    "reasons": {
+     "mia": "Check first: says ‘may contain peanuts’."
+    }
+   }
+  },
+  {
+   "id": "egg-not-eggplant",
+   "household": "egg",
+   "product": {
+    "name": "Demo Baba Ganoush",
+    "ingredientsText": "Eggplant, tahini, lemon juice, garlic, salt."
+   },
+   "expect": {
+    "levels": {
+     "leo": "ok"
+    }
+   }
+  },
+  {
+   "id": "egg-albumin",
+   "household": "egg",
+   "product": {
+    "name": "Demo Marshmallows",
+    "ingredientsText": "Corn syrup, sugar, water, dried egg albumen, vanilla."
+   },
+   "expect": {
+    "levels": {
+     "leo": "notFor"
+    },
+    "reasons": {
+     "leo": "Not for Leo. Contains dried egg."
+    }
+   }
+  },
+  {
+   "id": "treenuts-not-nutmeg-coconut",
+   "household": "treenuts",
+   "product": {
+    "name": "Demo Spice Cake",
+    "ingredientsText": "Rice flour, sugar, coconut oil, nutmeg, butternut squash."
+   },
+   "expect": {
+    "levels": {
+     "mia": "ok"
+    }
+   }
+  },
+  {
+   "id": "treenuts-praline",
+   "household": "treenuts",
+   "product": {
+    "name": "Demo Ice Cream",
+    "ingredientsText": "Cream, milk, sugar, praline pieces, egg yolks."
+   },
+   "expect": {
+    "levels": {
+     "mia": "notFor"
+    },
+    "reasons": {
+     "mia": "Not for Mia. Contains praline: that’s almond."
+    }
+   }
+  },
+  {
+   "id": "almond-only-cashew-ok",
+   "household": "almondOnly",
+   "product": {
+    "name": "Demo Cashew Bar",
+    "ingredientsText": "Cashews, dates, sea salt."
+   },
+   "expect": {
+    "levels": {
+     "mia": "ok"
+    }
+   },
+   "note": "Mia avoids almond only; other tree nuts are fine for her."
+  },
+  {
+   "id": "wheat-not-buckwheat-rice-flour",
+   "household": "wheat",
+   "product": {
+    "name": "Demo Soba",
+    "ingredientsText": "Buckwheat flour, rice flour, water, salt."
+   },
+   "expect": {
+    "levels": {
+     "sam": "ok"
+    }
+   }
+  },
+  {
+   "id": "wheat-enriched-flour",
+   "household": "wheat",
+   "product": {
+    "name": "Demo Bread",
+    "ingredientsText": "Enriched flour (wheat flour, niacin, iron), water, yeast, salt."
+   },
+   "expect": {
+    "levels": {
+     "sam": "notFor"
+    },
+    "reasons": {
+     "sam": "Not for Sam. Contains enriched flour: that’s wheat."
+    }
+   }
+  },
+  {
+   "id": "celiac-barley-malt",
+   "household": "celiac",
+   "product": {
+    "name": "Demo Cereal",
+    "ingredientsText": "Rice, sugar, barley malt extract, salt."
+   },
+   "expect": {
+    "levels": {
+     "you": "notFor"
+    },
+    "reasons": {
+     "you": "Not for you. Contains malt extract: that’s gluten."
+    }
+   }
+  },
+  {
+   "id": "celiac-oats",
+   "household": "celiac",
+   "product": {
+    "name": "Demo Oat Bar",
+    "ingredientsText": "Oats, honey, almonds."
+   },
+   "expect": {
+    "levels": {
+     "you": "cantConfirm"
+    },
+    "reasons": {
+     "you": "Can’t confirm. Oats are often cross-contaminated unless labelled gluten-free."
+    }
+   }
+  },
+  {
+   "id": "celiac-gluten-free-oats",
+   "household": "celiac",
+   "product": {
+    "name": "Demo GF Oat Bar",
+    "ingredientsText": "Gluten-free oats, honey, almonds."
+   },
+   "expect": {
+    "levels": {
+     "you": "ok"
+    }
+   }
+  },
+  {
+   "id": "celiac-natural-flavors",
+   "household": "celiac",
+   "product": {
+    "name": "Demo Rice Chips",
+    "ingredientsText": "Rice, sunflower oil, natural flavors, salt."
+   },
+   "expect": {
+    "levels": {
+     "you": "cantConfirm"
+    },
+    "reasons": {
+     "you": "Can’t confirm. ‘Natural flavors’ isn’t specific."
+    }
+   }
+  },
+  {
+   "id": "soy-lecithin-unknown",
+   "household": "soy",
+   "product": {
+    "name": "Demo Chocolate",
+    "ingredientsText": "Sugar, cocoa butter, cocoa mass, lecithin, vanilla."
+   },
+   "expect": {
+    "levels": {
+     "sam": "cantConfirm"
+    },
+    "reasons": {
+     "sam": "Can’t confirm. ‘Lecithin’ doesn’t say its source."
+    }
+   }
+  },
+  {
+   "id": "soy-lecithin-resolved",
+   "household": "soy",
+   "product": {
+    "name": "Demo Chocolate",
+    "ingredientsText": "Sugar, cocoa butter, cocoa mass, lecithin, vanilla.",
+    "containsStatement": "Contains: milk."
+   },
+   "expect": {
+    "levels": {
+     "sam": "ok"
+    }
+   },
+   "note": "A Contains statement that doesn't list soy resolves 'lecithin' for a US major allergen."
+  },
+  {
+   "id": "soy-lecithin-named",
+   "household": "soy",
+   "product": {
+    "name": "Demo Chocolate",
+    "ingredientsText": "Sugar, cocoa butter, soy lecithin, vanilla."
+   },
+   "expect": {
+    "levels": {
+     "sam": "notFor"
+    },
+    "reasons": {
+     "sam": "Not for Sam. Contains soy lecithin."
+    }
+   }
+  },
+  {
+   "id": "fish-prawns-anchovy",
+   "household": "fish",
+   "product": {
+    "name": "Demo Pad Thai Sauce",
+    "ingredientsText": "Water, sugar, tamarind, fish sauce (anchovy, salt), prawns."
+   },
+   "expect": {
+    "levels": {
+     "mia": "notFor"
+    },
+    "reasons": {
+     "mia": "Not for Mia. Contains fish sauce."
+    }
+   }
+  },
+  {
+   "id": "mustard-dijon",
+   "household": "mustard",
+   "product": {
+    "name": "Demo Dressing",
+    "ingredientsText": "Olive oil, vinegar, Dijon, honey."
+   },
+   "expect": {
+    "levels": {
+     "you": "notFor"
+    },
+    "reasons": {
+     "you": "Not for you. Contains dijon: that’s mustard."
+    }
+   }
+  },
+  {
+   "id": "mustard-spices",
+   "household": "mustard",
+   "product": {
+    "name": "Demo Rub",
+    "ingredientsText": "Salt, spices, garlic powder."
+   },
+   "expect": {
+    "levels": {
+     "you": "cantConfirm"
+    },
+    "reasons": {
+     "you": "Can’t confirm. ‘Spices’ doesn’t say which ones."
+    }
+   }
+  },
+  {
+   "id": "halal-gelatin-unknown",
+   "household": "halal",
+   "product": {
+    "name": "Demo Gummies",
+    "ingredientsText": "Glucose syrup, sugar, gelatin, citric acid."
+   },
+   "expect": {
+    "levels": {
+     "sam": "cantConfirm"
+    },
+    "reasons": {
+     "sam": "Can’t confirm. ‘Gelatin’ doesn’t say its source."
+    }
+   }
+  },
+  {
+   "id": "halal-fish-gelatin",
+   "household": "halal",
+   "product": {
+    "name": "Demo Gummies",
+    "ingredientsText": "Glucose syrup, sugar, fish gelatin, citric acid."
+   },
+   "expect": {
+    "levels": {
+     "sam": "ok"
+    }
+   }
+  },
+  {
+   "id": "halal-pork-gelatin",
+   "household": "halal",
+   "product": {
+    "name": "Demo Gummies",
+    "ingredientsText": "Glucose syrup, sugar, pork gelatin."
+   },
+   "expect": {
+    "levels": {
+     "sam": "notFor"
+    },
+    "reasons": {
+     "sam": "Not for Sam: pork gelatin isn’t halal."
+    }
+   }
+  },
+  {
+   "id": "vegan-whey",
+   "household": "vegan",
+   "product": {
+    "name": "Demo Crisps",
+    "ingredientsText": "Potatoes, sunflower oil, whey powder, salt."
+   },
+   "expect": {
+    "levels": {
+     "you": "notFor"
+    },
+    "reasons": {
+     "you": "Not for you: whey isn’t vegan."
+    }
+   }
+  },
+  {
+   "id": "vegetarian-gelatin",
+   "household": "vegetarian",
+   "product": {
+    "name": "Demo Yogurt",
+    "ingredientsText": "Milk, sugar, gelatin, cultures."
+   },
+   "expect": {
+    "levels": {
+     "leo": "notFor"
+    },
+    "reasons": {
+     "leo": "Not for Leo: gelatin isn’t vegetarian."
+    }
+   }
+  },
+  {
+   "id": "kosher-shrimp",
+   "household": "kosher",
+   "product": {
+    "name": "Demo Dumplings",
+    "ingredientsText": "Wheat flour, shrimp, cabbage, ginger."
+   },
+   "expect": {
+    "levels": {
+     "you": "notFor"
+    },
+    "reasons": {
+     "you": "Not for you: shrimp isn’t kosher."
+    }
+   }
+  },
+  {
+   "id": "heart-sodium-high",
+   "household": "heart",
+   "product": {
+    "name": "Demo Soup",
+    "ingredientsText": "Water, noodles, salt.",
+    "nutrition": {
+     "sodiumMg": 690
+    }
+   },
+   "expect": {
+    "levels": {
+     "dad": "checkFirst"
+    },
+    "reasons": {
+     "dad": "Check first: 690 mg sodium per serving."
+    }
+   }
+  },
+  {
+   "id": "heart-sodium-low",
+   "household": "heart",
+   "product": {
+    "name": "Demo Chips",
+    "ingredientsText": "Potatoes, olive oil, salt.",
+    "nutrition": {
+     "sodiumMg": 105
+    }
+   },
+   "expect": {
+    "levels": {
+     "dad": "ok"
+    }
+   }
+  },
+  {
+   "id": "heart-no-nutrition",
+   "household": "heart",
+   "product": {
+    "name": "Demo Chips",
+    "ingredientsText": "Potatoes, olive oil, salt."
+   },
+   "expect": {
+    "levels": {
+     "dad": "cantConfirm"
+    },
+    "reasons": {
+     "dad": "Can’t confirm. No sodium value on the label."
+    }
+   }
+  },
+  {
+   "id": "no-ingredient-list",
+   "household": "demo",
+   "product": {
+    "name": "Demo Trail Mix",
+    "ingredientsText": null
+   },
+   "expect": {
+    "levels": {
+     "you": "cantConfirm",
+     "mia": "cantConfirm"
+    },
+    "reasons": {
+     "mia": "Can’t confirm. No ingredient list for this one yet."
+    },
+    "line": "Can’t confirm"
+   }
+  },
+  {
+   "id": "palm-oil",
+   "household": "palm",
+   "product": {
+    "name": "Demo Spread",
+    "ingredientsText": "Sugar, palm oil, hazelnuts, cocoa."
+   },
+   "expect": {
+    "levels": {
+     "you": "notFor"
+    },
+    "reasons": {
+     "you": "Not for you. Contains palm oil."
+    }
+   }
+  },
+  {
+   "id": "custom-cilantro",
+   "household": "custom",
+   "product": {
+    "name": "Demo Salsa",
+    "ingredientsText": "Tomatoes, onions, cilantro, lime juice."
+   },
+   "expect": {
+    "levels": {
+     "you": "notFor"
+    },
+    "reasons": {
+     "you": "Not for you. Contains cilantro."
+    }
+   }
+  }
+ ]
+}

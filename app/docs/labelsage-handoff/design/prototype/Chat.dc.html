@@ -1,0 +1,303 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Agent chat</title>
+<script src="./support.js"></script>
+<link rel="stylesheet" href="ds/aishoppingagent/tokens.css">
+</head>
+<body>
+<x-dc>
+<helmet>
+<style>
+@import url("https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&display=swap");
+body{margin:0;font-family:"Outfit","SF Pro Rounded",ui-rounded,-apple-system,system-ui,sans-serif;-webkit-font-smoothing:antialiased}
+a{color:#1b6b3e}
+button{font-family:inherit;color:inherit}
+button:focus-visible{outline:2px solid #1d2b22;outline-offset:2px}
+input::placeholder{color:#8c8775}
+@keyframes flag-bad{0%{box-shadow:0 0 0 0 rgba(239,75,63,.6)}70%{box-shadow:0 0 0 14px rgba(239,75,63,0)}100%{box-shadow:0 0 0 0 rgba(239,75,63,0)}}
+@keyframes flag-careful{0%{box-shadow:0 0 0 0 rgba(255,212,73,.65)}70%{box-shadow:0 0 0 14px rgba(255,212,73,0)}100%{box-shadow:0 0 0 0 rgba(255,212,73,0)}}
+@keyframes flag-good{0%{box-shadow:0 0 0 0 rgba(29,191,115,.55)}70%{box-shadow:0 0 0 14px rgba(29,191,115,0)}100%{box-shadow:0 0 0 0 rgba(29,191,115,0)}}
+@keyframes spin{to{transform:rotate(360deg)}}
+.clamp2{display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.one{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.chips{display:flex;gap:4px;flex-wrap:nowrap;overflow:hidden;-webkit-mask-image:linear-gradient(90deg,#232323 82%,transparent);mask-image:linear-gradient(90deg,#232323 82%,transparent)}
+.chips>span{flex:none;white-space:nowrap}
+@media (prefers-reduced-motion:reduce){[style*="animation"]{animation:none !important}}
+:root{--ease-out:cubic-bezier(0.23,1,0.32,1);--ease-drawer:cubic-bezier(0.32,0.72,0,1)}button,a{-webkit-tap-highlight-color:transparent;transition:transform 160ms var(--ease-out),background-color 160ms var(--ease-out)}button:active,a:active{transform:scale(0.97)}[role=radio]:active,[role=checkbox]:active,[role=option]:active,[role=menuitem]:active,[role=switch]:active{transform:none;background-color:rgba(118,118,128,0.12) !important}::selection{background:rgba(38,131,78,0.22)}@keyframes rc-sheet{from{transform:translateY(100%)}to{transform:none}}@keyframes rc-scrim{from{opacity:0}to{opacity:1}}@keyframes rc-pop{from{opacity:0;transform:scale(0.95)}to{opacity:1;transform:none}}.rc-sheet{animation:rc-sheet 420ms var(--ease-drawer) both}.rc-scrim{animation:rc-scrim 220ms var(--ease-out) both}.rc-pop{animation:rc-pop 180ms var(--ease-out) both}@media (prefers-reduced-motion:reduce){button:active,a:active{transform:none}.rc-sheet,.rc-pop{animation:rc-scrim 200ms ease both}}@media (prefers-reduced-transparency:reduce){[style*=backdrop-filter]{backdrop-filter:none !important;-webkit-backdrop-filter:none !important}}</style>
+<style>/* Liquid Glass (navigation layer only, per HIG). Frosted base everywhere; refraction where backdrop SVG filters work (Chromium). */:root{--lg-bg:rgba(255,255,255,0.52);--lg-bg-thick:rgba(255,255,255,0.8);--lg-bg-dark:rgba(255,255,255,0.14);--lg-edge:rgba(255,255,255,0.7);--lg-edge-dark:rgba(255,255,255,0.3);--lg-fx:blur(14px) saturate(180%);--lg-shadow:inset 0 0 2px 1px rgba(255,255,255,0.6),inset 0 0 10px 4px rgba(255,255,255,0.22),inset 0 4px 16px rgba(17,17,26,0.05),inset 0 8px 24px rgba(17,17,26,0.05),0 6px 20px rgba(0,0,0,0.10);--lg-shadow-float:inset 0 0 2px 1px rgba(255,255,255,0.6),inset 0 0 10px 4px rgba(255,255,255,0.22),0 12px 36px rgba(0,0,0,0.16);--lg-shadow-dark:inset 0 0 2px 1px rgba(255,255,255,0.35),inset 0 0 10px 4px rgba(255,255,255,0.12),0 6px 20px rgba(0,0,0,0.25)}@supports (not (font:-apple-system-body)) and (not (-moz-appearance:none)){:root{--lg-fx:url(#lg-filter) blur(2px) saturate(1.7)}}@media (prefers-reduced-transparency:reduce){:root{--lg-bg:rgba(255,255,255,0.97);--lg-bg-thick:#ffffff;--lg-bg-dark:rgba(44,44,46,0.94);--lg-fx:none}}@media (prefers-contrast:more){:root{--lg-edge:rgba(0,0,0,0.35);--lg-edge-dark:rgba(255,255,255,0.7)}}</style>
+<style>@keyframes lw-dot{0%,60%,100%{opacity:0.2}30%{opacity:1}}.lw-dot{animation:lw-dot 1.2s ease-in-out infinite}.lw-dot.d2{animation-delay:0.2s}.lw-dot.d3{animation-delay:0.4s}@keyframes ck-in{from{opacity:0;transform:translateY(8px) scale(0.96)}to{opacity:1;transform:none}}.ck-in{transform-origin:0 100%;animation:ck-in 320ms cubic-bezier(0.23,1,0.32,1) both}@media (prefers-reduced-motion:reduce){.lw-dot{animation:none;opacity:1}.ck-in{animation:rc-scrim 200ms ease both}}</style>
+</helmet>
+<div style="width: 390px; height: 844px; position: relative; overflow: hidden; background: #eef8f1; color: #1d2b22; font-family: 'Outfit', 'SF Pro Rounded', ui-rounded, -apple-system, system-ui, sans-serif"><svg aria-hidden="true" focusable="false" width="0" height="0" style="position: absolute; width: 0; height: 0; overflow: hidden"><defs><filter id="lg-filter" color-interpolation-filters="sRGB" x="0%" y="0%" width="100%" height="100%"><feImage x="0" y="0" width="100%" height="100%" preserveAspectRatio="none" result="map" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAIAAAACACAIAAABMXPacAAABRElEQVR42u3ZQQqDMBRF0RcNMbrqLr0DEdoN9ENzLo4cviMisbX2asmW9GQkI5nJTM6P63ruHMmRjKQne7JFSbIl+zPgPdGZzOT6nvEedjwDbklLepoBK+se42qAboRagGEEAEsDTCMAWBrgNAIAAAKwLMBlBF9BXkGqAziMAGBpAGdBxQCOo4sBdiPUAvgjVpr5AQAQAAACAEAAAAgAAAEAIAAABACAAAAQAAACAEAAAAgAAAEAIAAABACAAAAQAAACAEAAAAgAAAEAIAAABACAAAAQAAACAEAAAAgAAAEAIAAABAAAABMAACAAAAQAgAAAEAAAAgBAAAAIAAABACAAAATgL+sIqgF2I9QCdCPUAgwj1AIcRgCwNMBphFqAaYRagMsIXkEABACAfAUB0O8BnAUBWBvAcXQxgD9ixQDNCJW9Aa7lA8768ue5AAAAAElFTkSuQmCC"></feImage><feDisplacementMap in="SourceGraphic" in2="map" result="dispRed" scale="-14" xChannelSelector="R" yChannelSelector="G"></feDisplacementMap><feColorMatrix in="dispRed" type="matrix" values="1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0" result="red"></feColorMatrix><feDisplacementMap in="SourceGraphic" in2="map" result="dispGreen" scale="-17" xChannelSelector="R" yChannelSelector="G"></feDisplacementMap><feColorMatrix in="dispGreen" type="matrix" values="0 0 0 0 0 0 1 0 0 0 0 0 0 0 0 0 0 0 1 0" result="green"></feColorMatrix><feDisplacementMap in="SourceGraphic" in2="map" result="dispBlue" scale="-20" xChannelSelector="R" yChannelSelector="G"></feDisplacementMap><feColorMatrix in="dispBlue" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 1 0 0 0 0 0 1 0" result="blue"></feColorMatrix><feBlend in="red" in2="green" mode="screen" result="rg"></feBlend><feBlend in="rg" in2="blue" mode="screen" result="output"></feBlend><feGaussianBlur in="output" stdDeviation="2"></feGaussianBlur></filter></defs></svg>
+
+<!-- header: Liquid Glass over a tinted background; the thread scrolls under it and stays readable through the blur -->
+<div style="position: absolute; left: 0; right: 0; top: 0; z-index: 4; padding: 54px 16px 10px; display: flex; align-items: center; gap: 14px; background: linear-gradient(to bottom, rgba(238,248,241,0.95) 0%, rgba(238,248,241,0.86) 62%, rgba(238,248,241,0) 100%); backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px)">
+  <a href="Profile.dc.html" aria-label="Family and allergies" style="flex: none; width: 40px; height: 40px; border-radius: 50%; background: #26834e; color: #ffffff; display: grid; place-items: center; font-size: 15px; font-weight: 600; text-decoration: none">AZ</a>
+  <button aria-haspopup="menu" aria-expanded="{{histExpanded}}" onClick="{{toggleHist}}" style="flex: 1; min-width: 0; border: 0; padding: 0; background: transparent; text-align: left; cursor: pointer">
+    <span style="display: flex; align-items: center; gap: 4px; font-size: 18px; font-weight: 600"><span class="one">{{chatTitle}}</span><dc-import name="Sym" sym="chevron.down" size="{{s13}}" color="#5d6a60" hint-size="13px,13px"></dc-import></span>
+    <span style="display: block; font-size: 13px; color: #5d6a60; white-space: nowrap; overflow: hidden; text-overflow: ellipsis">Mia: peanut, tree nuts · You: seed oils</span>
+  </button>
+  <button aria-label="New chat" onClick="{{newChat}}" style="flex: none; width: 44px; height: 44px; border-radius: 50%; border: 0.5px solid var(--lg-edge); background: var(--lg-bg); box-shadow: var(--lg-shadow); backdrop-filter: var(--lg-fx); -webkit-backdrop-filter: var(--lg-fx); display: grid; place-items: center; cursor: pointer; color: #1d2b22"><dc-import name="Sym" sym="square.and.pencil" size="{{s20}}" hint-size="20px,20px"></dc-import></button>
+</div>
+
+<!-- chat history: dropdown from the title -->
+<sc-if value="{{histOpen}}" hint-placeholder-val="{{ false }}">
+  <button aria-label="Close chat history" onClick="{{closeHist}}" style="position: absolute; inset: 0; z-index: 5; border: 0; background: transparent; cursor: default"></button>
+  <div class="rc-pop" role="menu" aria-label="Chats" style="transform-origin: 40px 0; position: absolute; left: 66px; top: 104px; z-index: 6; width: 280px; border-radius: 22px; overflow: hidden; background: var(--lg-bg-thick); border: 0.5px solid var(--lg-edge); box-shadow: var(--lg-shadow-float); backdrop-filter: var(--lg-fx); -webkit-backdrop-filter: var(--lg-fx)">
+    <button role="menuitem" onClick="{{newChat}}" style="width: 100%; min-height: 50px; display: flex; align-items: center; gap: 12px; padding: 0 16px; border: 0; background: transparent; font-size: 17px; font-weight: 600; color: #1b6b3e; cursor: pointer"><dc-import name="Sym" sym="plus" size="{{s18}}" color="#1b6b3e" hint-size="18px,18px"></dc-import>New chat</button>
+    <div style="padding: 8px 16px 4px; border-top: 0.5px solid rgba(60,60,67,0.18); font-size: 12px; font-weight: 600; color: #5d6a60">Recent</div>
+    <sc-for list="{{history}}" as="h" hint-placeholder-count="4">
+      <button role="menuitem" onClick="{{h.open}}" style="{{h.style}}"><span style="flex: 1; min-width: 0; text-align: left"><span class="one" style="display: block; font-size: 16px">{{h.title}}</span><span style="display: block; font-size: 13px; color: #5d6a60">{{h.when}}</span></span><sc-if value="{{h.current}}" hint-placeholder-val="{{ false }}"><dc-import name="Sym" sym="checkmark" size="{{s16}}" color="#1b6b3e" hint-size="16px,16px"></dc-import></sc-if></button>
+    </sc-for>
+  </div>
+</sc-if>
+
+<!-- START: AI first. The biggest action is Check a product (the camera); the rest are asks to the agent -->
+<sc-if value="{{isStart}}" hint-placeholder-val="{{ true }}">
+<div style="position: absolute; left: 0; right: 0; top: 112px; bottom: 214px; padding: 8px 16px; display: flex; flex-direction: column; gap: 12px; overflow: hidden">
+  <h1 style="margin: 6px 4px 0; font-size: 32px; line-height: 1.12; font-weight: 700; letter-spacing: -0.01em">What do you need today?</h1>
+  <div style="margin: 0 4px; font-size: 15px; color: #5d6a60">I check the ingredients for you and Mia.</div>
+  <a href="Scan.dc.html" aria-label="Check a product: scan the barcode or photo the ingredients" style="{{heroStyle}}">
+    <span style="display: flex; align-items: center; gap: 14px">
+      <img src="emoji3d/magnifying_glass_tilted_left.png" alt="" width="56" height="56" style="flex: none">
+      <span style="flex: 1; min-width: 0"><span style="display: block; font-size: 22px; font-weight: 700; line-height: 1.2">Check a product</span><span style="display: block; font-size: 15px; color: #5d6a60; margin-top: 2px">Scan the barcode or photo the ingredients</span></span>
+    </span>
+    <span style="margin-top: 14px; min-height: 54px; border-radius: 9999px; background: #eb9d15; color: #1d2b22; font-size: 18px; font-weight: 600; display: flex; align-items: center; justify-content: center; gap: 8px; box-shadow: 0 6px 18px rgba(235,157,21,0.3)"><dc-import name="Sym" sym="barcode.viewfinder" size="{{s20}}" color="#1d2b22" hint-size="20px,20px"></dc-import>Open the camera</span>
+  </a>
+  <div style="display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 10px">
+    <sc-for list="{{tiles}}" as="t" hint-placeholder-count="3">
+      <a href="{{t.href}}" onClick="{{t.go}}" style="{{t.style}}"><img src="{{t.icon}}" alt="" width="40" height="40"><span style="font-size: 15px; font-weight: 600; line-height: 1.2">{{t.title}}</span></a>
+    </sc-for>
+  </div>
+</div>
+</sc-if>
+
+<sc-if value="{{isThread}}" hint-placeholder-val="{{ false }}">
+<!-- thread (newest at bottom). Older messages are plain text; the latest answer is said by LabelSage in the dock -->
+<div style="position: absolute; left: 0; right: 0; top: 0; bottom: 214px; display: flex; flex-direction: column-reverse; overflow-x: hidden; overflow-y: auto">
+<div style="padding: 116px 16px 8px; display: flex; flex-direction: column; gap: 8px">
+  <div style="align-self: center; font-size: 13px; font-weight: 600; color: #5d6a60; padding: 3px 10px; border-radius: 9999px; background: rgba(255,255,255,0.7)">Today</div>
+  <div style="max-width: 86%; font-size: 17px; line-height: 1.38">Point the camera at a barcode, or ask me about any product.</div>
+
+  <!-- ask about a product: verdict row, then Try instead -->
+  <sc-if value="{{isCheck}}" hint-placeholder-val="{{ true }}">
+    <div style="{{me}}">Are PopCorners kettle chips OK for me?</div>
+    <dc-import name="ProductRow" title="PopCorners Popped Corn Chips, Kettle" meta="PopCorners · 3 oz" price="$4.29" lv="bad" control="chevron" img="/_blob/58077391b4e19dddae5d17a63751ab9c" chips="{{popChips}}" onOpen="{{openProduct}}" hint-size="358px,128px"></dc-import>
+    <sc-if value="{{older}}" hint-placeholder-val="{{ true }}"><div style="font-size: 17px; line-height: 1.38">Not for you: sunflower oil is a seed oil. Try instead:</div></sc-if>
+    <dc-import name="ProductRow" title="Boulder Canyon Kettle Chips, Olive Oil" meta="Boulder Canyon · 5.25 oz" price="$4.49" lv="good" control="chevron" img="/_blob/009819ab8d0ecae0eba8e43b443ffd2b" chips="{{bcChips}}" onOpen="{{openProduct}}" hint-size="358px,128px"></dc-import>
+    <div style="display: flex; gap: 8px; overflow-x: auto; white-space: nowrap">
+      <button onClick="{{openCompare}}" style="{{chip}}"><dc-import name="Sym" sym="arrow.left.arrow.right" size="{{s14}}" hint-size="14px,14px"></dc-import>Compare both</button>
+      <button onClick="{{showOptions}}" style="{{chip}}"><dc-import name="Sym" sym="sparkles" size="{{s14}}" hint-size="14px,14px"></dc-import>More options</button>
+      <a href="Scan.dc.html" style="{{chip}}text-decoration: none; color: #1d2b22"><dc-import name="Sym" sym="barcode.viewfinder" size="{{s14}}" hint-size="14px,14px"></dc-import>Check another</a>
+    </div>
+  </sc-if>
+
+  <!-- chat to scan and back: the camera result lands in the thread -->
+  <sc-if value="{{isScanned}}" hint-placeholder-val="{{ false }}">
+    <div style="align-self: flex-end; display: flex; align-items: center; gap: 6px; padding: 8px 12px; border-radius: 20px 20px 6px 20px; background: #26834e; color: #ffffff; font-size: 15px"><dc-import name="Sym" sym="barcode.viewfinder" size="{{s16}}" color="#ffffff" hint-size="16px,16px"></dc-import>Checked with the camera</div>
+    <dc-import name="ProductRow" title="Northfield Creamy Peanut Butter, 16 oz" meta="Northfield · 16 oz" price="$3.29" lv="bad" control="chevron" alert="Peanut · Mia is allergic" onOpen="{{openProduct}}" hint-size="358px,128px"></dc-import>
+    <sc-if value="{{older}}" hint-placeholder-val="{{ true }}"><div style="font-size: 17px; line-height: 1.38">Not for Mia. Contains peanut.</div></sc-if>
+    <div style="display: flex; gap: 8px; overflow-x: auto; white-space: nowrap">
+      <button onClick="{{showOptions}}" style="{{chip}}"><dc-import name="Sym" sym="sparkles" size="{{s14}}" hint-size="14px,14px"></dc-import>Try instead</button>
+      <a href="Scan.dc.html" style="{{chip}}text-decoration: none; color: #1d2b22"><dc-import name="Sym" sym="barcode.viewfinder" size="{{s14}}" hint-size="14px,14px"></dc-import>Check another</a>
+    </div>
+  </sc-if>
+
+  <!-- find other options: three cards, each OK for everyone -->
+  <sc-if value="{{isOptions}}" hint-placeholder-val="{{ false }}">
+    <div style="{{me}}">{{optionsAsk}}</div>
+    <sc-if value="{{optionsReady}}" hint-placeholder-val="{{ true }}">
+      <dc-import name="ProductRow" title="Boulder Canyon Kettle Chips, Olive Oil" meta="Boulder Canyon · 5.25 oz" price="$4.49" lv="good" control="chevron" img="/_blob/009819ab8d0ecae0eba8e43b443ffd2b" chips="{{bcChips}}" onOpen="{{openProduct}}" hint-size="358px,128px"></dc-import>
+      <dc-import name="ProductRow" title="Wegmans Kettle Chips, Avocado Oil" meta="Wegmans · 8 oz" price="$3.99" lv="good" control="chevron" chips="{{wgChips}}" onOpen="{{openProduct}}" hint-size="358px,128px"></dc-import>
+      <dc-import name="ProductRow" title="Snake River Farms Kettle Chips, Tallow" meta="Snake River Farms · 5 oz" price="$6.99" lv="good" control="chevron" chips="{{srChips}}" onOpen="{{openProduct}}" hint-size="358px,128px"></dc-import>
+    </sc-if>
+  </sc-if>
+
+  <!-- change allergies: the agent proposes, the person confirms. Nothing is saved without a tap -->
+  <sc-if value="{{isProfile}}" hint-placeholder-val="{{ false }}">
+    <div style="{{me}}">Mia reacted to hummus. Add sesame to her allergies</div>
+    <sc-if value="{{older}}" hint-placeholder-val="{{ true }}"><div style="font-size: 17px; line-height: 1.38">Here’s the change. Nothing is saved until you confirm.</div></sc-if>
+    <sc-if value="{{profAsk}}" hint-placeholder-val="{{ true }}">
+    <div role="group" aria-label="Proposed change to Mia’s allergies" style="padding: 16px; border-radius: 26px; background: #ffffff; box-shadow: 0 1px 2px rgba(29,43,34,0.04), 0 10px 26px rgba(29,43,34,0.05); display: flex; flex-direction: column; gap: 14px">
+      <div style="display: flex; align-items: center; gap: 10px">
+        <span aria-hidden="true" style="flex: none; width: 40px; height: 40px; border-radius: 50%; background: #fcebc4; color: #7a4a00; display: grid; place-items: center; font-size: 16px; font-weight: 700">M</span>
+        <div style="flex: 1; min-width: 0"><div style="font-size: 18px; font-weight: 600">Mia</div><div style="font-size: 13px; color: #5d6a60">1 change to confirm</div></div>
+        <a href="Profile.dc.html" style="min-height: 44px; display: flex; align-items: center; font-size: 15px; font-weight: 600; color: #1b6b3e; text-decoration: none">Open</a>
+      </div>
+      <div style="display: flex; gap: 12px; align-items: flex-start; padding: 12px; border-radius: 18px; background: #fbf1ef">
+        <img src="emoji3d/bagel.png" alt="" width="32" height="32" style="flex: none">
+        <div style="flex: 1; min-width: 0">
+          <div style="font-size: 18px; font-weight: 600">Sesame</div>
+          <div style="margin-top: 2px; font-size: 13px; color: #5d6a60">Mia avoids: peanut, tree nuts, sesame</div>
+          <div role="radiogroup" aria-label="How careful" style="margin-top: 10px; display: flex; height: 34px; padding: 2px; box-sizing: border-box; border-radius: 9999px; background: rgba(29,43,34,0.07)">
+            <button role="radio" aria-checked="{{sevSevereOn}}" onClick="{{sevSevere}}" style="{{sevSevereStyle}}">Allergy</button>
+            <button role="radio" aria-checked="{{sevMildOn}}" onClick="{{sevMild}}" style="{{sevMildStyle}}">Intolerance</button>
+          </div>
+          <div style="margin-top: 6px; font-size: 13px; color: #5d6a60">{{sevNote}}</div>
+        </div>
+      </div>
+      <div style="font-size: 13px; line-height: 1.35; color: #5d6a60">After you confirm, I re-check Mia’s go-tos.</div>
+      <div style="display: flex; gap: 8px">
+        <button onClick="{{profCancel}}" style="flex: 1; min-height: 54px; border: 0; border-radius: 9999px; background: rgba(29,43,34,0.07); font-size: 17px; font-weight: 500; cursor: pointer">Cancel</button>
+        <button onClick="{{profConfirm}}" style="flex: 1.6; min-height: 54px; border: 0; border-radius: 9999px; background: #eb9d15; color: #1d2b22; font-size: 17px; font-weight: 600; cursor: pointer; box-shadow: 0 6px 18px rgba(235,157,21,0.3)">Confirm change</button>
+      </div>
+    </div>
+    </sc-if>
+    <sc-if value="{{profDone}}" hint-placeholder-val="{{ false }}">
+    <div role="status" style="display: flex; align-items: center; gap: 10px; padding: 12px 12px 12px 14px; border-radius: 22px; background: #ffffff">
+      <dc-import name="Sym" sym="checkmark.circle" size="{{s22}}" color="#1b6b3e" label="Saved" hint-size="22px,22px"></dc-import>
+      <div style="flex: 1; font-size: 15px; line-height: 1.3">{{profSaved}}</div>
+      <button onClick="{{profUndo}}" style="min-height: 40px; padding: 0 14px; border-radius: 9999px; border: 0; background: rgba(29,43,34,0.07); font-size: 15px; font-weight: 600; cursor: pointer">Undo</button>
+    </div>
+    <sc-if value="{{older}}" hint-placeholder-val="{{ true }}"><div style="font-size: 17px; line-height: 1.38">I re-checked Mia’s 3 go-tos. None contains sesame. From now on, hummus and tahini are flagged for Mia.</div></sc-if>
+    </sc-if>
+    <sc-if value="{{profCancelled}}" hint-placeholder-val="{{ false }}">
+    <sc-if value="{{older}}" hint-placeholder-val="{{ true }}"><div style="font-size: 17px; line-height: 1.38">No changes made. Mia’s allergies stay as they were.</div></sc-if>
+    </sc-if>
+  </sc-if>
+</div>
+</div>
+</sc-if>
+
+<!-- THE MASCOT IS THE AI: one, fixed above the composer. Hard rule: never two on one screen; when a sheet opens he moves into it -->
+<sc-if value="{{dockOn}}" hint-placeholder-val="{{ true }}">
+  <div aria-hidden="true" style="position: absolute; left: 0; right: 0; bottom: 92px; height: 132px; z-index: 3; pointer-events: none; background: linear-gradient(to bottom, rgba(238,248,241,0), #eef8f1 34%)"></div>
+  <div role="status" aria-live="polite" aria-label="{{dockAria}}" style="position: absolute; left: 4px; right: 16px; bottom: 90px; z-index: 3; display: flex; align-items: flex-end; gap: 6px; pointer-events: none">
+    <div aria-hidden="true" style="flex: none"><dc-import name="Mascot" state="{{dockState}}" found="{{dockFound}}" idleAfter="15" size="84" hint-size="84px,106px"></dc-import></div>
+    <sc-if value="{{dockA}}" hint-placeholder-val="{{ true }}">
+    <div class="ck-in" style="{{bubble}}">
+      <span aria-hidden="true" style="{{tail}}"></span>
+      <div style="font-size: 16px; line-height: 1.35; color: #1d2b22">{{dockText}}<sc-if value="{{dockDots}}" hint-placeholder-val="{{ false }}"><span aria-hidden="true" class="lw-dot">.</span><span aria-hidden="true" class="lw-dot d2">.</span><span aria-hidden="true" class="lw-dot d3">.</span></sc-if></div>
+      <sc-if value="{{dockHasSub}}" hint-placeholder-val="{{ false }}"><div style="margin-top: 2px; font-size: 13px; color: #5d6a60">{{dockSub}}</div></sc-if>
+      <sc-if value="{{dockBtn}}" hint-placeholder-val="{{ false }}"><button onClick="{{dockGotIt}}" style="margin-top: 8px; min-height: 34px; padding: 0 14px; border: 0; border-radius: 9999px; background: rgba(82,121,74,0.14); color: #2f5a2a; font-size: 15px; font-weight: 600; cursor: pointer">Got it</button></sc-if>
+    </div>
+    </sc-if>
+    <sc-if value="{{dockB}}" hint-placeholder-val="{{ false }}">
+    <div class="ck-in" style="{{bubble}}">
+      <span aria-hidden="true" style="{{tail}}"></span>
+      <div style="font-size: 16px; line-height: 1.35; color: #1d2b22">{{dockText}}<sc-if value="{{dockDots}}" hint-placeholder-val="{{ false }}"><span aria-hidden="true" class="lw-dot">.</span><span aria-hidden="true" class="lw-dot d2">.</span><span aria-hidden="true" class="lw-dot d3">.</span></sc-if></div>
+      <sc-if value="{{dockHasSub}}" hint-placeholder-val="{{ false }}"><div style="margin-top: 2px; font-size: 13px; color: #5d6a60">{{dockSub}}</div></sc-if>
+      <sc-if value="{{dockBtn}}" hint-placeholder-val="{{ false }}"><button onClick="{{dockGotIt}}" style="margin-top: 8px; min-height: 34px; padding: 0 14px; border: 0; border-radius: 9999px; background: rgba(82,121,74,0.14); color: #2f5a2a; font-size: 15px; font-weight: 600; cursor: pointer">Got it</button></sc-if>
+    </div>
+    </sc-if>
+  </div>
+</sc-if>
+
+<!-- composer: plus uploads a photo of the ingredients; the right button opens the camera until you type -->
+<div style="position: absolute; left: 12px; right: 12px; bottom: 28px; z-index: 3; display: flex; align-items: flex-end; gap: 8px">
+  <a href="Scan.dc.html" aria-label="Upload photo" style="{{glass}}{{plusRing}}text-decoration: none; color: #1d2b22"><dc-import name="Sym" sym="photo" size="{{s20}}" hint-size="20px,20px"></dc-import></a>
+  <div style="{{composerRing}}flex: 1; min-height: 44px; display: flex; align-items: center; padding: 0 16px; box-sizing: border-box; border-radius: 22px; background: var(--lg-bg); border: 0.5px solid var(--lg-edge); box-shadow: var(--lg-shadow); backdrop-filter: var(--lg-fx); -webkit-backdrop-filter: var(--lg-fx)">
+    <label for="msg" style="position: absolute; left: -9999px">Message {{mascotName}}</label>
+    <input id="msg" value="{{text}}" onChange="{{onText}}" placeholder="{{placeholder}}" style="width: 100%; border: 0; outline: none; background: transparent; font-size: 17px; font-family: inherit; color: #1d2b22">
+  </div>
+  <sc-if value="{{camOn}}" hint-placeholder-val="{{ true }}">
+    <a href="Scan.dc.html" aria-label="Check a product" style="{{camStyle}}"><dc-import name="Sym" sym="barcode.viewfinder" size="{{s20}}" color="#1d2b22" hint-size="20px,20px"></dc-import></a>
+  </sc-if>
+  <sc-if value="{{sendOn}}" hint-placeholder-val="{{ false }}">
+    <button aria-label="{{actionLabel}}" onClick="{{onAction}}" style="{{actionStyle}}">
+      <sc-if value="{{loading}}" hint-placeholder-val="{{ false }}"><svg width="44" height="44" viewBox="0 0 44 44" aria-hidden="true" style="position: absolute; inset: 0"><circle cx="22" cy="22" r="19" fill="none" stroke="rgba(255,255,255,0.35)" stroke-width="2.5"></circle><path d="M22 3a19 19 0 0 1 19 19" fill="none" stroke="#ffffff" stroke-width="2.5" stroke-linecap="round"><animateTransform attributeName="transform" type="rotate" from="0 22 22" to="360 22 22" dur="0.9s" repeatCount="indefinite"></animateTransform></path></svg></sc-if>
+      <dc-import name="Sym" sym="{{actionSym}}" size="{{actionSize}}" color="#ffffff" hint-size="18px,18px"></dc-import>
+    </button>
+  </sc-if>
+</div>
+
+<!-- sheets: LabelSage moves into them, his dock spot stays empty -->
+<sc-if value="{{anySheet}}" hint-placeholder-val="{{ false }}">
+  <button class="rc-scrim" aria-label="Close" onClick="{{closeSheet}}" style="position: absolute; inset: 0; z-index: 4; border: 0; background: rgba(29,43,34,0.3); cursor: pointer"></button>
+</sc-if>
+<sc-if value="{{productSheet}}" hint-placeholder-val="{{ false }}">
+  <div class="rc-sheet" role="dialog" aria-label="Product" style="position: absolute; left: 0; right: 0; top: 54px; bottom: 0; z-index: 5; border-radius: 38px 38px 0 0; overflow-x: hidden; overflow-y: auto; background: #ffffff"><dc-import name="Main" as="sheet" from="chat" hint-size="390px,1400px"></dc-import></div>
+  <button aria-label="Close product" onClick="{{closeSheet}}" style="position: absolute; top: 68px; right: 14px; z-index: 6; width: 44px; height: 44px; border-radius: 50%; border: 0; background: rgba(255,255,255,0.85); display: grid; place-items: center; cursor: pointer"><dc-import name="Sym" sym="xmark" size="{{s14}}" hint-size="14px,14px"></dc-import></button>
+</sc-if>
+<sc-if value="{{compareSheet}}" hint-placeholder-val="{{ false }}">
+  <div class="rc-sheet" role="dialog" aria-label="Compare" style="position: absolute; left: 0; right: 0; top: 54px; bottom: 0; z-index: 5; border-radius: 38px 38px 0 0; overflow-x: hidden; overflow-y: auto; background: #f3f1fb"><dc-import name="Compare" as="sheet" hint-size="390px,1600px"></dc-import></div>
+  <button aria-label="Close comparison" onClick="{{closeSheet}}" style="position: absolute; top: 66px; right: 14px; z-index: 6; width: 44px; height: 44px; border-radius: 50%; border: 0; background: rgba(29,43,34,0.08); display: grid; place-items: center; cursor: pointer"><dc-import name="Sym" sym="xmark" size="{{s14}}" hint-size="14px,14px"></dc-import></button>
+</sc-if>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"view":{"editor":"enum","options":["start","thread"],"default":"start"},"first":{"editor":"boolean","default":false},"tip":{"editor":"text","default":""},"away":{"editor":"boolean","default":false},"topic":{"editor":"enum","options":["check","scanned","options","profile"],"default":"check"},"confirmed":{"editor":"boolean","default":false},"pick":{"editor":"enum","options":["none","scan","ask","options","allergies","type","photo"],"default":"none"},"sheet":{"editor":"enum","options":["none","compare","product"],"default":"none"},"loading":{"editor":"boolean","default":false},"$preview":{"width":390,"height":844}}'>
+class Component extends DCLogic {
+  constructor(props) {
+    super(props);
+    const topic = ['check', 'scanned', 'options', 'profile'].indexOf(props.topic) >= 0 ? props.topic : 'check';
+    this.state = { hist: false, chat: props.loading ? 'options' : topic, prof: props.confirmed ? 'done' : 'ask', sev: 'severe', view: props.loading ? 'thread' : (props.view || 'start'), text: '', phase: props.loading ? 'loading' : 'idle', sent: props.loading ? 'Kettle chips without seed oils' : '', sheet: props.sheet && props.sheet !== 'none' ? props.sheet : '' };
+  }
+  componentWillUnmount() { clearTimeout(this.timer); clearTimeout(this.t2); }
+  finish() { this.setState({ phase: 'done', talk: true }); clearTimeout(this.t2); this.t2 = setTimeout(() => this.setState({ talk: false }), 1800); }
+  renderVals() {
+    const NAME = (window.__lwBrand || (window.__lwBrand = (() => { try { const x = new XMLHttpRequest(); x.open('GET', 'brand.json', false); x.send(); if (x.status === 200) return JSON.parse(x.responseText); } catch (e) {} return { mascot: 'LabelSage', app: 'LabelSage' }; })())).mascot; /* the mascot's name lives in brand.json */
+    const s = this.state;
+    const INK = '#1d2b22', SHADOW = '0 1px 2px rgba(29,43,34,0.04), 0 10px 26px rgba(29,43,34,0.05)';
+    const glass = 'position: relative; flex: none; width: 44px; height: 44px; border-radius: 50%; border: 0.5px solid var(--lg-edge); background: var(--lg-bg); box-shadow: var(--lg-shadow); backdrop-filter: var(--lg-fx); -webkit-backdrop-filter: var(--lg-fx); display: grid; place-items: center; cursor: pointer; box-sizing: border-box;';
+    const solid = (bg) => 'position: relative; flex: none; width: 44px; height: 44px; border-radius: 50%; border: 0; background: ' + bg + '; display: grid; place-items: center; cursor: pointer;';
+    const ring = (k) => this.props.pick === k ? 'box-shadow: 0 0 0 3px ' + INK + '; ' : '';
+    const loading = s.phase === 'loading';
+    const hasText = s.text.trim().length > 0;
+    const action = loading ? { sym: 'stop.fill', label: 'Stop', size: 14 } : { sym: 'arrow.up', label: 'Send', size: 18 };
+    const run = (chat, msg) => { this.setState({ view: 'thread', chat, sent: msg || '', text: '', phase: 'loading', hist: false, sheet: '' }); clearTimeout(this.timer); this.timer = setTimeout(() => this.finish(), 1800); };
+    const onAction = () => {
+      if (loading) { clearTimeout(this.timer); this.setState({ phase: 'idle' }); return; }
+      if (hasText) run('options', s.text.trim());
+    };
+
+    // The docked mascot: what he does follows what is happening in the chat
+    const firstOn = !!this.props.first && !s.tipDone && s.view === 'start';
+    const tipOn = !!this.props.tip && !s.tipDone;
+    let d;
+    if (loading) d = ['load', 'reading', 'Checking the ingredients…', 'For you and Mia', 1];
+    else if (firstOn) d = ['first', 'point', 'Start here. Point the camera at a barcode and I’ll check it for Mia.', '', 0, 1];
+    else if (tipOn) d = ['tip', 'talk', this.props.tip, '', 1, 1];
+    else if (s.view === 'start') d = ['start', 'point', 'Check a product, or ask me about one.'];
+    else if (s.chat === 'scanned') d = ['scanned', 'guard', 'Not for Mia. Contains peanut.', 'Check the package. Not medical advice.'];
+    else if (s.chat === 'options') d = ['options', s.talk ? 'done' : 'idle', 'Found 3. All OK for you and Mia.'];
+    else if (s.chat === 'profile') d = s.prof === 'done' ? ['profDone', 'done', 'Done. I re-checked Mia’s go-tos: none contains sesame.'] : s.prof === 'cancel' ? ['profCancel', 'idle', 'No changes made.'] : ['profAsk', 'listen', 'Add sesame to Mia’s allergies? Nothing changes until you confirm.'];
+    else d = ['check', 'talk', 'Not for you: sunflower oil is a seed oil. Boulder Canyon is OK for you.'];
+    const PAR = { start: 0, first: 1, load: 1, tip: 1, check: 0, scanned: 1, options: 0, profAsk: 0, profDone: 1, profCancel: 1 };
+    const dockState = !loading && hasText ? 'listen' : d[1];
+    const dock = { dockOn: s.sheet === '' && !this.props.away, dockA: PAR[d[0]] === 0, dockB: PAR[d[0]] === 1, dockState, dockFound: loading ? 2 : 0, dockText: d[2], dockSub: d[3] || '', dockHasSub: !!d[3], dockDots: d[0] === 'load', dockBtn: !!d[5], dockGotIt: () => this.setState({ tipDone: true }), dockAria: NAME + ': ' + d[2], older: false };
+    const guard = d[1] === 'guard';
+    const bubble = 'position: relative; flex: 1; margin-bottom: 34px; padding: 10px 14px; border-radius: 18px; background: ' + (guard ? '#fff1ef' : '#ffffff') + '; border: 1.5px solid ' + (guard ? 'rgba(192,53,43,0.28)' : 'rgba(79,44,30,0.14)') + '; pointer-events: auto;';
+    const tail = 'position: absolute; left: -8px; bottom: 16px; width: 13px; height: 13px; background: ' + (guard ? '#fff1ef' : '#ffffff') + '; border-left: 1.5px solid ' + (guard ? 'rgba(192,53,43,0.28)' : 'rgba(79,44,30,0.14)') + '; border-bottom: 1.5px solid ' + (guard ? 'rgba(192,53,43,0.28)' : 'rgba(79,44,30,0.14)') + '; transform: rotate(45deg);';
+    const tileStyle = (k) => ring(k) + 'min-height: 112px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 8px; padding: 14px 8px; box-sizing: border-box; border-radius: 22px; background: #ffffff; box-shadow: ' + (ring(k) ? '0 0 0 3px ' + INK : SHADOW) + '; text-decoration: none; color: ' + INK + '; text-align: center;';
+    const tiles = [
+      { key: 'ask', icon: 'emoji3d/label.png', title: 'Ask about a product', go: () => run('check', '') },
+      { key: 'options', icon: 'emoji3d/sparkles.png', title: 'Find other options', go: () => run('options', 'Kettle chips without seed oils') },
+      { key: 'allergies', icon: 'emoji3d/busts_in_silhouette.png', title: 'Change allergies', go: () => this.setState({ view: 'thread', chat: 'profile', prof: 'ask', phase: 'idle' }) }
+    ].map((t) => Object.assign(t, { href: '#', style: tileStyle(t.key) }));
+    const heroOn = this.props.pick === 'scan' || firstOn;
+    const heroStyle = 'display: flex; flex-direction: column; padding: 18px; border-radius: 26px; background: #ffffff; box-shadow: ' + (heroOn ? '0 0 0 3px ' + INK + ', ' : '') + SHADOW + '; text-decoration: none; color: ' + INK + ';';
+    const sevNote = s.sev === 'severe' ? 'Flags “may contain sesame” too.' : 'Flags sesame in the ingredients only.';
+    const seg = (on) => 'flex: 1; border: 0; border-radius: 9999px; font-size: 14px; cursor: pointer; ' + (on ? 'background: #ffffff; font-weight: 600; box-shadow: 0 2px 6px rgba(29,43,34,0.12);' : 'background: transparent;');
+    return { ...dock, bubble, tail,
+      s13: 13, s14: 14, s16: 16, s18: 18, s20: 20, s22: 22, yes: true, mascotName: NAME,
+      me: 'align-self: flex-end; max-width: 80%; padding: 9px 14px; border-radius: 20px 20px 6px 20px; background: #26834e; color: #ffffff; font-size: 17px; line-height: 1.3;',
+      chip: 'flex: none; min-height: 38px; padding: 0 14px; border-radius: 9999px; border: 0; background: #ffffff; box-shadow: ' + SHADOW + '; font-size: 15px; font-weight: 500; display: flex; align-items: center; gap: 6px; cursor: pointer;',
+      popChips: [{ lv: 'bad', text: 'Sunflower oil' }, { lv: 'careful', text: 'Cane sugar' }], bcChips: [{ lv: 'good', text: 'Olive oil' }], wgChips: [{ lv: 'good', text: 'Avocado oil' }], srChips: [{ lv: 'good', text: 'Beef tallow' }],
+      isStart: s.view === 'start', isThread: s.view !== 'start', tiles, heroStyle,
+      isCheck: s.chat === 'check', isScanned: s.chat === 'scanned', isOptions: s.chat === 'options', isProfile: s.chat === 'profile',
+      optionsAsk: s.sent || 'Kettle chips without seed oils', optionsReady: !loading,
+      showOptions: () => run('options', 'Show me other options'),
+      placeholder: s.view === 'start' ? 'Ask ' + NAME + '…' : 'Message ' + NAME + '…',
+      text: s.text, onText: (e) => this.setState({ text: e.target.value }),
+      loading, camOn: !loading && !hasText, sendOn: loading || hasText, actionSym: action.sym, actionLabel: action.label, actionSize: action.size, actionStyle: solid('#26834e'), onAction,
+      glass, camStyle: glass + ring('scan'), plusRing: ring('photo'), composerRing: ring('type'),
+      anySheet: s.sheet !== '', productSheet: s.sheet === 'product', compareSheet: s.sheet === 'compare',
+      openProduct: () => this.setState({ sheet: 'product' }), openCompare: () => this.setState({ sheet: 'compare' }), closeSheet: () => this.setState({ sheet: '' }),
+      chatTitle: s.view === 'start' ? 'New chat' : ({ check: 'Kettle chips', scanned: 'Peanut butter check', options: 'Chips without seed oils', profile: 'Mia’s allergies' })[s.chat],
+      histOpen: s.hist, histExpanded: s.hist ? 'true' : 'false', toggleHist: () => this.setState({ hist: !s.hist }), closeHist: () => this.setState({ hist: false }),
+      newChat: () => { clearTimeout(this.timer); this.setState({ hist: false, view: 'start', sent: '', text: '', phase: 'idle', sheet: '' }); },
+      history: [['scanned', 'Peanut butter check', 'Today'], ['profile', 'Mia’s allergies', 'Today'], ['check', 'Kettle chips', 'Yesterday'], ['options', 'Chips without seed oils', 'Oct 14']].map((h, i) => ({ title: h[1], when: h[2], current: s.view !== 'start' && s.chat === h[0],
+        open: () => this.setState({ hist: false, view: 'thread', chat: h[0], phase: 'idle' }),
+        style: 'width: 100%; min-height: 56px; display: flex; align-items: center; gap: 10px; padding: 6px 16px; border: 0; background: transparent; cursor: pointer;' + (i ? ' border-top: 0.5px solid rgba(60,60,67,0.12);' : '') })),
+      profAsk: s.prof === 'ask', profDone: s.prof === 'done', profCancelled: s.prof === 'cancel',
+      sevMildOn: s.sev === 'mild' ? 'true' : 'false', sevSevereOn: s.sev === 'severe' ? 'true' : 'false', sevMildStyle: seg(s.sev === 'mild'), sevSevereStyle: seg(s.sev === 'severe'), sevNote,
+      sevMild: () => this.setState({ sev: 'mild' }), sevSevere: () => this.setState({ sev: 'severe' }),
+      profConfirm: () => this.setState({ prof: 'done' }), profCancel: () => this.setState({ prof: 'cancel' }), profUndo: () => this.setState({ prof: 'ask' }),
+      profSaved: 'Saved: Mia avoids sesame, ' + (s.sev === 'severe' ? 'allergy (“may contain” too).' : 'intolerance (ingredients only).')
+    };
+  }
+}
+</script>
+</body>
+</html>

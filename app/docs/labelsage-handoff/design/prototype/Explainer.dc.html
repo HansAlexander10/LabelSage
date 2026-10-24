@@ -1,0 +1,105 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Explainer</title>
+<script src="./support.js"></script>
+<link rel="stylesheet" href="ds/aishoppingagent/tokens.css">
+</head>
+<body>
+<x-dc>
+<helmet>
+<style>
+@import url("https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&display=swap");body{margin:0;font-family:"Outfit","SF Pro Rounded",ui-rounded,-apple-system,system-ui,sans-serif;-webkit-font-smoothing:antialiased}
+button{font-family:inherit;color:inherit}
+button:focus-visible{outline:2px solid #1b6b3e;outline-offset:2px}
+@keyframes ex-in{from{opacity:0;transform:translateY(8px) scale(0.97)}to{opacity:1;transform:none}}
+.ex-in{animation:ex-in 320ms cubic-bezier(0.23,1,0.32,1) both}
+.ex-in2{animation:ex-in 320ms cubic-bezier(0.23,1,0.32,1) 90ms both}
+@media (prefers-reduced-motion:reduce){.ex-in,.ex-in2{animation:none}}
+</style>
+</helmet>
+<div style="{{root}}">
+
+<!-- SHEET: the mascot speaks; first-run welcome and multi-step guides -->
+<sc-if value="{{isSheet}}" hint-placeholder-val="{{ true }}">
+  <div role="dialog" aria-label="{{title}}" class="ex-in" style="padding: 18px 16px 30px; border-radius: 34px 34px 0 0; background: #ffffff; box-shadow: 0 -10px 40px rgba(0,0,0,0.12)">
+    <div aria-hidden="true" style="width: 36px; height: 5px; border-radius: 3px; background: #d9d2c3; margin: 0 auto 10px"></div>
+    <div style="display: flex; align-items: flex-end; gap: 6px">
+      <div style="flex: none; margin-bottom: -6px"><dc-import name="Mascot" state="{{mascot}}" size="112" hint-size="112px,141px"></dc-import></div>
+      <div class="ex-in2" style="position: relative; flex: 1; margin-bottom: 34px; padding: 14px 16px; border-radius: 22px; background: #fffaf0; border: 1.5px solid rgba(79,44,30,0.16)">
+        <span aria-hidden="true" style="position: absolute; left: -8px; bottom: 22px; width: 14px; height: 14px; background: #fffaf0; border-left: 1.5px solid rgba(79,44,30,0.16); border-bottom: 1.5px solid rgba(79,44,30,0.16); transform: rotate(45deg)"></span>
+        <div style="font-size: 20px; font-weight: 700; line-height: 1.2; color: #3d2318">{{title}}</div>
+        <div style="margin-top: 6px; font-size: 16px; line-height: 1.4; color: #4a3b30">{{text}}</div>
+      </div>
+    </div>
+    <div style="margin-top: 14px; display: flex; align-items: center; gap: 12px">
+      <div aria-label="{{stepLabel}}" style="display: flex; gap: 5px; flex: none"><sc-for list="{{dots}}" as="d" hint-placeholder-count="3"><span style="{{d.style}}"></span></sc-for></div>
+      <div style="flex: 1"></div>
+      <sc-if value="{{hasSecondary}}" hint-placeholder-val="{{ true }}"><button style="min-height: 44px; padding: 0 12px; border: 0; background: transparent; font-size: 17px; color: #6b6656; cursor: pointer">{{secondary}}</button></sc-if>
+      <button style="min-height: 50px; padding: 0 22px; border: 0; border-radius: 9999px; background: #eb9d15; color: #232323; font-size: 17px; font-weight: 600; cursor: pointer">{{primary}}</button>
+    </div>
+  </div>
+</sc-if>
+
+<!-- TIP: a coach mark next to one highlighted element -->
+<sc-if value="{{isTip}}" hint-placeholder-val="{{ false }}">
+  <div role="dialog" aria-label="{{title}}" class="ex-in" style="position: relative; padding: 14px 16px 12px; border-radius: 22px; background: #fffaf0; border: 1.5px solid rgba(79,44,30,0.16); box-shadow: 0 12px 36px rgba(0,0,0,0.22)">
+    <span aria-hidden="true" style="{{tailStyle}}"></span>
+    <div style="display: flex; gap: 10px; align-items: flex-start">
+      <div style="flex: none; width: 58px; height: 74px; margin: -4px 0 0 -4px"><dc-import name="Mascot" state="{{mascot}}" size="58" hint-size="58px,73px"></dc-import></div>
+      <div style="flex: 1; min-width: 0">
+        <div style="font-size: 17px; font-weight: 700; line-height: 1.25; color: #3d2318">{{title}}</div>
+        <div style="margin-top: 4px; font-size: 15px; line-height: 1.4; color: #4a3b30">{{text}}</div>
+      </div>
+    </div>
+    <div style="margin-top: 10px; display: flex; align-items: center; gap: 10px">
+      <div aria-label="{{stepLabel}}" style="display: flex; gap: 5px"><sc-for list="{{dots}}" as="d" hint-placeholder-count="3"><span style="{{d.style}}"></span></sc-for></div>
+      <div style="flex: 1"></div>
+      <sc-if value="{{hasSecondary}}" hint-placeholder-val="{{ false }}"><button style="min-height: 40px; padding: 0 10px; border: 0; background: transparent; font-size: 15px; color: #6b6656; cursor: pointer">{{secondary}}</button></sc-if>
+      <button style="min-height: 40px; padding: 0 18px; border: 0; border-radius: 9999px; background: #eb9d15; color: #232323; font-size: 15px; font-weight: 600; cursor: pointer">{{primary}}</button>
+    </div>
+  </div>
+</sc-if>
+
+<!-- INLINE: the agent's own voice in the chat thread -->
+<sc-if value="{{isInline}}" hint-placeholder-val="{{ false }}">
+  <div class="ex-in" style="display: flex; gap: 8px; align-items: flex-end">
+    <div aria-hidden="true" style="flex: none; margin-bottom: -4px"><dc-import name="Mascot" state="talk" size="84" hint-size="84px,106px"></dc-import></div>
+    <div style="position: relative; flex: 1; padding: 11px 14px; border-radius: 20px 20px 20px 6px; background: #fffaf0; border: 1.5px solid rgba(79,44,30,0.16)">
+      <div style="font-size: 13px; font-weight: 700; letter-spacing: 0.02em; color: #52794a">{{label}}</div>
+      <div style="margin-top: 2px; font-size: 16px; line-height: 1.38; color: #3d2318">{{text}}</div>
+      <button style="margin-top: 8px; min-height: 34px; padding: 0 14px; border: 0; border-radius: 9999px; background: rgba(82,121,74,0.14); color: #2f5a2a; font-size: 15px; font-weight: 600; cursor: pointer">{{primary}}</button>
+    </div>
+  </div>
+</sc-if>
+
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"variant":{"editor":"enum","options":["sheet","tip","inline"],"default":"sheet"},"title":{"editor":"text","default":"Hi, I’m {name}"},"text":{"editor":"text","default":"I read the ingredients so you don’t have to, for everyone you shop for."},"label":{"editor":"text","default":"{name}"},"step":{"editor":"number","default":1},"total":{"editor":"number","default":3},"primary":{"editor":"text","default":"Show me how"},"secondary":{"editor":"text","default":"Skip"},"mascot":{"editor":"enum","options":["idle","reading","done","thinking","point","guard"],"default":"idle"},"tail":{"editor":"enum","options":["up","down","none"],"default":"up"},"tailX":{"editor":"number","default":60},"$preview":{"width":390,"height":300}}'>
+class Component extends DCLogic {
+  renderVals() {
+    // The mascot's explainer: sheet (welcome, multi-step), tip (coach mark at one element), inline (in the chat thread).
+    // Copy rules: short, plain, no puns near health; never says "safe"; one idea per message.
+    const B = window.__lwBrand || (window.__lwBrand = (() => { try { const x = new XMLHttpRequest(); x.open('GET', 'brand.json', false); x.send(); if (x.status === 200) return JSON.parse(x.responseText); } catch (e) {} return { mascot: 'LabelSage', app: 'LabelSage' }; })()); const NAME = B.mascot; /* names live in brand.json */
+    const nm = (t) => String(t || '').replace(/\{name\}/g, NAME);
+    const p = this.props;
+    const v = p.variant || 'sheet';
+    const step = Number(p.step) || 1, total = Number(p.total) || 0;
+    const dots = Array.from({ length: total }, (_, i) => ({ style: 'display: block; height: 6px; border-radius: 3px; transition: width 200ms; ' + (i + 1 === step ? 'width: 18px; background: #52794a;' : 'width: 6px; background: rgba(79,44,30,0.22);') }));
+    const t = p.tail || 'up', tx = Number(p.tailX) || 60;
+    const edge = '1.5px solid rgba(79,44,30,0.16)';
+    const tailStyle = t === 'none' ? 'display: none;' : 'position: absolute; left: ' + tx + 'px; width: 14px; height: 14px; background: #fffaf0; transform: rotate(45deg); ' +
+      (t === 'up' ? 'top: -8.5px; border-left: ' + edge + '; border-top: ' + edge + ';' : 'bottom: -8.5px; border-right: ' + edge + '; border-bottom: ' + edge + ';');
+    return {
+      root: v === 'sheet' ? 'width: 390px;' : (v === 'tip' ? 'width: 330px; box-sizing: border-box;' : 'width: 358px;'),
+      isSheet: v === 'sheet', isTip: v === 'tip', isInline: v === 'inline',
+      yes: true, title: nm(p.title), text: nm(p.text), label: nm(p.label || '{name}'), mascot: p.mascot || 'idle',
+      primary: p.primary || 'Got it', secondary: p.secondary || '', hasSecondary: !!p.secondary,
+      dots, stepLabel: total ? 'Step ' + step + ' of ' + total : '', tailStyle
+    };
+  }
+}
+</script>
+</body>
+</html>

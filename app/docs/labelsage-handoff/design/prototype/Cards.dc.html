@@ -1,0 +1,168 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Product cards and composer</title>
+<script src="./support.js"></script>
+<link rel="stylesheet" href="ds/aishoppingagent/tokens.css">
+</head>
+<body>
+<x-dc>
+<helmet>
+<style>
+.clamp2{display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.one{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.chips{display:flex;gap:4px;flex-wrap:nowrap;overflow:hidden;-webkit-mask-image:linear-gradient(90deg,#232323 82%,transparent);mask-image:linear-gradient(90deg,#232323 82%,transparent)}
+.chips>span{flex:none;white-space:nowrap}
+@import url("https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&display=swap");body{margin:0;font-family:"Outfit","SF Pro Rounded",ui-rounded,-apple-system,system-ui,sans-serif;-webkit-font-smoothing:antialiased}
+button{font-family:inherit;color:inherit}
+button:focus-visible{outline:2px solid #1b6b3e;outline-offset:2px}
+:root{--ease-out:cubic-bezier(0.23,1,0.32,1);--ease-drawer:cubic-bezier(0.32,0.72,0,1)}button,a{-webkit-tap-highlight-color:transparent;transition:transform 160ms var(--ease-out),background-color 160ms var(--ease-out)}button:active,a:active{transform:scale(0.97)}[role=radio]:active,[role=checkbox]:active,[role=option]:active,[role=menuitem]:active,[role=switch]:active{transform:none;background-color:rgba(118,118,128,0.12) !important}::selection{background:rgba(38,131,78,0.22)}@keyframes rc-sheet{from{transform:translateY(100%)}to{transform:none}}@keyframes rc-scrim{from{opacity:0}to{opacity:1}}@keyframes rc-pop{from{opacity:0;transform:scale(0.95)}to{opacity:1;transform:none}}.rc-sheet{animation:rc-sheet 420ms var(--ease-drawer) both}.rc-scrim{animation:rc-scrim 220ms var(--ease-out) both}.rc-pop{animation:rc-pop 180ms var(--ease-out) both}@media (prefers-reduced-motion:reduce){button:active,a:active{transform:none}.rc-sheet,.rc-pop{animation:rc-scrim 200ms ease both}}@media (prefers-reduced-transparency:reduce){[style*=backdrop-filter]{backdrop-filter:none !important;-webkit-backdrop-filter:none !important}}</style>
+<style>/* Liquid Glass (navigation layer only, per HIG). Frosted base everywhere; refraction where backdrop SVG filters work (Chromium). */:root{--lg-bg:rgba(255,255,255,0.52);--lg-bg-thick:rgba(255,255,255,0.8);--lg-bg-dark:rgba(255,255,255,0.14);--lg-edge:rgba(255,255,255,0.7);--lg-edge-dark:rgba(255,255,255,0.3);--lg-fx:blur(14px) saturate(180%);--lg-shadow:inset 0 0 2px 1px rgba(255,255,255,0.6),inset 0 0 10px 4px rgba(255,255,255,0.22),inset 0 4px 16px rgba(17,17,26,0.05),inset 0 8px 24px rgba(17,17,26,0.05),0 6px 20px rgba(0,0,0,0.10);--lg-shadow-float:inset 0 0 2px 1px rgba(255,255,255,0.6),inset 0 0 10px 4px rgba(255,255,255,0.22),0 12px 36px rgba(0,0,0,0.16);--lg-shadow-dark:inset 0 0 2px 1px rgba(255,255,255,0.35),inset 0 0 10px 4px rgba(255,255,255,0.12),0 6px 20px rgba(0,0,0,0.25)}@supports (not (font:-apple-system-body)) and (not (-moz-appearance:none)){:root{--lg-fx:url(#lg-filter) blur(2px) saturate(1.7)}}@media (prefers-reduced-transparency:reduce){:root{--lg-bg:rgba(255,255,255,0.97);--lg-bg-thick:#ffffff;--lg-bg-dark:rgba(44,44,46,0.94);--lg-fx:none}}@media (prefers-contrast:more){:root{--lg-edge:rgba(0,0,0,0.35);--lg-edge-dark:rgba(255,255,255,0.7)}}</style>
+</helmet>
+<div style="width: 1240px; box-sizing: border-box; padding: 56px; background: #ffffff; color: #232323; font-family: 'Outfit', 'SF Pro Rounded', ui-rounded, -apple-system, system-ui, sans-serif; display: flex; flex-direction: column; gap: 44px"><svg aria-hidden="true" focusable="false" width="0" height="0" style="position: absolute; width: 0; height: 0; overflow: hidden"><defs><filter id="lg-filter" color-interpolation-filters="sRGB" x="0%" y="0%" width="100%" height="100%"><feImage x="0" y="0" width="100%" height="100%" preserveAspectRatio="none" result="map" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAIAAAACACAIAAABMXPacAAABRElEQVR42u3ZQQqDMBRF0RcNMbrqLr0DEdoN9ENzLo4cviMisbX2asmW9GQkI5nJTM6P63ruHMmRjKQne7JFSbIl+zPgPdGZzOT6nvEedjwDbklLepoBK+se42qAboRagGEEAEsDTCMAWBrgNAIAAAKwLMBlBF9BXkGqAziMAGBpAGdBxQCOo4sBdiPUAvgjVpr5AQAQAAACAEAAAAgAAAEAIAAABACAAAAQAAACAEAAAAgAAAEAIAAABACAAAAQAAACAEAAAAgAAAEAIAAABACAAAAQAAACAEAAAAgAAAEAIAAABAAAABMAACAAAAQAgAAAEAAAAgBAAAAIAAABACAAAATgL+sIqgF2I9QCdCPUAgwj1AIcRgCwNMBphFqAaYRagMsIXkEABACAfAUB0O8BnAUBWBvAcXQxgD9ixQDNCJW9Aa7lA8768ue5AAAAAElFTkSuQmCC"></feImage><feDisplacementMap in="SourceGraphic" in2="map" result="dispRed" scale="-14" xChannelSelector="R" yChannelSelector="G"></feDisplacementMap><feColorMatrix in="dispRed" type="matrix" values="1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0" result="red"></feColorMatrix><feDisplacementMap in="SourceGraphic" in2="map" result="dispGreen" scale="-17" xChannelSelector="R" yChannelSelector="G"></feDisplacementMap><feColorMatrix in="dispGreen" type="matrix" values="0 0 0 0 0 0 1 0 0 0 0 0 0 0 0 0 0 0 1 0" result="green"></feColorMatrix><feDisplacementMap in="SourceGraphic" in2="map" result="dispBlue" scale="-20" xChannelSelector="R" yChannelSelector="G"></feDisplacementMap><feColorMatrix in="dispBlue" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 1 0 0 0 0 0 1 0" result="blue"></feColorMatrix><feBlend in="red" in2="green" mode="screen" result="rg"></feBlend><feBlend in="rg" in2="blue" mode="screen" result="output"></feBlend><feGaussianBlur in="output" stdDeviation="2"></feGaussianBlur></filter></defs></svg>
+
+<!-- PRODUCT ROW -->
+<section style="display: grid; grid-template-columns: 300px minmax(0, 1fr); gap: 32px">
+  <div>
+    <h2 style="margin: 0; font-size: 28px; font-weight: 700; color: #1c1c1e">Product row</h2>
+    <p style="margin: 8px 0 0; font-size: 15px; line-height: 1.45; color: #6b6656">Chat results, search, go-tos. One shared ProductRow component (also in Pick, Profile, Search, offline list). Names clamp to 2 lines; price leads the meta line; the control column is fixed, so nothing shifts.</p>
+  </div>
+  <div style="padding: 20px; border-radius: 28px; background: #f2f2f7; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px">
+    <sc-for list="{{rows}}" as="r" hint-placeholder-count="4"><dc-import name="ProductRow" title="{{r.name}}" meta="{{r.unit}}" price="{{r.price}}" lv="{{r.lv}}" img="{{r.img}}" chips="{{r.chipData}}" qty="{{r.qty}}" onAdd="{{r.add}}" onInc="{{r.inc}}" onSet="{{r.setTo}}" onDec="{{r.dec}}" hint-size="358px,128px"></dc-import></sc-for>
+  </div>
+</section>
+
+<!-- PRODUCT LINE -->
+<section style="display: grid; grid-template-columns: 300px minmax(0, 1fr); gap: 32px">
+  <div>
+    <h2 style="margin: 0; font-size: 28px; font-weight: 700; color: #1c1c1e">Product line</h2>
+    <p style="margin: 8px 0 0; font-size: 15px; line-height: 1.45; color: #6b6656">One-line result for dense lists and swaps. The same ProductRow at size line: price, size and the reason on one line, the flag on the thumbnail, the stepper goes horizontal.</p>
+  </div>
+  <div style="padding: 20px; border-radius: 28px; background: #f2f2f7; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px">
+    <sc-for list="{{lines}}" as="l" hint-placeholder-count="2"><dc-import name="ProductRow" title="{{l.name}}" meta="{{l.lineMeta}}" price="{{l.price}}" lv="{{l.lv}}" size="line" qty="{{l.qty}}" onAdd="{{l.add}}" onInc="{{l.inc}}" onDec="{{l.dec}}" hint-size="358px,64px"></dc-import></sc-for>
+  </div>
+</section>
+
+<!-- TILES -->
+<section style="display: grid; grid-template-columns: 300px minmax(0, 1fr); gap: 32px">
+  <div>
+    <h2 style="margin: 0; font-size: 28px; font-weight: 700; color: #1c1c1e">Product tiles</h2>
+    <p style="margin: 8px 0 0; font-size: 15px; line-height: 1.45; color: #6b6656">Two-column grids. Every tile is one product (SKU): plus adds it, then it turns into a stepper.</p>
+  </div>
+  <div style="padding: 20px; border-radius: 28px; background: #f2f2f7; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 12px">
+    <sc-for list="{{tiles}}" as="t" hint-placeholder-count="2">
+      <div style="padding: 8px; background: #ffffff; border-radius: 22px; display: flex; flex-direction: column; gap: 6px">
+        <div style="{{t.img}}">
+          <sc-if value="{{t.photo}}" hint-placeholder-val="{{ false }}"><img src="{{t.photo}}" alt="" style="width: 100%; height: 100%; object-fit: contain; border-radius: 16px"></sc-if>
+          <span style="position: absolute; right: 6px; bottom: 6px; width: 32px; height: 32px; border-radius: 50%; background: rgba(255,255,255,0.85); display: grid; place-items: center"><dc-import name="Sym" sym="{{t.sym}}" size="{{s22}}" label="{{t.word}}" hint-size="22px,22px"></dc-import></span>
+        </div>
+        <div class="clamp2" style="margin: 0 4px; font-size: 15px; font-weight: 600; line-height: 19px; height: 38px">{{t.name}}</div>
+        <span class="one" style="{{t.chipStyle}}; max-width: calc(100% - 4px); box-sizing: border-box"><dc-import name="Sym" sym="{{t.chipSym}}" size="{{s13}}" hint-size="13px,13px"></dc-import>{{t.chip}}</span>
+        <div style="margin-top: auto; display: flex; align-items: center; justify-content: space-between; padding: 0 0 0 4px; height: 44px">
+          <sc-if value="{{t.notAdded}}" hint-placeholder-val="{{ true }}"><div class="one" style="min-width: 0; font-size: 15px; color: #4a4740">{{t.unit}}</div></sc-if>
+          <sc-if value="{{t.notAdded}}" hint-placeholder-val="{{ true }}">
+            <button aria-label="{{t.addAria}}" onClick="{{t.add}}" style="width: 44px; height: 44px; border-radius: 50%; border: 0; background: #26834e; display: grid; place-items: center; cursor: pointer"><dc-import name="Sym" sym="plus" size="{{s18}}" color="#ffffff" hint-size="18px,18px"></dc-import></button>
+          </sc-if>
+          <sc-if value="{{t.added}}" hint-placeholder-val="{{ false }}">
+            <dc-import name="Stepper" value="{{t.qty}}" show="left" label="Quantity" decAria="{{t.decAria}}" onInc="{{t.inc}}" onDec="{{t.dec}}" hint-size="120px,32px"></dc-import>
+          </sc-if>
+        </div>
+      </div>
+    </sc-for>
+  </div>
+</section>
+
+<!-- COMPOSER -->
+<section style="display: grid; grid-template-columns: 300px minmax(0, 1fr); gap: 32px">
+  <div>
+    <h2 style="margin: 0; font-size: 28px; font-weight: 700; color: #1c1c1e">Chat composer</h2>
+    <p style="margin: 8px 0 0; font-size: 15px; line-height: 1.45; color: #6b6656">Telegram pattern. Plus on the left opens Upload photo, Take a photo and Scan barcode; voice is the mic on the right. The right button changes with state: voice when empty, send when there is text, stop while the agent works.</p>
+  </div>
+  <div style="padding: 20px; border-radius: 28px; background: #f2f2f7; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px 20px">
+    <sc-for list="{{composers}}" as="c" hint-placeholder-count="4">
+      <div>
+        <div style="font-size: 12px; font-weight: 600; color: #6b6656; margin: 0 0 8px 4px">{{c.label}}</div>
+        <sc-if value="{{c.menu}}" hint-placeholder-val="{{ false }}">
+          <div style="width: 230px; margin-bottom: 8px; border-radius: 22px; overflow: hidden; background: var(--lg-bg); border: 0.5px solid var(--lg-edge); box-shadow: var(--lg-shadow); backdrop-filter: var(--lg-fx); -webkit-backdrop-filter: var(--lg-fx)">
+            <sc-for list="{{menuItems}}" as="m" hint-placeholder-count="4">
+              <button style="{{m.style}}"><dc-import name="Sym" sym="{{m.sym}}" size="{{s20}}" color="#26834e" hint-size="20px,20px"></dc-import>{{m.label}}</button>
+            </sc-for>
+          </div>
+        </sc-if>
+        <div style="display: flex; align-items: center; gap: 8px">
+          <button aria-label="Attach photo, scan or voice" style="{{c.plusStyle}}"><dc-import name="Sym" sym="{{c.plusSym}}" size="{{s20}}" hint-size="20px,20px"></dc-import></button>
+          <div style="flex: 1; min-width: 0; height: 44px; display: flex; align-items: center; padding: 0 16px; box-sizing: border-box; border-radius: 22px; background: var(--lg-bg); border: 0.5px solid var(--lg-edge); box-shadow: var(--lg-shadow); backdrop-filter: var(--lg-fx); -webkit-backdrop-filter: var(--lg-fx)">
+            <span style="{{c.textStyle}}">{{c.text}}</span>
+          </div>
+          <button aria-label="{{c.actionLabel}}" style="{{c.actionStyle}}">
+            <sc-if value="{{c.loading}}" hint-placeholder-val="{{ false }}"><svg width="44" height="44" viewBox="0 0 44 44" aria-hidden="true" style="position: absolute; inset: 0"><circle cx="22" cy="22" r="19" fill="none" stroke="rgba(255,255,255,0.35)" stroke-width="2.5"></circle><path d="M22 3a19 19 0 0 1 19 19" fill="none" stroke="#ffffff" stroke-width="2.5" stroke-linecap="round"><animateTransform attributeName="transform" type="rotate" from="0 22 22" to="360 22 22" dur="0.9s" repeatCount="indefinite"></animateTransform></path></svg></sc-if>
+            <dc-import name="Sym" sym="{{c.actionSym}}" size="{{c.actionSize}}" color="{{c.actionColor}}" hint-size="18px,18px"></dc-import>
+          </button>
+        </div>
+      </div>
+    </sc-for>
+  </div>
+</section>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1240,"height":1620}}'>
+class Component extends DCLogic {
+  constructor(props) {
+    super(props);
+    this.state = { q: { yog: 0, pop: 1, oat: 0, bar2: 2, bac: 0, mil: 1, t1: 0, t2: 1, t3: 1, t4: 0 } };
+  }
+  renderVals() {
+    const q = this.state.q;
+    const set = (id, v) => this.setState({ q: Object.assign({}, q, { [id]: Math.max(0, Math.min(9, v)) }) });
+    const SYM = { good: 'checkmark.circle', careful: 'exclamationmark.triangle', bad: 'nosign', unknown: 'questionmark.circle.fill' };
+    const WORD = { good: 'OK for you', careful: 'Check first', bad: 'Not for you', unknown: 'Can’t confirm' };
+    const WASH = { good: '#e4f7ee', careful: '#fff5cc', bad: '#ffe9e6', unknown: '#f4f0d8' };
+    const chip = (lv, text) => ({ lv, sym: SYM[lv], text, style: 'display: inline-flex; align-items: center; gap: 4px; height: 24px; padding: 0 8px; border-radius: 9999px; font-size: 13px; color: #232323; background: ' + WASH[lv] + ';' });
+    const thumb = (tint, s) => 'position: relative; flex: none; width: ' + s + 'px; height: ' + s + 'px; border-radius: ' + (s > 50 ? 14 : 10) + 'px; background: ' + tint + ';' + (tint === '#ffffff' ? ' border: 1px solid #e5e5ea; box-sizing: border-box;' : '');
+    const stepper = (id, name) => ({
+      notAdded: !q[id], added: !!q[id], qty: q[id],
+      setTo: (n) => set(id, n), add: () => set(id, q[id] ? 0 : 1), inc: () => set(id, q[id] + 1), dec: () => set(id, q[id] - 1),
+      addAria: 'Add ' + name, decAria: q[id] === 1 ? 'Remove ' + name : 'Decrease quantity', removeAria: 'Remove ' + name
+    });
+    // flags only, no score (D-09)
+    const flag = (lv) => ({ sym: SYM[lv], word: WORD[lv], aria: WORD[lv] });
+    const rows = [
+      { id: 'yog', lv: 'good', price: '$5.49', name: 'Hillside Greek Yogurt, Plain 2%', unit: 'Hillside · 32 oz', tint: '#ffffff', chips: [chip('good', '17 g protein'), chip('good', '2 ingredients')] },
+      { id: 'pop', lv: 'bad', price: '$4.29', name: 'PopCorners Popped Corn Chips, Kettle', unit: 'PopCorners · 3 oz', tint: '#ffffff', img: '/_blob/58077391b4e19dddae5d17a63751ab9c', chips: [chip('bad', 'Sunflower oil'), chip('careful', 'Cane sugar')] },
+      { id: 'oat', lv: 'careful', price: '$1.99', name: 'Meadow Oat Bar, Peanut Butter', unit: 'Meadow · 1.8 oz', tint: '#ffffff', chips: [chip('careful', 'Cane syrup'), chip('good', 'No seed oils')] },
+      { id: 'bar2', lv: 'good', price: '$4.49', name: 'Boulder Canyon Kettle Chips, Olive Oil', unit: 'Boulder Canyon · 5.25 oz', tint: '#ffffff', img: '/_blob/009819ab8d0ecae0eba8e43b443ffd2b', chips: [chip('good', 'Olive oil'), chip('good', '3 ingredients')] }
+    ].map((r) => Object.assign({ img: r.img || '', name: r.name, unit: r.unit, chips: r.chips, chipData: r.chips, lv: r.lv, price: r.price, sym: SYM[r.lv], word: WORD[r.lv], thumb: thumb(r.tint, 72) }, stepper(r.id, r.name)));
+    const lines = [
+      { id: 'bac', lv: 'good', tag: 'Vegan', price: '$5.99', name: 'Greenleaf Plant Bacon Strips', size: '4.2 oz', reason: 'nothing you avoid', tint: '#ffffff' },
+      { id: 'mil', lv: 'careful', tag: 'Oat', price: '$4.79', name: 'Meadow Oat Milk, Barista', size: '32 fl oz', reason: 'rapeseed oil, you prefer not', tint: '#ffffff' }
+    ].map((l) => Object.assign({}, l, { lineMeta: l.size + ' · ' + l.reason, sym: SYM[l.lv], word: WORD[l.lv], thumb: thumb(l.tint, 48) }, stepper(l.id, l.name)));
+    const img = (tint) => 'position: relative; height: 124px; border-radius: 16px; background: ' + tint + ';';
+    const tchip = (lv, text) => ({ chipSym: SYM[lv], chip: text, chipStyle: 'align-self: flex-start; display: inline-flex; align-items: center; gap: 4px; height: 24px; padding: 0 8px; margin-left: 2px; border-radius: 9999px; font-size: 13px; background: ' + WASH[lv] + ';' });
+    const tiles = [
+      Object.assign({ id: 't1', lv: 'good', name: 'Hillside Greek Yogurt, Plain 2%', price: '$5.49', unit: '32 oz', tint: '#ffffff' }, tchip('good', '17 g protein')),
+      Object.assign({ id: 't2', lv: 'bad', name: 'PopCorners Kettle Corn Chips', price: '$4.29', unit: '3 oz', tint: '#ffffff', photo: '/_blob/58077391b4e19dddae5d17a63751ab9c' }, tchip('bad', 'Sunflower oil')),
+      Object.assign({ id: 't3', lv: 'good', name: 'Boulder Canyon Kettle Chips, Olive Oil', unit: '5.25 oz', tint: '#ffffff', photo: '/_blob/009819ab8d0ecae0eba8e43b443ffd2b' }, tchip('good', 'Olive oil')),
+      Object.assign({ id: 't4', lv: 'careful', name: 'Meadow Oat Bar, Peanut Butter', unit: '1.8 oz', tint: '#ffffff' }, tchip('careful', 'Cane syrup'))
+    ].map((t) => Object.assign({}, t, { sym: SYM[t.lv], word: WORD[t.lv], img: img(t.tint) }, stepper(t.id, t.name)));
+
+    const glassBtn = 'position: relative; flex: none; width: 44px; height: 44px; border-radius: 50%; border: 0.5px solid var(--lg-edge); background: var(--lg-bg); box-shadow: var(--lg-shadow); backdrop-filter: var(--lg-fx); -webkit-backdrop-filter: var(--lg-fx); display: grid; place-items: center; cursor: pointer;';
+    const solidBtn = (bg) => 'position: relative; flex: none; width: 44px; height: 44px; border-radius: 50%; border: 0; background: ' + bg + '; display: grid; place-items: center; cursor: pointer;';
+    const ph = 'font-size: 17px; color: #8c8775;';
+    const tx = 'font-size: 17px; color: #232323; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; min-width: 0;';
+    const composers = [
+      { label: 'EMPTY · voice', text: 'Ask, add, compare…', textStyle: ph, actionSym: 'mic', actionLabel: 'Record voice', actionStyle: glassBtn, actionColor: '#232323', actionSize: 20, loading: false, menu: false, plusSym: 'plus', plusStyle: glassBtn },
+      { label: 'TYPING · send', text: 'Add oat milk without seed oils', textStyle: tx, actionSym: 'arrow.up', actionLabel: 'Send', actionStyle: solidBtn('#26834e'), actionColor: '#ffffff', actionSize: 18, loading: false, menu: false, plusSym: 'plus', plusStyle: glassBtn },
+      { label: 'AGENT WORKING · stop', text: 'Ask, add, compare…', textStyle: ph, actionSym: 'stop.fill', actionLabel: 'Stop', actionStyle: solidBtn('#26834e'), actionColor: '#ffffff', actionSize: 14, loading: true, menu: false, plusSym: 'plus', plusStyle: glassBtn },
+      { label: 'PLUS MENU · open', text: 'Ask, add, compare…', textStyle: ph, actionSym: 'mic', actionLabel: 'Record voice', actionStyle: glassBtn, actionColor: '#232323', actionSize: 20, loading: false, menu: true, plusSym: 'xmark', plusStyle: solidBtn('#ffffff') }
+    ];
+    const menuItems = [['photo', 'Upload photo'], ['camera', 'Take a photo'], ['barcode.viewfinder', 'Scan barcode']].map((m, i) => ({
+      sym: m[0], label: m[1],
+      style: 'width: 100%; min-height: 48px; display: flex; align-items: center; gap: 12px; padding: 0 16px; border: 0; background: transparent; font-size: 17px; text-align: left; cursor: pointer;' + (i ? ' border-top: 0.5px solid rgba(74,71,64,0.18);' : '')
+    }));
+    return { s13: 13, s14: 14, s16: 16, s18: 18, s20: 20, s22: 22, s28: 28, rows, lines, tiles, composers, menuItems };
+  }
+}
+</script>
+</body>
+</html>

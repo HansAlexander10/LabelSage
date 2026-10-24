@@ -1,0 +1,12 @@
+{
+  "images": [
+    {
+      "filename": "dollar_banknote.png",
+      "idiom": "universal"
+    }
+  ],
+  "info": {
+    "author": "xcode",
+    "version": 1
+  }
+}

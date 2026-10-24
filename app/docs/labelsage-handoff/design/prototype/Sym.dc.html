@@ -1,0 +1,117 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>SF Symbol</title>
+<script src="./support.js"></script>
+<link rel="stylesheet" href="ds/aishoppingagent/tokens.css">
+</head>
+<body>
+<x-dc>
+<helmet>
+<style>body{margin:0}</style>
+<style>/* Liquid Glass (navigation layer only, per HIG). Frosted base everywhere; refraction where backdrop SVG filters work (Chromium). */:root{--lg-bg:rgba(255,255,255,0.52);--lg-bg-thick:rgba(255,255,255,0.8);--lg-bg-dark:rgba(255,255,255,0.14);--lg-edge:rgba(255,255,255,0.7);--lg-edge-dark:rgba(255,255,255,0.3);--lg-fx:blur(14px) saturate(180%);--lg-shadow:inset 0 0 2px 1px rgba(255,255,255,0.6),inset 0 0 10px 4px rgba(255,255,255,0.22),inset 0 4px 16px rgba(17,17,26,0.05),inset 0 8px 24px rgba(17,17,26,0.05),0 6px 20px rgba(0,0,0,0.10);--lg-shadow-float:inset 0 0 2px 1px rgba(255,255,255,0.6),inset 0 0 10px 4px rgba(255,255,255,0.22),0 12px 36px rgba(0,0,0,0.16);--lg-shadow-dark:inset 0 0 2px 1px rgba(255,255,255,0.35),inset 0 0 10px 4px rgba(255,255,255,0.12),0 6px 20px rgba(0,0,0,0.25)}@supports (not (font:-apple-system-body)) and (not (-moz-appearance:none)){:root{--lg-fx:url(#lg-filter) blur(2px) saturate(1.7)}}@media (prefers-reduced-transparency:reduce){:root{--lg-bg:rgba(255,255,255,0.97);--lg-bg-thick:#ffffff;--lg-bg-dark:rgba(44,44,46,0.94);--lg-fx:none}}@media (prefers-contrast:more){:root{--lg-edge:rgba(0,0,0,0.35);--lg-edge-dark:rgba(255,255,255,0.7)}}</style>
+</helmet>
+<span data-sf-symbol="{{name}}" role="{{role}}" aria-label="{{label}}" aria-hidden="{{hidden}}" style="display: inline-block; width: {{px}}; height: {{px}}; line-height: 0; flex: none; vertical-align: middle">
+<svg viewBox="0 0 24 24" width="100%" height="100%" aria-hidden="true" style="overflow: visible">
+<sc-for list="{{paths}}" as="p" hint-placeholder-count="1">
+<path d="{{p.d}}" style="{{p.style}}" stroke-linecap="round" stroke-linejoin="round"></path>
+</sc-for>
+</svg>
+</span>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"sym":{"editor":"enum","options":["chevron.left","chevron.right","chevron.down","square.and.arrow.up","bookmark","checkmark.circle","exclamationmark.triangle","nosign","checkmark.circle.fill","exclamationmark.triangle.fill","xmark.octagon.fill","sparkles","slider.horizontal.3","arrow.left.arrow.right","cart","cart.badge.plus","plus","minus","xmark","checkmark","info.circle","magnifyingglass","barcode.viewfinder","leaf","person.crop.circle","arrow.up","stop.fill","mic","photo","camera","clock","person.2","fork.knife","waveform","paperclip","tag","heart","heart.fill","gearshape","bell","lock.shield","storefront","house","flashlight.off.fill","keyboard","arrow.right","arrow.clockwise","arrow.triangle.2.circlepath","scalemass","heart.text.square","globe","person.3","questionmark.circle.fill","doc.text","hand.thumbsdown","hand.thumbsup","checklist","bag","shippingbox","text.viewfinder","location","wand.and.stars","chevron.up","chevron.up.chevron.down","forward.end","wifi.slash","trash","list.bullet"],"default":"sparkles"},"size":{"editor":"int","default":22,"min":10,"max":96},"color":{"editor":"color","default":"#232323"},"label":{"editor":"text","default":""},"$preview":{"width":48,"height":48}}'>
+class Component extends DCLogic {
+  renderVals() {
+    const name = this.props.sym ?? 'sparkles';
+    const size = this.props.size ?? 22;
+    const c = this.props.color ?? '#232323';
+    const label = this.props.label ?? '';
+    const S = (d, w) => ({ d, style: 'fill: none; stroke: ' + c + '; stroke-width: ' + (w || 1.9) + 'px' });
+    const F = (d, col) => ({ d, style: 'fill: ' + (col || c) + '; stroke: none' });
+    const G = (d, col, w) => ({ d, style: 'fill: none; stroke: ' + col + '; stroke-width: ' + (w || 2.4) + 'px' });
+    const circle = (cx, cy, r) => 'M' + (cx - r) + ' ' + cy + 'a' + r + ' ' + r + ' 0 1 0 ' + (2 * r) + ' 0a' + r + ' ' + r + ' 0 1 0 ' + (-2 * r) + ' 0z';
+    const lib = {
+      'chevron.left': [S('M15 4.5L7.5 12l7.5 7.5', 2.2)],
+      'chevron.right': [S('M9 4.5l7.5 7.5L9 19.5', 2.2)],
+      'chevron.down': [S('M4.5 9l7.5 7.5L19.5 9', 2.2)],
+      'square.and.arrow.up': [S('M12 3.2v11.6M8.2 6.9L12 3.2l3.8 3.7'), S('M8.3 9.8H6.6A1.6 1.6 0 0 0 5 11.4v8A1.6 1.6 0 0 0 6.6 21h10.8a1.6 1.6 0 0 0 1.6-1.6v-8a1.6 1.6 0 0 0-1.6-1.6h-1.7')],
+      'bookmark': [S('M6.5 4.6A1.6 1.6 0 0 1 8.1 3h7.8a1.6 1.6 0 0 1 1.6 1.6V21L12 17.2 6.5 21z')],
+      'checkmark.circle': [F(circle(12, 12, 9.8), '#ffffff'), G(circle(12, 12, 9.8), '#129a5c', 2.2), G('M7.7 12.3l3 3 5.7-6.2', '#129a5c', 2.4)],
+      'exclamationmark.triangle': [F('M10.4 3.9a1.85 1.85 0 0 1 3.2 0l8.1 14.1a1.85 1.85 0 0 1-1.6 2.8H3.9a1.85 1.85 0 0 1-1.6-2.8z', '#fff3c4'), G('M10.4 3.9a1.85 1.85 0 0 1 3.2 0l8.1 14.1a1.85 1.85 0 0 1-1.6 2.8H3.9a1.85 1.85 0 0 1-1.6-2.8z', '#b98200', 2), G('M12 9.2v4.6', '#b98200', 2.3), F(circle(12, 16.9, 1.3), '#b98200')],
+      'nosign': [F(circle(12, 12, 9.8), '#ffffff'), G(circle(12, 12, 9.8), '#e5392c', 2.4), G('M5.1 5.1l13.8 13.8', '#e5392c', 2.4)],
+      'checkmark.circle.fill': [F(circle(12, 12, 10.5), '#1dbf73'), G(circle(12, 12, 10.5), '#17975b', 1.2), G('M7.4 12.4l3.1 3.1 6.1-6.6', '#26834e')],
+      'exclamationmark.triangle.fill': [F('M10.3 3.4a2 2 0 0 1 3.4 0l8.8 15.2a2 2 0 0 1-1.7 3H3.2a2 2 0 0 1-1.7-3z', '#ffd449'), G('M10.3 3.4a2 2 0 0 1 3.4 0l8.8 15.2a2 2 0 0 1-1.7 3H3.2a2 2 0 0 1-1.7-3z', '#b17909', 1.2), G('M12 8.8v5', '#26834e'), F(circle(12, 17.4, 1.35), '#26834e')],
+      'xmark.octagon.fill': [F('M8.1 1.5h7.8l6.6 6.6v7.8l-6.6 6.6H8.1l-6.6-6.6V8.1z', '#ef4b3f'), G('M8.1 1.5h7.8l6.6 6.6v7.8l-6.6 6.6H8.1l-6.6-6.6V8.1z', '#c0352b', 1.2), G('M8.7 8.7l6.6 6.6M15.3 8.7l-6.6 6.6', '#ffffff')],
+      'sparkles': [F('M10 3.5l1.7 4.9 4.9 1.7-4.9 1.7L10 16.7l-1.7-4.9-4.9-1.7 4.9-1.7z'), F('M18 13.2l.8 2.3 2.3.8-2.3.8-.8 2.3-.8-2.3-2.3-.8 2.3-.8z'), F('M17.5 2.5l.6 1.6 1.6.6-1.6.6-.6 1.6-.6-1.6-1.6-.6 1.6-.6z')],
+      'slider.horizontal.3': [S('M3.5 6h9M17.5 6h3M3.5 12h3M11.5 12h9M3.5 18h11M19.5 18h1'), S(circle(15, 6, 2.2)), S(circle(9, 12, 2.2)), S(circle(17, 18, 2.2))],
+      'arrow.left.arrow.right': [S('M7.5 4L3.5 8l4 4M3.5 8h14M16.5 12l4 4-4 4M20.5 16h-14')],
+      'cart': [S('M2.5 3.5h2.7l2.4 11.2a1.5 1.5 0 0 0 1.5 1.2h8.6a1.5 1.5 0 0 0 1.5-1.1l1.8-7.3H6.3'), F(circle(9.5, 20, 1.5)), F(circle(17.5, 20, 1.5))],
+      'cart.badge.plus': [S('M2.5 3.5h2.7l2.4 11.2a1.5 1.5 0 0 0 1.5 1.2h8.6a1.5 1.5 0 0 0 1.5-1.1l1-4'), S('M6.3 7.5h6'), F(circle(9.5, 20, 1.5)), F(circle(17.5, 20, 1.5)), S('M18 2.5v7M14.5 6h7')],
+      'plus': [S('M12 4.5v15M4.5 12h15', 2.2)],
+      'minus': [S('M4.5 12h15', 2.2)],
+      'xmark': [S('M6 6l12 12M18 6L6 18', 2.2)],
+      'checkmark': [S('M4.5 12.5l4.8 4.8L19.5 7', 2.3)],
+      'info.circle': [S(circle(12, 12, 9.5)), S('M12 11v6'), F(circle(12, 7.6, 1.25))],
+      'magnifyingglass': [S(circle(10.5, 10.5, 6.5)), S('M15.3 15.3L20.5 20.5', 2.2)],
+      'barcode.viewfinder': [S('M3.5 8V5a1.5 1.5 0 0 1 1.5-1.5h3M16 3.5h3A1.5 1.5 0 0 1 20.5 5v3M20.5 16v3a1.5 1.5 0 0 1-1.5 1.5h-3M8 20.5H5A1.5 1.5 0 0 1 3.5 19v-3'), S('M7.5 8v8M10 8v8M13 8v8M16.5 8v8', 1.5)],
+      'leaf': [S('M5 19c0-8 5-14 15-14 0 10-6 15-14 15M5 19l7-7')],
+      'arrow.up': [S('M12 19.5V5M5.5 11.5L12 5l6.5 6.5', 2.4)],
+      'stop.fill': [F('M7.5 6h9A1.5 1.5 0 0 1 18 7.5v9a1.5 1.5 0 0 1-1.5 1.5h-9A1.5 1.5 0 0 1 6 16.5v-9A1.5 1.5 0 0 1 7.5 6z')],
+      'mic': [S('M12 3.5a3 3 0 0 1 3 3v5a3 3 0 0 1-6 0v-5a3 3 0 0 1 3-3z'), S('M6 11.5a6 6 0 0 0 12 0M12 17.5v3')],
+      'photo': [S('M5 4.5h14A1.5 1.5 0 0 1 20.5 6v12a1.5 1.5 0 0 1-1.5 1.5H5A1.5 1.5 0 0 1 3.5 18V6A1.5 1.5 0 0 1 5 4.5z'), S('M3.5 16.5l5-5 4 4 3-3 5 5'), F(circle(15.5, 9, 1.6))],
+      'camera': [S('M4.5 7.5h3l1.6-2.5h5.8l1.6 2.5h3A1.5 1.5 0 0 1 21 9v9a1.5 1.5 0 0 1-1.5 1.5h-15A1.5 1.5 0 0 1 3 18V9a1.5 1.5 0 0 1 1.5-1.5z'), S(circle(12, 13, 3.6))],
+      'clock': [S(circle(12, 12, 9)), S('M12 7v5l3.5 2')],
+      'person.2': [S(circle(9, 8.5, 3)), S('M3.5 19c.6-3 2.8-4.8 5.5-4.8s4.9 1.8 5.5 4.8'), S(circle(16.5, 9.5, 2.4)), S('M16.2 14.4c2.3 0 3.9 1.5 4.4 4')],
+      'fork.knife': [S('M7 3.5v6a2 2 0 0 0 4 0v-6M9 3.5v17M16.5 3.5c-1.8 1-2.5 3.5-2.5 6.5h2.5v10.5')],
+      'waveform': [S('M4 10v4M8 7v10M12 4v16M16 8v8M20 10.5v3', 2)],
+      'paperclip': [S('M19 11.5l-7.1 7.1a4.5 4.5 0 0 1-6.4-6.4l7.8-7.8a3 3 0 0 1 4.2 4.2l-7.4 7.4a1.5 1.5 0 0 1-2.1-2.1l6.7-6.7')],
+      'tag': [S('M3.5 11.6V4.5a1 1 0 0 1 1-1h7.1l8.9 8.9a1.5 1.5 0 0 1 0 2.1l-6 6a1.5 1.5 0 0 1-2.1 0z'), F(circle(8, 8, 1.5))],
+      'heart': [S('M12 20.3s-7.5-4.4-7.5-10.1A4.2 4.2 0 0 1 12 7.6a4.2 4.2 0 0 1 7.5 2.6c0 5.7-7.5 10.1-7.5 10.1z')],
+      'heart.fill': [F('M12 20.3s-7.5-4.4-7.5-10.1A4.2 4.2 0 0 1 12 7.6a4.2 4.2 0 0 1 7.5 2.6c0 5.7-7.5 10.1-7.5 10.1z')],
+      'gearshape': [S(circle(12, 12, 3)), S('M12 2.8l1.6 2.3 2.7-.7.7 2.7 2.3 1.6-1.2 2.5 1.2 2.5-2.3 1.6-.7 2.7-2.7-.7L12 21.2l-1.6-2.3-2.7.7-.7-2.7-2.3-1.6 1.2-2.5-1.2-2.5 2.3-1.6.7-2.7 2.7.7z')],
+      'bell': [S('M6 16.5V11a6 6 0 0 1 12 0v5.5l1.5 2h-15zM10 20.5a2 2 0 0 0 4 0')],
+      'lock.shield': [S('M12 2.8l7.5 3v5.7c0 4.7-3.2 8.3-7.5 9.7-4.3-1.4-7.5-5-7.5-9.7V5.8z'), S('M9.5 11.5h5v4h-5zM10.5 11.5V10a1.5 1.5 0 0 1 3 0v1.5')],
+      'storefront': [S('M4 9.5V20h16V9.5M3 9.5l1.6-5h14.8l1.6 5a2.6 2.6 0 0 1-4.5 1.6 2.6 2.6 0 0 1-4.5 0 2.6 2.6 0 0 1-4.5 0A2.6 2.6 0 0 1 3 9.5zM10 20v-5h4v5')],
+      'house': [S('M3.5 11L12 4l8.5 7M6 9.5V20h12V9.5')],
+      'flashlight.off.fill': [F('M8 2.5h8v4l-2 3v11a1.5 1.5 0 0 1-1.5 1.5h-1A1.5 1.5 0 0 1 10 20.5v-11l-2-3z')],
+      'keyboard': [S('M3.5 6.5h17a1 1 0 0 1 1 1v9a1 1 0 0 1-1 1h-17a1 1 0 0 1-1-1v-9a1 1 0 0 1 1-1z'), S('M6 10h1M9.5 10h1M13 10h1M16.5 10h1M8 14h8', 1.7)],
+      'arrow.right': [S('M4.5 12h15M13.5 6l6 6-6 6', 2.2)],
+      'arrow.clockwise': [S('M19.5 12a7.5 7.5 0 1 1-2.2-5.3M19.5 4v4.5H15', 2)],
+      'arrow.triangle.2.circlepath': [S('M5 12a7 7 0 0 1 12-4.9M19 4v4h-4M19 12a7 7 0 0 1-12 4.9M5 20v-4h4', 2)],
+      'scalemass': [S('M7 7.5h10l2.5 12.5h-15z'), S(circle(12, 5, 2))],
+      'heart.text.square': [S('M5 3.5h14A1.5 1.5 0 0 1 20.5 5v14a1.5 1.5 0 0 1-1.5 1.5H5A1.5 1.5 0 0 1 3.5 19V5A1.5 1.5 0 0 1 5 3.5z'), F('M9 13.3s-3-1.8-3-4a1.7 1.7 0 0 1 3-1 1.7 1.7 0 0 1 3 1c0 2.2-3 4-3 4z'), S('M14 9h3.5M7 16.5h10')],
+      'globe': [S(circle(12, 12, 9)), S('M3 12h18M12 3c2.5 2.6 3.8 5.6 3.8 9s-1.3 6.4-3.8 9c-2.5-2.6-3.8-5.6-3.8-9S9.5 5.6 12 3z')],
+      'person.3': [S(circle(12, 8, 2.8)), S('M7 19c.5-2.8 2.5-4.5 5-4.5s4.5 1.7 5 4.5'), S(circle(5.5, 10, 2)), S('M2.5 18c.3-1.8 1.5-3 3.2-3.2'), S(circle(18.5, 10, 2)), S('M21.5 18c-.3-1.8-1.5-3-3.2-3.2')],
+      'questionmark.circle.fill': [F(circle(12, 12, 10.5), '#8c8775'), G(circle(12, 12, 10.5), '#6b6656', 1.2), G('M9.4 9.3a2.7 2.7 0 0 1 5.2 1c0 1.8-2.6 2.2-2.6 3.7', '#ffffff', 2.2), F(circle(12, 17.3, 1.3), '#ffffff')],
+      'doc.text': [S('M6.5 2.8h7.5l4.5 4.5v13.9H6.5z'), S('M14 2.8v4.5h4.5M9 12h6.5M9 15.5h6.5M9 9h3')],
+      'hand.thumbsdown': [S('M7.5 3.5v10.5M7.5 14l3.6 6.2a1.6 1.6 0 0 0 2.9-1.2l-.8-3.6h4.6a2 2 0 0 0 2-2.4l-1.3-6.5a2 2 0 0 0-2-1.5H7.5M3.5 3.5h4v10.5h-4z')],
+      'hand.thumbsup': [S('M7.5 20.5V10M7.5 10l3.6-6.2a1.6 1.6 0 0 1 2.9 1.2l-.8 3.6h4.6a2 2 0 0 1 2 2.4l-1.3 6.5a2 2 0 0 1-2 1.5H7.5M3.5 10h4v10.5h-4z')],
+      'checklist': [S('M4 6.5l1.6 1.6L8.5 5M4 12.5l1.6 1.6 2.9-3.1M4 18.5l1.6 1.6 2.9-3.1M11.5 6.5h9M11.5 12.5h9M11.5 18.5h9')],
+      'bag': [S('M5 8h14l-1 12.5H6z'), S('M9 10V7a3 3 0 0 1 6 0v3')],
+      'shippingbox': [S('M3.5 7.5L12 3.5l8.5 4v9L12 20.5l-8.5-4z'), S('M3.5 7.5L12 11.5l8.5-4M12 11.5v9M7.8 5.5l8.4 4')],
+      'text.viewfinder': [S('M3.5 8V5a1.5 1.5 0 0 1 1.5-1.5h3M16 3.5h3A1.5 1.5 0 0 1 20.5 5v3M20.5 16v3a1.5 1.5 0 0 1-1.5 1.5h-3M8 20.5H5A1.5 1.5 0 0 1 3.5 19v-3'), S('M7.5 9h9M7.5 12h9M7.5 15h5', 1.7)],
+      'location': [S('M12 21s-6.5-6.1-6.5-11a6.5 6.5 0 0 1 13 0c0 4.9-6.5 11-6.5 11z'), S(circle(12, 10, 2.3))],
+      'wand.and.stars': [S('M4 20L15 9M13.5 7.5l3 3'), F('M18 2.5l.7 1.8 1.8.7-1.8.7-.7 1.8-.7-1.8-1.8-.7 1.8-.7z'), F('M8 3l.5 1.3 1.3.5-1.3.5L8 6.6l-.5-1.3-1.3-.5 1.3-.5z'), F('M19.5 12l.5 1.3 1.3.5-1.3.5-.5 1.3-.5-1.3-1.3-.5 1.3-.5z')],
+      'chevron.up.chevron.down': [S('M7.5 9.5L12 5l4.5 4.5M7.5 14.5L12 19l4.5-4.5', 2.2)],
+      'chevron.up': [S('M4.5 15l7.5-7.5 7.5 7.5', 2.2)],
+      'forward.end': [S('M5 5.5l9 6.5-9 6.5z'), S('M18.5 5.5v13', 2.2)],
+      'person.crop.circle': [S(circle(12, 12, 9.5)), S(circle(12, 10, 3.2)), S('M6.2 18.2c1.4-2 3.4-3 5.8-3s4.4 1 5.8 3')],
+      'wifi.slash': [S('M2.5 9a14 14 0 0 1 19 0M5.6 12.3a9.5 9.5 0 0 1 12.8 0M8.7 15.6a5 5 0 0 1 6.6 0'), F(circle(12, 19, 1.4)), S('M4 3.5l16 17', 2.1)],
+      'trash': [S('M4.5 6.5h15M9.5 6.5V4.8a1.3 1.3 0 0 1 1.3-1.3h2.4a1.3 1.3 0 0 1 1.3 1.3v1.7M6.5 6.5l.9 12.6a1.5 1.5 0 0 0 1.5 1.4h6.2a1.5 1.5 0 0 0 1.5-1.4l.9-12.6M10 10.5v6M14 10.5v6')],
+      'list.bullet': [F(circle(5, 6.5, 1.4)), F(circle(5, 12, 1.4)), F(circle(5, 17.5, 1.4)), S('M9 6.5h11M9 12h11M9 17.5h11')],
+      'square.and.pencil': [S('M19 13.5V18a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2h4.5'), S('M17.6 3.6a1.9 1.9 0 0 1 2.7 2.7L12.5 14.1l-3.6 0.9 0.9-3.6z')]
+    };
+    lib['checkmark.circle.fill'] = lib['checkmark.circle']; lib['exclamationmark.triangle.fill'] = lib['exclamationmark.triangle']; lib['xmark.octagon.fill'] = lib['nosign'];
+    return {
+      name, label,
+      role: label ? 'img' : 'presentation',
+      hidden: label ? 'false' : 'true',
+      px: size + 'px',
+      paths: lib[name] || lib['sparkles']
+    };
+  }
+}
+</script>
+</body>
+</html>

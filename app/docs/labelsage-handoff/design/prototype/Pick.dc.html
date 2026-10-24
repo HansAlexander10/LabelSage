@@ -1,0 +1,110 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Compare with</title>
+<script src="./support.js"></script>
+<link rel="stylesheet" href="ds/aishoppingagent/tokens.css">
+</head>
+<body>
+<x-dc>
+<helmet>
+<style>
+@import url("https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&display=swap");
+body{margin:0;font-family:"Outfit","SF Pro Rounded",ui-rounded,-apple-system,system-ui,sans-serif;-webkit-font-smoothing:antialiased}
+button{font-family:inherit;color:inherit}
+button:focus-visible,a:focus-visible{outline:2px solid #1b6b3e;outline-offset:2px}
+input::placeholder{color:#8c8775}
+:root{--ease-out:cubic-bezier(0.23,1,0.32,1);--ease-drawer:cubic-bezier(0.32,0.72,0,1)}button,a{-webkit-tap-highlight-color:transparent;transition:transform 160ms var(--ease-out),background-color 160ms var(--ease-out)}button:active,a:active{transform:scale(0.97)}[role=radio]:active,[role=checkbox]:active,[role=option]:active,[role=menuitem]:active,[role=switch]:active{transform:none;background-color:rgba(118,118,128,0.12) !important}::selection{background:rgba(38,131,78,0.22)}@keyframes rc-sheet{from{transform:translateY(100%)}to{transform:none}}@keyframes rc-scrim{from{opacity:0}to{opacity:1}}@keyframes rc-pop{from{opacity:0;transform:scale(0.95)}to{opacity:1;transform:none}}.rc-sheet{animation:rc-sheet 420ms var(--ease-drawer) both}.rc-scrim{animation:rc-scrim 220ms var(--ease-out) both}.rc-pop{animation:rc-pop 180ms var(--ease-out) both}@media (prefers-reduced-motion:reduce){button:active,a:active{transform:none}.rc-sheet,.rc-pop{animation:rc-scrim 200ms ease both}}@media (prefers-reduced-transparency:reduce){[style*=backdrop-filter]{backdrop-filter:none !important;-webkit-backdrop-filter:none !important}}</style>
+<style>/* Liquid Glass (navigation layer only, per HIG). Frosted base everywhere; refraction where backdrop SVG filters work (Chromium). */:root{--lg-bg:rgba(255,255,255,0.52);--lg-bg-thick:rgba(255,255,255,0.8);--lg-bg-dark:rgba(255,255,255,0.14);--lg-edge:rgba(255,255,255,0.7);--lg-edge-dark:rgba(255,255,255,0.3);--lg-fx:blur(14px) saturate(180%);--lg-shadow:inset 0 0 2px 1px rgba(255,255,255,0.6),inset 0 0 10px 4px rgba(255,255,255,0.22),inset 0 4px 16px rgba(17,17,26,0.05),inset 0 8px 24px rgba(17,17,26,0.05),0 6px 20px rgba(0,0,0,0.10);--lg-shadow-float:inset 0 0 2px 1px rgba(255,255,255,0.6),inset 0 0 10px 4px rgba(255,255,255,0.22),0 12px 36px rgba(0,0,0,0.16);--lg-shadow-dark:inset 0 0 2px 1px rgba(255,255,255,0.35),inset 0 0 10px 4px rgba(255,255,255,0.12),0 6px 20px rgba(0,0,0,0.25)}@supports (not (font:-apple-system-body)) and (not (-moz-appearance:none)){:root{--lg-fx:url(#lg-filter) blur(2px) saturate(1.7)}}@media (prefers-reduced-transparency:reduce){:root{--lg-bg:rgba(255,255,255,0.97);--lg-bg-thick:#ffffff;--lg-bg-dark:rgba(44,44,46,0.94);--lg-fx:none}}@media (prefers-contrast:more){:root{--lg-edge:rgba(0,0,0,0.35);--lg-edge-dark:rgba(255,255,255,0.7)}}</style>
+</helmet>
+<div style="width: 390px; height: 844px; position: relative; overflow: hidden; background: #f4f0d8; color: #1d2b22; font-family: 'Outfit', 'SF Pro Rounded', ui-rounded, -apple-system, system-ui, sans-serif"><svg aria-hidden="true" focusable="false" width="0" height="0" style="position: absolute; width: 0; height: 0; overflow: hidden"><defs><filter id="lg-filter" color-interpolation-filters="sRGB" x="0%" y="0%" width="100%" height="100%"><feImage x="0" y="0" width="100%" height="100%" preserveAspectRatio="none" result="map" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAIAAAACACAIAAABMXPacAAABRElEQVR42u3ZQQqDMBRF0RcNMbrqLr0DEdoN9ENzLo4cviMisbX2asmW9GQkI5nJTM6P63ruHMmRjKQne7JFSbIl+zPgPdGZzOT6nvEedjwDbklLepoBK+se42qAboRagGEEAEsDTCMAWBrgNAIAAAKwLMBlBF9BXkGqAziMAGBpAGdBxQCOo4sBdiPUAvgjVpr5AQAQAAACAEAAAAgAAAEAIAAABACAAAAQAAACAEAAAAgAAAEAIAAABACAAAAQAAACAEAAAAgAAAEAIAAABACAAAAQAAACAEAAAAgAAAEAIAAABAAAABMAACAAAAQAgAAAEAAAAgBAAAAIAAABACAAAATgL+sIqgF2I9QCdCPUAgwj1AIcRgCwNMBphFqAaYRagMsIXkEABACAfAUB0O8BnAUBWBvAcXQxgD9ixQDNCJW9Aa7lA8768ue5AAAAAElFTkSuQmCC"></feImage><feDisplacementMap in="SourceGraphic" in2="map" result="dispRed" scale="-14" xChannelSelector="R" yChannelSelector="G"></feDisplacementMap><feColorMatrix in="dispRed" type="matrix" values="1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0" result="red"></feColorMatrix><feDisplacementMap in="SourceGraphic" in2="map" result="dispGreen" scale="-17" xChannelSelector="R" yChannelSelector="G"></feDisplacementMap><feColorMatrix in="dispGreen" type="matrix" values="0 0 0 0 0 0 1 0 0 0 0 0 0 0 0 0 0 0 1 0" result="green"></feColorMatrix><feDisplacementMap in="SourceGraphic" in2="map" result="dispBlue" scale="-20" xChannelSelector="R" yChannelSelector="G"></feDisplacementMap><feColorMatrix in="dispBlue" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 1 0 0 0 0 0 1 0" result="blue"></feColorMatrix><feBlend in="red" in2="green" mode="screen" result="rg"></feBlend><feBlend in="rg" in2="blue" mode="screen" result="output"></feBlend><feGaussianBlur in="output" stdDeviation="2"></feGaussianBlur></filter></defs></svg>
+  <!-- product page behind the sheet -->
+  <img src="/_blob/58077391b4e19dddae5d17a63751ab9c" alt="" style="position: absolute; left: 50%; top: 40px; width: 200px; height: 200px; margin-left: -100px; object-fit: contain; mix-blend-mode: multiply">
+  <div aria-hidden="true" style="position: absolute; inset: 0; background: rgba(0,0,0,0.25)"></div>
+
+  <!-- sheet (large detent). Checking the other product with the camera comes first; search is one tap away; tap a product to compare -->
+  <div role="dialog" aria-label="Compare with" style="position: absolute; left: 0; right: 0; top: 64px; bottom: 0; border-radius: 38px 38px 0 0; background: #f3f1fb; padding: 8px 16px 0; box-sizing: border-box; overflow-y: auto">
+    <div aria-hidden="true" style="width: 36px; height: 5px; border-radius: 3px; background: #c9c4a8; margin: 0 auto 8px"></div>
+    <div style="display: flex; align-items: center; gap: 8px">
+      <a href="Main.dc.html" aria-label="Cancel" style="width: 44px; height: 44px; border-radius: 50%; display: grid; place-items: center; background: rgba(29,43,34,0.07); color: #1d2b22"><dc-import name="Sym" sym="xmark" size="{{s16}}" hint-size="16px,16px"></dc-import></a>
+      <h1 style="flex: 1; margin: 0; text-align: center; font-size: 18px; font-weight: 600">Compare with</h1>
+      <span style="width: 44px"></span>
+    </div>
+
+    <!-- current product -->
+    <div style="margin-top: 10px; display: flex; align-items: center; gap: 10px; padding: 8px 12px; border-radius: 18px; background: rgba(255,255,255,0.7)">
+      <div style="flex: none; width: 40px; height: 40px; border-radius: 10px; background: #ffffff"><img src="/_blob/58077391b4e19dddae5d17a63751ab9c" alt="" style="width: 100%; height: 100%; object-fit: contain; border-radius: 10px"></div>
+      <div style="flex: 1; min-width: 0; font-size: 15px"><span style="color: #5d6a60">Comparing </span><span style="font-weight: 600">PopCorners Kettle</span></div>
+      <dc-import name="Sym" sym="nosign" size="{{s20}}" label="Not for you" hint-size="20px,20px"></dc-import>
+    </div>
+
+    <sc-if value="{{notSearching}}" hint-placeholder-val="{{ true }}">
+    <!-- 1. the camera first -->
+    <a href="Scan.dc.html" style="margin-top: 12px; display: flex; flex-direction: column; padding: 16px; border-radius: 26px; background: #ffffff; box-shadow: 0 1px 2px rgba(29,43,34,0.04), 0 10px 26px rgba(29,43,34,0.05); text-decoration: none; color: #1d2b22">
+      <span style="display: flex; align-items: center; gap: 12px"><img src="emoji3d/magnifying_glass_tilted_left.png" alt="" width="44" height="44"><span style="flex: 1"><span style="display: block; font-size: 19px; font-weight: 700">Check the other one</span><span style="display: block; font-size: 14px; color: #5d6a60">Scan its barcode or photo the ingredients</span></span></span>
+      <span style="margin-top: 12px; min-height: 52px; border-radius: 9999px; background: #eb9d15; font-size: 17px; font-weight: 600; display: flex; align-items: center; justify-content: center; gap: 8px; box-shadow: 0 6px 18px rgba(235,157,21,0.3)"><dc-import name="Sym" sym="barcode.viewfinder" size="{{s20}}" color="#1d2b22" hint-size="20px,20px"></dc-import>Open the camera</span>
+    </a>
+    <!-- 2. search, collapsed to one button -->
+    <button onClick="{{openSearch}}" style="margin-top: 10px; width: 100%; min-height: 50px; display: flex; align-items: center; gap: 10px; padding: 0 16px; border: 0; border-radius: 9999px; background: #ffffff; box-shadow: 0 1px 2px rgba(29,43,34,0.04), 0 10px 26px rgba(29,43,34,0.05); font-size: 17px; color: #5d6a60; cursor: pointer"><dc-import name="Sym" sym="magnifyingglass" size="{{s16}}" color="#5d6a60" hint-size="16px,16px"></dc-import>Search by name</button>
+    </sc-if>
+    <sc-if value="{{searching}}" hint-placeholder-val="{{ false }}">
+    <!-- search, expanded -->
+    <div style="margin-top: 12px; display: flex; align-items: center; gap: 8px">
+      <div style="flex: 1; height: 50px; display: flex; align-items: center; gap: 8px; padding: 0 14px; border-radius: 9999px; background: #ffffff; box-shadow: 0 0 0 2px #1d2b22">
+        <dc-import name="Sym" sym="magnifyingglass" size="{{s16}}" color="#5d6a60" hint-size="16px,16px"></dc-import>
+        <label for="q" style="position: absolute; left: -9999px">Search products</label>
+        <input id="q" value="{{q}}" onChange="{{onQ}}" placeholder="Search kettle chips" style="flex: 1; min-width: 0; border: 0; outline: none; background: transparent; font-size: 17px; font-family: inherit; color: #1d2b22">
+      </div>
+      <button onClick="{{closeSearch}}" style="flex: none; min-height: 44px; padding: 0 6px; border: 0; background: transparent; font-size: 17px; font-weight: 600; color: #1b6b3e; cursor: pointer">Cancel</button>
+    </div>
+    </sc-if>
+
+    <div style="margin: 18px 4px 8px; display: flex; justify-content: space-between; align-items: flex-end">
+      <h2 style="margin: 0; display: flex; align-items: flex-end; gap: 6px; font-size: 20px; font-weight: 700"><span aria-hidden="true" style="flex: none"><dc-import name="Mascot" tight="{{yes}}" state="point" size="24" hint-size="24px,37px"></dc-import></span>{{listTitle}}</h2>
+      <span style="font-size: 13px; color: #5d6a60">Tap one to compare</span>
+    </div>
+    <div style="display: flex; flex-direction: column; gap: 10px; padding-bottom: 32px">
+      <sc-for list="{{items}}" as="it" hint-placeholder-count="4">
+        <a href="Compare.dc.html" aria-label="{{it.aria}}" style="display: flex; gap: 12px; align-items: center; padding: 12px; border-radius: 24px; background: #ffffff; box-shadow: 0 1px 2px rgba(29,43,34,0.04), 0 10px 26px rgba(29,43,34,0.05); text-decoration: none; color: #1d2b22">
+          <span style="position: relative; flex: none; width: 76px; height: 76px; border-radius: 16px; background: {{it.tint}}; display: grid; place-items: center"><sc-if value="{{it.hasImg}}" hint-placeholder-val="{{ false }}"><img src="{{it.img}}" alt="" style="width: 100%; height: 100%; object-fit: contain; border-radius: 16px"></sc-if><sc-if value="{{it.noImg}}" hint-placeholder-val="{{ true }}"><img src="emoji3d/{{it.icon}}" alt="" width="46" height="46"></sc-if></span>
+          <span style="flex: 1; min-width: 0">
+            <span style="display: flex; align-items: center; gap: 4px; font-size: 13px; font-weight: 600; color: {{it.ink}}"><dc-import name="Sym" sym="{{it.sym}}" size="{{s14}}" hint-size="14px,14px"></dc-import>{{it.word}}</span>
+            <span class="one" style="display: block; font-size: 16px; font-weight: 600; margin-top: 2px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis">{{it.name}}</span>
+            <span style="display: block; font-size: 13px; color: #5d6a60; margin-top: 2px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis">{{it.meta}}</span>
+            <span style="display: flex; align-items: center; justify-content: space-between; margin-top: 4px"><span style="font-size: 16px; font-weight: 700">{{it.price}}</span><span style="font-size: 13px; color: #5d6a60">{{it.chip}}</span></span>
+          </span>
+          <dc-import name="Sym" sym="chevron.right" size="{{s14}}" color="#a8a390" hint-size="14px,14px"></dc-import>
+        </a>
+      </sc-for>
+    </div>
+  </div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"searching":{"editor":"boolean","default":false},"$preview":{"width":390,"height":844}}'>
+class Component extends DCLogic {
+  constructor(props) { super(props); this.state = { q: '', search: !!props.searching }; }
+  renderVals() {
+    const s = this.state;
+    const SYM = { good: 'checkmark.circle', careful: 'exclamationmark.triangle', bad: 'nosign' };
+    const WORD = { good: 'OK for you and Mia', careful: 'Check first', bad: 'Not for you' };
+    const INKC = { good: '#1b6b3e', careful: '#8a6200', bad: '#c0352b' };
+    const all = [
+      { id: 'bc', lv: 'good', name: 'Boulder Canyon Kettle Chips, Olive Oil', price: '$4.49', meta: 'Boulder Canyon · 5.25 oz · $0.86/oz', chip: 'Olive oil', img: '/_blob/009819ab8d0ecae0eba8e43b443ffd2b', tint: '#ffffff' },
+      { id: 'wg', lv: 'good', name: 'Wegmans Kettle Chips, Avocado Oil', price: '$3.99', meta: 'Wegmans · 8 oz · $0.50/oz', chip: 'Avocado oil', icon: 'avocado.png', tint: '#eef8f1' },
+      { id: 'sr', lv: 'good', name: 'Snake River Farms Kettle Chips, Tallow', price: '$6.99', meta: 'Snake River Farms · 5 oz · $1.40/oz', chip: 'Beef tallow', icon: 'meat_on_bone.png', tint: '#fdf6ea' },
+      { id: 'hv', lv: 'careful', name: 'Harvest Popped Chips, Sea Salt', price: '$3.79', meta: 'Harvest · 4 oz · $0.95/oz', chip: '2 g added sugar', icon: 'sheaf_of_rice.png', tint: '#fbf1ef' }
+    ];
+    const q = s.q.trim().toLowerCase();
+    const items = all.filter((x) => !q || x.name.toLowerCase().includes(q)).map((x) => Object.assign({}, x, {
+      sym: SYM[x.lv], word: WORD[x.lv], ink: INKC[x.lv], hasImg: !!x.img, noImg: !x.img, img: x.img || '', icon: x.icon || 'label.png', aria: 'Compare with ' + x.name
+    }));
+    return { yes: true, s13: 13, s14: 14, s16: 16, s20: 20, items, q: s.q, onQ: (e) => this.setState({ q: e.target.value }),
+      searching: s.search, notSearching: !s.search, openSearch: () => this.setState({ search: true }), closeSearch: () => this.setState({ search: false, q: '' }),
+      listTitle: s.search ? 'Results' : 'Other options'
+    };
+  }
+}
+</script>
+</body>
+</html>

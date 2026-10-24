@@ -1,0 +1,88 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Onboarding decision tree</title>
+<script src="./support.js"></script>
+<link rel="stylesheet" href="ds/aishoppingagent/tokens.css">
+</head>
+<body>
+<x-dc>
+<helmet>
+<style>@import url("https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&display=swap");body{margin:0;font-family:"Outfit","SF Pro Rounded",ui-rounded,-apple-system,system-ui,sans-serif}</style>
+<style>/* Liquid Glass (navigation layer only, per HIG). Frosted base everywhere; refraction where backdrop SVG filters work (Chromium). */:root{--lg-bg:rgba(255,255,255,0.52);--lg-bg-thick:rgba(255,255,255,0.8);--lg-bg-dark:rgba(255,255,255,0.14);--lg-edge:rgba(255,255,255,0.7);--lg-edge-dark:rgba(255,255,255,0.3);--lg-fx:blur(14px) saturate(180%);--lg-shadow:inset 0 0 2px 1px rgba(255,255,255,0.6),inset 0 0 10px 4px rgba(255,255,255,0.22),inset 0 4px 16px rgba(17,17,26,0.05),inset 0 8px 24px rgba(17,17,26,0.05),0 6px 20px rgba(0,0,0,0.10);--lg-shadow-float:inset 0 0 2px 1px rgba(255,255,255,0.6),inset 0 0 10px 4px rgba(255,255,255,0.22),0 12px 36px rgba(0,0,0,0.16);--lg-shadow-dark:inset 0 0 2px 1px rgba(255,255,255,0.35),inset 0 0 10px 4px rgba(255,255,255,0.12),0 6px 20px rgba(0,0,0,0.25)}@supports (not (font:-apple-system-body)) and (not (-moz-appearance:none)){:root{--lg-fx:url(#lg-filter) blur(2px) saturate(1.7)}}@media (prefers-reduced-transparency:reduce){:root{--lg-bg:rgba(255,255,255,0.97);--lg-bg-thick:#ffffff;--lg-bg-dark:rgba(44,44,46,0.94);--lg-fx:none}}@media (prefers-contrast:more){:root{--lg-edge:rgba(0,0,0,0.35);--lg-edge-dark:rgba(255,255,255,0.7)}}</style>
+</helmet>
+<div style="position: relative; width: 1720px; height: 900px; background: #ffffff; color: #232323; font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'SF Pro', system-ui, sans-serif">
+
+  <!-- connectors (placed lines) -->
+  <sc-for list="{{lines}}" as="l" hint-placeholder-count="10"><div aria-hidden="true" style="{{l.style}}"></div></sc-for>
+
+  <!-- lane labels -->
+  <div style="position: absolute; left: 520px; top: 14px; font-size: 13px; font-weight: 700; letter-spacing: 0.04em; color: #ef4b3f">PATH A · FOODS I AVOID</div>
+  <div style="position: absolute; left: 520px; top: 540px; font-size: 13px; font-weight: 700; letter-spacing: 0.04em; color: #1b6b3e">PATH B · MY NUMBERS</div>
+  <div style="position: absolute; left: 40px; top: 860px; font-size: 13px; color: #6b6656">Ticking both runs path A, then path B. Each answer only adds the follow-ups it needs; nothing is asked twice. Then, once for the household: Where are you? (region, required) and Where do you shop? (store, optional: Set up later), before the summary. Amber = conditional step, gray dashed = skipped when not chosen.</div>
+
+  <!-- nodes -->
+  <sc-for list="{{nodes}}" as="n" hint-placeholder-count="12">
+    <div style="{{n.style}}">
+      <div style="display: flex; align-items: center; gap: 6px; font-size: 12px; font-weight: 600; color: {{n.tagColor}}">
+        <dc-import name="Sym" sym="{{n.sym}}" size="{{s14}}" color="{{n.tagColor}}" hint-size="14px,14px"></dc-import>{{n.tag}}
+      </div>
+      <div style="margin-top: 4px; font-size: 15px; font-weight: 600; line-height: 1.25">{{n.title}}</div>
+      <div style="margin-top: 3px; font-size: 12px; line-height: 1.35; color: #6b6656; white-space: pre-line">{{n.text}}</div>
+    </div>
+  </sc-for>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1720,"height":900}}'>
+class Component extends DCLogic {
+  renderVals() {
+    const N = [
+      // id, x, y, w, h, kind, tag, sym, title, text
+      ['welcome', 40, 236, 170, 96, 'base', 'Start', 'sparkles', 'Welcome', 'What the agent does; stays on device'],
+      ['house', 40, 392, 170, 112, 'base', 'H · one choice', 'person.2', 'Who do you shop for?', 'Just me → Q1\nMy family → first profile'],
+      ['first', 40, 572, 170, 112, 'cond', 'if My family', 'person.crop.circle', 'Start with one person', 'Name the one who needs most care; the rest later in Profile'],
+      ['q1', 260, 380, 200, 136, 'base', 'Q1 · checklist', 'checkmark.circle', 'What should I check?', 'Foods I avoid → A\nMy numbers → B\nBoth ticked → A then B'],
+      ['a1', 520, 210, 210, 120, 'base', 'A1 · multi', 'nosign', 'Why do you avoid foods?', 'Medical · Allergy · Diet · Religion · Don’t like'],
+      ['allergy', 790, 340, 200, 86, 'cond', 'if Allergy', 'exclamationmark.triangle', 'Which allergens?', 'Top 9, ordered by share in products'],
+      ['sev', 1030, 340, 200, 86, 'cond', 'then', 'exclamationmark.triangle', 'How does each one affect you?', 'Severe or intolerance, per allergen; severe → traces too'],
+      ['medical', 790, 240, 200, 86, 'cond', 'if Medical', 'heart.text.square', 'Which condition?', 'Celiac adds gluten; heart and sugar set daily limits'],
+      ['diet', 790, 40, 200, 86, 'cond', 'if Diet', 'leaf', 'Which diet?', 'Asked first: vegan skips milk, egg and fish allergens'],
+      ['religion', 790, 140, 200, 86, 'cond', 'if Religion', 'globe', 'Which food rules?', 'Halal, kosher, no beef; gelatin checked'],
+      ['dislike', 790, 440, 200, 72, 'skip', 'if only Don’t like', 'heart', 'Soft rules', 'No follow-up; skips A3'],
+      ['a2', 1290, 170, 210, 120, 'base', 'A2 · everyone on path A', 'magnifyingglass', 'What else do you avoid?', 'Groups with hidden names + search any ingredient + add your own'],
+      ['a3', 1290, 320, 210, 104, 'base', 'A3', 'person.2', 'How strict?', '“May contain” toggle for this profile'],
+      ['b1', 520, 580, 210, 100, 'base', 'B1', 'scalemass', 'Where do targets come from?', 'I know them · Help me set them'],
+      ['health', 790, 570, 200, 86, 'cond', 'if Help me', 'heart.text.square', 'Apple Health', 'Asked only here, to prefill height, weight, age'],
+      ['b2', 1030, 640, 200, 86, 'base', 'B2', 'arrow.triangle.2.circlepath', 'Goals right now', 'Checklist: lose fat, build muscle, maintain, whole foods, energy'],
+      ['b3', 1290, 640, 210, 86, 'base', 'B3', 'scalemass', 'Daily targets', 'Protein and kcal, prefilled by phase'],
+      ['sum', 1550, 380, 150, 136, 'final', 'Summary', 'checkmark.circle', 'Here’s what I’ll check', 'After region (required) and store (optional), asked once for the household']
+    ];
+    const KIND = {
+      base: 'background: #ffffff; border: 1.5px solid #ddd6b2;', cond: 'background: #fcebc4; border: 1.5px solid #c9c6ae;',
+      skip: 'background: #fffdf0; border: 1.5px dashed #c9c4a8;', final: 'background: #e4f7ee; border: 1.5px solid #1dbf73;'
+    };
+    const nodes = N.map((n) => ({
+      tag: n[6], sym: n[7], title: n[8], text: n[9], tagColor: n[5] === 'cond' ? '#9a5f00' : (n[5] === 'final' ? '#26834e' : '#6b6656'),
+      style: 'position: absolute; left: ' + n[1] + 'px; top: ' + n[2] + 'px; width: ' + n[3] + 'px; min-height: ' + n[4] + 'px; box-sizing: border-box; padding: 10px 12px; border-radius: 16px; ' + KIND[n[5]]
+    }));
+    const H = (x1, x2, y, dashed) => ({ style: 'position: absolute; left: ' + x1 + 'px; top: ' + y + 'px; width: ' + (x2 - x1) + 'px; height: 0; border-top: 2px ' + (dashed ? 'dashed #c9c4a8' : 'solid #a8a390') + ';' });
+    const V = (x, y1, y2, dashed) => ({ style: 'position: absolute; left: ' + x + 'px; top: ' + y1 + 'px; width: 0; height: ' + (y2 - y1) + 'px; border-left: 2px ' + (dashed ? 'dashed #c9c4a8' : 'solid #a8a390') + ';' });
+    const lines = [
+      V(125, 332, 392), H(210, 260, 448), V(125, 504, 572), H(210, 235, 628), V(235, 448, 628),
+      H(460, 490, 448), V(490, 270, 630), H(490, 520, 270), H(490, 520, 630),
+      H(730, 760, 270), V(760, 83, 476), H(760, 790, 83), H(760, 790, 183), H(760, 790, 283), H(760, 790, 383), H(760, 790, 476, true),
+      H(990, 1260, 83),
+      V(1260, 83, 383), H(990, 1260, 183), H(990, 1260, 283), H(990, 1030, 383), H(1230, 1260, 383), H(1260, 1290, 230),
+      V(1395, 290, 320),
+      H(990, 1290, 476, true), V(1290, 424, 476, true),
+      H(730, 790, 613), H(990, 1010, 613), V(1010, 613, 683), H(1010, 1030, 683), H(730, 760, 660), V(760, 660, 700), H(760, 1010, 700),
+      H(1230, 1290, 683),
+      H(1500, 1525, 372), V(1525, 372, 448), H(1500, 1525, 683), V(1525, 448, 683), H(1525, 1550, 448)
+    ];
+    return { s14: 14, nodes, lines };
+  }
+}
+</script>
+</body>
+</html>
