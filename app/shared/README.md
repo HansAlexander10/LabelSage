@@ -25,3 +25,14 @@ tests run against a 23-product fixture cut from the real catalog by `Scripts/mak
 ```sh
 cd app/shared/LabelSageCatalog && swift test
 ```
+
+`LabelSageAgent` (Swift package, iOS 26+) connects the on-device Foundation Models to the catalog, as in
+`app/docs/labelsage-handoff/docs/logic/chat-agent.md`: the model reads the intent (guided generation, greedy, then
+checked in code), plain Swift runs the action on `LabelSageCatalog` and `VerdictEngine`, and the model rewrites
+the engine's line in at most 20 words. A rewrite that adds a fact the engine did not state, drops the person or
+the flag word, or uses a never-list word falls back to the engine's line. Without Apple Intelligence it uses the
+keyword router and the engine's lines.
+
+```sh
+cd app/shared/LabelSageAgent && swift test
+```

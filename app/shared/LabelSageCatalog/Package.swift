@@ -23,6 +23,7 @@ let package = Package(
         .testTarget(
             name: "LabelSageCatalogTests",
             dependencies: ["LabelSageCatalog"],
+            exclude: ["Resources/DATA-NOTICE.md"],
             resources: [.copy("Resources/catalog-fixture.sqlite")]
         ),
     ]
