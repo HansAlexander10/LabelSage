@@ -12,8 +12,14 @@ struct OptionTile: View {
     let isOn: Bool
     let action: () -> Void
 
+    /// Counts the user's own taps, for the haptic (see `selectableCard`).
+    @State private var taps = 0
+
     var body: some View {
-        Button(action: action) {
+        Button {
+            taps += 1
+            action()
+        } label: {
             VStack(spacing: Theme.spacing.xs) {
                 IconView(key: iconKey, size: Theme.size.iconInTile, decorative: true)
                 Text(title)
@@ -35,9 +41,7 @@ struct OptionTile: View {
             }
             .themeCardBackground(cornerRadius: Theme.radius.optionCard, isSelected: isOn)
         }
-        .buttonStyle(.pressable)
-        .accessibilityAddTraits(isOn ? .isSelected : [])
-        .sensoryFeedback(.selection, trigger: isOn)
+        .selectableCard(isOn: isOn, taps: taps)
     }
 }
 

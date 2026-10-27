@@ -62,7 +62,7 @@ nonisolated extension Theme {
         static let iconInTile: CGFloat = 64
         static let iconInChip: CGFloat = 22
         static let mascotOnboarding: CGFloat = 74
-        static let mascotChatDock: CGFloat = 64
+        static let mascotChatDock: CGFloat = 84 // board 10 dock (`Chat.dc.html` size="84")
         static let mascotSectionHeading: CGFloat = 30
         static let verdictSignal: CGFloat = 60
     }

@@ -73,3 +73,10 @@ Background `screenTint.compare` (#f3f1fb).
 
 ### Decisions made in build
 (The coding agent lists here anything the spec didn't cover.)
+
+- Compare with's list also shows recent products the host passes (`recent:`), before other options, under the same rules (no Not for).
+- Search results show every level, Not for too, since the person typed the name.
+- "Type a name" on the camera closes it and focuses the search field.
+- With nothing that differs in Differences, the table says "Nothing differs here."
+- Save, when both verdicts match, saves the picked product (the bar's).
+- See Q-T10-1 to Q-T10-7 in `open-questions.md`.

@@ -10,13 +10,19 @@ struct LeafTile: View {
     let isOn: Bool
     let action: () -> Void
 
+    /// Counts the user's own taps, for the haptic (see `selectableCard`).
+    @State private var taps = 0
+
     @Environment(\.dynamicTypeSize) private var dynamicTypeSize
 
     /// Prototype leaf icon: `Icon size="34"`; tokens.json has no size between 22 and 48.
     private static let iconSize: CGFloat = 34
 
     var body: some View {
-        Button(action: action) {
+        Button {
+            taps += 1
+            action()
+        } label: {
             HStack(spacing: Theme.spacing.s) {
                 IconView(key: iconKey ?? title, size: Self.iconSize, decorative: true)
                 Text(title)
@@ -37,9 +43,7 @@ struct LeafTile: View {
             .frame(maxWidth: .infinity, minHeight: Theme.size.leafTileMinHeight)
             .themeCardBackground(cornerRadius: Theme.radius.leafTile, isSelected: isOn)
         }
-        .buttonStyle(.pressable)
-        .accessibilityAddTraits(isOn ? .isSelected : [])
-        .sensoryFeedback(.selection, trigger: isOn)
+        .selectableCard(isOn: isOn, taps: taps)
     }
 }
 

@@ -69,3 +69,31 @@ schemes:
         LabelSageUITests: [test]
     test:
       targets: [LabelSageTests, LabelSageUITests]
+    run:
+      # Debug launch switches: tick one in Edit Scheme > Run > Arguments (kept here so xcodegen keeps them).
+      commandLineArguments:
+        "-gallery": false
+        "-verdictDebug": false
+        # On by default so Run opens chat home with Alex and Mia (in memory); untick to see onboarding.
+        "-demoHousehold": true
+        # Direct screenshots: onboarding, chat, scan, product, compareWith, compare, family.
+        "-screen family": false
+        # Fresh onboarding on the real store: untick -demoHousehold and tick -resetHousehold.
+        "-resetHousehold": false
+        # Prints the household read back from the store (launch and every save) to the console.
+        "-dumpHousehold": false
+        # Answers onboarding by itself (the family of two from the onboarding brief), then saves.
+        "-onboardingScript family": false
+        # Timings in the `perf` log category (spike-ui-performance-2026-10-27.md); signposts are always on.
+        "-perfLog": false
+        # Fake network delay in ms for the fixture source; 0 turns it off (default 300 to 600).
+        "-fixtureLatency 0": false
+  # Run opens onboarding from the start and saves to the real store (the stored household is wiped first).
+  LabelSage Onboarding:
+    build:
+      targets:
+        LabelSage: all
+    run:
+      commandLineArguments:
+        "-resetHousehold": true
+        "-dumpHousehold": true

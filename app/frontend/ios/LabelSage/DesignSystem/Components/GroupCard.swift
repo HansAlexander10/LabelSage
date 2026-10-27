@@ -59,8 +59,11 @@ struct GroupCard: View {
 
     private var header: some View {
         Button {
-            withAnimation(Theme.motion.reduceMotionAware(Theme.motion.groupCardOpen, reduceMotion: reduceMotion)) {
+            // Reduce Motion: no height animation; the leaves still fade in (StaggeredFadeIn).
+            if reduceMotion {
                 isOpen.toggle()
+            } else {
+                withAnimation(Theme.motion.groupCardOpen) { isOpen.toggle() }
             }
         } label: {
             HStack(spacing: Theme.spacing.l) {
@@ -72,7 +75,8 @@ struct GroupCard: View {
                     .frame(maxWidth: .infinity, alignment: .leading)
                 countPill
                 Image(systemName: isOpen ? "chevron.up" : "chevron.right")
-                    .font(.system(size: 16, weight: .semibold))
+                    .font(Theme.type.optionTitle.font)
+                    .imageScale(.small)
                     .foregroundStyle(Theme.color.ink)
             }
             .padding(.vertical, Theme.spacing.cardPaddingV)
@@ -81,10 +85,8 @@ struct GroupCard: View {
             .themeCardBackground(cornerRadius: Theme.radius.card, isSelected: count > 0)
         }
         .buttonStyle(.pressable)
-        .accessibilityElement(children: .ignore)
         .accessibilityLabel(title)
         .accessibilityValue("\(count) of \(leaves.count) selected, \(isOpen ? "expanded" : "collapsed")")
-        .accessibilityAddTraits(.isButton)
     }
 
     /// Prototype count pill: min width 52, height 32, 15 px; `#eceeec` off, ink with white on.

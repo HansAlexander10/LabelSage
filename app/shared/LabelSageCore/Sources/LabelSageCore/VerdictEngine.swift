@@ -172,15 +172,14 @@ public struct VerdictEngine: Sendable {
 
             // 3. terms whose source the label doesn't say: Can't confirm, never OK
             let targets = Set([r.familyId] + catalog.ancestors(r.familyId))
-            for amb in catalog.ambiguous {
+            for (amb, table) in zip(catalog.ambiguous, catalog.ambiguousTables) {
                 let overlap = Set(amb.couldBe).intersection(targets)
                 if overlap.isEmpty { continue }
                 if overlap.isSubset(of: catalog.majors) && label.hasContainsStatement { continue }
-                let terms = ([amb.term] + amb.alt).map { ($0, "ambiguous") }
                 if let it = label.ingredients.first(where: {
-                    Matcher.firstMatch(terms: terms, notTerms: amb.resolvedBy ?? [], in: $0.norm, negations: catalog.negationSuffixes) != nil
+                    Matcher.firstMatch(table, in: $0.norm, negations: catalog.negationSuffixes) != nil
                 }) {
-                    let m = Matcher.firstMatch(terms: terms, notTerms: amb.resolvedBy ?? [], in: it.norm, negations: catalog.negationSuffixes)
+                    let m = Matcher.firstMatch(table, in: it.norm, negations: catalog.negationSuffixes)
                     findings.append(Finding(level: .cantConfirm, source: .ambiguous, rule: r, matched: m?.words, index: it.index, why: amb.why))
                     break
                 }

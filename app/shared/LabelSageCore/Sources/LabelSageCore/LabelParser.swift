@@ -32,7 +32,7 @@ public enum LabelParser {
         if let extra = product.mayContainStatement, !extra.isEmpty {
             label.mayContain += statementItems(Text.fold(extra))
         }
-        let markers = catalog.mayContainMarkers.map(Text.fold).sorted(by: Matcher.longestFirst)
+        let markers = catalog.foldedMayContainMarkers
         var index = 1
         for sentence in sentences(Text.fold(product.ingredientsText ?? "")) {
             let s = stripPrefix(sentence.trimmingCharacters(in: .whitespaces))
@@ -54,21 +54,28 @@ public enum LabelParser {
 
     // MARK: - pieces (each mirrors a function in tools/reference_engine.py)
 
+    /// The parser's regexes, compiled once instead of per sentence and per item.
+    private enum Patterns {
+        nonisolated(unsafe) static let ingredientsPrefix = try! Regex(#"^ingredients?\s*:?\s*"#)
+        nonisolated(unsafe) static let containsStatement = try! Regex(#"^contains\b(?!\s*\d)(?!\s+less)"#).wordBoundaryKind(.simple)
+        nonisolated(unsafe) static let containsWord = try! Regex(#"^contains\s*:?"#)
+        nonisolated(unsafe) static let lessThan = try! Regex(#"^(and |contains )?(\d+(\.\d+)?\s*% or less of|less than \d+(\.\d+)?\s*% of)\s*:?\s*"#)
+        nonisolated(unsafe) static let filler = try! Regex(#"\btraces? of\b|\bother\b|\bproducts?\b|\bingredients?\b"#).wordBoundaryKind(.simple)
+        nonisolated(unsafe) static let joiners = try! Regex(#"\band\b|\bor\b|/"#).wordBoundaryKind(.simple)
+    }
+
     /// "Ingredients:" at the start of a sentence.
     static func stripPrefix(_ s: String) -> String {
-        let regex = try! Regex(#"^ingredients?\s*:?\s*"#)
-        return s.replacing(regex, with: "", maxReplacements: 1)
+        s.replacing(Patterns.ingredientsPrefix, with: "", maxReplacements: 1)
     }
 
     /// "Contains: milk" but not "contains 2% or less of".
     static func isContainsStatement(_ s: String) -> Bool {
-        let regex = try! Regex(#"^contains\b(?!\s*\d)(?!\s+less)"#).wordBoundaryKind(.simple)
-        return s.prefixMatch(of: regex) != nil
+        s.prefixMatch(of: Patterns.containsStatement) != nil
     }
 
     static func dropContainsWord(_ s: String) -> String {
-        let regex = try! Regex(#"^contains\s*:?"#)
-        return s.replacing(regex, with: "", maxReplacements: 1)
+        s.replacing(Patterns.containsWord, with: "", maxReplacements: 1)
     }
 
     /// Split on "." or newline at bracket depth 0, but not inside a number like 2.5%.
@@ -108,8 +115,7 @@ public enum LabelParser {
 
     /// "contains 2% or less of:" and "less than 2% of" in front of an item.
     static func dropLessThan(_ s: String) -> String {
-        let regex = try! Regex(#"^(and |contains )?(\d+(\.\d+)?\s*% or less of|less than \d+(\.\d+)?\s*% of)\s*:?\s*"#)
-        return s.replacing(regex, with: "", maxReplacements: 1)
+        s.replacing(Patterns.lessThan, with: "", maxReplacements: 1)
     }
 
     static func parseItems(_ s: String, start: Int, parent: String?) -> ([Ingredient], Int) {
@@ -141,9 +147,8 @@ public enum LabelParser {
 
     /// "Contains: milk, soy and wheat." -> ["milk", "soy", "wheat"]
     static func statementItems(_ s: String) -> [String] {
-        let filler = try! Regex(#"\btraces? of\b|\bother\b|\bproducts?\b|\bingredients?\b"#).wordBoundaryKind(.simple)
-        let cleaned = s.replacing(filler, with: " ")
-        let joiners = try! Regex(#"\band\b|\bor\b|/"#).wordBoundaryKind(.simple)
+        let cleaned = s.replacing(Patterns.filler, with: " ")
+        let joiners = Patterns.joiners
         var out: [String] = []
         for p in splitDepth0(cleaned, separators: ",;") {
             for q in p.split(separator: joiners) {
