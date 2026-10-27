@@ -101,3 +101,9 @@ From `70-flows-ai-first.png`. Each must work end to end with the sample househol
 
 ### Decisions made in build
 (The coding agent lists here anything the spec didn't cover.)
+- 27 Oct: chat home's always-visible elements follow board 10 where it differs from this spec (Q-CHAT-1 to Q-CHAT-3): left header with the history menu, 32 pt title, board tile and hero sizes, 84 pt dock mascot with a full-width bubble, "Start here" and the tip in the dock (no popovers), working and guard states in the dock bubble, green user bubbles, a glass field, Stop while checking; greetings like "Hi" are small talk.
+- T11: the intent router is keyword-based (`Features/Chat/ChatIntent.swift`); the Foundation Models reader is not built (optional in the brief).
+- T11: "Ask about a product" prefills "Is it OK for Mia: "; "Find other options" prefills "Find other options for "; "Change allergies" shows the people as option cards and prefills "Mia is allergic to ".
+- T11: other options keep only OK and Check first products, OK first, up to three; "without seed oils" also drops products whose list names a seed oil term.
+- T11: chat history is in memory for the session; a product title is "<product name> check", a change is "Mia’s allergies".
+- T11: the dock bubble shows the inline tip once, after the coach marks, with a "Got it" link under it.

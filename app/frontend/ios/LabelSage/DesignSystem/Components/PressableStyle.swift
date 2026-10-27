@@ -18,16 +18,31 @@ private struct PressableBody: View {
     private static let release = Animation.spring(duration: 0.3, bounce: 0.3)
 
     var body: some View {
+        // The animation covers only the scale, so a label change (isOn, the loading spinner)
+        // never picks up the press curve.
         configuration.label
             .contentShape(.rect)
-            .scaleEffect(configuration.isPressed && !reduceMotion ? 0.98 : 1)
-            .animation(configuration.isPressed ? Theme.motion.cardPress : Self.release, value: configuration.isPressed)
+            .animation(configuration.isPressed ? Theme.motion.cardPress : Self.release) {
+                $0.scaleEffect(configuration.isPressed && !reduceMotion ? 0.98 : 1)
+            }
     }
 }
 
 extension ButtonStyle where Self == PressableStyle {
     /// `.buttonStyle(.pressable)`: see `PressableStyle`.
     static var pressable: PressableStyle { PressableStyle() }
+}
+
+extension View {
+    /// The shared tail of `OptionCard`, `OptionTile` and `LeafTile`: press feedback, the
+    /// Selected trait, and a `.selection` haptic on `taps`, which the card bumps in its own
+    /// button action. Keyed on taps rather than `isOn`, so only the user's own tap buzzes, not
+    /// every leaf that "All tree nuts" switches on, nor the card a single choice switches off.
+    func selectableCard(isOn: Bool, taps: Int) -> some View {
+        buttonStyle(.pressable)
+            .accessibilityAddTraits(isOn ? .isSelected : [])
+            .sensoryFeedback(.selection, trigger: taps)
+    }
 }
 
 #Preview("PressableStyle") {

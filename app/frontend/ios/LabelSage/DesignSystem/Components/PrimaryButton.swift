@@ -30,19 +30,20 @@ struct PrimaryButton: View {
         } label: {
             HStack(spacing: Theme.spacing.s) {
                 if let systemImage {
-                    Image(systemName: systemImage).font(.system(size: 18, weight: .semibold))
+                    Image(systemName: systemImage)
                 }
                 Text(title)
-                    .themeText(.primaryButton)
                     .multilineTextAlignment(.center)
                 if status == .loading {
                     ProgressView()
                         .controlSize(.small)
                         .tint(Theme.color.ink)
                 } else if showsChevron {
-                    Image(systemName: "chevron.right").font(.system(size: 16, weight: .semibold))
+                    Image(systemName: "chevron.right").imageScale(.small)
                 }
             }
+            // On the row, so the symbols scale with the label's Dynamic Type size.
+            .themeText(.primaryButton)
             .foregroundStyle(ink)
             .padding(.horizontal, Theme.spacing.xxl)
             .padding(.vertical, Theme.spacing.m)

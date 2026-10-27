@@ -69,6 +69,10 @@ nonisolated extension Theme.TypeStyle {
         size: 30, weight: .heavy, trackingEm: -0.02, lineHeightMultiplier: 1.16, relativeTo: .largeTitle
     )
     static let screenTitle = Theme.TypeStyle(size: 34, weight: .bold, relativeTo: .largeTitle)
+    /// Chat home's "What do you need today?" (board 10: 32/700, line height 1.12).
+    /// Chat home's header title (board 10: 18/600).
+    static let chatHeaderTitle = Theme.TypeStyle(size: 18, weight: .semibold, relativeTo: .headline)
+    static let chatTitle = Theme.TypeStyle(size: 32, weight: .bold, lineHeightMultiplier: 1.12, relativeTo: .largeTitle)
     /// "For you", "Other options for you", "Key ingredients", "Settings".
     static let sectionTitle = Theme.TypeStyle(size: 22, weight: .bold, relativeTo: .title2)
     static let productName = Theme.TypeStyle(size: 26, weight: .bold, relativeTo: .title)

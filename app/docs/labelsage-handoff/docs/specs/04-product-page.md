@@ -90,3 +90,10 @@ Boards: `design/screens/30-product-page-top.png`, `31-product-page-full.png`. So
 
 ### Decisions made in build
 (The coding agent lists here anything the spec didn't cover.)
+- Per-check switches remove one profile choice (an allergen, diet, medical need, avoid or custom item) from a copy of the household and re-run `VerdictEngine`; nothing is saved. Rows keep the level they had before any switch.
+- Without an ingredient list every "What you avoid" row is Can’t confirm.
+- The "May contain" row shows the pack's line when there is one; "Not on the pack" with an info popover ("US labels don’t have to print ‘may contain’…") when there is none.
+- "Full nutrition facts" hides the per 100 g option when the serving size has no grams. Per 100 g rounds to whole numbers from 50, one decimal below (prototype); % Daily Value shows per serving only (FDA 2,000 kcal values).
+- The mini header starts at 400 pt with the hero, 240 pt in a sheet with the hero, and 60 pt without one.
+- One photo, no paging dots, until a source gives more than one (`// shortcut` in `ProductPhoto`).
+- Open design questions: Q-T9-1 to Q-T9-10 in `docs/open-questions.md`.

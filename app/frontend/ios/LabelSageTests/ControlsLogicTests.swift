@@ -44,6 +44,12 @@ struct GroupSelectionTests {
         #expect(!GroupSelection.isAllOn(GroupSelection.toggled("Walnut", in: selection), leaves: leaves))
     }
 
+    @Test func emptyGroupIsNeverAllOnAndAllLeafDoesNothing() {
+        let selection: Set<String> = ["Milk"]
+        #expect(!GroupSelection.isAllOn(selection, leaves: []))
+        #expect(GroupSelection.toggledAll(selection, leaves: []) == selection)
+    }
+
     @Test func allTitleUsesTheLowercasedGroupName() {
         #expect(GroupSelection.allTitle(group: "Tree nuts") == "All tree nuts")
     }

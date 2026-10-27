@@ -75,3 +75,11 @@ Full screen, black, the camera feed under a dim layer (#232323 at 55%) with a cl
 
 ### Decisions made in build
 (The coding agent lists here anything the spec didn't cover.)
+- Built in T8 (`Features/Scan/`). Defaults for the conflicts are Q-T8-1 to Q-T8-4 in `open-questions.md`.
+- "Report it" is a confirmation dialog ("What’s wrong?") with the three reasons; the screen hands a `ScanReport` (reason, barcode, product name, nothing about a person) to the caller, which stores it.
+- "Enter code" is an alert with a number-pad field; Check is enabled at 12 or 13 digits.
+- An ingredients photo keeps the text from the word "Ingredients" on, so a nutrition panel above it is dropped; when the parser finds no list, the "couldn’t read" card shows with Retake.
+- While a photo is read, the hint says "Ingredients photo" and the card says "Reading the ingredients…".
+- Offline: the back button returns to the camera; each "Checked before" row shows the household line ("Not for you · OK for Mia") as its note, re-checked with today's household.
+- The "No barcode? Switch to Ingredients" hint after 4 s is not built: the barcode scanner reads barcodes only, so it cannot see text.
+- The simulator has no camera: tapping the frame opens a picker of the fixture products (and an unknown barcode, and a photo with no list).

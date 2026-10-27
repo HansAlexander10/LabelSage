@@ -35,6 +35,10 @@ nonisolated extension Theme {
         /// Icon fallback tile background; the letter on it is `letterTileInk`.
         static let letterTile = Color(hex: "#f3ead8")
         static let letterTileInk = Color(hex: "#8a6a3a")
+        /// LabelSage's bubble edge, and its red tint on a guard verdict (prototype `Chat.dc.html` `bubble`).
+        static let bubbleEdge = Color(hex: "#4f2c1e").opacity(0.14)
+        static let bubbleGuard = Color(hex: "#fff1ef")
+        static let bubbleGuardEdge = Color(hex: "#c0352b").opacity(0.28)
     }
 
     /// One verdict's color, wash and symbol from tokens.json `verdict`. "Color and symbol always

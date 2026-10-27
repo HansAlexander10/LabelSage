@@ -72,3 +72,8 @@ Background `screenTint.family` (#fdf6ea). Glass "‹ Chat" back button.
 
 ### Decisions made in build
 (The coding agent lists here anything the spec didn't cover.)
+- Item rows swipe to remove with the confirm from the states table; a non-owner person card swipes to remove with "Remove Mia from your family?" (Remove, Keep).
+- "Add an allergy by telling LabelSage" calls `onEditPerson(person)`; the shell opens the chat.
+- The protein stepper runs 5 to 60 g in steps of 5 (prototype) and saves to the owner's `goals.proteinG`.
+- With unreadable profiles (`needsProfileRecheck`) a banner asks to add each person again and go-tos show Can’t confirm.
+- See Q-T12-1 to Q-T12-7 in `open-questions.md`.

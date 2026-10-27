@@ -1,6 +1,6 @@
 {
  "version": 1,
- "updated": "2026-10-23",
+ "updated": "2026-10-27",
  "size": 256,
  "sources": {
   "fluent": "Microsoft Fluent Emoji 3D, MIT License, github.com/microsoft/fluentui-emoji"
@@ -832,6 +832,38 @@
    "category": "app",
    "source": "fluent",
    "asset": "plus"
+  },
+  "honey": {
+   "label": "Honey",
+   "category": "ingredients",
+   "source": "fluent",
+   "asset": "honey_pot"
+  },
+  "meat": {
+   "label": "Meat",
+   "category": "diets",
+   "source": "fluent",
+   "asset": "cut_of_meat"
+  },
+  "legumes": {
+   "label": "Legumes",
+   "category": "diets",
+   "source": "fluent",
+   "asset": "beans"
+  },
+  "grains": {
+   "label": "Grains",
+   "category": "diets",
+   "source": "fluent",
+   "standIn": true,
+   "asset": "sheaf_of_rice"
+  },
+  "insect": {
+   "label": "Insect-derived",
+   "category": "diets",
+   "source": "fluent",
+   "standIn": true,
+   "asset": "lady_beetle"
   }
  },
  "aliases": {
@@ -955,7 +987,12 @@
   "all tree nuts": "treenuts",
   "all fish and shellfish": "shellfish",
   "all fish": "fish",
-  "all shellfish": "shellfish"
+  "all shellfish": "shellfish",
+  "insect-derived": "insect",
+  "carmine": "insect",
+  "cochineal": "insect",
+  "shellac": "insect",
+  "shellfish_only": "shellfish"
  },
  "note": "Every icon is from Microsoft Fluent Emoji 3D. standIn: Fluent has no exact icon (individual tree nuts, sesame, mustard, celery, lupin, mussels, wheat), so the nearest one is used. Swap in exact art later by replacing the file; keys stay the same. In the app, \"asset\" is the image set name in LabelSageIcons.xcassets (256 px PNG from Microsoft Fluent Emoji 3D, MIT). Draw at 24 to 72 pt."
 }

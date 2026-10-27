@@ -54,7 +54,7 @@ struct KindBadge: View {
             } label: {
                 HStack(spacing: Theme.spacing.xxs) {
                     Text(kind.title)
-                    Image(systemName: "chevron.down").font(.system(size: 12, weight: .semibold))
+                    Image(systemName: "chevron.down").imageScale(.small)
                 }
                 .modifier(BadgeChrome(kind: kind, minHeight: Self.minHeight))
                 // 44 pt tap target around the 32 pt capsule.
@@ -64,6 +64,7 @@ struct KindBadge: View {
             .sensoryFeedback(.selection, trigger: kind)
             .accessibilityLabel(kind == .avoid ? "\(ruleName): always avoided" : "\(ruleName): shown lower")
             .accessibilityHint(kind == .avoid ? "Double-tap to only show it lower." : "Double-tap to always avoid it.")
+            .accessibilityInputLabels([kind.title, ruleName])
         } else {
             Text(kind.title)
                 .modifier(BadgeChrome(kind: kind, minHeight: Self.minHeight))

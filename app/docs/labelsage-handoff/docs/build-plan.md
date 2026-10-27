@@ -1,7 +1,12 @@
 # LabelSage iOS build plan (subagent-driven)
 
 Branch `labelsage-ios-mvp`. Base commit `e2229e8` (M0: handoff unpacked, `LabelSageCore` passes 45/45, app target builds).
-Phase 1 builds components and animations; phase 2 builds the pages on mock data. The backend, ETL and real schemas
+**Scope change, 2026-10-26 (register D-30): Phase 1 is now a testable prototype** of one flow: a "Check a product"
+button, the barcode scan, and everything after it, on fixtures. Everything else (onboarding, chat home, Compare,
+Family, the full app shell) is Phase 2 and is built in full later. See "Phase 1 prototype" below; the T-tasks keep
+their numbers.
+
+The original split: phase 1 builds components and animations; phase 2 builds the pages on mock data. The backend, ETL and real schemas
 come later: every data access goes through a protocol with a fixture implementation.
 
 ## Shared context (every task)
@@ -29,6 +34,18 @@ come later: every data access goes through a protocol with a fixture implementat
   needs (callers, previews, tests). Never cut validation, error handling, accessibility or anything the spec asks
   for. Mark a known shortcut in code as `// shortcut: <limit>, <when to upgrade>`. End the report with what you
   skipped or did not check.
+- **Native first** (`docs/native-components.md`, Apple HIG via the apple-design skill, APIs checked with Context7):
+  build each element with the Apple component mapped there (`NavigationStack`, `.sheet` with detents, `.toolbar`,
+  `Picker(.segmented)`, `Toggle`, `Stepper`, `TextField`, `ContentUnavailableView`, TipKit, VisionKit
+  `DataScannerViewController`, Vision `RecognizeTextRequest`, SwiftData, Foundation Models). Restyle it with
+  Theme tokens and keep its native size, placement and behavior. Go custom only when no native component can match
+  the board, and say why in a one-line comment.
+- **Swift expert** (jeffallan claude-skills `swift-expert`): protocol-first APIs, structs and enums by default,
+  `@Observable` over `ObservableObject`, async/await (no continuations around existing async APIs), mutable shared
+  state in an actor, Sendable compliance, no ignored isolation warnings, doc comments, no force unwraps or
+  implicitly unwrapped optionals without a reason, no Objective-C patterns, no hard-coded platform values.
+- **Frontend only:** the app stays separate from the backend and the catalog packages; data comes from
+  `FixtureProductSource` behind `ProductSource`. Integration comes later.
 - **Liquid Glass (native glassmorphism):** floating controls use `.glassEffect(.regular.interactive(), in: .circle)` or
   `.buttonStyle(.glass)` / `.buttonStyle(.glassProminent)`; group nearby glass with `GlassEffectContainer(spacing:)`;
   morph with `.glassEffectID(_:in:)`. Glass only on floating controls (back, close, favorite, new chat, camera
@@ -43,6 +60,27 @@ come later: every data access goes through a protocol with a fixture implementat
 - **Commit** on branch `labelsage-ios-mvp` when the task is done, message `app: <what>`, ending with
   `Co-Authored-By: Claude Opus 5.5 (1M context) <noreply@anthropic.com>`. Never push. Never touch files outside the
   task's folders except `open-questions.md` and the spec's "Decisions made in build" list.
+
+## Phase 1 prototype: scan, then the full flow after it (current)
+
+Goal: a build a tester can install and use end to end on fixtures. Done tasks it reuses: T1 to T6 (design system,
+mascot, data layer). In scope:
+
+| Step | What the tester does | Built in |
+|---|---|---|
+| 1 | Opens the app on a start screen with one primary "Check a product" button; the demo household is loaded (Mia and Alex, from `sample-household.json`), shown as a person line | P1 |
+| 2 | Taps the button: the camera opens (barcode; the Ingredients photo mode if T8 has it); on the simulator, a fixture picker | T8 |
+| 3 | Sees "checking", then the product sheet over the camera: flag, person line, reason, disclaimer, what you avoid, key ingredients, nutrition, other options | T8 + T9 |
+| 4 | Expands the sheet to the full product page; taps an other option to open it | T9 |
+| 5 | Gets every edge state: not found, no ingredients, camera off, offline | T8 |
+| 6 | Closes and scans again | P1 |
+
+**P1 Prototype shell** (folder `App/`): root shows the start screen (mascot, demo household person line, "Check a
+product"); `Router.openCamera()` shows `ScanScreen` as a full-screen cover; a result opens `ProductPage` as
+`cameraSheet`; T8's placeholder sheet is replaced by the T9 sheet; `-demoHousehold` becomes the default household for
+the prototype (no onboarding); one UI test walks button, fixture scan, product sheet, close. Out of scope until Phase 2:
+onboarding (T7, paused about two thirds done: branch `onboarding-paused-wip`, commit `919bf00`; left: unit tests, screenshot check against the boards, open questions), Compare (T10), chat home (T11), Family (T12), the full shell (T13),
+go-to saving beyond the heart toggle, and the mascot review fixes (stashed).
 
 ## Phase 1: components and animations
 
@@ -182,6 +220,7 @@ units, Apple Health placeholder, Show tips again) match the board.
 
 ### T13 App shell and UI tests
 Folders: `App/`, `app/frontend/ios/LabelSageUITests/`.
+- Root: when `AppModel.needsProfileRecheck` is set (a saved profile could not be read), send the person to Family to re-enter it; never check products until then. A failed store fetch is a storage problem, not a fresh install.
 - Root: onboarding when no household, else chat home; sheets and navigation per the flows board; `-screen <name>`
   launch argument for direct screenshots; `-demoHousehold` seeding.
 - UI tests: one mascot on every screen; onboarding path always reaches region before summary; verdict flag
