@@ -12,6 +12,7 @@ nonisolated enum Log {
     static let verdict = Logger(subsystem: subsystem, category: "verdict")
     static let model = Logger(subsystem: subsystem, category: "model")
     static let data = Logger(subsystem: subsystem, category: "data")
+    static let chat = Logger(subsystem: subsystem, category: "chat")
     /// Timings only (`Perf`): interval names and milliseconds, never names, allergies or barcodes.
     static let perf = Logger(subsystem: subsystem, category: "perf")
 }

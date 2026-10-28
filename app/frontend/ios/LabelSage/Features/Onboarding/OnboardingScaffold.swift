@@ -10,6 +10,8 @@ struct OnboardingScaffold<Content: View>: View {
     /// Identifies the content for the step transition.
     let stepID: String
     let section: Int
+    /// One name per progress dot, for VoiceOver ("your allergies", "where you shop").
+    var sectionNames = ["your allergies", "where you shop"]
     let pose: MascotState
     let line: String
     let tint: Color
@@ -76,7 +78,7 @@ struct OnboardingScaffold<Content: View>: View {
                 .accessibilityLabel(skipTitle == "Skip" ? "Skip this step" : "Set up the store later")
             }
         }
-        .overlay { SectionDots(section: section) }
+        .overlay { SectionDots(section: section, names: sectionNames) }
         .padding(.horizontal, Theme.spacing.l)
         .padding(.top, Theme.spacing.xs)
     }
@@ -103,15 +105,15 @@ struct OnboardingTitle: View {
     }
 }
 
-/// Three dots, one per section; the current one is ink (color crossfade 200 ms).
+/// One dot per section; the current one is ink (color crossfade 200 ms).
 // Custom: TabView page dots track pages, not sections (native-components.md).
 struct SectionDots: View {
     let section: Int
-    private static let names = ["who you shop for", "their allergies", "your store"]
+    var names = ["your allergies", "where you shop"]
 
     var body: some View {
         HStack(spacing: 9) {
-            ForEach(0..<3, id: \.self) { i in
+            ForEach(names.indices, id: \.self) { i in
                 Circle()
                     .fill(i == section ? Theme.color.ink : Theme.color.ink.opacity(0.12))
                     .frame(width: 11, height: 11)
@@ -119,7 +121,7 @@ struct SectionDots: View {
         }
         .animation(Theme.motion.progressDotCrossfade, value: section)
         .accessibilityElement(children: .ignore)
-        .accessibilityLabel("Part \(section + 1) of 3: \(Self.names[min(max(section, 0), 2)])")
+        .accessibilityLabel("Part \(section + 1) of \(names.count): \(names[min(max(section, 0), names.count - 1)])")
     }
 }
 

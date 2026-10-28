@@ -28,7 +28,7 @@ struct RegionStep: View {
             VStack(spacing: 0) {
                 HStack(spacing: 10) {
                     Image(systemName: "magnifyingglass").foregroundStyle(Theme.color.muted)
-                    TextField("City or ZIP code", text: $query)
+                    TextField("City or ZIP code", text: $query, prompt: Text("City or ZIP code").foregroundStyle(Theme.color.muted))
                         .themeText(.body)
                         .foregroundStyle(Theme.color.ink)
                         .textContentType(.postalCode)

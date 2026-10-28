@@ -72,6 +72,14 @@ nonisolated enum IntentRouter {
         return .smallTalk(vent: false)
     }
 
+    /// True when the router only fell through to small talk: not a greeting, not venting, more than
+    /// two words. The on-device model then gets a turn (`ModelIntentReader`).
+    static func isMiss(_ intent: ChatIntent, text: String) -> Bool {
+        guard intent == .smallTalk(vent: false) else { return false }
+        let s = normalize(text).trimmingCharacters(in: CharacterSet(charactersIn: "?,"))
+        return !greetings.contains(s) && s.split(separator: " ").count > 2
+    }
+
     private static let greetings: Set<String> = [
         "hi", "hey", "hello", "hiya", "yo", "hi there", "hey there", "hello there", "good morning",
         "good afternoon", "good evening", "thanks", "thank you", "thx", "ty", "ok", "okay", "cool", "great", "nice",

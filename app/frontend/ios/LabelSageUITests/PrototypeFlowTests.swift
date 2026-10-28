@@ -27,16 +27,15 @@ final class PrototypeFlowTests: XCTestCase {
         XCTAssertTrue(peanutButter.waitForExistence(timeout: 5))
         peanutButter.tap()
 
-        // 3. Product sheet: the engine's verdict and the disclaimer.
-        let disclaimer = app.staticTexts.containing(NSPredicate(format: "label CONTAINS %@",
-                                                                "Check the package. Not medical advice.")).firstMatch
-        XCTAssertTrue(disclaimer.waitForExistence(timeout: 10))
+        // 3. Product sheet: the engine's verdict banner.
+        let banner = app.descendants(matching: .any).matching(NSPredicate(format: "label BEGINSWITH %@", "Verdict: ")).firstMatch
+        XCTAssertTrue(banner.waitForExistence(timeout: 10))
         XCTAssertTrue(app.staticTexts.containing(NSPredicate(format: "label CONTAINS %@", "Not for Mia")).firstMatch.exists)
 
         // 4. Check another: back to the frame.
         app.buttons["Check another"].firstMatch.tap()
         XCTAssertTrue(picker.waitForExistence(timeout: 5))
-        XCTAssertFalse(disclaimer.exists)
+        XCTAssertFalse(banner.exists)
 
         // 5. Close the camera: the start screen again.
         app.buttons["Close"].firstMatch.tap()

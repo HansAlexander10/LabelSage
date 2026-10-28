@@ -3,9 +3,8 @@ import LabelSageCore
 
 /// The verdict at the top of "For you" (00-foundations `VerdictBanner`, spec 04, prototype
 /// `Main.dc.html`): a white card whose top is the level's wash, with the level's symbol, the title
-/// ("Not for you", or the person line with more than one person), the reason, and "Check the
-/// package. Not medical advice." under it. When the on-device summary replaces the reason, the
-/// reason crossfades (200 ms, `Theme.motion.reasonCrossfade`).
+/// ("Not for you", or the person line with more than one person) and the reason. When the on-device
+/// summary replaces the reason, the reason crossfades (200 ms, `Theme.motion.reasonCrossfade`).
 // Custom: a plain VStack card; SwiftUI has no verdict banner (native-components.md, "Verdict banner").
 struct VerdictBanner: View {
     let level: Level
@@ -13,9 +12,6 @@ struct VerdictBanner: View {
     let title: String
     /// The engine's reason, later the model's rewrite of it. Never changes the level.
     let reason: String
-
-    /// Every verdict carries this line (voice-and-strings.md rule 10).
-    nonisolated static let disclaimer = "Check the package. Not medical advice."
 
     private var style: Theme.VerdictStyle { Theme.verdict.style(for: level) }
     /// Prototype: 28 pt symbol.
@@ -36,10 +32,6 @@ struct VerdictBanner: View {
                     .foregroundStyle(Theme.color.inkSecondary)
                     .contentTransition(.opacity)
                     .themeAnimation(Theme.motion.reasonCrossfade, value: reason)
-                Text(Self.disclaimer)
-                    .themeText(.footnote)
-                    .foregroundStyle(Theme.color.muted)
-                    .padding(.top, Theme.spacing.xxs)
             }
             .frame(maxWidth: .infinity, alignment: .leading)
             .fixedSize(horizontal: false, vertical: true)
@@ -50,7 +42,7 @@ struct VerdictBanner: View {
         .clipShape(.rect(cornerRadius: Theme.radius.card, style: .continuous))
         .themeCardBackground(cornerRadius: Theme.radius.card, isSelected: false)
         .accessibilityElement(children: .ignore)
-        .accessibilityLabel("Verdict: \(title). \(reason) \(Self.disclaimer)")
+        .accessibilityLabel("Verdict: \(title). \(reason)")
     }
 }
 

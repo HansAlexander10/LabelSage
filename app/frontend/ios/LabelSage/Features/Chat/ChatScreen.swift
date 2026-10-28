@@ -1,6 +1,4 @@
 import SwiftUI
-import PhotosUI
-import TipKit
 import LabelSageCore
 
 /// Chat home (spec 02, board 10): the start screen, the thread, LabelSage in the dock and the composer.
@@ -26,15 +24,16 @@ struct ChatScreen: View {
     /// The composer's text, read by `ChatComposer` only, so typing does not re-render the thread.
     @State private var draft = ChatDraft()
     @FocusState private var composerFocused: Bool
-    @State private var photoItem: PhotosPickerItem?
-    @State private var showWelcome = false
-    @State private var dockTipShown = false
-    @AppStorage("chat.welcomeShown") private var welcomeShown = false
-    /// "Start here" in the dock, with the hero ringed (board 10 `first`), until Got it or Skip.
+    @State private var voice = VoiceInput()
+    /// The first-run tour: the step on screen, nil when it's over (`ChatTour.swift`).
+    @State private var tourStep: ChatTourTarget?
+    @State private var tourFrames = ChatTourFrames()
+    @AppStorage("chat.tourDone") private var tourDone = false
+    /// "Start here" in the dock, with the hero ringed (board 10 `first`), until the next action.
     @AppStorage("chat.startTipDone") private var startTipDone = false
+    /// Follows the newest message (`ScrollPosition`).
+    @State private var scroll = ScrollPosition(edge: .bottom)
     @Environment(\.dynamicTypeSize) private var dynamicTypeSize
-
-    private let dockTip = DockTip()
 
     /// - Parameters:
     ///   - household: who the checks are for; the screen re-reads it when it changes.
@@ -91,11 +90,12 @@ struct ChatScreen: View {
                 if model.thread.messages.isEmpty {
                     // The tour starts once the welcome sheet is gone.
                     ChatStartView(namesLine: model.namesLine, ringsHero: startTipShown,
-                                  onOpenCamera: { model.actions.openCamera() }, onTile: tile)
+                                  onOpenCamera: openCamera, onTile: tile)
                 } else {
                     thread
                 }
             }
+            .scrollPosition($scroll)
             .defaultScrollAnchor(model.thread.messages.isEmpty ? .top : .bottom)
             .scrollDismissesKeyboard(.interactively)
             .background(Theme.screenTint.chat.ignoresSafeArea())
@@ -106,11 +106,11 @@ struct ChatScreen: View {
             .toolbar {
                 // Board 10: avatar, then the title and people line left-aligned, the menu on the title.
                 ToolbarItem(placement: .topBarLeading) { avatar }
-                    .sharedBackgroundVisibility(.hidden)
                 ToolbarItem(placement: .principal) { header }
                 ToolbarItem(placement: .topBarTrailing) {
                     Button("New chat", systemImage: "square.and.pencil") {
                         draft.text = ""
+                        actionTaken()
                         model.newChat()
                     }
                     .accessibilityIdentifier("chat.newChat")
@@ -119,8 +119,12 @@ struct ChatScreen: View {
             .navigationDestination(for: Router.Route.self, destination: destination)
         }
         .toast($model.toast)
-        .sheet(isPresented: $showWelcome) {
-            ChatWelcomeSheet(onShowMe: { showWelcome = false }, onSkip: { showWelcome = false; skipTour() })
+        .overlay {
+            if let tourStep {
+                ChatTourOverlay(step: tourStep, frames: tourFrames, exampleName: otherName == "you" ? "me" : otherName,
+                                onNext: nextTourStep, onSkip: endTour)
+                    .transition(.opacity)
+            }
         }
         .onChange(of: household) { _, new in model.householdChanged(new) }
         .onChange(of: goTos) { _, new in model.goTos = new }
@@ -133,22 +137,27 @@ struct ChatScreen: View {
             composerFocused = true
             prefill = nil
         }
-        .onChange(of: photoItem) { _, item in
-            guard let item else { return }
-            photoItem = nil
-            Task {
-                guard let data = try? await item.loadTransferable(type: Data.self), let image = UIImage(data: data) else { return }
-                model.checkPhoto(image)
-            }
-        }
+        // A new message or answer: follow it down (the anchor alone only sets the first position).
+        .onChange(of: model.thread.messages.count) { _, _ in scrollToBottom() }
+        .onChange(of: model.isWorking) { _, _ in scrollToBottom() }
+        .onChange(of: voice.transcript) { _, words in if voice.isListening { draft.text = words } }
+        .onDisappear { voice.cancel() }
         .task {
-            if !welcomeShown {
-                welcomeShown = true
-                showWelcome = true
+            // Let the toolbar and composer lay out so the tour can find them.
+            var first = ChatTourTarget.allCases.first
+            #if DEBUG
+            // `-tourStep <n>` opens the tour at step n (0 to 4), for screenshots.
+            let args = ProcessInfo.processInfo.arguments
+            if let i = args.firstIndex(of: "-tourStep"), args.indices.contains(i + 1), let n = Int(args[i + 1]) {
+                tourDone = false
+                first = ChatTourTarget(rawValue: n)
             }
-            for await shouldShow in dockTip.shouldDisplayUpdates {
-                dockTipShown = shouldShow
-            }
+            // A debug screen (`-screen product`) opens over chat: no tour under it.
+            if args.contains("-screen"), !args.contains("-tourStep") { return }
+            #endif
+            guard !tourDone, model.thread.messages.isEmpty else { return }
+            try? await Task.sleep(for: .milliseconds(400))
+            withAnimation { tourStep = first }
         }
     }
 
@@ -168,7 +177,7 @@ struct ChatScreen: View {
                 .background(Theme.color.surface.opacity(0.7), in: .capsule)
                 .frame(maxWidth: .infinity)
                 .accessibilityAddTraits(.isHeader)
-            olderLine("Point the camera at a barcode, or ask me about any product.")
+            olderLine(model.openingLine)
             ForEach(model.thread.messages) { message in
                 messageView(message, isLatest: message.id == latestLineID)
                     .transition(.move(edge: .bottom).combined(with: .opacity))
@@ -196,14 +205,11 @@ struct ChatScreen: View {
                                   onCheckAnother: { model.actions.openCamera() })
             case .change(let proposal):
                 ChangeCard(proposal: proposal,
-                           onSeverity: { model.setSeverity($0, for: message.id) },
                            onCancel: { model.cancelChange(message.id) },
                            onConfirm: { model.confirmChange(message.id) })
-            case .personPicker:
-                PersonPickerCard(people: model.household.people) { person in
-                    draft.text = person.isOwner ? "I’m allergic to " : "\(person.name) is allergic to "
-                    composerFocused = true
-                }
+            case .preferences:
+                // The live household: a confirmed change shows here at once.
+                PreferencesCard(people: model.household.people)
             case .familyLink:
                 chatButton("Open Family", systemImage: "person.2") { model.actions.openFamily() }
             case .text:
@@ -235,24 +241,23 @@ struct ChatScreen: View {
         .padding(.bottom, Theme.spacing.s)
     }
 
-    /// "Start here" waits for the welcome sheet and shows only on the empty chat.
+    /// "Start here" follows the tour and stays on the empty chat until the next action (no Got it).
     private var startTipShown: Bool {
-        !startTipDone && !showWelcome && model.thread.messages.isEmpty
+        !startTipDone && tourStep == nil && model.thread.messages.isEmpty
     }
 
-    /// What the dock says, in the board's order: working, "Start here", the inline tip, his latest line.
-    private var dockLine: (text: String, detail: String?, hasGotIt: Bool) {
-        if model.isWorking { return ("Checking the ingredients\u{2026}", "For \(model.namesLine)", false) }
+    /// What the dock says: working, then "Start here", then his latest line.
+    private var dockLine: (text: String, detail: String?) {
+        if voice.isListening { return ("I\u{2019}m listening\u{2026}", "I send it when you stop talking") }
+        if model.isWorking { return ("Checking the ingredients\u{2026}", "For \(model.namesLine)") }
         if startTipShown {
-            return ("Start here. Point the camera at a barcode and I\u{2019}ll check it for \(otherName).", nil, true)
+            return ("Start here. Point the camera at a barcode and I\u{2019}ll check it for \(otherName).", nil)
         }
-        if dockTipShown && model.thread.messages.isEmpty { return (DockTip.line(forName: otherName), nil, true) }
-        // Under a guard verdict the bubble carries the disclaimer (board 10 dock `guard`).
-        return (model.dockLine, model.pose == .guard ? "Check the package. Not medical advice." : nil, false)
+        return (model.dockLine, nil)
     }
 
     private var dockPose: MascotState {
-        if composerFocused && !draft.isEmpty { return .listen }
+        if voice.isListening || (composerFocused && !draft.isEmpty) { return .listen }
         if model.isWorking { return .reading }
         return startTipShown ? .point : model.pose
     }
@@ -264,22 +269,11 @@ struct ChatScreen: View {
             MascotView(state: dockPose, size: Theme.size.mascotChatDock, host: .dock)
             // Keyboard up: the dock collapses to the mascot so the thread stays visible.
             if !composerFocused {
-                VStack(alignment: .leading, spacing: Theme.spacing.s) {
-                    Bubble(speaker: .mascot, text: line.text, detail: line.detail,
-                           isGuard: model.pose == .guard && !model.isWorking)
-                        .lineLimit(dynamicTypeSize.isAccessibilitySize ? 4 : 3)
-                        .contentTransition(.opacity)
-                    if line.hasGotIt {
-                        Button("Got it", action: gotIt)
-                            .themeText(.chip)
-                            .buttonStyle(.bordered)
-                            .buttonBorderShape(.capsule)
-                            .tint(Theme.color.brandGreenDeep)
-                            .frame(minHeight: Theme.size.minTap)
-                            .padding(.leading, Theme.spacing.s)
-                    }
-                }
-                .padding(.bottom, Theme.spacing.s)
+                Bubble(speaker: .mascot, text: line.text, detail: line.detail,
+                       isGuard: model.pose == .guard && !model.isWorking)
+                    .lineLimit(dynamicTypeSize.isAccessibilitySize ? 4 : 3)
+                    .contentTransition(.opacity)
+                    .padding(.bottom, Theme.spacing.s)
             }
         }
         .frame(maxWidth: .infinity, alignment: .leading)
@@ -288,31 +282,59 @@ struct ChatScreen: View {
     }
 
     private var composer: some View {
-        ChatComposer(draft: draft, focused: $composerFocused, photoItem: $photoItem,
+        ChatComposer(draft: draft, focused: $composerFocused, tourFrames: $tourFrames,
                      placeholder: model.thread.messages.isEmpty ? "Ask \(Brand.mascot)\u{2026}" : "Message \(Brand.mascot)\u{2026}",
-                     isWorking: model.isWorking,
-                     onCamera: { model.actions.openCamera() }, onSend: send, onStop: { model.stop() })
+                     isWorking: model.isWorking, isListening: voice.isListening,
+                     onScan: openCamera, onSend: send, onStop: { model.stop() }, onVoice: toggleVoice)
     }
 
     private func send() {
         let message = draft.text
         draft.text = ""
+        actionTaken()
         model.send(message)
+    }
+
+    private func openCamera() {
+        actionTaken()
+        model.actions.openCamera()
+    }
+
+    /// The mic: listen, show the words live, and send them when the person stops talking.
+    private func toggleVoice() {
+        if voice.isListening {
+            voice.stop()
+            return
+        }
+        actionTaken()
+        composerFocused = false
+        Task {
+            let problem = await voice.start { words in
+                draft.text = ""
+                model.send(words)
+            }
+            if let problem { model.toast = ToastMessage(text: problem) }
+        }
+    }
+
+    private func scrollToBottom() {
+        guard !model.thread.messages.isEmpty else { return }
+        // After the new row lays out, so the bottom edge includes it.
+        Task {
+            try? await Task.sleep(for: .milliseconds(60))
+            withAnimation(.easeOut(duration: 0.25)) { scroll.scrollTo(edge: .bottom) }
+        }
     }
 
     // MARK: header
 
-    /// Board 10: a 40 pt green circle with the owner's initials, outside the bar's glass.
+    /// The account button: no photo yet, so the classic profile symbol on the bar's glass.
     private var avatar: some View {
-        Button(action: model.actions.openFamily) {
-            Text(ChatScreen.initials(model.household))
-                .themeText(.chip)
-                .foregroundStyle(.white)
-                .frame(width: 40, height: 40)
-                .background(Theme.color.brandGreen, in: .circle)
+        Button("Preferences and settings", systemImage: "person.fill") {
+            actionTaken()
+            model.actions.openFamily()
         }
-        .buttonStyle(.plain)
-        .accessibilityLabel("Family and allergies")
+        .accessibilityIdentifier("chat.account")
     }
 
     /// The title (with the history menu) over the people line, left-aligned next to the avatar.
@@ -393,53 +415,60 @@ struct ChatScreen: View {
             draft.text = "Is it OK for \(otherName == "you" ? "me" : otherName): "
             composerFocused = true
         case .options:
-            draft.text = "Find other options for "
+            draft.text = "Find better alternatives for "
             composerFocused = true
-        case .allergies:
-            model.showPersonPicker()
+        case .preferences:
+            model.showPreferences()
         }
+        actionTaken()
     }
 
-    /// "Got it" on "Start here" hands over to the inline tip; on the inline tip it ends the tour.
-    private func gotIt() {
-        if startTipShown {
-            startTipDone = true
-            DockTip.tourDone = true
-        } else {
-            dockTip.invalidate(reason: .actionPerformed)
-        }
+    /// Any action ends "Start here".
+    private func actionTaken() {
+        if !startTipDone { startTipDone = true }
     }
 
-    private func skipTour() {
-        startTipDone = true
-        DockTip.tourDone = true
-        dockTip.invalidate(reason: .tipClosed)
+    private func nextTourStep() {
+        guard let step = tourStep, let next = ChatTourTarget(rawValue: step.rawValue + 1) else {
+            endTour()
+            return
+        }
+        tourStep = next
+    }
+
+    private func endTour() {
+        tourDone = true
+        withAnimation { tourStep = nil }
     }
 }
 
-/// The photo button, the text field and send. It owns the reads of the draft's text, so a keystroke
+/// Scan on the left, the text field, and on the right the mic, Send or Stop (board 65 composer, with the
+/// plus menu parked: the barcode is one tap). It owns the reads of the draft's text, so a keystroke
 /// re-renders this row only.
 private struct ChatComposer: View {
     @Bindable var draft: ChatDraft
     var focused: FocusState<Bool>.Binding
-    @Binding var photoItem: PhotosPickerItem?
+    @Binding var tourFrames: ChatTourFrames
     /// "Ask LabelSage…" on the start view, "Message LabelSage…" in a thread (board 10).
     let placeholder: String
     /// While a check runs, the right button is Stop.
     let isWorking: Bool
-    let onCamera: () -> Void
+    /// While the mic listens, the right button ends listening.
+    let isListening: Bool
+    let onScan: () -> Void
     let onSend: () -> Void
     let onStop: () -> Void
+    let onVoice: () -> Void
 
-    private enum Action { case camera, send, stop }
+    private enum Action { case voice, listening, send, stop }
 
     var body: some View {
         let empty = draft.text.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty
-        let action: Action = isWorking ? .stop : (empty ? .camera : .send)
+        let action: Action = isWorking ? .stop : isListening ? .listening : (empty ? .voice : .send)
         return GlassEffectContainer(spacing: Theme.spacing.s) {
             HStack(alignment: .bottom, spacing: Theme.spacing.s) {
-                PhotosPicker(selection: $photoItem, matching: .images) {
-                    Image(systemName: "photo")
+                Button(action: onScan) {
+                    Image(systemName: "barcode.viewfinder")
                         .font(.system(size: 20, weight: .medium))
                         .foregroundStyle(Theme.color.ink)
                         .frame(width: 54, height: 54)
@@ -447,7 +476,9 @@ private struct ChatComposer: View {
                 }
                 .buttonStyle(.plain)
                 .glassEffect(.regular.interactive(), in: .circle)
-                .accessibilityLabel("Upload a photo of the ingredients")
+                .tourTarget(.scan, in: $tourFrames)
+                .accessibilityLabel("Scan a barcode")
+                .accessibilityIdentifier("chat.scan")
 
                 // Board 10: the field is glass (radius 22) in the same container as the two buttons.
                 TextField(placeholder, text: $draft.text, axis: .vertical)
@@ -460,29 +491,59 @@ private struct ChatComposer: View {
                     .padding(.vertical, 15)
                     .frame(minHeight: 54)
                     .glassEffect(.regular, in: .rect(cornerRadius: Theme.radius.searchField, style: .continuous))
+                    .tourTarget(.field, in: $tourFrames)
                     .accessibilityLabel("Message \(Brand.mascot)")
                     .accessibilityIdentifier("chat.composer")
 
-                // The camera until you type (glass); Send and Stop are solid green (board 10 `solid`).
+                // The mic until you type (glass); Send, Stop and Listening are solid green.
                 Button {
                     switch action {
-                    case .camera: onCamera()
+                    case .voice, .listening: onVoice()
                     case .send: onSend()
                     case .stop: onStop()
                     }
                 } label: {
-                    Image(systemName: action == .camera ? "barcode.viewfinder" : action == .send ? "arrow.up" : "stop.fill")
+                    Image(systemName: symbol(action))
                         .font(.system(size: action == .stop ? 14 : 20, weight: .semibold))
-                        .foregroundStyle(action == .camera ? Theme.color.ink : Color.white)
+                        .foregroundStyle(action == .voice ? Theme.color.ink : Color.white)
+                        .symbolEffect(.variableColor.iterative, isActive: action == .listening)
                         .contentTransition(.symbolEffect(.replace))
                         .frame(width: 42, height: 42)
                 }
                 .buttonStyle(.glassProminent)
                 .buttonBorderShape(.circle)
-                .tint(action == .camera ? Theme.color.surface : Theme.color.brandGreen)
-                .accessibilityLabel(action == .camera ? "Open the camera" : action == .send ? "Send" : "Stop")
-                .accessibilityIdentifier(action == .camera ? "chat.camera" : action == .send ? "chat.send" : "chat.stop")
+                .tint(action == .voice ? Theme.color.surface : Theme.color.brandGreen)
+                .tourTarget(.voice, in: $tourFrames)
+                .accessibilityLabel(label(action))
+                .accessibilityIdentifier("chat.\(identifier(action))")
             }
+        }
+    }
+
+    private func symbol(_ action: Action) -> String {
+        switch action {
+        case .voice: "mic.fill"
+        case .listening: "waveform"
+        case .send: "arrow.up"
+        case .stop: "stop.fill"
+        }
+    }
+
+    private func label(_ action: Action) -> String {
+        switch action {
+        case .voice: "Talk to \(Brand.mascot)"
+        case .listening: "Stop listening and send"
+        case .send: "Send"
+        case .stop: "Stop"
+        }
+    }
+
+    private func identifier(_ action: Action) -> String {
+        switch action {
+        case .voice: "voice"
+        case .listening: "listening"
+        case .send: "send"
+        case .stop: "stop"
         }
     }
 }
@@ -499,7 +560,7 @@ final class ChatDraft {
 
 /// The empty chat: title, who LabelSage checks for, the "Check a product" hero and three tiles.
 struct ChatStartView: View {
-    enum Tile: CaseIterable { case ask, options, allergies }
+    enum Tile: CaseIterable { case ask, options, preferences }
 
     let namesLine: String
     /// "Start here" is on: the hero gets the board's 3 pt ink ring.
@@ -525,8 +586,8 @@ struct ChatStartView: View {
                                 count: dynamicTypeSize.isAccessibilitySize ? 1 : 3)
             LazyVGrid(columns: columns, spacing: 10) {
                 tile("ask", "Ask about a product", .ask)
-                tile("options", "Find other options", .options)
-                tile("family", "Change allergies", .allergies)
+                tile("options", "Find better alternatives", .options)
+                tile("family", "Change the preferences", .preferences)
             }
         }
         .padding(.horizontal, Theme.spacing.screenGutter)

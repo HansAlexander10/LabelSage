@@ -62,7 +62,7 @@ enum ChatPreview {
                 ChangeCard(proposal: ChangeProposal(personID: "mia", personName: "Mia", familyID: "sesame", label: "sesame",
                                                     isAllergen: true, severity: .allergy, state: state,
                                                     currentItems: ["peanut", "tree nuts"]),
-                           onSeverity: { _ in }, onCancel: {}, onConfirm: {})
+                           onCancel: {}, onConfirm: {})
             }
         }
         .padding(Theme.spacing.screenGutter)

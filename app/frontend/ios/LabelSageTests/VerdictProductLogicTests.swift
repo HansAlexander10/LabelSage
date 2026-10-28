@@ -24,7 +24,6 @@ struct VerdictFlagLogicTests {
         for level in Level.allCases {
             #expect(!VerdictFlag.spokenLabel(level, names: ["Mia"]).lowercased().contains("safe"))
         }
-        #expect(!VerdictBanner.disclaimer.lowercased().contains("safe"))
     }
 }
 

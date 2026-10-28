@@ -1,8 +1,10 @@
 import SwiftUI
 import LabelSageCore
 
-/// Family: everything LabelSage knows about the household in one scroll (spec 06, board 50).
-/// Person cards, add a person, macros, go-tos (checked again on every open) and settings.
+/// "Preferences & settings" (was "Family"; product owner, 2026-10-27): everything LabelSage knows
+/// about the household in one scroll (spec 06, board 50). Person cards, add a person, macros,
+/// go-tos (checked again on every open) and settings. Until a second person exists, a card at the
+/// top asks to "Add someone you shop for"; it starts the add-a-person questions.
 /// A `List` (`.insetGrouped`) so item rows get native `.swipeActions` (native-components.md).
 /// Push it inside the app's `NavigationStack`; the system back button reads "‹ Chat".
 struct FamilyScreen: View {
@@ -16,7 +18,7 @@ struct FamilyScreen: View {
     var verdictService: VerdictService = AppServices.verdictService
     /// `AppModel.needsProfileRecheck`: the stored profiles were unreadable; ask for them again.
     var needsProfileRecheck = false
-    /// Runs the onboarding questions for one person and returns here.
+    /// Runs the add-a-person questions (name, start from, the per-person steps) and returns here.
     var onAddPerson: () -> Void = {}
     /// "Add an allergy by telling LabelSage": the shell opens the chat with "Add an allergy for Mia".
     var onEditPerson: (Person) -> Void = { _ in }
@@ -74,10 +76,11 @@ struct FamilyScreen: View {
         List {
             titleSection
             if needsProfileRecheck { recheckBanner }
+            if showsAddPrompt { addPromptSection }
             ForEach(Array(people.enumerated()), id: \.element.id) { index, person in
                 personSection(person, index: index)
             }
-            addPersonSection
+            if !showsAddPrompt { addPersonSection }
             if owner != nil { macrosSection }
             goTosSection
             settingsSection
@@ -86,7 +89,7 @@ struct FamilyScreen: View {
         .scrollContentBackground(.hidden)
         .background(Theme.screenTint.family)
         .tint(Theme.color.brandGreenDeep)
-        .navigationTitle("Family")
+        .navigationTitle(Self.title)
         .toolbarTitleDisplayMode(.inline)
         .toolbar {
             // The board's 34 pt title sits in the content next to the mascot; the bar stays empty.
@@ -109,11 +112,38 @@ struct FamilyScreen: View {
 
     // MARK: Title
 
+    static let title = "Preferences & settings"
+
+    /// The "Add someone you shop for" card stays until the household has a second person.
+    private var showsAddPrompt: Bool { !needsProfileRecheck && draft.people.count < 2 }
+
+    private var addPromptSection: some View {
+        Section {
+            VStack(alignment: .leading, spacing: Theme.spacing.m) {
+                HStack(alignment: .top, spacing: Theme.spacing.m) {
+                    IconView(key: "family", size: 40, decorative: true)
+                    VStack(alignment: .leading, spacing: Theme.spacing.xxs) {
+                        Text("Add someone you shop for").themeText(.cardTitle).accessibilityAddTraits(.isHeader)
+                        Text("Each person gets their own allergies and diet. Start from yours and change what differs.")
+                            .themeText(.callout)
+                            .foregroundStyle(Theme.color.inkSecondary)
+                            .fixedSize(horizontal: false, vertical: true)
+                    }
+                }
+                PrimaryButton(title: "Add someone", systemImage: "person.badge.plus", showsChevron: false, action: onAddPerson)
+                    .accessibilityIdentifier("family.addSomeone")
+            }
+            .foregroundStyle(Theme.color.ink)
+            .padding(.vertical, Theme.spacing.s)
+        }
+        .listRowBackground(Theme.color.surface)
+    }
+
     private var titleSection: some View {
         Section {
             HStack(alignment: .top, spacing: Theme.spacing.m) {
                 VStack(alignment: .leading, spacing: Theme.spacing.xxs) {
-                    Text("Family").themeText(.screenTitle).accessibilityAddTraits(.isHeader)
+                    Text(Self.title).themeText(.screenTitle).accessibilityAddTraits(.isHeader)
                     Text(FamilyLogic.headerLine(draft.people)).themeText(.callout).foregroundStyle(Theme.color.mutedGreen)
                 }
                 .frame(maxWidth: .infinity, alignment: .leading)
@@ -136,9 +166,18 @@ struct FamilyScreen: View {
                 Label("I couldn\u{2019}t read your family\u{2019}s allergies.", systemImage: "exclamationmark.triangle.fill")
                     .themeText(.bodyStrong)
                 Text("Add each person again before your next check.").themeText(.callout)
-                Button("Add a person", action: onAddPerson)
-                    .buttonStyle(.borderedProminent)
-                    .tint(Theme.color.ink)
+                // Explicit colors: a tinted `.borderedProminent` took the ink foreground set below
+                // and drew ink on ink (contrast audit 2026-10-27).
+                Button(action: onAddPerson) {
+                    Text("Add a person")
+                        .themeText(.callout).fontWeight(.semibold)
+                        .foregroundStyle(Theme.color.surface)
+                        .padding(.horizontal, Theme.spacing.l)
+                        .frame(minHeight: 44)
+                        .background(Capsule().fill(Theme.color.ink))
+                        .contentShape(.capsule)
+                }
+                .buttonStyle(.pressable)
             }
             .foregroundStyle(Theme.color.ink)
             .padding(.vertical, Theme.spacing.xs)

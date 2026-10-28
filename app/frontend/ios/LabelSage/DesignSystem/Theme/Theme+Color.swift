@@ -10,12 +10,16 @@ nonisolated extension Theme {
         static let inkSecondary = Color(hex: "#3d4a42")
         /// Captions, meta, placeholders (5.5:1 on white).
         static let muted = Color(hex: "#6b6656")
-        /// Captions on green and white cards.
-        static let mutedGreen = Color(hex: "#6f7a73")
+        /// Captions on green and white cards. 4.5:1 on every screen tint (was #6f7a73; contrast audit 2026-10-27).
+        static let mutedGreen = Color(hex: "#66716a")
         /// Separators inside cards.
         static let hairline = Color(hex: "#e5e5ea")
-        /// Unchecked checkbox and radio.
-        static let controlBorder = Color(hex: "#e3e1df")
+        /// Unchecked checkbox and radio, text field outlines at rest. 3:1 on white and every tint
+        /// (was #e3e1df at 1.3:1; contrast audit 2026-10-27).
+        static let controlBorder = Color(hex: "#918a82")
+        /// A small capsule button while it can't be used ("Add" with an empty name). Its label is
+        /// `muted` (4.7:1). Not in tokens.json; added by the contrast audit (2026-10-27).
+        static let disabledFill = Color(hex: "#ecebe6")
         /// Cards, tiles, fields.
         static let surface = Color(hex: "#ffffff")
         /// The one primary button per screen. Text on it is `ink` (7:1). Never white text on
@@ -25,7 +29,8 @@ nonisolated extension Theme {
         static let amberDisabled = Color(hex: "#efe6d3")
         /// Not its own tokens.json key: quoted from `color.amberDisabled.usage`
         /// ("Primary button while the step has no answer; text #a89f8a").
-        static let amberDisabledText = Color(hex: "#a89f8a")
+        /// Darkened to 3:1 on `amberDisabled` (was #a89f8a at 2.1:1; contrast audit 2026-10-27).
+        static let amberDisabledText = Color(hex: "#8d8269")
         /// Switch on, links, brand moments.
         static let brandGreen = Color(hex: "#26834e")
         /// Small green text and links.
@@ -70,19 +75,22 @@ nonisolated extension Theme {
 
     enum verdict {
         static let ok = VerdictStyle(
-            color: Color(hex: "#1dbf73"),
+            // 3:1 as a symbol on white and on its wash (was #1dbf73 at 2.2:1; contrast audit 2026-10-27).
+            color: Color(hex: "#189f60"),
             wash: Color(hex: "#e4f7ee"),
             symbol: "checkmark.circle",
             wordTemplate: "OK for {names}"
         )
         static let checkFirst = VerdictStyle(
-            color: Color(hex: "#ffd449"),
+            // 3:1 as a symbol on white and on its wash (was #ffd449 at 1.3:1; contrast audit 2026-10-27).
+            color: Color(hex: "#b08600"),
             wash: Color(hex: "#fff5cc"),
             symbol: "exclamationmark.triangle",
             wordTemplate: "Check first"
         )
         static let notFor = VerdictStyle(
-            color: Color(hex: "#ef4b3f"),
+            // 4.5:1 under white text (swipe "Remove"), 3:1+ as a symbol (was #ef4b3f; contrast audit 2026-10-27).
+            color: Color(hex: "#d93c31"),
             wash: Color(hex: "#ffe9e6"),
             symbol: "nosign",
             wordTemplate: "Not for {names}"

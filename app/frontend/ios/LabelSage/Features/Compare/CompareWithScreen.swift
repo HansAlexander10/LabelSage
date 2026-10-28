@@ -99,7 +99,7 @@ struct CompareWithScreen: View {
         HStack(spacing: Theme.spacing.m) {
             ProductPhoto(product: base)
                 .frame(width: 48, height: 48)
-            (Text("Comparing ").foregroundStyle(Theme.color.muted) + Text(base.name).fontWeight(.semibold))
+            Text("\(Text("Comparing ").foregroundStyle(Theme.color.muted))\(Text(base.name).fontWeight(.semibold))")
                 .themeText(.body)
                 .foregroundStyle(Theme.color.ink)
                 .lineLimit(2)

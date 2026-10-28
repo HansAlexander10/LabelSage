@@ -17,12 +17,12 @@ struct ProductPage: View {
 
     /// What the page asks its host to do. Every action has a no-op default, so a host wires only what it has.
     struct Actions {
-        /// "Compare" in Try instead.
+        /// "Compare" in a Healthier alternatives tile's menu.
         var compare: (Product) -> Void = { _ in }
-        /// An "Other options" card. nil pushes that product's page in the current navigation stack
+        /// A "Healthier alternatives" tile. nil pushes that product's page in the current navigation stack
         /// (the sheet's own stack, or the host's for a page).
         var openOption: ((Product) -> Void)? = nil
-        /// "See all" next to Other options.
+        /// "See all" next to Healthier alternatives.
         var seeAllOptions: () -> Void = {}
         /// The heart: `true` when saved, `false` when removed. The page shows the toast.
         var setGoTo: (Bool) -> Void = { _ in }
@@ -169,14 +169,20 @@ struct ProductPage: View {
         VStack(alignment: .leading, spacing: 0) {
             ProductTitleBlock(product: product, flag: layout.signalOnHero ? nil : verdict.overall,
                               names: verdict.people.map(\.name))
-            forYou(layout, avoidRows: avoidRows)
+            forYou(layout)
                 .padding(.horizontal, Theme.spacing.l)
                 .padding(.top, Theme.spacing.l)
-            if layout.showsOptions {
-                OtherOptionsSection(options: options, isStacked: dynamicTypeSize.isAccessibilitySize,
-                                    open: open, seeAll: actions.seeAllOptions)
-                    .padding(.top, Theme.spacing.xxl)
+            if layout.showsAlternatives {
+                AlternativesSection(options: options, household: household, open: open,
+                                    compare: actions.compare, seeAll: actions.seeAllOptions)
+                    .padding(.top, Theme.spacing.l)
             }
+            AvoidRowsCard(product: product, label: verdict.label, rows: avoidRows, switchedOff: switchedOff) { id, isOn in
+                if isOn { switchedOff.remove(id) } else { switchedOff.insert(id) }
+                recheck()
+            }
+            .padding(.horizontal, Theme.spacing.l)
+            .padding(.top, Theme.spacing.s)
             KeyIngredientsSection(rows: IngredientRow.rows(verdict: verdict, avoidRows: avoidRows, catalog: catalog),
                                   hasList: layout.hasIngredients, ask: actions.ask, photoIngredients: actions.photoIngredients)
                 .padding(.horizontal, Theme.spacing.l)
@@ -191,7 +197,7 @@ struct ProductPage: View {
         .padding(.bottom, Theme.spacing.xxl)
     }
 
-    private func forYou(_ layout: ProductPageLayout, avoidRows: [AvoidRow]) -> some View {
+    private func forYou(_ layout: ProductPageLayout) -> some View {
         VStack(alignment: .leading, spacing: Theme.spacing.s) {
             HStack(alignment: .bottom) {
                 SectionHeader("For you")
@@ -203,13 +209,6 @@ struct ProductPage: View {
             VerdictBanner(level: verdict.overall, title: Self.bannerTitle(verdict), reason: reason)
             if let age = layout.dataAge {
                 Text(age).themeText(.footnote).foregroundStyle(Theme.color.muted).padding(.leading, Theme.spacing.xxs)
-            }
-            if layout.showsTryInstead, let first = options.first {
-                TryInsteadRow(option: first) { actions.compare(first.product) }
-            }
-            AvoidRowsCard(product: product, label: verdict.label, rows: avoidRows, switchedOff: switchedOff) { id, isOn in
-                if isOn { switchedOff.remove(id) } else { switchedOff.insert(id) }
-                recheck()
             }
         }
     }
@@ -270,7 +269,7 @@ struct ProductPage: View {
 
     // MARK: Actions
 
-    /// An option card: the host's handler, else push that product's page.
+    /// An alternative tile: the host's handler, else push that product's page.
     private func open(_ product: Product) {
         if let openOption = actions.openOption { openOption(product) } else { pushedOption = product.id }
     }
@@ -295,12 +294,13 @@ struct ProductPage: View {
 
     private func loadOptions() async {
         do {
-            let found = try await productSource.options(like: product, region: household.region, store: household.store, limit: 6)
+            // Ask for more than we show, so ranking can pick the best of the category.
+            let found = try await productSource.options(like: product, region: household.region, store: household.store, limit: 40)
             let checked = found.map { verdictService.option($0, for: household) }
-            options = ProductOption.offered(checked)
+            options = ProductOption.alternatives(checked, to: product)
         } catch {
             // The section hides; the page is complete without it.
-            Log.lookup.notice("Other options unavailable: \(String(describing: ProductSourceError(error)), privacy: .public)")
+            Log.lookup.notice("Healthier alternatives unavailable: \(String(describing: ProductSourceError(error)), privacy: .public)")
             options = []
         }
     }

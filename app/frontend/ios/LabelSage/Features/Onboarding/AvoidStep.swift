@@ -13,7 +13,8 @@ struct AvoidStep: View {
         VStack(alignment: .leading, spacing: Theme.spacing.s) {
             HStack(spacing: Theme.spacing.s) {
                 Image(systemName: "magnifyingglass").foregroundStyle(Theme.color.muted)
-                TextField("Anything, e.g. nightshades or red dye", text: $model.avoidQuery)
+                TextField("Search any ingredient", text: $model.avoidQuery,
+                          prompt: Text("Anything, e.g. nightshades or red dye").foregroundStyle(Theme.color.muted))
                     .themeText(.body)
                     .foregroundStyle(Theme.color.ink)
                     .autocorrectionDisabled()
@@ -215,10 +216,16 @@ struct ResolverCard: View {
                         Text("Not right").frame(maxWidth: .infinity, minHeight: 32)
                     }
                     .buttonStyle(.bordered).tint(Theme.color.ink)
+                    // Explicit colors: a tinted `.borderedProminent` takes the ink foreground from
+                    // the environment and turns ink on ink (contrast audit 2026-10-27).
                     Button(action: model.confirmResolver) {
-                        Text("Add it · \(m.kept.count) keywords").fontWeight(.semibold).frame(maxWidth: .infinity, minHeight: 32)
+                        Text("Add it · \(m.kept.count) keywords").fontWeight(.semibold)
+                            .foregroundStyle(m.kept.isEmpty ? Theme.color.muted : Theme.color.surface)
+                            .frame(maxWidth: .infinity, minHeight: 44)
+                            .background(Capsule().fill(m.kept.isEmpty ? Theme.color.disabledFill : Theme.color.ink))
+                            .contentShape(.capsule)
                     }
-                    .buttonStyle(.borderedProminent).tint(Theme.color.ink)
+                    .buttonStyle(.pressable)
                     .disabled(m.kept.isEmpty)
                 }
                 .themeText(.callout)
@@ -241,8 +248,6 @@ struct ResolverCard: View {
 
 private func avoidPreview(_ setup: (OnboardingModel) -> Void) -> some View {
     let model = OnboardingModel()
-    model.household = .family
-    model.firstName = "Mia"
     model.current.goals = [.avoid]
     model.current.why = [.allergy]
     setup(model)

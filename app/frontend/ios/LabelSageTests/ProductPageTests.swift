@@ -21,16 +21,15 @@ struct ProductPageTests {
 
     // MARK: sections per state
 
-    @Test func notForWithAnOptionShowsTryInsteadAndEverySection() {
+    @Test func notForWithAnOptionShowsAlternativesAndEverySection() {
         let verdict = service.check(chips, for: household).verdict
         #expect(verdict.overall == .notFor)
         let layout = ProductPageLayout.make(product: chips, verdict: verdict, photo: .shown, options: [option(oliveOilChips)])
         #expect(layout.showsHero)
-        #expect(!layout.signalOnHero) // no photo: the flag moves next to the name
-        #expect(layout.showsTryInstead)
+        #expect(layout.signalOnHero) // the pack photo carries the flag (board 31)
         #expect(layout.hasIngredients)
         #expect(layout.hasNutrition)
-        #expect(layout.showsOptions)
+        #expect(layout.showsAlternatives)
         #expect(layout.dataAge == nil)
     }
 
@@ -41,18 +40,16 @@ struct ProductPageTests {
         #expect(!layout.showsHero)
         #expect(!layout.hasIngredients)
         #expect(!layout.hasNutrition)
-        #expect(!layout.showsOptions)
-        #expect(!layout.showsTryInstead)
+        #expect(!layout.showsAlternatives)
     }
 
-    @Test func okHasNoTryInsteadAndAPhotoPutsTheSignalOnTheHero() {
+    @Test func aPhotoPutsTheSignalOnTheHero() {
         var withPhoto = oliveOilChips
         withPhoto.imageURL = URL(string: "file:///tmp/pack.png")
         let verdict = service.check(withPhoto, for: household).verdict
         #expect(verdict.overall == .ok)
         let layout = ProductPageLayout.make(product: withPhoto, verdict: verdict, photo: .shown, options: [option(chips)])
         #expect(layout.signalOnHero)
-        #expect(!layout.showsTryInstead)
     }
 
     @Test func oldDataShowsItsAge() {
@@ -64,9 +61,54 @@ struct ProductPageTests {
         #expect(layout.dataAge == "Data updated May 2026")
     }
 
-    @Test func onlyOptionsOKForEveryoneAreOffered() {
-        let offered = ProductOption.offered([option(chips), option(oliveOilChips)])
-        #expect(offered.map(\.product.name) == [oliveOilChips.name])
+    // MARK: Healthier alternatives
+
+    /// A made-up option with a fixed verdict level, for ranking only.
+    func ranked(_ id: String, _ level: Level, sugar: Double?, protein: Double?, category: String? = "Chips & snacks") -> ProductOption {
+        var verdict = service.check(oliveOilChips, for: household).verdict
+        verdict.overall = level
+        let p = Product(barcode: id, name: id, category: category, ingredientsText: "corn",
+                        nutrition: Nutrition(addedSugarsG: sugar, proteinG: protein))
+        return ProductOption(product: p, verdict: verdict)
+    }
+
+    @Test func alternativesNeverOfferNotForCantConfirmOrTheProductItself() {
+        let base = ranked("base", .notFor, sugar: 4, protein: 1).product
+        let options = [ranked("base", .ok, sugar: 0, protein: 9), ranked("not", .notFor, sugar: 0, protein: 9),
+                       ranked("unsure", .cantConfirm, sugar: 0, protein: 9), ranked("ok", .ok, sugar: 2, protein: 1),
+                       ranked("check", .checkFirst, sugar: 0, protein: 9)]
+        #expect(ProductOption.alternatives(options, to: base).map(\.id) == ["ok", "check"])
+    }
+
+    @Test func alternativesPutOKFirstThenLessSugarThenMoreProtein() {
+        let base = ranked("base", .notFor, sugar: 4, protein: 1).product
+        let options = [ranked("check-low-sugar", .checkFirst, sugar: 0, protein: 1),
+                       ranked("ok-sugary", .ok, sugar: 8, protein: 1),
+                       ranked("ok-no-data", .ok, sugar: nil, protein: nil),
+                       ranked("ok-lean", .ok, sugar: 1, protein: 3),
+                       ranked("ok-lean-protein", .ok, sugar: 1, protein: 12)]
+        #expect(ProductOption.alternatives(options, to: base).map(\.id)
+                == ["ok-lean-protein", "ok-lean", "ok-sugary", "ok-no-data", "check-low-sugar"])
+    }
+
+    @Test func alternativesKeepTheCategoryAndStopAtSix() {
+        let base = ranked("base", .notFor, sugar: 4, protein: 1).product
+        let other = ranked("cereal", .ok, sugar: 0, protein: 20, category: "Cereal")
+        let many = (0..<9).map { ranked("ok\($0)", .ok, sugar: 1, protein: 1) }
+        let result = ProductOption.alternatives([other] + many, to: base)
+        #expect(result.count == ProductOption.alternativesLimit)
+        #expect(!result.contains { $0.id == "cereal" })
+        #expect(result.map(\.id) == (0..<6).map { "ok\($0)" }) // ties keep the source's order
+    }
+
+    @Test func fixtureChipsGetAlternativesThatAreNotNotFor() {
+        let checked = products.filter { $0.category == chips.category }.map(option)
+        let result = ProductOption.alternatives(checked, to: chips)
+        #expect(!result.isEmpty)
+        #expect(result.allSatisfy { $0.verdict.overall == .ok || $0.verdict.overall == .checkFirst })
+        #expect(!result.contains { $0.id == chips.id })
+        let levels = result.map(\.verdict.overall)
+        #expect(levels == levels.sorted())
     }
 
     @Test func bannerTitleIsThePersonLineWithMoreThanOnePerson() {

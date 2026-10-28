@@ -9,6 +9,11 @@ options:
 packages:
   LabelSageCore:
     path: ../../shared/LabelSageCore
+  # The on-device catalog (catalog.sqlite from app/backend/etl) and the chat agent's model reader.
+  LabelSageCatalog:
+    path: ../../shared/LabelSageCatalog
+  LabelSageAgent:
+    path: ../../shared/LabelSageAgent
 settings:
   base:
     SWIFT_VERSION: "6.0"
@@ -16,32 +21,56 @@ settings:
     CODE_SIGN_IDENTITY: "-"
     CODE_SIGNING_REQUIRED: NO
     DEVELOPMENT_TEAM: ""
+    # TestFlight: testflight.sh sets the team and a new build number on the command line.
+    MARKETING_VERSION: "1.0"
+    CURRENT_PROJECT_VERSION: "1"
 targets:
   LabelSage:
     type: application
     platform: iOS
     sources:
       - path: LabelSage
-        excludes: ["Resources/Mascot/**"]
+        excludes: ["Resources/Mascot/**", "Resources/ProductImages/**"]
       - path: LabelSage/Resources/Mascot
+        type: folder
+        buildPhase: resources
+      # Rendered pack photos for the fixture products, one <barcode>.jpg each.
+      - path: LabelSage/Resources/ProductImages
         type: folder
         buildPhase: resources
     dependencies:
       - package: LabelSageCore
+      - package: LabelSageCatalog
+      - package: LabelSageAgent
     settings:
       base:
         PRODUCT_BUNDLE_IDENTIFIER: app.labelsage.ios
         SWIFT_DEFAULT_ACTOR_ISOLATION: MainActor
         ASSETCATALOG_COMPILER_APPICON_NAME: AppIcon
         TARGETED_DEVICE_FAMILY: "1"
+      configs:
+        # Release archives sign automatically with the team passed as DEVELOPMENT_TEAM (testflight.sh).
+        Release:
+          CODE_SIGN_STYLE: Automatic
+          CODE_SIGN_IDENTITY: "Apple Development"
+          CODE_SIGNING_REQUIRED: YES
     info:
       path: LabelSage/Info.plist
       properties:
         CFBundleDisplayName: LabelSage
+        CFBundleShortVersionString: "$(MARKETING_VERSION)"
+        CFBundleVersion: "$(CURRENT_PROJECT_VERSION)"
+        # Export compliance: no custom or non-exempt encryption, so TestFlight skips the question.
+        ITSAppUsesNonExemptEncryption: false
+        LSApplicationCategoryType: public.app-category.food-and-drink
         UILaunchScreen: {}
         UIAppFonts: [Outfit-VariableFont_wght.ttf]
         UISupportedInterfaceOrientations: [UIInterfaceOrientationPortrait]
+        # The tokens have light values only (contrast audit 2026-10-27): system text must not turn white.
+        UIUserInterfaceStyle: Light
         NSCameraUsageDescription: "LabelSage uses the camera to read barcodes and ingredient lists."
+        NSMicrophoneUsageDescription: "LabelSage listens when you tap the mic and turns what you say into a message, on your iPhone."
+        NSSpeechRecognitionUsageDescription: "LabelSage turns what you say into text on your iPhone. Nothing is sent anywhere."
   LabelSageTests:
     type: bundle.unit-test
     platform: iOS

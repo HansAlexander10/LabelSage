@@ -23,7 +23,7 @@ struct RootView: View {
     @State private var sheetAfterCamera: Router.Sheet?
     /// Open the camera once the sheet over chat home is gone (a cover can't present over a closing sheet).
     @State private var cameraAfterSheet = false
-    /// "Add a person" in Family: the onboarding questions as a full-screen cover.
+    /// "Add someone you shop for" in Family: the add-a-person questions as a full-screen cover.
     @State private var addingPerson = false
     /// `-screen onboarding`: onboarding even with a household.
     @State private var forceOnboarding = false
@@ -42,7 +42,7 @@ struct RootView: View {
                 onboarding(showsLaunch: !forceOnboarding)
             }
         }
-        .fullScreenCover(isPresented: $addingPerson) { onboarding(showsLaunch: false) }
+        .fullScreenCover(isPresented: $addingPerson) { addPersonFlow }
         .alert("Couldn’t save", isPresented: $saveFailed) {
             Button("OK", role: .cancel) {}
         } message: {
@@ -61,21 +61,31 @@ struct RootView: View {
                        onFinish: finishOnboarding)
     }
 
-    /// Saves the household, then chat home shows. "Add a person" keeps the saved household and adds
-    /// the new people to it.
-    // shortcut: "Add a person" runs the whole onboarding and keeps only the non-owner people it made;
-    // a one-person onboarding mode is T7's to add.
-    private func finishOnboarding(_ new: Household) {
-        var household = new
-        if addingPerson, let current = model.household {
-            household = current
-            let taken = Set(current.people.map(\.id))
-            household.people += new.people.filter { !$0.isOwner }.map { person in
-                var person = person
-                if taken.contains(person.id) { person.id = UUID().uuidString }
-                return person
-            }
+    /// "Add someone you shop for": one person with their own profile, appended to the saved
+    /// household. Without a readable household (profile re-check) it is the first-run onboarding.
+    @ViewBuilder private var addPersonFlow: some View {
+        if let household = model.household {
+            OnboardingFlow(model: OnboardingModel(addingTo: household.people), showsLaunch: false,
+                           tryItProduct: try? SampleData.products().first,
+                           onSavePerson: { person in
+                               var changed = household
+                               changed.people.append(person)
+                               do {
+                                   try model.save(changed)
+                                   addingPerson = false
+                               } catch {
+                                   saveFailed = true
+                               }
+                           },
+                           onCancel: { addingPerson = false },
+                           onFinish: { _ in })
+        } else {
+            onboarding(showsLaunch: false)
         }
+    }
+
+    /// Saves the household (first run: the owner, region and store), then chat home shows.
+    private func finishOnboarding(_ household: Household) {
         do {
             try model.save(household)
             addingPerson = false
@@ -179,7 +189,7 @@ struct RootView: View {
                             },
                             onShowTipsAgain: {
                                 UserDefaults.standard.set(true, forKey: LabelSageApp.resetTipsKey)
-                                UserDefaults.standard.set(false, forKey: "chat.welcomeShown")
+                                UserDefaults.standard.set(false, forKey: "chat.tourDone")
                                 UserDefaults.standard.set(false, forKey: "chat.startTipDone")
                             })
     }
@@ -316,6 +326,18 @@ struct RootView: View {
     private func applyLaunchScreen() {
         #if DEBUG
         let args = ProcessInfo.processInfo.arguments
+        // `-onboardingScript addPerson`: Family, then "Add someone you shop for", played by the script.
+        // Waits for chat home's first-launch sheet and tip to settle, which would block the cover.
+        if OnboardingScript.requested == "addPerson", model.household != nil {
+            UserDefaults.standard.set(true, forKey: "chat.welcomeShown")
+            UserDefaults.standard.set(true, forKey: "chat.startTipDone")
+            Task {
+                try? await Task.sleep(for: .seconds(3))
+                model.router.push(.family)
+                try? await Task.sleep(for: .seconds(1.5))
+                addingPerson = true
+            }
+        }
         guard let index = args.firstIndex(of: "-screen"), args.indices.contains(index + 1) else { return }
         let products = (try? SampleData.products()) ?? []
         model.remember(products)

@@ -19,7 +19,7 @@ public struct IntentReader: Sendable {
         do {
             let session = LanguageModelSession(instructions: Self.instructions(context))
             let response = try await session.respond(to: text, generating: ReadIntent.self,
-                                                     options: GenerationOptions(sampling: .greedy))
+                                                     options: .greedyNoTools)
             return Self.repair(response.content, text: text, context: context)
         } catch {
             return KeywordRouter.read(text, context: context)

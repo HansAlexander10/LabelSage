@@ -3,7 +3,7 @@ type: reference
 entity: frontend/ios
 owner: Artem
 status: current
-updated: 2026-10-27
+updated: 2026-10-28
 ---
 
 # frontend/ios: the LabelSage iPhone app
@@ -36,6 +36,31 @@ xcodebuild -project LabelSage.xcodeproj -scheme LabelSage \
 ```
 
 Specs, designs and the build plan: `../../labelsage-ios/` (start with `HANDOFF.md` and `docs/build-plan.md`).
+
+## Ship to TestFlight
+
+`testflight.sh` archives a Release build and uploads it to App Store Connect. Release builds have no debug
+switches: the first launch shows onboarding and saves to the real store. Products come from the 100 made-up
+fixture products (`Resources/Data/sample-products.json`), so a real supermarket barcode answers "not found".
+
+Before the first upload (one time, by the account owner):
+
+1. A paid Apple Developer Program team. The free Personal Team on this Mac can't upload to TestFlight.
+2. In App Store Connect, create the app with the bundle ID you'll use (default `app.labelsage.ios`, still a placeholder).
+3. Sign in to that team in Xcode (Settings > Accounts), or create an App Store Connect API key.
+
+```sh
+cd app/frontend/ios
+TEAM_ID=ABCDE12345 ./testflight.sh                        # archive, sign, upload
+TEAM_ID=ABCDE12345 BUNDLE_ID=com.example.labelsage ./testflight.sh
+TEAM_ID=ABCDE12345 UPLOAD=0 ./testflight.sh               # .ipa only, upload with Transporter
+```
+
+The build number is the current time (`YYYYMMDDHHMM`), so every upload is higher than the last. The version is
+`MARKETING_VERSION` in `project.yml`. Export compliance is answered in `Info.plist` (no non-exempt encryption),
+and `Resources/PrivacyInfo.xcprivacy` declares no tracking, no collected data and the UserDefaults reason CA92.1.
+The App Store Connect privacy label, a privacy policy URL and the beta review contact are still to fill in
+on the website before external testers can join.
 
 ## See onboarding from Xcode
 

@@ -1,8 +1,9 @@
 import Foundation
 import LabelSageCore
 
-/// The bundled demo data (`Resources/Data/`): the household from the design and 10 made-up products
-/// that cover every verdict path. Fictional people and products only.
+/// The bundled demo data (`Resources/Data/`): the household from the design and 100 made-up products
+/// that cover every verdict path, each with a rendered pack photo in `Resources/ProductImages/`
+/// (`app/tools/render-product-images.py`). Fictional people, brands and products only.
 nonisolated enum SampleData {
     private struct ProductsFile: Decodable { var products: [Product] }
 
@@ -12,7 +13,20 @@ nonisolated enum SampleData {
         return try decode(ProductsFile.self, "sample-products", bundle).products
     }
 
-    private static let mainProducts = Result { try decode(ProductsFile.self, "sample-products", .main).products }
+    private static let mainProducts = Result {
+        try decode(ProductsFile.self, "sample-products", .main).products.map(withBundledPhoto)
+    }
+
+    /// The pack photo `ProductImages/<barcode>.jpg`, when the product has none of its own.
+    private static func withBundledPhoto(_ product: Product) -> Product {
+        guard product.imageURL == nil, let code = product.barcode,
+              let url = Bundle.main.url(forResource: code, withExtension: "jpg", subdirectory: "ProductImages") else {
+            return product
+        }
+        var copy = product
+        copy.imageURL = url
+        return copy
+    }
 
     /// `sample-household.json`: Alex ("you") and Mia, Austin 78701, Whole Foods Market.
     static func household(in bundle: Bundle = .main) throws -> Household {

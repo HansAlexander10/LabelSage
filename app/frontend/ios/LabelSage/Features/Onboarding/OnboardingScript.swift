@@ -9,8 +9,11 @@ import LabelSageCore
 /// `-onboardingScriptStop <step>` answers that step and stops there (for a screenshot), for
 /// example `welcome`, `region` or `summary`. Use with `-resetHousehold` so onboarding shows.
 ///
-/// The `family` script is the hand test from the onboarding brief: "Me" avoids seed oils and
-/// gluten; Mia has peanut and tree nut allergies; Austin 78701; the first store near it.
+/// - `family`: first run, the owner only (product owner, 2026-10-27): peanut, then tree nuts from
+///   the related sheet; seed oils and gluten from "Anything else"; Austin 78701; the first store.
+/// - `addPerson`: on a saved household (run `family` first, or with `-demoHousehold`), RootView
+///   opens Family's "Add someone you shop for": Mia, starting from your preferences, adds sesame
+///   on top, then "Save Mia".
 enum OnboardingScript {
     /// One answer: the step it expects, and what it does there.
     struct Move {
@@ -27,42 +30,46 @@ enum OnboardingScript {
         return args[i + 1]
     }
 
-    static func moves(_ name: String) -> [Move]? {
-        guard name == "family" else { return nil }
-        return [
-            Move(step: .welcome) { _, _ in },
-            Move(step: .household) { m, _ in m.household = .family },
-            Move(step: .firstProfile) { m, _ in m.firstName = "Me"; m.addTeamMember("Mia") },
-            // You: seed oils and gluten, from "Anything else".
-            Move(step: .goal) { m, _ in m.current.goals.toggle(.avoid) },
-            Move(step: .why) { m, _ in m.current.why.toggle(.diet) },
-            Move(step: .diet) { _, _ in },
-            Move(step: .avoid) { m, _ in m.toggleAvoid("seed"); m.toggleAvoid("gluten") },
-            Move(step: .strict) { _, _ in },
-            Move(step: .nextPerson) { _, _ in },
-            // Mia: peanut, then tree nuts from the related sheet; both allergies.
-            Move(step: .goal) { m, _ in m.current.goals.toggle(.avoid) },
-            Move(step: .why) { m, _ in m.current.why.toggle(.allergy) },
-            Move(step: .allergens) { m, _ in
-                m.toggleAllergen("peanut")
-                try? await Task.sleep(for: .milliseconds(900))
-                m.addRelated(["treenuts"])
-            },
-            Move(step: .severity) { m, _ in
-                for choice in m.allergenChoices { m.setSeverity(.allergy, for: choice.id) }
-            },
-            Move(step: .avoid) { _, _ in },
-            Move(step: .strict) { m, _ in m.mayContain = true },
-            Move(step: .region) { m, _ in m.region = OnboardingCatalog.places(matching: "78701").first?.region },
-            Move(step: .store) { m, loadStores in
-                guard let region = m.region else { return }
-                try? await Task.sleep(for: .milliseconds(900))
-                m.store = (try? await loadStores(region))?.first
-            },
-            Move(step: .depth) { m, _ in m.depth = .start },
-            Move(step: .summary) { _, _ in },
-        ]
+    /// The moves for a script name, when it fits the flow on screen.
+    static func moves(_ name: String, mode: OnboardingModel.Mode) -> [Move]? {
+        switch (name, mode) {
+        case ("family", .firstRun): owner
+        case ("addPerson", .addPerson): addPerson
+        default: nil
+        }
     }
+
+    private static var owner: [Move] { [
+        Move(step: .welcome) { _, _ in },
+        Move(step: .goal) { m, _ in m.current.goals.toggle(.avoid) },
+        Move(step: .why) { m, _ in m.current.why.toggle(.allergy) },
+        Move(step: .allergens) { m, _ in
+            m.toggleAllergen("peanut")
+            try? await Task.sleep(for: .milliseconds(900))
+            m.addRelated(["treenuts"])
+        },
+        Move(step: .avoid) { m, _ in m.toggleAvoid("seed"); m.toggleAvoid("gluten") },
+        Move(step: .region) { m, _ in m.region = OnboardingCatalog.places(matching: "78701").first?.region },
+        Move(step: .store) { m, loadStores in
+            guard let region = m.region else { return }
+            try? await Task.sleep(for: .milliseconds(900))
+            m.store = (try? await loadStores(region))?.first
+        },
+        Move(step: .depth) { m, _ in m.depth = .start },
+        Move(step: .summary) { _, _ in },
+    ] }
+
+    private static var addPerson: [Move] { [
+        Move(step: .name) { m, _ in m.name = "Mia" },
+        Move(step: .startFrom) { m, _ in
+            if let owner = m.existing.first(where: \.isOwner) { m.chooseStart(owner.id) }
+        },
+        Move(step: .goal) { _, _ in },
+        Move(step: .why) { _, _ in },
+        Move(step: .allergens) { m, _ in if !m.current.allergens.contains("sesame") { m.toggleAllergen("sesame") } },
+        Move(step: .avoid) { _, _ in },
+        Move(step: .summary) { _, _ in },
+    ] }
 
     /// Plays `moves` on `model`. Returns true when every move ran (the caller then finishes);
     /// false when it stopped on purpose or the path went somewhere the script did not expect.

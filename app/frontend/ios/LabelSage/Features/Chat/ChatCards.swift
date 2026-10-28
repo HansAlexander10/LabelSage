@@ -17,46 +17,18 @@ extension View {
     fileprivate func chatCard() -> some View { modifier(ChatCardBackground()) }
 }
 
-/// "Check the package. Not medical advice." under every verdict.
-private struct Disclaimer: View {
-    var body: some View {
-        Text(VerdictBanner.disclaimer)
-            .themeText(.footnote)
-            .foregroundStyle(Theme.color.muted)
-    }
-}
-
-/// Ingredient chips colored by finding ("Sunflower oil" red, "Cane sugar" amber): one per matched word, worst first.
-func findingNotes(_ verdict: HouseholdVerdict) -> [ProductRow.Note] {
-    var seen = Set<String>()
-    return verdict.people.flatMap(\.findings)
-        .filter { $0.level != .ok }
-        .sorted { $0.level > $1.level }
-        .compactMap { finding -> ProductRow.Note? in
-            guard let matched = finding.matched, !matched.isEmpty, seen.insert(matched.lowercased()).inserted else { return nil }
-            return ProductRow.Note(level: finding.level, text: matched.capitalizedFirst)
-        }
-}
-
-/// `ProductResultCard`: the product row, the person line and the disclaimer. Tap opens the sheet.
+/// `ProductResultCard`: the full product row (board 65) with the verdict line, the reason chips and
+/// the nutrition line. The whole card is the tap target and opens the product page.
 struct ProductResultCard: View {
     let answer: ProductAnswer
     let onOpen: () -> Void
 
     var body: some View {
-        VStack(alignment: .leading, spacing: Theme.spacing.m) {
-            ProductRow(product: answer.product, level: answer.verdict.overall,
-                       names: answer.verdict.people.map(\.name), notes: findingNotes(answer.verdict),
-                       style: .row, action: onOpen)
-            PersonLine(answer.verdict)
-            Disclaimer()
-        }
-        .chatCard()
-        .accessibilityElement(children: .contain)
+        ProductSummaryCard(product: answer.product, verdict: answer.verdict, action: onOpen)
     }
 }
 
-/// "Which one?" for an ambiguous name: compact rows.
+/// "Which one?" for an ambiguous name: the same full product rows; a tap picks that product.
 struct ChoicesCard: View {
     let answers: [ProductAnswer]
     let onPick: (Product) -> Void
@@ -66,17 +38,18 @@ struct ChoicesCard: View {
             Text("Which one?")
                 .themeText(.cardTitle)
                 .foregroundStyle(Theme.color.ink)
+                .padding(.leading, Theme.spacing.xxs)
                 .accessibilityAddTraits(.isHeader)
             ForEach(answers) { answer in
-                ProductRow(product: answer.product, level: answer.verdict.overall,
-                           names: answer.verdict.people.map(\.name), style: .compact) { onPick(answer.product) }
+                ProductSummaryCard(product: answer.product, verdict: answer.verdict, hint: "Checks this one") {
+                    onPick(answer.product)
+                }
             }
         }
-        .chatCard()
     }
 }
 
-/// `OptionsResult`: up to three cards, then Compare both, More options and Check another.
+/// `OptionsResult`: a carousel of product tiles (board 65), then Compare both, More options and Check another.
 struct OptionsResultCard: View {
     let anchor: Product?
     let answers: [ProductAnswer]
@@ -96,18 +69,9 @@ struct OptionsResultCard: View {
 
     var body: some View {
         VStack(alignment: .leading, spacing: Theme.spacing.m) {
-            ScrollView(.horizontal) {
-                HStack(alignment: .top, spacing: Theme.spacing.m) {
-                    ForEach(answers) { answer in
-                        ProductRow(product: answer.product, level: answer.verdict.overall,
-                                   names: answer.verdict.people.map(\.name),
-                                   notes: [ProductRow.Note(level: answer.verdict.overall, text: answer.verdict.line)],
-                                   style: .card) { onOpen(answer.product) }
-                    }
-                }
-                .padding(.vertical, Theme.spacing.xs)
+            ProductTileCarousel(items: answers, horizontalPadding: 0) { answer in
+                ProductTile(product: answer.product, verdict: answer.verdict) { onOpen(answer.product) }
             }
-            .scrollIndicators(.hidden)
             .scrollClipDisabled()
 
             let buttons = Group {
@@ -125,7 +89,6 @@ struct OptionsResultCard: View {
                     VStack(alignment: .leading, spacing: Theme.spacing.s) { buttons }
                 }
             }
-            Disclaimer()
         }
     }
 }
@@ -148,7 +111,6 @@ func chatButton(_ title: String, systemImage: String, action: @escaping () -> Vo
 /// cards stay in the thread, read-only.
 struct ChangeCard: View {
     let proposal: ChangeProposal
-    let onSeverity: (Severity) -> Void
     let onCancel: () -> Void
     let onConfirm: () -> Void
 
@@ -157,11 +119,6 @@ struct ChangeCard: View {
         let verb = proposal.personName == "you" ? "avoid" : "avoids"
         let items = proposal.state == .saved ? proposal.currentItems + [proposal.label] : proposal.currentItems
         return items.isEmpty ? "" : "\(who) \(verb): \(items.formatted(.list(type: .and)))"
-    }
-    private var helper: String {
-        proposal.severity == .allergy
-            ? "Flags “may contain \(proposal.label)” too."
-            : "Flags \(proposal.label) in the ingredients only."
     }
     private var whose: String { proposal.personName == "you" ? "your" : "\(proposal.personName)’s" }
 
@@ -180,16 +137,9 @@ struct ChangeCard: View {
                     .foregroundStyle(Theme.color.inkSecondary)
             }
             if proposal.isAllergen {
-                Picker("Kind", selection: Binding(get: { proposal.severity }, set: onSeverity)) {
-                    Text("Allergy").tag(Severity.allergy)
-                    Text("Intolerance").tag(Severity.intolerance)
-                }
-                .pickerStyle(.segmented)
-                .disabled(proposal.state != .proposed)
-                Text(helper)
+                Text("I avoid it, and “may contain \(proposal.label)” too.")
                     .themeText(.footnote)
                     .foregroundStyle(Theme.color.muted)
-                    .contentTransition(.opacity)
             } else if proposal.familyID == nil {
                 Text("I’ll flag “\(proposal.label)” in ingredient lists.")
                     .themeText(.footnote)
@@ -240,16 +190,3 @@ struct ChangeCard: View {
 }
 
 /// The inline person picker from the "Change allergies" tile.
-struct PersonPickerCard: View {
-    let people: [Person]
-    let onPick: (Person) -> Void
-
-    var body: some View {
-        VStack(alignment: .leading, spacing: Theme.spacing.s) {
-            ForEach(people) { person in
-                OptionCard(iconKey: person.isOwner ? "me" : "girl", title: person.isOwner ? "You" : person.name,
-                           detail: nil, mode: .single, isOn: false) { onPick(person) }
-            }
-        }
-    }
-}

@@ -69,13 +69,16 @@ struct PackTile: View {
     }
 }
 
-/// Brand, name (3 lines then truncates), size and servings, category. Without the photo signal the
-/// flag sits next to the name (spec 04 "No photo").
+/// The board 65 title treatment: brand, the name semibold in 2 lines, then the meta line led by the
+/// price ("$4.29 · 3 oz · 3 servings of 28 g"), then the category. Without the photo signal the flag
+/// sits next to the name (spec 04 "No photo").
 struct ProductTitleBlock: View {
     let product: Product
     /// The flag next to the name; nil when it is on the photo.
     let flag: Level?
     let names: [String]
+
+    @Environment(\.dynamicTypeSize) private var dynamicTypeSize
 
     var body: some View {
         HStack(alignment: .top, spacing: Theme.spacing.m) {
@@ -85,12 +88,11 @@ struct ProductTitleBlock: View {
                 }
                 Text(product.name)
                     .themeText(.productName)
+                    .fontWeight(.semibold)
                     .foregroundStyle(Theme.color.ink)
-                    .lineLimit(3)
+                    .lineLimit(dynamicTypeSize.isAccessibilitySize ? nil : 2)
                     .accessibilityAddTraits(.isHeader)
-                if let line = ProductHeader.sizeLine(size: product.size, servingSize: product.servingSize) {
-                    Text(line).themeText(.body).foregroundStyle(Theme.color.inkSecondary).padding(.top, Theme.spacing.xxs)
-                }
+                metaLine.padding(.top, Theme.spacing.xxs)
                 if let category = product.category {
                     Text(category).themeText(.footnote).foregroundStyle(Theme.color.muted)
                 }
@@ -104,6 +106,18 @@ struct ProductTitleBlock: View {
         .padding(.top, Theme.spacing.l)
         .padding(.bottom, 18)
         .background(Theme.color.surface)
+    }
+
+    /// Price first, then size and servings.
+    @ViewBuilder private var metaLine: some View {
+        let price = ProductRowFormat.price(product.price)
+        let size = ProductHeader.sizeLine(size: product.size, servingSize: product.servingSize)
+        if price != nil || size != nil {
+            let priceText = Text(verbatim: price.map { size == nil ? $0 : $0 + " \u{00B7} " } ?? "")
+                .font(Theme.TypeStyle.bodyStrong.font).foregroundStyle(Theme.color.ink)
+            let sizeText = Text(verbatim: size ?? "").font(Theme.TypeStyle.body.font).foregroundStyle(Theme.color.inkSecondary)
+            Text("\(priceText)\(sizeText)")
+        }
     }
 }
 
@@ -126,31 +140,6 @@ struct MiniHeader: View {
 }
 
 // MARK: - For you
-
-/// "Try instead": the first option OK for everyone, with "Compare".
-struct TryInsteadRow: View {
-    let option: ProductOption
-    let compare: () -> Void
-
-    var body: some View {
-        Button(action: compare) {
-            HStack(spacing: Theme.spacing.m) {
-                ProductPhoto(product: option.product).frame(width: 40, height: 40)
-                VStack(alignment: .leading, spacing: 0) {
-                    Text("Try instead").themeText(.footnote).foregroundStyle(Theme.color.muted)
-                    Text(option.product.name).themeText(.bodyStrong).foregroundStyle(Theme.color.ink).lineLimit(1)
-                }
-                .frame(maxWidth: .infinity, alignment: .leading)
-                Text("Compare").themeText(.bodyStrong).foregroundStyle(Theme.color.brandGreen)
-            }
-            .padding(.vertical, Theme.spacing.s)
-            .padding(.horizontal, Theme.spacing.m)
-            .themeCardBackground(cornerRadius: 16, isSelected: false)
-        }
-        .buttonStyle(.pressable)
-        .accessibilityLabel("Try instead: \(option.product.name). Compare")
-    }
-}
 
 /// "May contain" and "What you avoid" with a per-check switch per row (spec 04 "Rows").
 struct AvoidRowsCard: View {
@@ -245,49 +234,48 @@ struct AvoidRowsCard: View {
     }
 }
 
-// MARK: - Other options
+// MARK: - Healthier alternatives
 
-/// "Other options for you": 204 pt cards in a row, a vertical list at AX sizes (spec 04).
-struct OtherOptionsSection: View {
+/// "Healthier alternatives": one carousel of product tiles (board 65) right under the verdict, OK for
+/// everyone first, then Check first (`ProductOption.alternatives`). A tile opens its product page; its
+/// context menu offers Compare. Hidden by the page when none fit.
+struct AlternativesSection: View {
     let options: [ProductOption]
-    let isStacked: Bool
+    let household: Household
     let open: (Product) -> Void
+    let compare: (Product) -> Void
     let seeAll: () -> Void
 
     var body: some View {
-        VStack(alignment: .leading, spacing: Theme.spacing.s) {
-            HStack(alignment: .firstTextBaseline) {
-                SectionHeader("Other options for you")
-                Button("See all", action: seeAll)
-                    .themeText(.bodyStrong)
-                    .foregroundStyle(Theme.color.brandGreenDeep)
+        VStack(alignment: .leading, spacing: Theme.spacing.xxs) {
+            ViewThatFits(in: .horizontal) {
+                HStack(alignment: .firstTextBaseline) { title; Spacer(minLength: Theme.spacing.s); seeAllButton }
+                VStack(alignment: .leading, spacing: Theme.spacing.xxs) { title; seeAllButton }
             }
             .padding(.horizontal, Theme.spacing.screenGutter)
-            if isStacked {
-                VStack(spacing: Theme.spacing.s) {
-                    ForEach(options) { card($0, style: .row) }
+            ProductTileCarousel(items: options) { option in
+                ProductTile(product: option.product, verdict: option.verdict, household: household) {
+                    open(option.product)
                 }
-                .padding(.horizontal, Theme.spacing.l)
-            } else {
-                ScrollView(.horizontal) {
-                    LazyHStack(spacing: Theme.spacing.m) {
-                        ForEach(options) { card($0, style: .card) }
-                    }
-                    .scrollTargetLayout()
-                    .padding(.horizontal, Theme.spacing.l)
-                    .padding(.vertical, Theme.spacing.s)
+                .contextMenu {
+                    Button("Compare", systemImage: "arrow.left.arrow.right") { compare(option.product) }
                 }
-                .scrollTargetBehavior(.viewAligned)
-                .scrollIndicators(.hidden)
             }
         }
     }
 
-    private func card(_ option: ProductOption, style: ProductRow.Style) -> some View {
-        ProductRow(product: option.product, level: option.verdict.overall, names: option.verdict.people.map(\.name),
-                   notes: [.init(level: option.verdict.overall, text: option.verdict.line)], style: style) {
-            open(option.product)
-        }
+    private var title: some View {
+        Text("Healthier alternatives")
+            .themeText(.cardTitle)
+            .foregroundStyle(Theme.color.ink)
+            .accessibilityAddTraits(.isHeader)
+    }
+
+    private var seeAllButton: some View {
+        Button("See all", action: seeAll)
+            .themeText(.bodyStrong)
+            .foregroundStyle(Theme.color.brandGreenDeep)
+            .accessibilityHint("Compares this product with others")
     }
 }
 
@@ -305,7 +293,7 @@ struct KeyIngredientsSection: View {
 
     var body: some View {
         VStack(alignment: .leading, spacing: Theme.spacing.s) {
-            (Text("Key ingredients ") + Text(hasList ? "\(rows.count)" : "").fontWeight(.regular).foregroundStyle(Theme.color.muted))
+            Text("Key ingredients \(Text(hasList ? "\(rows.count)" : "").fontWeight(.regular).foregroundStyle(Theme.color.muted))")
                 .themeText(.sectionTitle)
                 .foregroundStyle(Theme.color.ink)
                 .accessibilityAddTraits(.isHeader)

@@ -300,7 +300,7 @@ private struct CompareColumn: View {
     }
 }
 
-/// "Why Canyon Kettle works for you": up to three lines from the engine findings, then the disclaimer.
+/// "Why Canyon Kettle works for you": up to three lines from the engine findings.
 struct CompareWhyCard: View {
     let title: String
     let lines: [CompareWhyLine]
@@ -323,9 +323,6 @@ struct CompareWhyCard: View {
                         .foregroundStyle(Theme.verdict.style(for: line.level).color)
                 }
             }
-            Text("Check the packages. Not medical advice.")
-                .themeText(.footnote)
-                .foregroundStyle(Theme.color.muted)
         }
         .padding(Theme.spacing.l)
         .frame(maxWidth: .infinity, alignment: .leading)

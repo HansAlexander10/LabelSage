@@ -11,7 +11,7 @@ struct InlineSearchField: View {
     var body: some View {
         HStack(spacing: 10) {
             Image(systemName: "magnifyingglass").foregroundStyle(Theme.color.muted)
-            TextField(prompt, text: $text)
+            TextField(accessibilityLabel, text: $text, prompt: Text(prompt).foregroundStyle(Theme.color.muted))
                 .themeText(.body)
                 .foregroundStyle(Theme.color.ink)
                 .autocorrectionDisabled()
@@ -165,59 +165,6 @@ struct RelatedSheet: View {
     }
 }
 
-/// Step 7: allergy (default) or intolerance, per allergen (D3).
-struct SeverityStep: View {
-    @Bindable var model: OnboardingModel
-
-    var body: some View {
-        VStack(alignment: .leading, spacing: Theme.spacing.s) {
-            ForEach(model.allergenChoices, id: \.id) { choice in
-                HStack(spacing: 10) {
-                    IconView(key: choice.id, size: 32, decorative: true)
-                    Text(OnboardingCatalog.name(choice.id)).themeText(.bodyStrong).foregroundStyle(Theme.color.ink)
-                }
-                .padding(.horizontal, Theme.spacing.xxs)
-                .padding(.top, Theme.spacing.m)
-                .accessibilityAddTraits(.isHeader)
-                VStack(spacing: 0) {
-                    row(choice.id, .allergy, "Allergy", "Avoid it, and “may contain” too")
-                    Divider().overlay(Theme.color.hairline).padding(.leading, Theme.spacing.l)
-                    row(choice.id, .intolerance, "Intolerance", "Only when it’s in the ingredients")
-                }
-                .background(RoundedRectangle(cornerRadius: Theme.radius.tile, style: .continuous).fill(Theme.color.surface))
-            }
-        }
-    }
-
-    private func row(_ id: String, _ severity: Severity, _ title: String, _ detail: String) -> some View {
-        let on = model.severity(of: id) == severity
-        return Button {
-            model.setSeverity(severity, for: id)
-        } label: {
-            HStack(spacing: Theme.spacing.m) {
-                VStack(alignment: .leading, spacing: 2) {
-                    Text(title).themeText(.bodyStrong)
-                    Text(detail).themeText(.caption).foregroundStyle(Theme.color.muted)
-                }
-                .foregroundStyle(Theme.color.ink)
-                .frame(maxWidth: .infinity, alignment: .leading)
-                Image(systemName: "checkmark")
-                    .font(.system(size: 20, weight: .semibold))
-                    .foregroundStyle(Theme.color.ink)
-                    .opacity(on ? 1 : 0)
-            }
-            .padding(.horizontal, Theme.spacing.l)
-            .padding(.vertical, 10)
-            .frame(minHeight: 64)
-            .contentShape(.rect)
-        }
-        .buttonStyle(.plain)
-        .accessibilityLabel("\(OnboardingCatalog.name(id)): \(title). \(detail)")
-        .accessibilityAddTraits(on ? .isSelected : [])
-        .sensoryFeedback(.selection, trigger: on)
-    }
-}
-
 #Preview("Allergens") {
     let model = OnboardingModel()
     model.current.goals = [.avoid]
@@ -251,16 +198,5 @@ struct SeverityStep: View {
     model.current.why = [.allergy]
     model.show(.allergens)
     model.toggleAllergen("peanut")
-    return OnboardingFlow(model: model, showsLaunch: false) { _ in }
-}
-
-#Preview("Severity") {
-    let model = OnboardingModel()
-    model.household = .family
-    model.firstName = "Mia"
-    model.current.goals = [.avoid]
-    model.current.why = [.allergy]
-    model.current.allergens = Set(["peanut"] + (OnboardingCatalog.allergenGroups[1].leaves ?? []))
-    model.show(.severity)
     return OnboardingFlow(model: model, showsLaunch: false) { _ in }
 }

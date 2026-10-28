@@ -12,15 +12,13 @@ nonisolated struct ProductPageLayout: Equatable {
     var showsHero: Bool
     /// The 60 pt photo signal on the hero. Without a real photo it moves next to the name.
     var signalOnHero: Bool
-    /// "Try instead" under the banner: the verdict is not OK and an option is OK.
-    var showsTryInstead: Bool
     /// Key ingredients, or the "No ingredient list" note.
     var hasIngredients: Bool
     /// Nutrition donut and facts, or "No nutrition facts yet."
     var hasNutrition: Bool
-    /// "Other options for you", hidden when there are none.
-    var showsOptions: Bool
-    /// "Data updated Oct 2026" under the disclaimer.
+    /// "Healthier alternatives" under the verdict, hidden when none fit.
+    var showsAlternatives: Bool
+    /// "Data updated Oct 2026" under the verdict.
     var dataAge: String?
 
     /// Spec 04 "Data age": shown when the data is older than this.
@@ -38,10 +36,9 @@ nonisolated struct ProductPageLayout: Equatable {
         return ProductPageLayout(
             showsHero: showsHero,
             signalOnHero: showsHero && product.imageURL != nil,
-            showsTryInstead: verdict.overall != .ok && !options.isEmpty,
             hasIngredients: verdict.label.hasList,
             hasNutrition: product.nutrition.map(NutritionFacts.hasAnyValue) ?? false,
-            showsOptions: !options.isEmpty,
+            showsAlternatives: !options.isEmpty,
             dataAge: dataAge
         )
     }
@@ -55,15 +52,40 @@ nonisolated enum DataAge {
     }
 }
 
-/// Another product for this household, with its verdict (an "Other options for you" card).
+/// Another product for this household, with its verdict (a "Healthier alternatives" tile).
 nonisolated struct ProductOption: Identifiable, Equatable, Sendable {
     var product: Product
     var verdict: HouseholdVerdict
     var id: String { product.id }
 
-    /// Options worth offering: OK for everyone in the household, in the source's order.
-    static func offered(_ options: [ProductOption]) -> [ProductOption] {
-        options.filter { $0.verdict.overall == .ok }
+    /// How many tiles "Healthier alternatives" shows.
+    static let alternativesLimit = 6
+
+    /// "Healthier alternatives" for `product`: the same category (when both have one), never the
+    /// product itself, never Not for or Can't confirm. OK for everyone first, then Check first; within
+    /// a level, less added sugar, then more protein (a missing value sorts last), then the source's order.
+    static func alternatives(_ options: [ProductOption], to product: Product,
+                             limit: Int = alternativesLimit) -> [ProductOption] {
+        let kept = options.enumerated().filter { _, option in
+            option.id != product.id
+                && option.verdict.overall <= .checkFirst
+                && (product.category == nil || option.product.category == nil || option.product.category == product.category)
+        }
+        var seen = Set<String>()
+        let ranked = kept.sorted { a, b in
+            let (x, y) = (a.element, b.element)
+            if x.verdict.overall != y.verdict.overall { return x.verdict.overall < y.verdict.overall }
+            let sugarX = x.product.nutrition?.addedSugarsG ?? .infinity
+            let sugarY = y.product.nutrition?.addedSugarsG ?? .infinity
+            if sugarX != sugarY { return sugarX < sugarY }
+            let proteinX = x.product.nutrition?.proteinG ?? -1
+            let proteinY = y.product.nutrition?.proteinG ?? -1
+            if proteinX != proteinY { return proteinX > proteinY }
+            return a.offset < b.offset
+        }
+        .map(\.element)
+        .filter { seen.insert($0.id).inserted }
+        return Array(ranked.prefix(max(0, limit)))
     }
 }
 

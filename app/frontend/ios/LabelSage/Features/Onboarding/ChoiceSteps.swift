@@ -43,20 +43,20 @@ struct OptionTileGrid: View {
     }
 }
 
-/// A one-line text field in an ink-outlined row, for "Something else" and "Other".
+/// A one-line text field in an ink-outlined row, for "Something else" and "Other". No leading
+/// plus (product owner, 2026-10-27, same as `NameField`).
 struct OtherTextField: View {
     let prompt: String
     @Binding var text: String
 
     var body: some View {
         HStack(spacing: Theme.spacing.s) {
-            Image(systemName: "plus").foregroundStyle(Theme.color.ink)
-            TextField(prompt, text: $text)
+            TextField("Describe it", text: $text, prompt: Text(prompt).foregroundStyle(Theme.color.muted))
                 .themeText(.body)
                 .submitLabel(.done)
                 .onChange(of: text) { _, new in if new.count > 60 { text = String(new.prefix(60)) } }
         }
-        .padding(.horizontal, 14)
+        .padding(.horizontal, Theme.spacing.l)
         .frame(minHeight: 54)
         .background(RoundedRectangle(cornerRadius: 18, style: .continuous).fill(Theme.color.surface))
         .overlay(RoundedRectangle(cornerRadius: 18, style: .continuous).strokeBorder(Theme.color.ink, lineWidth: 2))
@@ -72,22 +72,6 @@ extension Set {
 }
 
 // MARK: - Steps
-
-/// Step 2: Just me or My family.
-struct HouseholdStep: View {
-    @Bindable var model: OnboardingModel
-
-    var body: some View {
-        OptionCardList(options: [
-            ChoiceOption(id: "me", icon: "me", title: "Just me", detail: "Just my allergies and diets"),
-            ChoiceOption(id: "family", icon: "family", title: "My family", detail: "Everyone at home, one at a time"),
-        ], mode: .single) {
-            ($0 == "me" ? .justMe : .family) == model.household
-        } tap: {
-            model.household = $0 == "me" ? .justMe : .family
-        }
-    }
-}
 
 /// Step 4: Allergies and ingredients, Macros and calories (checklist).
 struct GoalStep: View {
@@ -293,9 +277,8 @@ private func stepPreview(_ step: OnboardingModel.Step, _ setup: (OnboardingModel
     return OnboardingFlow(model: model, showsLaunch: false) { _ in }
 }
 
-#Preview("Household") { stepPreview(.household) }
 #Preview("Goal") { stepPreview(.goal) { $0.current.goals = [.avoid] } }
-#Preview("Why") { stepPreview(.why) { $0.household = .family; $0.firstName = "Mia"; $0.current.goals = [.avoid]; $0.current.why = [.allergy] } }
+#Preview("Why") { stepPreview(.why) { $0.current.goals = [.avoid]; $0.current.why = [.allergy] } }
 #Preview("Diet") { stepPreview(.diet) { $0.current.goals = [.avoid]; $0.current.why = [.diet] } }
 #Preview("Religion, other") { stepPreview(.religion) { $0.current.goals = [.avoid]; $0.current.why = [.religion]; $0.current.religion = ["halal", "other"] } }
 #Preview("Medical") { stepPreview(.medical) { $0.current.goals = [.avoid]; $0.current.why = [.medical]; $0.current.medical = ["celiac"] } }

@@ -1,5 +1,14 @@
 # Onboarding decision tree
 
+> **Changed on 2026-10-27 by the product owner.** The app now differs from this page in these points; the rest of the page stands.
+> 1. First-time onboarding sets up only the owner ("you"): Welcome, the owner's questions, region, store, summary. The "Who do you shop for?" step, the first-profile names, "Same allergies for anyone else?" and the next-person hand-over are gone from the first run.
+> 2. The "allergy or intolerance?" step is gone. Every allergen is saved as an allergy (a hard filter), and "may contain" is always on. `Severity` stays in `LabelSageCore` for old data; the app never asks it.
+> 3. The "'May contain' labels?" step is gone (see 2).
+> 4. Other people are added later in Family, now titled "Preferences & settings". A card "Add someone you shop for" stays at the top until a second person exists. It runs: name, then one tick between "Start from <Name>'s preferences" (for each person) and "Start fresh", then the same per-person questions to add on top or edit, then "Save <Name>". Each person gets a copy; profiles are never linked.
+> 5. The "Add a name" field has no leading plus. Its "Add" button is green with a white label when a name is typed, light grey with a muted label when empty.
+> 6. Colors changed for contrast: see `docs/app-engineering/spikes/spike-contrast-audit-2026-10-27.md` in the main repo.
+
+
 Source: `design/prototype/OnboardSimple.dc.html` (`renderVals`, the `path` array) and `design/screens/72-onboarding-decision-tree.png`. The path is **computed from the answers so far**, so a step only appears when an earlier answer needs it. Nothing is asked twice.
 
 ## The path

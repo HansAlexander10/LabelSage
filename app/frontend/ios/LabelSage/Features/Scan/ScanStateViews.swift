@@ -149,10 +149,9 @@ struct ScanNoIngredientsCard: View {
 
     private var style: Theme.VerdictStyle { Theme.verdict.style(for: result.verdict.verdict.overall) }
 
-    /// "Data updated Oct 2026 · not medical advice".
-    private var dataLine: String {
-        guard let date = result.product.dataUpdatedAt else { return VerdictBanner.disclaimer }
-        return "\(DataAge.updatedLine(date)) · not medical advice"
+    /// "Data updated Oct 2026", when the source says.
+    private var dataLine: String? {
+        result.product.dataUpdatedAt.map(DataAge.updatedLine)
     }
 
     var body: some View {
@@ -187,10 +186,12 @@ struct ScanNoIngredientsCard: View {
                         .themeText(.callout)
                         .foregroundStyle(Theme.color.inkSecondary)
                         .fixedSize(horizontal: false, vertical: true)
-                    Text(dataLine)
-                        .themeText(Theme.TypeStyle(size: 12, weight: .regular, relativeTo: .caption))
-                        .foregroundStyle(Theme.color.muted)
-                        .padding(.top, Theme.spacing.xxs)
+                    if let dataLine {
+                        Text(dataLine)
+                            .themeText(Theme.TypeStyle(size: 12, weight: .regular, relativeTo: .caption))
+                            .foregroundStyle(Theme.color.muted)
+                            .padding(.top, Theme.spacing.xxs)
+                    }
                 }
             }
             .padding(14)
@@ -328,7 +329,7 @@ struct ScanOfflineView: View {
                         }
                     }
                     .background(Theme.color.surface, in: .rect(cornerRadius: Theme.radius.tile, style: .continuous))
-                    Text("Saved checks use what you avoid today. Check the package. Not medical advice.")
+                    Text("Saved checks use what you avoid today.")
                         .themeText(.footnote)
                         .foregroundStyle(Theme.color.muted)
                 }

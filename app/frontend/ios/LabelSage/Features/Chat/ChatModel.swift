@@ -42,8 +42,8 @@ struct ChatMessage: Identifiable, Equatable {
         case options(anchor: Product?, [ProductAnswer])
         /// A change card.
         case change(ChangeProposal)
-        /// The inline person picker from the "Change allergies" tile.
-        case personPicker
+        /// Each person's preferences, read-only and live, from the "Change the preferences" tile.
+        case preferences
         /// "Leo isn't in your family yet" with a Family button.
         case familyLink
         /// A line with no card.
@@ -107,6 +107,8 @@ final class ChatModel {
     @ObservationIgnored private let verdictService: VerdictService
     @ObservationIgnored private let explanationService: ExplanationService
     @ObservationIgnored private var work: Task<Void, Never>?
+    /// The last typed message, as written: the product finder's request.
+    @ObservationIgnored private var lastRequest: String?
     /// The household before the last saved change, for Undo.
     @ObservationIgnored private var beforeLastSave: (household: Household, messageID: UUID)?
 
@@ -122,6 +124,7 @@ final class ChatModel {
         self.explanationService = explanationService
         self.actions = actions
         self.dockLine = Self.returningLine
+        ChatAI.prewarm()
     }
 
     private var catalog: Catalog { verdictService.engine.catalog }
@@ -172,10 +175,19 @@ final class ChatModel {
         guard !trimmed.isEmpty else { return }
         append(.init(kind: .user(trimmed)))
         if thread.title == nil { thread.title = Self.title(for: trimmed) }
-        let intent = IntentRouter.read(trimmed, names: household.people.map(\.name))
+        let routed = IntentRouter.read(trimmed, names: household.people.map(\.name))
+        lastRequest = trimmed
         let answering = Perf.begin("chat.answer")
         run {
+            var intent = routed
+            // The router missed (small talk that isn't a greeting): the on-device model reads it.
+            if IntentRouter.isMiss(routed, text: trimmed),
+               let read = await ModelIntentReader.read(trimmed, household: self.household) {
+                guard !Task.isCancelled else { return }
+                intent = read
+            }
             await self.handle(intent)
+            self.lastRequest = nil
             Perf.end(answering)
         }
     }
@@ -222,9 +234,21 @@ final class ChatModel {
         }
     }
 
-    /// The "Change allergies" tile: the inline person picker.
-    func showPersonPicker() {
-        reply(.personPicker, "Whose allergies should I change?", pose: .listen)
+    /// The "Change the preferences" tile: what LabelSage checks for each person, then "tell me what to change".
+    func showPreferences() {
+        if thread.title == nil { thread.title = "Preferences" }
+        reply(.preferences, "Tell me what to change, like “add sesame for \(exampleName)”.", pose: .listen)
+    }
+
+    /// A name for examples: the first person who isn't the owner, else "me".
+    private var exampleName: String { household.people.first(where: { !$0.isOwner })?.name ?? "me" }
+
+    /// The thread's opening line: about preferences when the chat started there, else about products.
+    var openingLine: String {
+        if case .preferences = thread.messages.first?.kind {
+            return "Here’s what I check for each person. Tap a name to see the details."
+        }
+        return "Point the camera at a barcode, or ask me about any product."
     }
 
     /// Runs one answer at a time; a new message cancels the one still working.
@@ -372,7 +396,12 @@ final class ChatModel {
         let anchor = query == nil ? thread.lastProducts.last : nil
         do {
             let candidates: [Product]
-            if let query {
+            if query != nil, let request = lastRequest,
+               let found = await ProductFinder.find(request, source: source) {
+                // The model called findProducts; the engine below still decides what fits.
+                guard !Task.isCancelled else { return }
+                candidates = found.products
+            } else if let query {
                 candidates = try await source.search(query, region: household.region, store: household.store, limit: 10)
             } else if let anchor {
                 candidates = try await source.options(like: anchor, region: household.region, store: household.store, limit: 10)
@@ -430,6 +459,8 @@ final class ChatModel {
     // MARK: change allergies
 
     /// Builds the change card. An inferred change ("Mia reacted to hummus") is a proposal, never a save.
+    /// Always a hard filter: an allergen is avoided with its "may contain" lines, even when the person
+    /// says intolerance (product owner, 2026-10-27), so `severity` is not used.
     private func proposeChange(person name: String?, item: String, severity: Severity?) {
         let people = household.people
         let person: Person?
@@ -447,16 +478,11 @@ final class ChatModel {
         let label = found?.name.lowercased() ?? item
         let proposal = ChangeProposal(personID: person.id, personName: person.displayName, familyID: found?.id,
                                       label: label, isAllergen: found?.kind == "allergen",
-                                      severity: severity ?? .allergy, currentItems: Self.items(for: person, catalog: catalog))
+                                      severity: .allergy, currentItems: Self.items(for: person, catalog: catalog))
         let whose = person.isOwner ? "your" : "\(person.name)’s"
         if thread.firstProduct == nil { thread.title = person.isOwner ? "Your allergies" : "\(person.name)’s allergies" }
         let list = proposal.isAllergen ? "allergies" : "list"
         reply(.change(proposal), "Add \(label) to \(whose) \(list)? Nothing changes until you confirm.", pose: .listen)
-    }
-
-    /// The segmented Allergy / Intolerance on a change card.
-    func setSeverity(_ severity: Severity, for messageID: UUID) {
-        updateProposal(messageID) { $0.severity = severity }
     }
 
     func cancelChange(_ messageID: UUID) {
@@ -535,23 +561,21 @@ final class ChatModel {
         }
         if proposal.isAllergen {
             if let i = profile.allergens.firstIndex(where: { $0.id == familyID }) {
-                profile.allergens[i].severity = proposal.severity
+                profile.allergens[i].severity = .allergy
             } else {
-                profile.allergens.append(AllergenChoice(id: familyID, severity: proposal.severity))
+                profile.allergens.append(AllergenChoice(id: familyID, severity: .allergy))
             }
+            profile.mayContain = true
         } else if !profile.avoid.contains(where: { $0.id == familyID }) {
             profile.avoid.append(AvoidChoice(id: familyID))
         }
     }
 
-    /// "Saved: Mia avoids sesame, allergy (“may contain” too)."
+    /// "Saved: Mia avoids sesame, “may contain” too."
     static func savedToast(_ p: ChangeProposal, mayContain: Bool) -> String {
         let who = p.personName == "you" ? "you avoid" : "\(p.personName) avoids"
-        guard p.isAllergen else { return "Saved: \(who) \(p.label)." }
-        switch p.severity {
-        case .allergy: return "Saved: \(who) \(p.label), allergy\(mayContain ? " (“may contain” too)" : "")."
-        case .intolerance: return "Saved: \(who) \(p.label), intolerance."
-        }
+        guard p.isAllergen, mayContain else { return "Saved: \(who) \(p.label)." }
+        return "Saved: \(who) \(p.label), “may contain” too."
     }
 
     /// What a person avoids, as short words: "peanut, tree nuts".
@@ -588,15 +612,9 @@ final class ChatModel {
                 return
             }
             await show(first)
-        case .severity(let severity):
-            guard let id = thread.messages.last(where: {
-                if case .change(let p) = $0.kind { p.state == .proposed && p.isAllergen } else { false }
-            })?.id else {
-                reply(.text, "There’s no change waiting. Tell me what to add.", pose: .talk)
-                return
-            }
-            setSeverity(severity, for: id)
-            reply(.text, "Changed to \(severity == .allergy ? "allergy" : "intolerance"). Confirm when it looks right.", pose: .listen)
+        case .severity:
+            // Always a hard filter: an intolerance is avoided like an allergy.
+            reply(.text, "I always avoid it fully, “may contain” too, even for an intolerance.", pose: .listen)
         case .person(let name):
             let inHousehold = household.people.contains { $0.name.lowercased() == name.lowercased() || ($0.isOwner && name.lowercased() == "you") }
             if inHousehold, let last = thread.lastProducts.last {

@@ -48,7 +48,7 @@ public struct Writer: Sendable {
             plain words. Keep these words exactly: \(result.mustKeep.map { "\"\($0)\"" }.joined(separator: ", ")). \
             Keep the ingredient named in the line. Never use the word safe or promise an outcome. Reply with the line only.
             """)
-        return try await session.respond(to: result.line, options: GenerationOptions(sampling: .greedy))
+        return try await session.respond(to: result.line, options: .greedyNoTools)
             .content.trimmingCharacters(in: .whitespacesAndNewlines)
     }
 
@@ -63,5 +63,15 @@ public struct Writer: Sendable {
         guard !line.isEmpty, words.count <= 20 else { return false }
         guard !neverSubstrings.contains(where: normalized.contains), neverWords.isDisjoint(with: words) else { return false }
         return mustKeep.allSatisfy { normalized.contains($0.replacingOccurrences(of: "’", with: "'").lowercased()) }
+    }
+}
+
+extension GenerationOptions {
+    /// Greedy and without tools. iOS 27 deprecates `init(sampling:)` and adds the tool-calling switch.
+    static var greedyNoTools: GenerationOptions {
+        if #available(iOS 27.0, macOS 27.0, *) {
+            return GenerationOptions(samplingMode: .greedy, toolCallingMode: .disallowed)
+        }
+        return GenerationOptions(sampling: .greedy)
     }
 }

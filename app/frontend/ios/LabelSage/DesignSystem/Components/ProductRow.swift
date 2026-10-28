@@ -48,7 +48,7 @@ struct ProductRow: View {
     }
 
     /// One finding under the name: "Sunflower oil" at Not for, or the person line "Not for Mia · peanut".
-    struct Note: Hashable {
+    nonisolated struct Note: Hashable, Sendable {
         let level: Level
         let text: String
     }
@@ -248,26 +248,29 @@ struct ProductRow: View {
 }
 
 /// A finding on the level's wash with its symbol (prototype `ProductRow.dc.html` chips).
-private struct NoteChip: View {
+/// `wraps` lets the text take more lines (cards and tiles at accessibility sizes) instead of truncating.
+struct NoteChip: View {
     let note: ProductRow.Note
-    let height: CGFloat
+    var height: CGFloat = 24
+    var wraps = false
 
     var body: some View {
         let style = Theme.verdict.style(for: note.level)
-        HStack(spacing: Theme.spacing.xxs) {
+        HStack(alignment: .firstTextBaseline, spacing: Theme.spacing.xxs) {
             Image(systemName: style.symbol).foregroundStyle(style.color).fontWeight(.semibold)
-            Text(note.text).lineLimit(1)
+            Text(note.text).lineLimit(wraps ? 4 : 1).fixedSize(horizontal: false, vertical: wraps)
         }
         .themeText(.noteChip)
         .foregroundStyle(Theme.color.ink)
         .padding(.horizontal, Theme.spacing.s)
+        .padding(.vertical, wraps ? 3 : 0)
         .frame(minHeight: height)
-        .background(Capsule().fill(style.wash))
+        .background(RoundedRectangle(cornerRadius: height / 2, style: .continuous).fill(style.wash))
     }
 }
 
 /// The product photo, or the pack fallback when the photo is missing, loading or fails.
-private struct ProductImage: View {
+struct ProductImage: View {
     let product: Product
 
     var body: some View {
@@ -286,7 +289,7 @@ private struct ProductImage: View {
 
 /// The verdict on a product image: its symbol on a white circle, no ring and no text (board 62
 /// "Photo signal", board 64 thumbnails). The row's VoiceOver label already reads the verdict.
-private struct VerdictBadge: View {
+struct VerdictBadge: View {
     let level: Level
     let side: CGFloat
     let symbolSize: CGFloat

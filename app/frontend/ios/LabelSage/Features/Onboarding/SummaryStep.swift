@@ -1,8 +1,8 @@
 import SwiftUI
 import LabelSageCore
 
-/// Step 19: one card per person, the region and store, a "Try it" line from the engine, and the
-/// notes. Avoid and Prefer not flip on each "Anything else" rule (D12).
+/// The summary: the person's card, the region and store (first run only), a "Try it" line from
+/// the engine, and the notes. Avoid and Prefer not flip on each "Anything else" rule (D12).
 struct SummaryStep: View {
     @Bindable var model: OnboardingModel
     /// A sample product for "Try it"; the line is hidden without one.
@@ -13,24 +13,18 @@ struct SummaryStep: View {
     @State private var appeared = false
 
     var body: some View {
-        let people = model.people
         VStack(spacing: Theme.spacing.m) {
-            ForEach(Array(people.enumerated()), id: \.offset) { i, person in
-                SummaryPersonCard(name: model.isFamily && !OnboardingModel.isMe(person.name) ? person.name : "You", index: i,
-                                  items: OnboardingModel.summaryItems(person.answers),
-                                  sameFor: person.answers.sameFor, compact: people.count >= 3) { key in
-                    model.flip(key, person: i)
-                }
-                .opacity(appeared ? 1 : 0)
-                .offset(y: appeared || reduceMotion ? 0 : 12)
-                .animation(Theme.motion.easeOut(duration: 0.6).delay(0.04 * Double(i)), value: appeared)
+            SummaryPersonCard(name: model.summaryName, index: model.existing.count,
+                              items: OnboardingModel.summaryItems(model.current), compact: false) { key in
+                model.flip(key)
             }
-            placeRow
+            .opacity(appeared ? 1 : 0)
+            .offset(y: appeared || reduceMotion ? 0 : 12)
+            .animation(Theme.motion.easeOut(duration: 0.6), value: appeared)
+            if !model.isAddingPerson { placeRow }
             tryIt
-            VStack(alignment: .leading, spacing: Theme.spacing.xxs) {
-                Text("• Avoid hides it. Prefer not only shows it lower. Tap to switch.")
-                Text("• Check the package. Not medical advice.")
-            }
+            // "Check the package. Not medical advice." removed by the product owner (D-33).
+            Text("Avoid hides it. Prefer not only shows it lower. Tap to switch.")
             .themeText(.caption)
             .foregroundStyle(Theme.color.muted)
             .frame(maxWidth: .infinity, alignment: .leading)
@@ -59,7 +53,7 @@ struct SummaryStep: View {
     /// "Try it: Popped Corn Chips would be **Not for Mia**: sunflower oil is a seed oil." The flag
     /// and reason come from `VerdictEngine` over the household built so far.
     @ViewBuilder private var tryIt: some View {
-        if let product = tryItProduct, let household = model.makeHousehold(),
+        if let product = tryItProduct, let household = model.tryItHousehold,
            let worst = verdictService.check(product, for: household).verdict.people.max(by: { $0.level < $1.level }) {
             let flag = Copy.flag(worst.level, names: [worst.name == "You" ? "you" : worst.name])
             let tail = worst.reason.hasPrefix(flag) ? String(worst.reason.dropFirst(flag.count)) : ". " + worst.reason
@@ -91,7 +85,6 @@ struct SummaryPersonCard: View {
     let name: String
     let index: Int
     let items: [OnboardingModel.SummaryItem]
-    let sameFor: [String]
     let compact: Bool
     let flip: (String) -> Void
 
@@ -133,14 +126,6 @@ struct SummaryPersonCard: View {
                         Chip(kind: chipKind(item.kind), iconKey: item.iconKey, text: item.title)
                     }
                 }
-            }
-            if !sameFor.isEmpty {
-                HStack(spacing: Theme.spacing.s) {
-                    IconView(key: "family", size: 22, decorative: true)
-                    Text("Same for \(sameFor.joined(separator: " and "))")
-                }
-                .themeText(.caption)
-                .foregroundStyle(Theme.color.mutedGreen)
             }
         }
         .padding(compact ? 14 : Theme.spacing.l)
@@ -185,13 +170,16 @@ struct SummaryPersonCard: View {
 }
 
 #if DEBUG
-#Preview("Summary, three people") {
-    OnboardingFlow(model: .sampleFamily(), showsLaunch: false, tryItProduct: try? SampleData.products().first) { _ in }
+#Preview("Summary, owner") {
+    OnboardingFlow(model: .sampleOwner(), showsLaunch: false, tryItProduct: try? SampleData.products().first) { _ in }
 }
 
-#Preview("Summary, just me") {
+#Preview("Summary, adding Leo") {
+    OnboardingFlow(model: .sampleAddPerson(.summary), showsLaunch: false, tryItProduct: try? SampleData.products().first) { _ in }
+}
+
+#Preview("Summary, milk") {
     let model = OnboardingModel()
-    model.household = .justMe
     model.current.goals = [.avoid]
     model.current.why = [.allergy]
     model.current.allergens = ["milk"]

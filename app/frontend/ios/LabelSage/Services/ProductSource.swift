@@ -1,4 +1,5 @@
 import Foundation
+import LabelSageCatalog
 import LabelSageCore
 
 /// Where products come from (decision D4 is open, `docs/logic/data-and-privacy.md` › Product source).
@@ -67,18 +68,39 @@ extension ProductSource {
     }
 }
 
-/// Picks the product source. Today it always returns the fixtures: the real source waits for D4.
+/// Picks the product source. The fixtures until the team decides D4 (register Q-06); the on-device
+/// catalog (`LabelSageCatalog`, `catalog.sqlite` built by `app/backend/etl`) when one is on the phone and
+/// the flag is on.
 nonisolated enum ProductSourceFactory {
-    /// Feature flag for the real catalog. Off until the team decides D4.
-    // shortcut: no real source exists in this app yet; wire CatalogProductSource here once D4 is decided.
+    /// Feature flag for the real catalog. Off until the team decides D4; `-catalog <path>` turns it on
+    /// in debug builds for one run.
     static let useRealSource = false
 
     /// The source the app uses now.
     static func make() -> any ProductSource {
-        if useRealSource {
-            Log.lookup.notice("Real product source requested but not built (D4 open); using fixtures")
+        if let url = catalogURL {
+            do {
+                let catalog = try CatalogProductSource(url: url)
+                Log.lookup.notice("Using catalog.sqlite \(catalog.snapshot ?? "unknown", privacy: .public)")
+                return catalog
+            } catch {
+                Log.lookup.failure("catalog.sqlite failed to open; using fixtures", error, level: .error)
+            }
         }
         return FixtureProductSource(delayMilliseconds: fixtureLatency)
+    }
+
+    /// Where `catalog.sqlite` is: `-catalog <path>` (debug), else Application Support when the flag is on.
+    static var catalogURL: URL? {
+        #if DEBUG
+        let args = ProcessInfo.processInfo.arguments
+        if let i = args.firstIndex(of: "-catalog"), args.indices.contains(i + 1) {
+            return URL(fileURLWithPath: args[i + 1])
+        }
+        #endif
+        guard useRealSource else { return nil }
+        let url = URL.applicationSupportDirectory.appending(path: "catalog.sqlite")
+        return FileManager.default.fileExists(atPath: url.path) ? url : nil
     }
 
     /// `-fixtureLatency <ms>` fixes the fake network delay (0 turns it off, to time the app alone);
@@ -90,3 +112,6 @@ nonisolated enum ProductSourceFactory {
         return ms...ms
     }
 }
+
+/// The catalog already has the `ProductSource` shape (spike-frontend-backend-integration-2026-10-26.md).
+extension CatalogProductSource: ProductSource {}
