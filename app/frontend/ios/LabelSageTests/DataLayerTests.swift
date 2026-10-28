@@ -199,8 +199,8 @@ struct FixtureProductSourceTests {
         #expect(options.allSatisfy { $0.category == chips.category && $0.id != chips.id && $0.ingredientsText != nil })
     }
 
-    @Test func storesComeFromTheSampleHousehold() async throws {
-        #expect(try await source.stores(near: region).map(\.id) == ["wfm"])
+    @Test func storesAreTheFourDemoStores() async throws {
+        #expect(try await source.stores(near: region).map(\.id) == ["wfm", "safeway", "heb", "target"])
     }
 
     @Test func otherErrorsMapToNotFound() {

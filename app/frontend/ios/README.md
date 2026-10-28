@@ -26,13 +26,32 @@ SwiftUI, iOS 27, Swift 6 language mode, main actor by default. No third-party de
 
 The verdict engine is the `LabelSageCore` package in `../../shared/LabelSageCore`.
 
-## Build
+## Open and run
+
+1. Install Xcode with the iOS 27 SDK (the app targets iOS 27.0).
+2. Open `app/frontend/ios/LabelSage.xcodeproj`. The project is committed; no XcodeGen or package setup is needed.
+3. In the toolbar, pick the **LabelSage** scheme and an iPhone simulator on iOS 27, then press ⌘R.
+   Run opens chat home with a demo household. The **LabelSage Onboarding** scheme starts from onboarding instead.
+4. On your own iPhone: target LabelSage › Signing & Capabilities › pick your team; change the bundle ID if
+   Xcode says it is taken (`app.labelsage.ios` is a placeholder).
+
+The Run button stays grey when a library scheme (`LabelSageCore`, `LabelSageCatalog`, `LabelSageAgent`) or a
+destination older than iOS 27 is picked.
+
+## Change the project
+
+`project.yml` is the source of the project. Source folders are Xcode 16 synced folders, so new Swift files and
+resources need nothing: add them in Finder or Xcode and build. After changing `project.yml` (settings, targets,
+schemes, Info.plist keys), run `xcodegen generate` (`brew install xcodegen`) and commit the regenerated
+`LabelSage.xcodeproj` with it. Images added under `Resources/Mascot` or `Resources/ProductImages` also need
+`xcodegen generate`, since those two folders are copied as folders.
+
+Command-line build:
 
 ```sh
 export DEVELOPER_DIR=/Applications/Xcode.app/Contents/Developer
-cd app/frontend/ios && xcodegen generate
 xcodebuild -project LabelSage.xcodeproj -scheme LabelSage \
-  -destination 'platform=iOS Simulator,name=LabelSage iPhone 17 Pro,OS=27.0' -derivedDataPath /tmp/ls-dd build
+  -destination 'platform=iOS Simulator,name=iPhone 17 Pro,OS=27.0' -derivedDataPath /tmp/ls-dd build
 ```
 
 Specs, designs and the build plan: `../../labelsage-ios/` (start with `HANDOFF.md` and `docs/build-plan.md`).
@@ -61,6 +80,12 @@ The build number is the current time (`YYYYMMDDHHMM`), so every upload is higher
 and `Resources/PrivacyInfo.xcprivacy` declares no tracking, no collected data and the UserDefaults reason CA92.1.
 The App Store Connect privacy label, a privacy policy URL and the beta review contact are still to fill in
 on the website before external testers can join.
+
+## Data credits
+
+- `LabelSage/Resources/Data/us-zips.tsv`: US ZIP codes, cities and centers from GeoNames
+  (<https://www.geonames.org>), CC BY 4.0. The region step shows the credit. Rebuild it with
+  `python3 -I app/tools/make-zip-directory.py <US.txt>` from <https://download.geonames.org/export/zip/US.zip>.
 
 ## See onboarding from Xcode
 

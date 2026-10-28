@@ -213,8 +213,15 @@ final class ScanModel {
         checkedBefore.map { ScanResult(product: $0, verdict: verdictService.check($0, for: household)) }
     }
 
-    /// The screen went away.
-    func stop() { cancelLookup() }
+    /// The screen went away, or Close was tapped: a lookup or a label read still running is dropped, so
+    /// its late answer never reaches chat home as a "Your photo" card.
+    func stop() {
+        cancelLookup()
+        switch phase {
+        case .reading, .checking: phase = .idle
+        default: break
+        }
+    }
 
     // MARK: Lookup
 

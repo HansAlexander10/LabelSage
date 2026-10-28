@@ -1,0 +1,773 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 77;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		300008C7AA8C805B6749288B /* LabelSageCore in Frameworks */ = {isa = PBXBuildFile; productRef = 433CFA327406EEEA81D955FE /* LabelSageCore */; };
+		5545B6B2D1CD2E4B1D30CD77 /* Mascot in Resources */ = {isa = PBXBuildFile; fileRef = B170BDB1078151C832D4FCA0 /* Mascot */; };
+		56450197F279EEE5AF6D1968 /* LabelSageCatalog in Frameworks */ = {isa = PBXBuildFile; productRef = FABDBAE461F5067FB8DC41CC /* LabelSageCatalog */; };
+		5EC589E93AEB28DADCBA953F /* LabelSageAgent in Frameworks */ = {isa = PBXBuildFile; productRef = 84A7189385033A2DF93CF893 /* LabelSageAgent */; };
+		C61A41F88FD79DE7D8158EEB /* ProductImages in Resources */ = {isa = PBXBuildFile; fileRef = 83FC92EEA494940748BE0669 /* ProductImages */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		E50A63F725885BE7EFF3D098 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 125423E45CA89ECFBEF372A6 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 3D4F9C919190EBE24F023ED1;
+			remoteInfo = LabelSage;
+		};
+		E994159E287CBF4CF63DD1E1 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 125423E45CA89ECFBEF372A6 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 3D4F9C919190EBE24F023ED1;
+			remoteInfo = LabelSage;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		0BD94817114D48BAFC4C8D3C /* LabelSageAgent */ = {isa = PBXFileReference; lastKnownFileType = folder; name = LabelSageAgent; path = ../../shared/LabelSageAgent; sourceTree = SOURCE_ROOT; };
+		18A6F4684C311F605201E926 /* LabelSageCatalog */ = {isa = PBXFileReference; lastKnownFileType = folder; name = LabelSageCatalog; path = ../../shared/LabelSageCatalog; sourceTree = SOURCE_ROOT; };
+		4A7B3E008A8FA07EB62B0821 /* LabelSageUITests.xctest */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.cfbundle; path = LabelSageUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		83FC92EEA494940748BE0669 /* ProductImages */ = {isa = PBXFileReference; lastKnownFileType = folder; name = ProductImages; path = LabelSage/Resources/ProductImages; sourceTree = SOURCE_ROOT; };
+		B170BDB1078151C832D4FCA0 /* Mascot */ = {isa = PBXFileReference; lastKnownFileType = folder; name = Mascot; path = LabelSage/Resources/Mascot; sourceTree = SOURCE_ROOT; };
+		CC409F2B461777BB30E885E0 /* LabelSage.app */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.application; path = LabelSage.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		DBAA181DA7E12BA9B6FE4A24 /* LabelSageCore */ = {isa = PBXFileReference; lastKnownFileType = folder; name = LabelSageCore; path = ../../shared/LabelSageCore; sourceTree = SOURCE_ROOT; };
+		F8D5CD0F547C48501C5526F4 /* LabelSageTests.xctest */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.cfbundle; path = LabelSageTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+/* End PBXFileReference section */
+
+/* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
+		9171CC453ACC18CF7583E7C9 /* PBXFileSystemSynchronizedBuildFileExceptionSet */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				Info.plist,
+				"Resources/Mascot/mascot-hero.png",
+				"Resources/Mascot/parts-full",
+				"Resources/Mascot/parts-full/arm_l.png",
+				"Resources/Mascot/parts-full/arm_r.png",
+				"Resources/Mascot/parts-full/brow_l.png",
+				"Resources/Mascot/parts-full/brow_r.png",
+				"Resources/Mascot/parts-full/cape.png",
+				"Resources/Mascot/parts-full/dot_a.png",
+				"Resources/Mascot/parts-full/dot_b.png",
+				"Resources/Mascot/parts-full/eye_l.png",
+				"Resources/Mascot/parts-full/eye_r.png",
+				"Resources/Mascot/parts-full/leg_l.png",
+				"Resources/Mascot/parts-full/leg_r.png",
+				"Resources/Mascot/parts-full/magnifier.png",
+				"Resources/Mascot/parts-full/mouth_flat.png",
+				"Resources/Mascot/parts-full/mouth_open.png",
+				"Resources/Mascot/parts-full/mouth_smile.png",
+				"Resources/Mascot/parts-full/question.png",
+				"Resources/Mascot/parts-full/spark_a.png",
+				"Resources/Mascot/parts-full/spark_b.png",
+				"Resources/Mascot/parts-full/spark_c.png",
+				"Resources/Mascot/parts-full/string.png",
+				"Resources/Mascot/parts-full/tag.png",
+				"Resources/Mascot/parts-prototype",
+				"Resources/Mascot/parts-prototype/arm_l.png",
+				"Resources/Mascot/parts-prototype/arm_r.png",
+				"Resources/Mascot/parts-prototype/brow_l.png",
+				"Resources/Mascot/parts-prototype/brow_r.png",
+				"Resources/Mascot/parts-prototype/cape.png",
+				"Resources/Mascot/parts-prototype/dot_a.png",
+				"Resources/Mascot/parts-prototype/dot_b.png",
+				"Resources/Mascot/parts-prototype/eye_l.png",
+				"Resources/Mascot/parts-prototype/eye_l_base.png",
+				"Resources/Mascot/parts-prototype/eye_r.png",
+				"Resources/Mascot/parts-prototype/eye_r_base.png",
+				"Resources/Mascot/parts-prototype/leg_l.png",
+				"Resources/Mascot/parts-prototype/leg_r.png",
+				"Resources/Mascot/parts-prototype/magnifier.png",
+				"Resources/Mascot/parts-prototype/mouth_flat.png",
+				"Resources/Mascot/parts-prototype/mouth_open.png",
+				"Resources/Mascot/parts-prototype/mouth_smile.png",
+				"Resources/Mascot/parts-prototype/question.png",
+				"Resources/Mascot/parts-prototype/spark_a.png",
+				"Resources/Mascot/parts-prototype/spark_b.png",
+				"Resources/Mascot/parts-prototype/spark_c.png",
+				"Resources/Mascot/parts-prototype/string.png",
+				"Resources/Mascot/parts-prototype/tag.png",
+				Resources/Mascot/rig.json,
+				Resources/ProductImages/0000000000017.jpg,
+				Resources/ProductImages/0000000000024.jpg,
+				Resources/ProductImages/0000000000031.jpg,
+				Resources/ProductImages/0000000000048.jpg,
+				Resources/ProductImages/0000000000055.jpg,
+				Resources/ProductImages/0000000000062.jpg,
+				Resources/ProductImages/0000000000079.jpg,
+				Resources/ProductImages/0000000000086.jpg,
+				Resources/ProductImages/0000000000093.jpg,
+				Resources/ProductImages/0000000000109.jpg,
+				Resources/ProductImages/0000000000116.jpg,
+				Resources/ProductImages/0000000000123.jpg,
+				Resources/ProductImages/0000000000130.jpg,
+				Resources/ProductImages/0000000000147.jpg,
+				Resources/ProductImages/0000000000154.jpg,
+				Resources/ProductImages/0000000000161.jpg,
+				Resources/ProductImages/0000000000178.jpg,
+				Resources/ProductImages/0000000000185.jpg,
+				Resources/ProductImages/0000000000192.jpg,
+				Resources/ProductImages/0000000000208.jpg,
+				Resources/ProductImages/0000000000215.jpg,
+				Resources/ProductImages/0000000000222.jpg,
+				Resources/ProductImages/0000000000239.jpg,
+				Resources/ProductImages/0000000000246.jpg,
+				Resources/ProductImages/0000000000253.jpg,
+				Resources/ProductImages/0000000000260.jpg,
+				Resources/ProductImages/0000000000277.jpg,
+				Resources/ProductImages/0000000000284.jpg,
+				Resources/ProductImages/0000000000291.jpg,
+				Resources/ProductImages/0000000000307.jpg,
+				Resources/ProductImages/0000000000314.jpg,
+				Resources/ProductImages/0000000000321.jpg,
+				Resources/ProductImages/0000000000338.jpg,
+				Resources/ProductImages/0000000000345.jpg,
+				Resources/ProductImages/0000000000352.jpg,
+				Resources/ProductImages/0000000000369.jpg,
+				Resources/ProductImages/0000000000376.jpg,
+				Resources/ProductImages/0000000000383.jpg,
+				Resources/ProductImages/0000000000390.jpg,
+				Resources/ProductImages/0000000000406.jpg,
+				Resources/ProductImages/0000000000413.jpg,
+				Resources/ProductImages/0000000000420.jpg,
+				Resources/ProductImages/0000000000437.jpg,
+				Resources/ProductImages/0000000000444.jpg,
+				Resources/ProductImages/0000000000451.jpg,
+				Resources/ProductImages/0000000000468.jpg,
+				Resources/ProductImages/0000000000475.jpg,
+				Resources/ProductImages/0000000000482.jpg,
+				Resources/ProductImages/0000000000499.jpg,
+				Resources/ProductImages/0000000000505.jpg,
+				Resources/ProductImages/0000000000512.jpg,
+				Resources/ProductImages/0000000000529.jpg,
+				Resources/ProductImages/0000000000536.jpg,
+				Resources/ProductImages/0000000000543.jpg,
+				Resources/ProductImages/0000000000550.jpg,
+				Resources/ProductImages/0000000000567.jpg,
+				Resources/ProductImages/0000000000574.jpg,
+				Resources/ProductImages/0000000000581.jpg,
+				Resources/ProductImages/0000000000598.jpg,
+				Resources/ProductImages/0000000000604.jpg,
+				Resources/ProductImages/0000000000611.jpg,
+				Resources/ProductImages/0000000000628.jpg,
+				Resources/ProductImages/0000000000635.jpg,
+				Resources/ProductImages/0000000000642.jpg,
+				Resources/ProductImages/0000000000659.jpg,
+				Resources/ProductImages/0000000000666.jpg,
+				Resources/ProductImages/0000000000673.jpg,
+				Resources/ProductImages/0000000000680.jpg,
+				Resources/ProductImages/0000000000697.jpg,
+				Resources/ProductImages/0000000000703.jpg,
+				Resources/ProductImages/0000000000710.jpg,
+				Resources/ProductImages/0000000000727.jpg,
+				Resources/ProductImages/0000000000734.jpg,
+				Resources/ProductImages/0000000000741.jpg,
+				Resources/ProductImages/0000000000758.jpg,
+				Resources/ProductImages/0000000000765.jpg,
+				Resources/ProductImages/0000000000772.jpg,
+				Resources/ProductImages/0000000000789.jpg,
+				Resources/ProductImages/0000000000796.jpg,
+				Resources/ProductImages/0000000000802.jpg,
+				Resources/ProductImages/0000000000819.jpg,
+				Resources/ProductImages/0000000000826.jpg,
+				Resources/ProductImages/0000000000833.jpg,
+				Resources/ProductImages/0000000000840.jpg,
+				Resources/ProductImages/0000000000857.jpg,
+				Resources/ProductImages/0000000000864.jpg,
+				Resources/ProductImages/0000000000871.jpg,
+				Resources/ProductImages/0000000000888.jpg,
+				Resources/ProductImages/0000000000895.jpg,
+				Resources/ProductImages/0000000000901.jpg,
+				Resources/ProductImages/0000000000918.jpg,
+				Resources/ProductImages/0000000000925.jpg,
+				Resources/ProductImages/0000000000932.jpg,
+				Resources/ProductImages/0000000000949.jpg,
+				Resources/ProductImages/0000000000956.jpg,
+				Resources/ProductImages/0000000000963.jpg,
+				Resources/ProductImages/0000000000970.jpg,
+				Resources/ProductImages/0000000000987.jpg,
+				Resources/ProductImages/0000000000994.jpg,
+				Resources/ProductImages/0000000001007.jpg,
+			);
+			target = 3D4F9C919190EBE24F023ED1 /* LabelSage */;
+		};
+/* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
+
+/* Begin PBXFileSystemSynchronizedRootGroup section */
+		417EAAB01790B4414DADA37A /* LabelSageTests */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			explicitFileTypes = {
+			};
+			explicitFolders = (
+			);
+			path = LabelSageTests;
+			sourceTree = "<group>";
+		};
+		8E7DCB641C664AE8933549DA /* LabelSage */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+				9171CC453ACC18CF7583E7C9 /* PBXFileSystemSynchronizedBuildFileExceptionSet */,
+			);
+			explicitFileTypes = {
+			};
+			explicitFolders = (
+			);
+			path = LabelSage;
+			sourceTree = "<group>";
+		};
+		C0549827CB1E3FC7F1D074C2 /* LabelSageUITests */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			explicitFileTypes = {
+			};
+			explicitFolders = (
+			);
+			path = LabelSageUITests;
+			sourceTree = "<group>";
+		};
+/* End PBXFileSystemSynchronizedRootGroup section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		7E14AAF58368444FEC3B18FB /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				300008C7AA8C805B6749288B /* LabelSageCore in Frameworks */,
+				56450197F279EEE5AF6D1968 /* LabelSageCatalog in Frameworks */,
+				5EC589E93AEB28DADCBA953F /* LabelSageAgent in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		628F6812E0A8E4B621C2CCD4 /* Packages */ = {
+			isa = PBXGroup;
+			children = (
+				0BD94817114D48BAFC4C8D3C /* LabelSageAgent */,
+				18A6F4684C311F605201E926 /* LabelSageCatalog */,
+				DBAA181DA7E12BA9B6FE4A24 /* LabelSageCore */,
+			);
+			name = Packages;
+			sourceTree = "<group>";
+		};
+		AB04CFDDA36524224A48D9A4 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				CC409F2B461777BB30E885E0 /* LabelSage.app */,
+				F8D5CD0F547C48501C5526F4 /* LabelSageTests.xctest */,
+				4A7B3E008A8FA07EB62B0821 /* LabelSageUITests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		ADB38794886B11F34A0CF86B = {
+			isa = PBXGroup;
+			children = (
+				B170BDB1078151C832D4FCA0 /* Mascot */,
+				83FC92EEA494940748BE0669 /* ProductImages */,
+				8E7DCB641C664AE8933549DA /* LabelSage */,
+				417EAAB01790B4414DADA37A /* LabelSageTests */,
+				C0549827CB1E3FC7F1D074C2 /* LabelSageUITests */,
+				628F6812E0A8E4B621C2CCD4 /* Packages */,
+				AB04CFDDA36524224A48D9A4 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		3D4F9C919190EBE24F023ED1 /* LabelSage */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = CB6D7352756EB3D03230905B /* Build configuration list for PBXNativeTarget "LabelSage" */;
+			buildPhases = (
+				09B1A9C8EBBA99F7B1B870E5 /* Sources */,
+				44E0A140A60F880FEE7EB11F /* Resources */,
+				7E14AAF58368444FEC3B18FB /* Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			fileSystemSynchronizedGroups = (
+				8E7DCB641C664AE8933549DA /* LabelSage */,
+			);
+			name = LabelSage;
+			packageProductDependencies = (
+				433CFA327406EEEA81D955FE /* LabelSageCore */,
+				FABDBAE461F5067FB8DC41CC /* LabelSageCatalog */,
+				84A7189385033A2DF93CF893 /* LabelSageAgent */,
+			);
+			productName = LabelSage;
+			productReference = CC409F2B461777BB30E885E0 /* LabelSage.app */;
+			productType = "com.apple.product-type.application";
+		};
+		C7405AB9B99B1DE240E0CF59 /* LabelSageUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = C026A9C5B04580CC8C873F28 /* Build configuration list for PBXNativeTarget "LabelSageUITests" */;
+			buildPhases = (
+				3B927166544943D8C06BB155 /* Sources */,
+				FA07EA8673F537CF54C886A1 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				7A1D8BB88E5A07824D118250 /* PBXTargetDependency */,
+			);
+			fileSystemSynchronizedGroups = (
+				C0549827CB1E3FC7F1D074C2 /* LabelSageUITests */,
+			);
+			name = LabelSageUITests;
+			packageProductDependencies = (
+			);
+			productName = LabelSageUITests;
+			productReference = 4A7B3E008A8FA07EB62B0821 /* LabelSageUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
+		C9B2EBD5A1963BDBA2F07B8E /* LabelSageTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 92370C17F2D14284D41CE8F2 /* Build configuration list for PBXNativeTarget "LabelSageTests" */;
+			buildPhases = (
+				91420525F4D10BB285CB5071 /* Sources */,
+				4BE385FE3E5CC0577DCBC8F3 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				0797331BD7578DF640F2CC9F /* PBXTargetDependency */,
+			);
+			fileSystemSynchronizedGroups = (
+				417EAAB01790B4414DADA37A /* LabelSageTests */,
+			);
+			name = LabelSageTests;
+			packageProductDependencies = (
+			);
+			productName = LabelSageTests;
+			productReference = F8D5CD0F547C48501C5526F4 /* LabelSageTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		125423E45CA89ECFBEF372A6 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = YES;
+				LastUpgradeCheck = 1430;
+				TargetAttributes = {
+					3D4F9C919190EBE24F023ED1 = {
+						DevelopmentTeam = "";
+					};
+					C7405AB9B99B1DE240E0CF59 = {
+						DevelopmentTeam = "";
+						TestTargetID = 3D4F9C919190EBE24F023ED1;
+					};
+					C9B2EBD5A1963BDBA2F07B8E = {
+						DevelopmentTeam = "";
+					};
+				};
+			};
+			buildConfigurationList = 6709E45908D8BACFBE520DD5 /* Build configuration list for PBXProject "LabelSage" */;
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				Base,
+				en,
+			);
+			mainGroup = ADB38794886B11F34A0CF86B;
+			minimizedProjectReferenceProxies = 1;
+			packageReferences = (
+				E5292E133DA081879C861521 /* XCLocalSwiftPackageReference "../../shared/LabelSageAgent" */,
+				2E63578AA622A011AC61DBF4 /* XCLocalSwiftPackageReference "../../shared/LabelSageCatalog" */,
+				0419C213B316390E216E7DF8 /* XCLocalSwiftPackageReference "../../shared/LabelSageCore" */,
+			);
+			preferredProjectObjectVersion = 77;
+			productRefGroup = AB04CFDDA36524224A48D9A4 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				3D4F9C919190EBE24F023ED1 /* LabelSage */,
+				C9B2EBD5A1963BDBA2F07B8E /* LabelSageTests */,
+				C7405AB9B99B1DE240E0CF59 /* LabelSageUITests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		44E0A140A60F880FEE7EB11F /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				5545B6B2D1CD2E4B1D30CD77 /* Mascot in Resources */,
+				C61A41F88FD79DE7D8158EEB /* ProductImages in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		4BE385FE3E5CC0577DCBC8F3 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		FA07EA8673F537CF54C886A1 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		09B1A9C8EBBA99F7B1B870E5 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		3B927166544943D8C06BB155 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		91420525F4D10BB285CB5071 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		0797331BD7578DF640F2CC9F /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 3D4F9C919190EBE24F023ED1 /* LabelSage */;
+			targetProxy = E50A63F725885BE7EFF3D098 /* PBXContainerItemProxy */;
+		};
+		7A1D8BB88E5A07824D118250 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 3D4F9C919190EBE24F023ED1 /* LabelSage */;
+			targetProxy = E994159E287CBF4CF63DD1E1 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin XCBuildConfiguration section */
+		3EF9C95D121D3727EA584253 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				INFOPLIST_FILE = LabelSage/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = app.labelsage.ios;
+				SDKROOT = iphoneos;
+				SWIFT_DEFAULT_ACTOR_ISOLATION = MainActor;
+				TARGETED_DEVICE_FAMILY = 1;
+			};
+			name = Debug;
+		};
+		6B0C48CB1FB02E3AF76D4B48 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				GENERATE_INFOPLIST_FILE = YES;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = app.labelsage.LabelSageUITests;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = LabelSage;
+			};
+			name = Debug;
+		};
+		806081DA42F1159C16B65F84 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGNING_REQUIRED = NO;
+				CODE_SIGN_IDENTITY = "-";
+				COPY_PHASE_STRIP = NO;
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEVELOPMENT_TEAM = "";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 27.0;
+				MARKETING_VERSION = 1.0;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				SWIFT_VERSION = 6.0;
+			};
+			name = Release;
+		};
+		8684A1D5F0F6D023571DD107 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				GENERATE_INFOPLIST_FILE = YES;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = app.labelsage.LabelSageTests;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/LabelSage.app/LabelSage";
+			};
+			name = Release;
+		};
+		A6206B2774F49B605DC23324 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				GENERATE_INFOPLIST_FILE = YES;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = app.labelsage.LabelSageTests;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/LabelSage.app/LabelSage";
+			};
+			name = Debug;
+		};
+		C5AA66F49CBA3A206CD073AC /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGNING_REQUIRED = NO;
+				CODE_SIGN_IDENTITY = "-";
+				COPY_PHASE_STRIP = NO;
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEVELOPMENT_TEAM = "";
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"$(inherited)",
+					"DEBUG=1",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 27.0;
+				MARKETING_VERSION = 1.0;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 6.0;
+			};
+			name = Debug;
+		};
+		E74DE6EDD4BAF8C4B6D5F81A /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				GENERATE_INFOPLIST_FILE = YES;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = app.labelsage.LabelSageUITests;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = LabelSage;
+			};
+			name = Release;
+		};
+		FD17A45E9B8FE85A443BC4F3 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGNING_REQUIRED = YES;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
+				INFOPLIST_FILE = LabelSage/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = app.labelsage.ios;
+				SDKROOT = iphoneos;
+				SWIFT_DEFAULT_ACTOR_ISOLATION = MainActor;
+				TARGETED_DEVICE_FAMILY = 1;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		6709E45908D8BACFBE520DD5 /* Build configuration list for PBXProject "LabelSage" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				C5AA66F49CBA3A206CD073AC /* Debug */,
+				806081DA42F1159C16B65F84 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+		92370C17F2D14284D41CE8F2 /* Build configuration list for PBXNativeTarget "LabelSageTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				A6206B2774F49B605DC23324 /* Debug */,
+				8684A1D5F0F6D023571DD107 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+		C026A9C5B04580CC8C873F28 /* Build configuration list for PBXNativeTarget "LabelSageUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				6B0C48CB1FB02E3AF76D4B48 /* Debug */,
+				E74DE6EDD4BAF8C4B6D5F81A /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+		CB6D7352756EB3D03230905B /* Build configuration list for PBXNativeTarget "LabelSage" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				3EF9C95D121D3727EA584253 /* Debug */,
+				FD17A45E9B8FE85A443BC4F3 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+/* End XCConfigurationList section */
+
+/* Begin XCLocalSwiftPackageReference section */
+		0419C213B316390E216E7DF8 /* XCLocalSwiftPackageReference "../../shared/LabelSageCore" */ = {
+			isa = XCLocalSwiftPackageReference;
+			relativePath = ../../shared/LabelSageCore;
+		};
+		2E63578AA622A011AC61DBF4 /* XCLocalSwiftPackageReference "../../shared/LabelSageCatalog" */ = {
+			isa = XCLocalSwiftPackageReference;
+			relativePath = ../../shared/LabelSageCatalog;
+		};
+		E5292E133DA081879C861521 /* XCLocalSwiftPackageReference "../../shared/LabelSageAgent" */ = {
+			isa = XCLocalSwiftPackageReference;
+			relativePath = ../../shared/LabelSageAgent;
+		};
+/* End XCLocalSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		433CFA327406EEEA81D955FE /* LabelSageCore */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = LabelSageCore;
+		};
+		84A7189385033A2DF93CF893 /* LabelSageAgent */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = LabelSageAgent;
+		};
+		FABDBAE461F5067FB8DC41CC /* LabelSageCatalog */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = LabelSageCatalog;
+		};
+/* End XCSwiftPackageProductDependency section */
+	};
+	rootObject = 125423E45CA89ECFBEF372A6 /* Project object */;
+}

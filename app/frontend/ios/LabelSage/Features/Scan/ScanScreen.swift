@@ -82,7 +82,7 @@ struct ScanScreen: View {
         Group {
             switch model.phase {
             case .cameraOff:
-                ScanCameraOffView(onClose: onClose, onOpenSettings: openSettings, onTypeName: onTypeName)
+                ScanCameraOffView(onClose: close, onOpenSettings: openSettings, onTypeName: onTypeName)
             case .offline:
                 ScanOfflineView(checkedBefore: model.checkedBeforeResults(), onBack: model.checkAnother,
                                 onTryAgain: model.tryAgain, onOpen: model.show)
@@ -168,9 +168,15 @@ struct ScanScreen: View {
 
     @ViewBuilder private var feed: some View {
         #if targetEnvironment(simulator)
-        // The simulator has no camera: a stand-in feed (prototype `Scan.dc.html` mock feed).
-        LinearGradient(colors: [Theme.color.inkSecondary, Theme.color.ink, .black],
-                       startPoint: .top, endPoint: .bottom)
+        // The simulator has no camera: a stand-in feed (prototype `Scan.dc.html` mock feed), or a photo
+        // with `-cameraBackdrop <path>` for marketing screenshots (`app/tools/render-camera-backdrop.py`).
+        if let backdrop = Self.backdrop {
+            // In an overlay, so the photo's own size never pushes the layout.
+            Color.black.overlay { Image(uiImage: backdrop).resizable().scaledToFill() }.clipped().ignoresSafeArea()
+        } else {
+            LinearGradient(colors: [Theme.color.inkSecondary, Theme.color.ink, .black],
+                           startPoint: .top, endPoint: .bottom)
+        }
         #else
         if cameraReady {
             GeometryReader { geo in
@@ -189,7 +195,7 @@ struct ScanScreen: View {
     private var topBar: some View {
         GlassEffectContainer(spacing: Theme.spacing.m) {
             HStack {
-                CameraGlassButton(systemImage: "xmark", label: "Close", action: onClose)
+                CameraGlassButton(systemImage: "xmark", label: "Close", action: close)
                 Spacer()
                 Text("Check a product")
                     .themeText(Theme.TypeStyle(size: 17, weight: .semibold, relativeTo: .headline))
@@ -281,6 +287,13 @@ struct ScanScreen: View {
     }
 
     #if targetEnvironment(simulator)
+    /// `-cameraBackdrop <path>`: an image file shown as the camera feed.
+    private static let backdrop: UIImage? = {
+        let args = ProcessInfo.processInfo.arguments
+        guard let i = args.firstIndex(of: "-cameraBackdrop"), i + 1 < args.count else { return nil }
+        return UIImage(contentsOfFile: args[i + 1])
+    }()
+
     /// Simulator fallback: pick what the camera "sees" from the fixtures.
     private static let fixtures = (try? SampleData.products()) ?? []
 
@@ -414,6 +427,13 @@ struct ScanScreen: View {
         default:
             break
         }
+    }
+
+    /// Close drops a photo still being read before the cover starts to close; `onDisappear` comes
+    /// only after the animation, by when the read may have finished and been shown.
+    private func close() {
+        model.stop()
+        onClose()
     }
 
     private func shutter() {

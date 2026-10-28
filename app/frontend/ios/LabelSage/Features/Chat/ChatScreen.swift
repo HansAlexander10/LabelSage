@@ -283,7 +283,7 @@ struct ChatScreen: View {
 
     private var composer: some View {
         ChatComposer(draft: draft, focused: $composerFocused, tourFrames: $tourFrames,
-                     placeholder: model.thread.messages.isEmpty ? "Ask \(Brand.mascot)\u{2026}" : "Message \(Brand.mascot)\u{2026}",
+                     placeholder: model.composerPlaceholder,
                      isWorking: model.isWorking, isListening: voice.isListening,
                      onScan: openCamera, onSend: send, onStop: { model.stop() }, onVoice: toggleVoice)
     }

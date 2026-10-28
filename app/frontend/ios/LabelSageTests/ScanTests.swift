@@ -147,6 +147,24 @@ struct ScanModelTests {
         #expect(m.phase == .idle)
     }
 
+    @Test func closingWhileAPhotoIsReadDropsIt() {
+        let m = model()
+        m.mode = .ingredients
+        m.readingStarted()
+        m.stop()
+        #expect(m.phase == .idle)
+        m.ingredientsRecognized(["Ingredients: rice, peanuts."])
+        #expect(m.phase == .idle)
+    }
+
+    @Test func closingDuringALookupDropsIt() async {
+        let m = model(delay: 300...300)
+        let lookup = m.startLookup("0000000000062")
+        m.stop()
+        await lookup.value
+        #expect(m.phase == .idle)
+    }
+
     @Test func cameraOffAndBack() {
         let m = model()
         m.cameraAccess(granted: false)

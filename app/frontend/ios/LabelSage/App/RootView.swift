@@ -54,10 +54,20 @@ struct RootView: View {
 
     // MARK: Onboarding
 
+    /// Grocery stores near a ZIP from Apple Maps; the product source's own list when Maps fails or
+    /// finds none (offline, previews, UI tests).
+    private func storesNear(_ region: Region) async throws -> [Store] {
+        if !Self.isUITest, let found = try? await NearbyStores.stores(near: region), !found.isEmpty { return found }
+        return try await productSource.stores(near: region)
+    }
+
+    private static let isUITest = ProcessInfo.processInfo.arguments.contains("-uitest")
+
     private func onboarding(showsLaunch: Bool) -> some View {
         OnboardingFlow(showsLaunch: showsLaunch,
                        tryItProduct: try? SampleData.products().first,
-                       loadStores: { try await productSource.stores(near: $0) },
+                       loadStores: storesNear,
+                       locate: { await LocationLookup.currentRegion() },
                        onFinish: finishOnboarding)
     }
 
@@ -175,7 +185,7 @@ struct RootView: View {
                                 try model.save(changed)
                             },
                             goTos: recheck ? [] : model.goTos,
-                            stores: { try await productSource.stores(near: $0) },
+                            stores: storesNear,
                             verdictService: verdictService,
                             needsProfileRecheck: recheck,
                             onAddPerson: { addingPerson = true },

@@ -26,6 +26,8 @@
 	<string>public.app-category.food-and-drink</string>
 	<key>NSCameraUsageDescription</key>
 	<string>LabelSage uses the camera to read barcodes and ingredient lists.</string>
+	<key>NSLocationWhenInUseUsageDescription</key>
+	<string>LabelSage uses your location once to fill in your ZIP code. Only the ZIP code is kept, on your iPhone.</string>
 	<key>NSMicrophoneUsageDescription</key>
 	<string>LabelSage listens when you tap the mic and turns what you say into a message, on your iPhone.</string>
 	<key>NSSpeechRecognitionUsageDescription</key>
