@@ -5,7 +5,8 @@ import SwiftUI
 /// artboard. Decorative for VoiceOver; his bubble carries the words.
 ///
 /// One per screen: give it a `host` and put a `MascotPresence` in the environment, and only the
-/// host that claimed him last draws him. Without a host (or without a presence) it always draws.
+/// view that claimed him last draws him; the others keep his frame empty. Without a host (or
+/// without a presence) it always draws.
 struct MascotView: View {
     let state: MascotState
     let size: CGFloat
@@ -19,13 +20,16 @@ struct MascotView: View {
     static let heightRatio: CGFloat = 1.26
     /// `idle` becomes `hum` after this long without a tap.
     static let humDelay: Duration = .seconds(15)
+    /// UI tests launch with `-uitest`. The mascot is hidden from VoiceOver (decorative), and
+    /// then also from XCUITest's query, so under `-uitest` it stays exposed for the one-mascot test.
+    static let exposedForUITests = ProcessInfo.processInfo.arguments.contains("-uitest")
 
     @Environment(MascotPresence.self) private var presence: MascotPresence?
     @Environment(\.accessibilityReduceMotion) private var reduceMotion
     @State private var bored = false
     @State private var taps = 0
-    /// This view's own claim, so two hosts of the same kind (stacked sheets) never both draw him.
-    @State private var owner = UUID()
+    /// This view's claim in `MascotPresence`, so two hosts of the same kind (stacked sheets) never both draw him.
+    @State private var claimID = UUID()
     /// Off screen (scrolled away, or a covered tab), the timeline pauses.
     @State private var isVisible = true
     @Environment(\.scenePhase) private var scenePhase
@@ -42,22 +46,23 @@ struct MascotView: View {
     var shownState: MascotState { state == .idle && bored ? .hum : state }
 
     private var isShown: Bool {
-        guard let host, let presence else { return true }
-        return presence.shows(host, owner: owner)
+        guard host != nil, let presence else { return true }
+        return presence.shows(claimID)
     }
 
     var body: some View {
-        // One stable container, so claiming and losing him does not re-run onAppear.
+        // One stable container, so claiming and losing him does not re-run onAppear. When another
+        // view has him, the frame stays and is empty, so layouts don't jump.
         ZStack {
-            Color.clear.frame(width: 0, height: 0)
-            // When another host has him, render nothing.
+            Color.clear
             if isShown { figure }
         }
+        .frame(width: size, height: size * Self.heightRatio)
         .onAppear {
             MascotArt.warm()
-            if let host { presence?.claim(host, owner: owner) }
+            if let host { presence?.claim(claimID, host: host) }
         }
-        .onDisappear { if let host { presence?.release(host, owner: owner) } }
+        .onDisappear { if host != nil { presence?.release(claimID) } }
     }
 
     private var figure: some View {
@@ -78,7 +83,7 @@ struct MascotView: View {
         .onScrollVisibilityChange { isVisible = $0 }
         .onAppear { isVisible = true }
         .onDisappear { isVisible = false }
-        .animation(Theme.motion.mascotPoseCrossfade, value: shown)
+        .themeAnimation(Theme.motion.mascotPoseCrossfade, value: shown)
         .contentShape(.rect)
         .simultaneousGesture(TapGesture().onEnded {
             bored = false
@@ -90,7 +95,7 @@ struct MascotView: View {
             try? await Task.sleep(for: Self.humDelay)
             if !Task.isCancelled { bored = true }
         }
-        .accessibilityHidden(true)
+        .accessibilityHidden(!Self.exposedForUITests)
         .accessibilityIdentifier("mascot")
     }
 
@@ -166,6 +171,7 @@ private struct MascotFigure: View {
         HStack {
             MascotView(state: .idle, size: 64, host: .dock)
             if sheet { MascotView(state: .talk, size: 64, host: .sheet) }
+            MascotView(state: .wave, size: 64, host: .dock) // same host, claimed last: only this one draws
         }
     }
     .padding()

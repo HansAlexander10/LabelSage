@@ -103,8 +103,11 @@ struct KnownIssuesTests {
     // MARK: 7: composer placeholder
 
     @Test func thePlaceholderFollowsTheLatestAnswer() {
-        #expect(ChatModel.placeholder(after: nil, exampleName: "Mia") == "Ask \(Brand.mascot) about a product\u{2026}")
-        #expect(ChatModel.placeholder(after: .preferences, exampleName: "Mia") == "Like \u{201C}add sesame for Mia\u{201D}\u{2026}")
+        #expect(ChatModel.placeholder(after: nil, exampleName: "Mia") == "Ask \(Brand.mascot)\u{2026}")
+        #expect(ChatModel.placeholder(after: .preferences, exampleName: "Mia") == "Add sesame for Mia\u{2026}")
         #expect(ChatModel.placeholder(after: .text, exampleName: "Mia") == "Message \(Brand.mascot)\u{2026}")
+        // Every placeholder fits the composer: 24 characters at most.
+        let kinds: [ChatMessage.Kind?] = [nil, .preferences, .text, .familyLink, .choices([]), .options(anchor: nil, [])]
+        #expect(kinds.allSatisfy { ChatModel.placeholder(after: $0, exampleName: "Mia").count <= 24 })
     }
 }

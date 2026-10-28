@@ -13,42 +13,36 @@ nonisolated enum MascotHost: Hashable, Sendable {
     case page
 }
 
-/// Enforces one mascot per screen. A host claims him when it appears and releases him when it
-/// goes away; only the latest claim shows him, and every other `MascotView` with a host renders
-/// nothing. When the latest host releases him, he goes back to the host that held him before
-/// (the sheet closes, the dock has him again). Put one in the environment at the app root.
-///
-/// Each `MascotView` claims with its own `owner` token, so two sheets stacked (Compare over the
-/// product sheet) are two claims: only the top one draws him, and closing it gives him back to
-/// the sheet below instead of to nobody.
+/// Enforces one mascot per screen. Each `MascotView` with a host claims him under its own id
+/// when it appears and releases him when it goes away; only the latest claim shows him, and every
+/// other claimant renders nothing. Ids, not hosts, identify claims, so two views in the same host
+/// cannot both draw. When the latest claimant releases him, he goes back to the one before (the
+/// sheet closes, the dock has him again). Put one in the environment at the app root.
 @Observable
 final class MascotPresence {
-    private struct Claim: Equatable {
+    /// One view's claim on the mascot.
+    struct Claim: Equatable, Sendable {
+        let id: UUID
         let host: MascotHost
-        let owner: UUID?
     }
 
     /// Claims in order; the last one holds the mascot.
-    private var entries: [Claim] = []
-
-    /// The hosts in claim order.
-    var claims: [MascotHost] { entries.map(\.host) }
+    private(set) var claims: [Claim] = []
 
     /// The host that shows the mascot now, or nil when nobody claimed him.
-    var holder: MascotHost? { entries.last?.host }
+    var holder: MascotHost? { claims.last?.host }
 
-    /// `host` takes the mascot. Claiming again moves it back to the top.
-    func claim(_ host: MascotHost, owner: UUID? = nil) {
-        let claim = Claim(host: host, owner: owner)
-        entries.removeAll { $0 == claim }
-        entries.append(claim)
+    /// The view `id` in `host` takes the mascot. Claiming again moves it back to the top.
+    func claim(_ id: UUID, host: MascotHost) {
+        claims.removeAll { $0.id == id }
+        claims.append(Claim(id: id, host: host))
     }
 
-    /// `host` gives the mascot back; the previous holder, if any, shows him again.
-    func release(_ host: MascotHost, owner: UUID? = nil) {
-        entries.removeAll { $0 == Claim(host: host, owner: owner) }
+    /// The view `id` gives the mascot back; the previous claimant, if any, shows him again.
+    func release(_ id: UUID) {
+        claims.removeAll { $0.id == id }
     }
 
-    /// Whether a `MascotView` in `host` (with `owner`) draws the mascot.
-    func shows(_ host: MascotHost, owner: UUID? = nil) -> Bool { entries.last == Claim(host: host, owner: owner) }
+    /// Whether the view `id` draws the mascot.
+    func shows(_ id: UUID) -> Bool { claims.last?.id == id }
 }
