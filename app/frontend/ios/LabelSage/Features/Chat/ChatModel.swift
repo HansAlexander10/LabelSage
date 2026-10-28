@@ -257,17 +257,18 @@ final class ChatModel {
     /// The composer's placeholder: what the person can say next, from the latest answer (known issue 7).
     var composerPlaceholder: String { Self.placeholder(after: thread.messages.last(where: \.isAnswer)?.kind, exampleName: exampleName) }
 
-    /// "Like “add sesame for Mia”…" after the preferences, "Ask about this product…" after a product.
+    /// "Add sesame for Mia…" after the preferences, "Ask about this product…" after a product. Short
+    /// enough for the composer on the narrowest iPhone (about 24 characters).
     static func placeholder(after kind: ChatMessage.Kind?, exampleName: String) -> String {
         switch kind {
-        case nil: return "Ask \(Brand.mascot) about a product\u{2026}"
-        case .preferences: return "Like \u{201C}add sesame for \(exampleName)\u{201D}\u{2026}"
-        case .change(let proposal) where proposal.state == .proposed: return "Confirm above, or change something else\u{2026}"
+        case nil: return "Ask \(Brand.mascot)\u{2026}"
+        case .preferences: return "Add sesame for \(exampleName)\u{2026}"
+        case .change(let proposal) where proposal.state == .proposed: return "Confirm, or change more\u{2026}"
         case .change: return "Change something else\u{2026}"
-        case .product: return "Ask about this product, or find better\u{2026}"
-        case .choices: return "Pick one above, or name it exactly\u{2026}"
+        case .product: return "Ask about this product\u{2026}"
+        case .choices: return "Pick one, or name it\u{2026}"
         case .options: return "Ask about one of these\u{2026}"
-        case .familyLink: return "Ask about someone in your family\u{2026}"
+        case .familyLink: return "Ask about your family\u{2026}"
         case .text, .user: return "Message \(Brand.mascot)\u{2026}"
         }
     }
