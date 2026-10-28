@@ -27,8 +27,8 @@ actor FixtureProductSource: ProductSource {
                 self.products = []
             }
         }
-        // The fixture store list is the demo household's store (sample-household.json).
-        self.stores = (try? SampleData.household().store).map { [$0] } ?? []
+        // The four demo stores the store step shows when Apple Maps finds none (known issue 3).
+        self.stores = OnboardingCatalog.demoStores
         self.delayMilliseconds = delayMilliseconds
         self.isOffline = isOffline
     }

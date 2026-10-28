@@ -120,6 +120,7 @@ struct OnboardingFlow: View {
         case .allergens: AllergensStep(model: model)
         case .avoid: AvoidStep(model: model)
         case .source: SourceStep(model: model)
+        case .body: BodyStep(model: model)
         case .phase: PhaseStep(model: model)
         case .targets: TargetsStep(model: model)
         case .region: RegionStep(model: model, locate: locate)
@@ -142,7 +143,7 @@ struct OnboardingFlow: View {
         case .diet: Theme.screenTint.diet
         case .religion: Theme.screenTint.religion
         case .avoid, .depth, .prefs: Theme.screenTint.avoid
-        case .source, .phase, .targets: Theme.screenTint.numbers
+        case .source, .body, .phase, .targets: Theme.screenTint.numbers
         case .region: Theme.screenTint.region
         case .store: Theme.screenTint.store
         case .summary: Theme.screenTint.summary

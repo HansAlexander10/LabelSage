@@ -172,14 +172,126 @@ struct SourceStep: View {
         VStack(spacing: Theme.spacing.m) {
             OptionCardList(options: [
                 ChoiceOption(id: "know", icon: "macros", title: "I know my numbers", detail: "From me or my coach"),
-                ChoiceOption(id: "help", icon: "health", title: "Help me set them", detail: "Uses height, weight and age from Apple Health"),
+                ChoiceOption(id: "help", icon: "health", title: "Help me set them", detail: "From your height, weight and age"),
             ], mode: .single) {
                 model.current.source == ($0 == "know" ? .know : .help)
             } tap: {
                 model.current.source = $0 == "know" ? .know : .help
             }
-            OnboardingFootnote(systemImage: "info.circle", text: "Apple Health is only requested if you choose “Help me set them”.")
+            OnboardingFootnote(systemImage: "info.circle", text: "Your numbers stay on this iPhone.")
         }
+    }
+}
+
+/// Step 13a+, after "Help me set them" (known issue 1): age, height, weight, sex and activity, typed in.
+/// The targets step then starts from `BodyStats.targets(for:)`.
+struct BodyStep: View {
+    @Bindable var model: OnboardingModel
+    @FocusState private var focused: Field?
+
+    private enum Field { case age, weight }
+
+    var body: some View {
+        VStack(spacing: Theme.spacing.s) {
+            VStack(spacing: 0) {
+                row("Age", hint: "Years") {
+                    TextField("Age", value: $model.current.body.age, format: .number, prompt: Text("e.g. 34"))
+                        .keyboardType(.numberPad).focused($focused, equals: .age)
+                        .multilineTextAlignment(.trailing).frame(width: 90)
+                }
+                Divider().overlay(Theme.color.hairline)
+                row("Height", hint: "Feet and inches") {
+                    HStack(spacing: Theme.spacing.xs) {
+                        Picker("Feet", selection: feet) {
+                            Text("–").tag(Int?.none)
+                            ForEach(4...7, id: \.self) { Text("\($0) ft").tag(Int?.some($0)) }
+                        }
+                        Picker("Inches", selection: inches) {
+                            ForEach(0...11, id: \.self) { Text("\($0) in").tag($0) }
+                        }
+                        .disabled(model.current.body.heightInches == nil)
+                    }
+                    .pickerStyle(.menu).tint(Theme.color.ink)
+                }
+                Divider().overlay(Theme.color.hairline)
+                row("Weight", hint: "Pounds") {
+                    TextField("Weight", value: $model.current.body.weightPounds, format: .number, prompt: Text("e.g. 160"))
+                        .keyboardType(.numberPad).focused($focused, equals: .weight)
+                        .multilineTextAlignment(.trailing).frame(width: 90)
+                }
+            }
+            .padding(.horizontal, Theme.spacing.l)
+            .padding(.vertical, Theme.spacing.xs)
+            .background(RoundedRectangle(cornerRadius: Theme.radius.tile, style: .continuous).fill(Theme.color.surface))
+
+            VStack(alignment: .leading, spacing: Theme.spacing.s) {
+                Picker("Sex", selection: $model.current.body.sex) {
+                    Text("Female").tag(OnboardingModel.BodyStats.Sex.female)
+                    Text("Male").tag(OnboardingModel.BodyStats.Sex.male)
+                    Text("Rather not say").tag(OnboardingModel.BodyStats.Sex.unsaid)
+                }
+                .pickerStyle(.segmented)
+                row("Activity", hint: "On a usual week") {
+                    Picker("Activity", selection: $model.current.body.activity) {
+                        Text("Mostly sitting").tag(OnboardingModel.BodyStats.Activity.low)
+                        Text("Light, 1–3 days").tag(OnboardingModel.BodyStats.Activity.light)
+                        Text("Active, 3–5 days").tag(OnboardingModel.BodyStats.Activity.moderate)
+                        Text("Very active, 6–7 days").tag(OnboardingModel.BodyStats.Activity.high)
+                    }
+                    .pickerStyle(.menu).tint(Theme.color.ink)
+                }
+            }
+            .padding(Theme.spacing.l)
+            .background(RoundedRectangle(cornerRadius: Theme.radius.tile, style: .continuous).fill(Theme.color.surface))
+
+            if let message = rangeMessage {
+                OnboardingFootnote(systemImage: "exclamationmark.circle", text: message)
+            }
+            OnboardingFootnote(systemImage: "lock.shield", text: "Used only to suggest your targets, on this iPhone. You can change the targets next.")
+        }
+        .toolbar {
+            ToolbarItemGroup(placement: .keyboard) {
+                Spacer()
+                Button("Done") { focused = nil }
+            }
+        }
+    }
+
+    /// What is out of range, once something is typed.
+    private var rangeMessage: String? {
+        let b = model.current.body
+        if let age = b.age, !OnboardingModel.BodyStats.ages.contains(age) { return "Age should be between 13 and 100." }
+        if let w = b.weightPounds, !OnboardingModel.BodyStats.weights.contains(w) { return "Weight should be between 70 and 600 lb." }
+        return nil
+    }
+
+    private var feet: Binding<Int?> {
+        Binding {
+            model.current.body.heightInches.map { $0 / 12 }
+        } set: { ft in
+            model.current.body.heightInches = ft.map { $0 * 12 + (model.current.body.heightInches ?? 0) % 12 }
+        }
+    }
+
+    private var inches: Binding<Int> {
+        Binding {
+            (model.current.body.heightInches ?? 0) % 12
+        } set: { inch in
+            if let h = model.current.body.heightInches { model.current.body.heightInches = h / 12 * 12 + inch }
+        }
+    }
+
+    private func row(_ title: String, hint: String, @ViewBuilder control: () -> some View) -> some View {
+        HStack {
+            VStack(alignment: .leading, spacing: 2) {
+                Text(title).themeText(.body)
+                Text(hint).themeText(.footnote).foregroundStyle(Theme.color.muted)
+            }
+            Spacer()
+            control().themeText(.body)
+        }
+        .foregroundStyle(Theme.color.ink)
+        .frame(minHeight: 60)
     }
 }
 
@@ -283,6 +395,7 @@ private func stepPreview(_ step: OnboardingModel.Step, _ setup: (OnboardingModel
 #Preview("Religion, other") { stepPreview(.religion) { $0.current.goals = [.avoid]; $0.current.why = [.religion]; $0.current.religion = ["halal", "other"] } }
 #Preview("Medical") { stepPreview(.medical) { $0.current.goals = [.avoid]; $0.current.why = [.medical]; $0.current.medical = ["celiac"] } }
 #Preview("Source") { stepPreview(.source) { $0.current.goals = [.numbers] } }
+#Preview("Body") { stepPreview(.body) { $0.current.goals = [.numbers]; $0.current.source = .help } }
 #Preview("Phase") { stepPreview(.phase) { $0.current.goals = [.numbers]; $0.current.phases = [.cut] } }
 #Preview("Targets") { stepPreview(.targets) { $0.current.goals = [.numbers]; $0.current.phases = [.cut] } }
 #Preview("Depth") { stepPreview(.depth) { $0.current.goals = [.avoid] } }

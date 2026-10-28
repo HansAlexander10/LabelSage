@@ -1,9 +1,12 @@
 # XcodeGen spec for the LabelSage iPhone app: `cd app/frontend/ios && xcodegen generate` -> LabelSage.xcodeproj
+# The generated project is committed, so a fresh clone opens and runs without XcodeGen. Run `xcodegen generate`
+# again only after changing this file. Source folders are Xcode 16 synced folders: new files need no regeneration.
 # iOS 27 (register D-29), Swift 6 language mode, main actor by default, approachable concurrency.
 # Bundle ID is a placeholder until the team picks one.
 name: LabelSage
 options:
   bundleIdPrefix: app.labelsage
+  projectFormat: xcode16_0
   deploymentTarget:
     iOS: "27.0"
 packages:
@@ -30,7 +33,8 @@ targets:
     platform: iOS
     sources:
       - path: LabelSage
-        excludes: ["Resources/Mascot/**", "Resources/ProductImages/**"]
+        type: syncedFolder
+        excludes: ["Info.plist", "Resources/Mascot/**", "Resources/ProductImages/**"]
       - path: LabelSage/Resources/Mascot
         type: folder
         buildPhase: resources
@@ -71,10 +75,13 @@ targets:
         NSCameraUsageDescription: "LabelSage uses the camera to read barcodes and ingredient lists."
         NSMicrophoneUsageDescription: "LabelSage listens when you tap the mic and turns what you say into a message, on your iPhone."
         NSSpeechRecognitionUsageDescription: "LabelSage turns what you say into text on your iPhone. Nothing is sent anywhere."
+        NSLocationWhenInUseUsageDescription: "LabelSage uses your location once to fill in your ZIP code. Only the ZIP code is kept, on your iPhone."
   LabelSageTests:
     type: bundle.unit-test
     platform: iOS
-    sources: [LabelSageTests]
+    sources:
+      - path: LabelSageTests
+        type: syncedFolder
     settings:
       base:
         GENERATE_INFOPLIST_FILE: YES
@@ -83,7 +90,9 @@ targets:
   LabelSageUITests:
     type: bundle.ui-testing
     platform: iOS
-    sources: [LabelSageUITests]
+    sources:
+      - path: LabelSageUITests
+        type: syncedFolder
     settings:
       base:
         GENERATE_INFOPLIST_FILE: YES

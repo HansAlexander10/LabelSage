@@ -80,8 +80,7 @@ nonisolated enum OnboardingCatalog {
         var region: Region { Region(zip: zip, city: cityLine) }
     }
 
-    /// `OnboardSimple.dc.html` › `PLACES`.
-    // shortcut: a demo list until a place source exists (Q11); swap for MapKit search later.
+    /// `OnboardSimple.dc.html` › `PLACES`: the fallback when `us-zips.tsv` is missing.
     static let places: [Place] = [
         Place(city: "New York", stateCode: "NY", state: "New York", zip: "10001", area: "Manhattan"),
         Place(city: "Newark", stateCode: "NJ", state: "New Jersey", zip: "07102", area: "Essex County"),
@@ -97,9 +96,16 @@ nonisolated enum OnboardingCatalog {
         Place(city: "Chicago", stateCode: "IL", state: "Illinois", zip: "60601", area: "Cook County"),
     ]
 
-    /// Places whose city or state starts with the query, whose state code is the query, or whose
-    /// ZIP starts with it. Two characters at least, four results at most (spec `PlaceSearch`).
+    /// Up to four US places for the query (spec `PlaceSearch`): every US city and ZIP from the bundled
+    /// `ZipDirectory`, or the demo list below when the directory is missing.
     static func places(matching query: String) -> [Place] {
+        let directory = ZipDirectory.shared
+        return directory.entries.isEmpty ? demoPlaces(matching: query) : directory.places(matching: query)
+    }
+
+    /// Places whose city or state starts with the query, whose state code is the query, or whose
+    /// ZIP starts with it. Two characters at least, four results at most.
+    static func demoPlaces(matching query: String) -> [Place] {
         let q = query.trimmingCharacters(in: .whitespaces).lowercased()
         guard q.count >= 2 else { return [] }
         let hits = places.filter {

@@ -20,7 +20,7 @@ final class OnboardingModel {
     /// Every step in the tree, in the order the path can visit them.
     enum Step: String, CaseIterable, Sendable {
         case welcome, name, startFrom, goal, why, diet, religion, medical, allergens
-        case avoid, source, phase, targets, region, store, depth, prefs, summary
+        case avoid, source, body, phase, targets, region, store, depth, prefs, summary
     }
 
     enum Mode: Sendable, Equatable { case firstRun, addPerson }
@@ -29,6 +29,45 @@ final class OnboardingModel {
     enum TargetSource: Sendable { case know, help }
     enum Phase: String, CaseIterable, Sendable { case cut, bulk, maintain, whole, energy }
     enum Depth: Sendable { case start, more }
+
+    /// Height, weight, age and activity for "Help me set them" (known issue 1). US units, typed in by
+    /// the person; nothing is read from Apple Health yet.
+    struct BodyStats: Equatable, Sendable {
+        enum Sex: String, CaseIterable, Sendable { case female, male, unsaid }
+        enum Activity: String, CaseIterable, Sendable { case low, light, moderate, high }
+
+        var age: Int?
+        var heightInches: Int?
+        var weightPounds: Int?
+        var sex: Sex = .unsaid
+        var activity: Activity = .light
+
+        static let ages = 13...100
+        static let heights = 48...90
+        static let weights = 70...600
+
+        var isComplete: Bool {
+            guard let age, let heightInches, let weightPounds else { return false }
+            return Self.ages.contains(age) && Self.heights.contains(heightInches) && Self.weights.contains(weightPounds)
+        }
+
+        /// Daily protein and calories from the Mifflin-St Jeor equation, the activity factor and the
+        /// goals: lose fat −20%, build muscle +10%, both at maintenance. Protein 1.6–2.0 g per kg.
+        /// Rounded to the targets step's own steps (5 g, 100 kcal) and kept in its ranges.
+        func targets(for phases: Set<Phase>) -> (protein: Int, kcal: Int)? {
+            guard isComplete, let age, let heightInches, let weightPounds else { return nil }
+            let kg = Double(weightPounds) * 0.453_592, cm = Double(heightInches) * 2.54
+            let sexTerm: Double = switch sex { case .male: 5; case .female: -161; case .unsaid: -78 }
+            let bmr = 10 * kg + 6.25 * cm - 5 * Double(age) + sexTerm
+            let factor: Double = switch activity { case .low: 1.2; case .light: 1.375; case .moderate: 1.55; case .high: 1.725 }
+            let cut = phases.contains(.cut), bulk = phases.contains(.bulk)
+            let change = cut && bulk ? 1 : cut ? 0.8 : bulk ? 1.1 : 1
+            let gramsPerKg = cut ? 2.0 : bulk ? 1.8 : 1.6
+            let kcal = Int((bmr * factor * change / 100).rounded()) * 100
+            let protein = Int((kg * gramsPerKg / 5).rounded()) * 5
+            return (min(max(protein, 40), 400), min(max(kcal, 1_000), 5_000))
+        }
+    }
 
     /// One person's answers.
     struct Answers: Equatable, Sendable {
@@ -51,6 +90,7 @@ final class OnboardingModel {
         var flipped: Set<String> = []
         var source: TargetSource?
         var phases: Set<Phase> = []
+        var body = BodyStats()
         var protein: Int?
         var kcal: Int?
     }
@@ -143,7 +183,11 @@ final class OnboardingModel {
             if current.why.contains(.allergy) { p.append(.allergens) }
             p.append(.avoid)
         }
-        if current.goals.contains(.numbers) { p += [.source, .phase, .targets] }
+        if current.goals.contains(.numbers) {
+            p.append(.source)
+            if current.source == .help { p.append(.body) }
+            p += [.phase, .targets]
+        }
         if mode == .firstRun {
             p += [.region, .store]
             if !current.goals.isEmpty { p.append(.depth) }
@@ -194,6 +238,7 @@ final class OnboardingModel {
         case .goal, .why, .medical, .phase: return isEmpty(step) ? "Pick at least one" : nil
         case .allergens: return allergenChoices.isEmpty ? "Pick at least one allergen" : nil
         case .source: return current.source == nil ? "Pick one" : nil
+        case .body: return current.body.isComplete ? nil : "Add your age, height and weight"
         case .region: return Self.isValidZip(region?.zip) ? nil : "Set your city or ZIP code"
         case .store: return store == nil ? "Pick a store, or set it up later" : nil
         case .depth: return depth == nil ? "Pick one" : nil
@@ -546,13 +591,18 @@ final class OnboardingModel {
         }
     }
 
+    /// From height, weight and age when the person asked for help, else the defaults for the goals.
+    var suggestedTargets: (protein: Int, kcal: Int) {
+        (current.source == .help ? current.body.targets(for: current.phases) : nil) ?? Self.defaultTargets(current.phases)
+    }
+
     var protein: Int {
-        get { current.protein ?? Self.defaultTargets(current.phases).protein }
+        get { current.protein ?? suggestedTargets.protein }
         set { current.protein = newValue }
     }
 
     var kcal: Int {
-        get { current.kcal ?? Self.defaultTargets(current.phases).kcal }
+        get { current.kcal ?? suggestedTargets.kcal }
         set { current.kcal = newValue }
     }
 
@@ -744,8 +794,12 @@ final class OnboardingModel {
         case .avoid: return who.map { "Anything else \($0) avoids? I\u{2019}ll catch it under other names too." }
             ?? "Anything else you avoid? I\u{2019}ll catch it under other names too."
         case .source: return "Where do your targets come from?"
+        case .body: return "A few numbers, and I\u{2019}ll suggest your targets."
         case .phase: return "What are you working toward right now?"
-        case .targets: return "Here are your daily targets. Change them if your coach set others."
+        case .targets:
+            return current.source == .help && current.body.isComplete
+                ? "Here are targets from your numbers. Change them any time."
+                : "Here are your daily targets. Change them if your coach set others."
         case .region: return "Where are you? Products differ by area."
         case .store: return "Where do you shop? I\u{2019}ll find other options there."
         case .depth: return "Allergies are set. Fine-tune now, or start?"
@@ -760,7 +814,7 @@ final class OnboardingModel {
         case .welcome: .wave
         case .name, .why, .diet, .religion, .medical, .phase, .prefs: .listen
         case .goal, .allergens, .avoid, .region, .store: .point
-        case .startFrom, .source: .thinking
+        case .startFrom, .source, .body: .thinking
         case .targets, .depth: .talk
         case .summary: .done
         }

@@ -12,10 +12,16 @@ struct RegionStep: View {
     @State private var picked = false
     @State private var locating = false
     @State private var usedLocation = false
+    @State private var locationFailed = false
     @FocusState private var searchFocused: Bool
 
     private var trimmed: String { query.trimmingCharacters(in: .whitespaces) }
     private var showsSuggestions: Bool { trimmed.count >= 2 && !picked }
+    /// Digits only, but not five of them: "A ZIP code has 5 digits" (known issue 6).
+    private var zipHint: String? {
+        guard !trimmed.isEmpty, trimmed.allSatisfy(\.isNumber), trimmed.count != 5 else { return nil }
+        return trimmed.count > 5 ? "A ZIP code has 5 digits. Remove \(trimmed.count - 5)." : "A ZIP code has 5 digits."
+    }
 
     var body: some View {
         VStack(alignment: .leading, spacing: Theme.spacing.s) {
@@ -38,7 +44,21 @@ struct RegionStep: View {
                             // Picking a place writes its line into the field; only typing reopens the list.
                             if let region = model.region, new == Self.regionLine(region) { return }
                             picked = false
+                            // A typed place replaces the old one; Continue waits for the new pick (issue 5).
+                            if !usedLocation { model.region = nil }
+                            // Five digits are a whole ZIP: keep it at once, with its city when known (issue 4).
+                            let typed = new.trimmingCharacters(in: .whitespaces)
+                            if OnboardingModel.isValidZip(typed) {
+                                model.region = OnboardingCatalog.places(matching: typed).first { $0.zip == typed }?.region
+                                    ?? Region(zip: typed)
+                                usedLocation = false
+                            }
                         }
+                        .onSubmit {
+                            // Return picks the top match, so a typed city saves without a tap (issue 5).
+                            if let first = OnboardingCatalog.places(matching: trimmed).first { pick(first.region) }
+                        }
+                        .submitLabel(.done)
                         .accessibilityLabel("City or ZIP code")
                     if !query.isEmpty {
                         Button { query = ""; picked = false } label: {
@@ -52,6 +72,15 @@ struct RegionStep: View {
                 .frame(minHeight: 52)
                 .background(RoundedRectangle(cornerRadius: Theme.radius.field, style: .continuous).fill(Theme.color.ink.opacity(0.06)))
                 .padding(Theme.spacing.s)
+                if let zipHint {
+                    Label(zipHint, systemImage: "exclamationmark.circle")
+                        .themeText(.footnote)
+                        .foregroundStyle(Theme.color.ink)
+                        .frame(maxWidth: .infinity, alignment: .leading)
+                        .padding(.horizontal, Theme.spacing.l)
+                        .padding(.bottom, Theme.spacing.s)
+                        .accessibilityAddTraits(.updatesFrequently)
+                }
                 if showsSuggestions { suggestions }
             }
             .background(RoundedRectangle(cornerRadius: Theme.radius.tile, style: .continuous).fill(Theme.color.surface))
@@ -69,9 +98,20 @@ struct RegionStep: View {
                 .padding(.horizontal, 14).padding(.vertical, Theme.spacing.m)
                 .background(RoundedRectangle(cornerRadius: 18, style: .continuous).fill(Theme.color.ink.opacity(0.06)))
             }
+            if locationFailed {
+                OnboardingFootnote(systemImage: "location.slash",
+                                   text: "Couldn\u{2019}t find your location. Search a city or ZIP code instead.")
+            }
             OnboardingFootnote(systemImage: "lock.shield", text: "Only your ZIP code is kept, on this iPhone.")
                 .padding(.top, Theme.spacing.xxs)
+            // CC BY 4.0 asks for credit where the data is used.
+            Text("ZIP codes from GeoNames (geonames.org), CC BY 4.0.")
+                .themeText(.caption)
+                .foregroundStyle(Theme.color.muted)
+                .padding(.horizontal, Theme.spacing.xxs)
         }
+        // Load the ZIP directory off the main thread before the first keystroke.
+        .task { await Task.detached { _ = ZipDirectory.shared.entries.count }.value }
     }
 
     /// "Austin, TX 78701", or "ZIP 12345" without a city.
@@ -90,8 +130,10 @@ struct RegionStep: View {
                 if let found {
                     model.region = found
                     usedLocation = true
+                    locationFailed = false
                     query = ""
                 } else {
+                    locationFailed = true
                     searchFocused = true
                 }
             }
@@ -133,7 +175,7 @@ struct RegionStep: View {
                 suggestionRow(title: place.cityLine, detail: "\(place.state) · \(place.area)", zip: place.zip) { pick(place.region) }
             }
             if typedZip {
-                suggestionRow(title: "ZIP \(trimmed)", detail: "United States", zip: trimmed) { pick(Region(zip: trimmed)) }
+                suggestionRow(title: "ZIP \(trimmed)", detail: "Not in our list of US ZIP codes. Check the number.", zip: trimmed) { pick(Region(zip: trimmed)) }
             } else if places.isEmpty {
                 Text("No US city or ZIP code matches “\(trimmed)”.")
                     .themeText(.callout)
@@ -169,6 +211,7 @@ struct RegionStep: View {
     private func pick(_ region: Region) {
         model.region = region
         usedLocation = false
+        locationFailed = false
         query = Self.regionLine(region)
         picked = true
         searchFocused = false
