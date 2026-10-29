@@ -90,17 +90,25 @@ nonisolated enum ProductSourceFactory {
         return FixtureProductSource(delayMilliseconds: fixtureLatency)
     }
 
-    /// Where `catalog.sqlite` is: `-catalog <path>` (debug), else Application Support when the flag is on.
+    /// Where `catalog.sqlite` is: `-catalog <path>` or `-realCatalog` (debug); when the flag is on, a downloaded
+    /// copy in Application Support, else the one shipped in the app.
     static var catalogURL: URL? {
         #if DEBUG
         let args = ProcessInfo.processInfo.arguments
         if let i = args.firstIndex(of: "-catalog"), args.indices.contains(i + 1) {
             return URL(fileURLWithPath: args[i + 1])
         }
+        if args.contains("-realCatalog") { return bundledCatalogURL }
         #endif
         guard useRealSource else { return nil }
         let url = URL.applicationSupportDirectory.appending(path: "catalog.sqlite")
-        return FileManager.default.fileExists(atPath: url.path) ? url : nil
+        return FileManager.default.fileExists(atPath: url.path) ? url : bundledCatalogURL
+    }
+
+    /// The catalog shipped in the app (`Resources/Data/catalog.sqlite`, copied by `run.py app` in
+    /// `app/backend/etl`), or nil in a checkout without it.
+    static var bundledCatalogURL: URL? {
+        Bundle.main.url(forResource: "catalog", withExtension: "sqlite")
     }
 
     /// `-fixtureLatency <ms>` fixes the fake network delay (0 turns it off, to time the app alone);

@@ -126,6 +126,8 @@ schemes:
         "-perfLog": false
         # Fake network delay in ms for the fixture source; 0 turns it off (default 300 to 600).
         "-fixtureLatency 0": false
+        # The real catalog shipped in the app (Resources/Data/catalog.sqlite) instead of the fixtures.
+        "-realCatalog": false
   # Run opens onboarding from the start and saves to the real store (the stored household is wiped first).
   LabelSage Onboarding:
     build:

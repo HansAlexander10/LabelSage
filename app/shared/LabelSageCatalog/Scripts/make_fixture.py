@@ -1,7 +1,7 @@
 """Cut a small test catalog from a real catalog.sqlite built by app/backend/etl.
 
 Usage: python3 make_fixture.py <path to catalog.sqlite> <output fixture path>
-Keeps Cheerios, 20 products in its category, and the products of two recalls.
+Keeps Cheerios, 20 products in its category, the products of two recalls and Bear Brand (Indonesia).
 """
 import pathlib
 import sqlite3
@@ -20,7 +20,7 @@ for (sql,) in src.execute("SELECT sql FROM sqlite_master WHERE type = 'table' AN
 # job 2: pick the products
 cheerios = 16000275287
 category = src.execute("SELECT category_id FROM product WHERE gtin = ?", (cheerios,)).fetchone()[0]
-picked = {cheerios, 666186277621, 94922980045}
+picked = {cheerios, 666186277621, 94922980045, 8992696404441}  # + Bear Brand (Indonesia)
 picked |= {g for (g,) in src.execute("SELECT p.gtin FROM product p JOIN ingredients i USING (gtin) "
                                      "WHERE category_id = ? ORDER BY p.gtin LIMIT 20", (category,))}
 marks = ",".join("?" * len(picked))
@@ -38,7 +38,7 @@ copy("recall", "recall_number IN (SELECT recall_number FROM recall_link WHERE gt
 copy("brand", f"brand_id IN (SELECT brand_id FROM product WHERE gtin IN ({marks}))", tuple(picked))
 copy("category", f"category_id IN (SELECT category_id FROM product WHERE gtin IN ({marks}))", tuple(picked))
 copy("zlib_dictionary", "1")
-copy("catalog_meta", "key = 'snapshot'")
+copy("catalog_meta", "key IN ('snapshot', 'schema_version')")
 
 # job 4: the same contentless search index as the real catalog
 dst.executescript("CREATE VIRTUAL TABLE search USING fts5(name, brand, content='', detail='column', columnsize=0);")

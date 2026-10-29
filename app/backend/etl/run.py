@@ -3,7 +3,10 @@
 Usage:
   python3 app/backend/etl/run.py download   # fetch any missing source files
   python3 app/backend/etl/run.py profile    # count what the downloaded files hold
-  python3 app/backend/etl/run.py build      # transform and load: write catalog.sqlite for the phone
+  python3 app/backend/etl/run.py build      # transform, load, check: write the three outputs
+  python3 app/backend/etl/run.py app        # copy the newest checked catalog.sqlite into the iOS app
+  python3 app/backend/etl/run.py amazon 1000   # ask Amazon about the next 1,000 barcodes, then score them
+                                               # (needs SP_API_* credentials; the next build uses the result)
 
 Raw files, work files and the output stay in ~/Projects/ai-shopping-agent-data/, outside git.
 """
@@ -60,5 +63,41 @@ def run_build():
     con.close()
 
 
+# ------ PHASE 3: SHIP THE CATALOG IN THE APP --------
+
+APP_DATA = pathlib.Path(__file__).resolve().parents[2] / "frontend" / "ios" / "LabelSage" / "Resources" / "Data"
+
+
+def run_app():
+    import shutil
+    import sqlite3
+    from load import load
+
+    # job 1: the newest build that passed the check (out/latest), never an unchecked one
+    source = load.OUT_DIR / "latest" / "catalog.sqlite"
+    if not source.exists():
+        sys.exit("no checked build yet: run `run.py build` first")
+
+    # job 2: copy it into the app's resources, where the app finds it as catalog.sqlite in its bundle
+    target = APP_DATA / "catalog.sqlite"
+    shutil.copyfile(source, target)
+    with sqlite3.connect(f"file:{target}?mode=ro", uri=True) as db:
+        meta = dict(db.execute("SELECT key, value FROM catalog_meta WHERE key IN ('snapshot', 'schema_version')"))
+    print("copied", source.resolve(), "->", target, f"{target.stat().st_size / 1e6:.1f} MB", meta)
+
+
+# ------ PHASE 4: AMAZON (API, NOT PART OF THE WEEKLY BUILD) --------
+
+def run_amazon():
+    from extract import amazon
+    from match import amazon_match
+
+    # job 1: fetch the next barcodes into amazon.sqlite, then score and pick one Amazon item per barcode
+    limit = int(sys.argv[2]) if len(sys.argv) > 2 else 1000
+    print("fetch", json.dumps(amazon.fetch(limit)))
+    print("match", json.dumps(amazon_match.run()))
+
+
 if __name__ == "__main__":
-    {"download": run_download, "profile": run_profile, "build": run_build}[sys.argv[1] if len(sys.argv) > 1 else "profile"]()
+    {"download": run_download, "profile": run_profile, "build": run_build, "app": run_app,
+     "amazon": run_amazon}[sys.argv[1] if len(sys.argv) > 1 else "profile"]()

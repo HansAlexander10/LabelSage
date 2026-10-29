@@ -16,6 +16,8 @@ public struct Recall: Sendable, Equatable {
 public enum CatalogError: Error, Equatable {
     case cannotOpen(String)
     case query(String)
+    /// The file was built for another catalog schema (`catalog_meta.schema_version`); nil when it has none.
+    case schemaMismatch(found: String?, expected: Int)
 }
 
 /// Reads catalog.sqlite, the weekly US product catalog built by `app/backend/etl`, and returns
@@ -32,6 +34,9 @@ public final class CatalogProductSource: @unchecked Sendable {
     /// The snapshot this catalog was built as, e.g. "v2026-43".
     public let snapshot: String?
 
+    /// The catalog schema this reader understands; the ETL writes the same number (`load.SCHEMA_VERSION`).
+    public static let schemaVersion = 1
+
     // MARK: - Open
 
     public init(url: URL) throws {
@@ -39,6 +44,12 @@ public final class CatalogProductSource: @unchecked Sendable {
         guard sqlite3_open_v2(url.path, &handle, SQLITE_OPEN_READONLY | SQLITE_OPEN_FULLMUTEX, nil) == SQLITE_OK,
               let handle else {
             throw CatalogError.cannotOpen(url.path)
+        }
+        // a file built for another schema is refused, so the app falls back instead of reading wrong columns
+        let version = Self.text(handle, "SELECT value FROM catalog_meta WHERE key = 'schema_version'")
+        guard version == String(Self.schemaVersion) else {
+            sqlite3_close(handle)
+            throw CatalogError.schemaMismatch(found: version, expected: Self.schemaVersion)
         }
         db = handle
         dictionary = Self.blob(db, "SELECT dict FROM zlib_dictionary WHERE id = 1") ?? []
@@ -109,7 +120,8 @@ public final class CatalogProductSource: @unchecked Sendable {
 
     private func products(where condition: String, _ binds: [Any]) throws -> [Product] {
         let sql = """
-            SELECT p.gtin, p.name, b.name, c.name, p.size, p.serving_size, p.basis_ml, p.nova, p.image, p.updated,
+            SELECT p.gtin, p.name, b.name, c.name, p.size, p.serving_size, p.basis_ml, p.nova, p.image,
+                   nullif(max(coalesce(p.fdc_date, 0), coalesce(p.off_date, 0)), 0),
                    n.kcal, n.protein_cg, n.carbs_cg, n.added_sugar_cg, n.fiber_cg, n.fat_cg, n.sat_fat_cg, n.sodium_mg,
                    i.text_z
             FROM product p

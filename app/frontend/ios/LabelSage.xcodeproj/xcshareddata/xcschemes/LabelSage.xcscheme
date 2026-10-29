@@ -127,6 +127,10 @@
             isEnabled = "NO">
          </CommandLineArgument>
          <CommandLineArgument
+            argument = "-realCatalog"
+            isEnabled = "NO">
+         </CommandLineArgument>
+         <CommandLineArgument
             argument = "-gallery"
             isEnabled = "NO">
          </CommandLineArgument>

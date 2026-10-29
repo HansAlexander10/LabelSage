@@ -20,6 +20,7 @@ import zipfile
 
 RAW_DIR = pathlib.Path.home() / "Projects/ai-shopping-agent-data/raw"
 WORK_DIR = RAW_DIR.parent / "work"  # unpacked copies for DuckDB; safe to delete
+AMAZON_DB = RAW_DIR.parent / "amazon" / "amazon.sqlite"  # SP-API results (schemas/amazon.sql); kept, never rebuilt
 
 SOURCES = {
     "openfda": {
