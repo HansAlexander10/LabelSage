@@ -2,8 +2,6 @@
 
 This repository is no longer used. LabelSage moved to private repositories, and its code was removed from here.
 
-Company: AIRA CODE LLC ("Aira Solutions").
-
 ## Where the project lives now (private, access by invitation)
 
 | Part | Repository |
