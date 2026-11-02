@@ -2,8 +2,7 @@
 
 This repository is no longer used. LabelSage moved to private repositories, and its code was removed from here.
 
-LabelSage is proprietary software of AIRA CODE LLC ("Aira Solutions"). All rights reserved. The code, images, data and
-documents are confidential.
+Company: AIRA CODE LLC ("Aira Solutions").
 
 ## Where the project lives now (private, access by invitation)
 
